@@ -1,0 +1,15 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="dist">
+    <output-path>$PROJECT_DIR$/out/artifacts/dist</output-path>
+    <root id="root">
+      <element id="directory" name="ui-designer">
+        <element id="directory" name="lib">
+          <element id="zip-archive" name="ui-designer.jar">
+            <element id="module-output" name="consulo-ui-designer" />
+            <element id="module-production-resource-output" name="consulo-ui-designer" />
+          </element>
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

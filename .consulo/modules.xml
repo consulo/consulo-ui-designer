@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ModuleManager">
+    <modules>
+      <module name="consulo-ui-designer" dirurl="file://$PROJECT_DIR$">
+        <extension id="java" sdk-module-name="" sdk-name="1.6" language-level-module-name="" language-level-name="JDK_1_6" special-dir-location="SOURCE_DIR" />
+        <extension id="consulo-plugin" sdk-module-name="" sdk-name="Consulo 1.SNAPSHOT" custom-plugin-dir-url="H:\github.com\consulo\consulo-ui-designer\dep" />
+        <content url="file://$MODULE_DIR$">
+          <content-folder type="PRODUCTION" url="file://$MODULE_DIR$/src" />
+          <content-folder type="PRODUCTION_RESOURCE" url="file://$MODULE_DIR$/resources" />
+        </content>
+        <orderEntry type="module-extension-sdk" extension-id="java" />
+        <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
+        <orderEntry type="sourceFolder" forTests="false" />
+        <orderEntry type="module-library">
+          <library name="consulo:XML">
+            <CLASSES>
+              <root url="jar://$MODULE_DIR$/dep/xml/lib/jsr173_1.0_api.jar!/" />
+              <root url="jar://$MODULE_DIR$/dep/xml/lib/resolver.jar!/" />
+              <root url="jar://$MODULE_DIR$/dep/xml/lib/xbean.jar!/" />
+              <root url="jar://$MODULE_DIR$/dep/xml/lib/xerces.jar!/" />
+              <root url="jar://$MODULE_DIR$/dep/xml/lib/xml.jar!/" />
+            </CLASSES>
+            <DOCUMENTATION />
+            <SOURCES />
+          </library>
+        </orderEntry>
+        <orderEntry type="module-library">
+          <library name="consulo:Java">
+            <CLASSES>
+              <root url="jar://$MODULE_DIR$/dep/java/lib/java-rt.jar!/" />
+              <root url="jar://$MODULE_DIR$/dep/java/lib/java.jar!/" />
+              <root url="jar://$MODULE_DIR$/dep/java/lib/jdk-annotations.jar!/" />
+            </CLASSES>
+            <DOCUMENTATION />
+            <SOURCES />
+          </library>
+        </orderEntry>
+        <orderEntry type="module-library">
+          <library name="consulo:Properties Support">
+            <CLASSES>
+              <root url="jar://$MODULE_DIR$/dep/properties/lib/properties.jar!/" />
+            </CLASSES>
+            <DOCUMENTATION />
+            <SOURCES />
+          </library>
+        </orderEntry>
+        <orderEntry type="module-library">
+          <library name="consulo:I18n for Java">
+            <CLASSES>
+              <root url="jar://$MODULE_DIR$/dep/java-i18n/lib/java-i18n.jar!/" />
+            </CLASSES>
+            <DOCUMENTATION />
+            <SOURCES />
+          </library>
+        </orderEntry>
+        <orderEntry type="module-library">
+          <library name="consulo:Spellchecker">
+            <CLASSES>
+              <root url="jar://$MODULE_DIR$/dep/spellchecker/lib/spellchecker.jar!/" />
+            </CLASSES>
+            <DOCUMENTATION />
+            <SOURCES />
+          </library>
+        </orderEntry>
+      </module>
+    </modules>
+  </component>
+</project>
+
