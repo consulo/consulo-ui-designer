@@ -15,11 +15,29 @@
  */
 package com.intellij.uiDesigner.make;
 
+import java.io.DataInput;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.StringTokenizer;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.mustbe.consulo.compiler.roots.CompilerPathsImpl;
 import com.intellij.compiler.PsiClassWriter;
 import com.intellij.compiler.impl.CompilerUtil;
 import com.intellij.compiler.instrumentation.InstrumentationClassFinder;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.compiler.*;
+import com.intellij.openapi.compiler.ClassInstrumentingCompiler;
+import com.intellij.openapi.compiler.CompileContext;
+import com.intellij.openapi.compiler.CompileScope;
+import com.intellij.openapi.compiler.CompilerManager;
+import com.intellij.openapi.compiler.CompilerMessageCategory;
+import com.intellij.openapi.compiler.TimestampValidityState;
+import com.intellij.openapi.compiler.ValidityState;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
@@ -47,17 +65,6 @@ import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.uiDesigner.lw.CompiledClassPropertiesProvider;
 import com.intellij.uiDesigner.lw.LwRootContainer;
 import com.intellij.util.ExceptionUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.io.DataInput;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.StringTokenizer;
 
 public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler {
   private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.make.Form2ByteCodeCompiler");
@@ -285,12 +292,12 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler {
 
       try {
         if (GuiDesignerConfiguration.getInstance(project).COPY_FORMS_RUNTIME_TO_OUTPUT) {
-          final String moduleOutputPath = CompilerPaths.getModuleOutputPath(module, false);
+          final String moduleOutputPath = CompilerPathsImpl.getModuleOutputPath(module, false);
           try {
             if (moduleOutputPath != null) {
               filesToRefresh.addAll(CopyResourcesUtil.copyFormsRuntime(moduleOutputPath, false));
             }
-            final String testsOutputPath = CompilerPaths.getModuleOutputPath(module, true);
+            final String testsOutputPath = CompilerPathsImpl.getModuleOutputPath(module, true);
             if (testsOutputPath != null && !testsOutputPath.equals(moduleOutputPath)) {
               filesToRefresh.addAll(CopyResourcesUtil.copyFormsRuntime(testsOutputPath, false));
             }

@@ -15,11 +15,27 @@
  */
 package com.intellij.uiDesigner.make;
 
+import java.io.DataInput;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+import org.mustbe.consulo.compiler.roots.CompilerPathsImpl;
 import com.intellij.compiler.impl.CompilerUtil;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ModalityState;
 import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.compiler.*;
+import com.intellij.openapi.compiler.CompileContext;
+import com.intellij.openapi.compiler.CompileScope;
+import com.intellij.openapi.compiler.CompilerManager;
+import com.intellij.openapi.compiler.CompilerMessageCategory;
+import com.intellij.openapi.compiler.SourceInstrumentingCompiler;
+import com.intellij.openapi.compiler.TimestampValidityState;
+import com.intellij.openapi.compiler.ValidityState;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.fileTypes.StdFileTypes;
 import com.intellij.openapi.module.Module;
@@ -32,15 +48,6 @@ import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.compiler.AlienFormFileException;
 import com.intellij.uiDesigner.compiler.FormErrorInfo;
 import com.intellij.util.ExceptionUtil;
-import org.jetbrains.annotations.NotNull;
-
-import java.io.DataInput;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 
 public final class Form2SourceCompiler implements SourceInstrumentingCompiler{
 
@@ -189,12 +196,12 @@ public final class Form2SourceCompiler implements SourceInstrumentingCompiler{
             final Module module = ModuleUtilCore.findModuleForFile(formFile, project);
             if (module != null && !processedModules.contains(module)) {
               processedModules.add(module);
-              final String moduleOutputPath = CompilerPaths.getModuleOutputPath(module, false);
+              final String moduleOutputPath = CompilerPathsImpl.getModuleOutputPath(module, false);
               try {
                 if (moduleOutputPath != null) {
                   filesToRefresh.addAll(CopyResourcesUtil.copyFormsRuntime(moduleOutputPath, false));
                 }
-                final String testsOutputPath = CompilerPaths.getModuleOutputPath(module, true);
+                final String testsOutputPath = CompilerPathsImpl.getModuleOutputPath(module, true);
                 if (testsOutputPath != null && !testsOutputPath.equals(moduleOutputPath)) {
                   filesToRefresh.addAll(CopyResourcesUtil.copyFormsRuntime(testsOutputPath, false));
                 }
