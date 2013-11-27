@@ -16,6 +16,17 @@
 
 package com.intellij.uiDesigner.actions;
 
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
 import com.intellij.ide.actions.TemplateKindCombo;
 import com.intellij.ide.fileTemplates.FileTemplate;
 import com.intellij.ide.fileTemplates.FileTemplateManager;
@@ -24,20 +35,19 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.fileTypes.StdFileTypes;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
-import com.intellij.psi.*;
+import com.intellij.psi.JavaDirectoryService;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiDirectory;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiFileFactory;
+import com.intellij.psi.PsiJavaPackage;
 import com.intellij.ui.DocumentAdapter;
 import com.intellij.uiDesigner.GuiDesignerConfiguration;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.radComponents.LayoutManagerRegistry;
 import com.intellij.util.IncorrectOperationException;
 import com.intellij.util.PlatformIcons;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
 
 /**
  * @author yole
@@ -89,7 +99,7 @@ public class CreateFormAction extends AbstractCreateFormAction {
         fqClassName = packageName.length() == 0 ? myLastClassName : packageName + "." + myLastClassName;
       }
 
-      final String formBody = createFormBody(fqClassName, "/resources/com/intellij/uiDesigner/NewForm.xml",
+      final String formBody = createFormBody(fqClassName, "/com/intellij/uiDesigner/NewForm.xml",
                                              myLastLayoutManager);
       @NonNls final String fileName = newName + ".form";
       final PsiFile formFile = PsiFileFactory.getInstance(directory.getProject())
