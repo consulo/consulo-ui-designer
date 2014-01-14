@@ -276,14 +276,27 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 	@Nullable
 	private static VirtualFile findFile(final CompileContext context, final String className, final Module module)
 	{
-	/*for most cases (top-level classes) this will work*/
+		// for most cases (top-level classes) this will work
 		VirtualFile file = findFileByRelativePath(context, module, className.replace('.', '/') + ".class");
 		if(file == null)
 		{
-			// getClassFileName() is much longer than simply conversion from dots into slashes, but works for inner classes
-			file = findFileByRelativePath(context, module, getClassFileName(className.replace('$', '.'), module) + ".class");
+			// check last class name as inner - it ill work for most cases - if it not top level
+			file = findFileByRelativePath(context, module, getClassNmeLastAsInner(className).replace('.', '/') + ".class");
+			if(file == null)
+			{
+				// getClassFileName() is much longer than simply conversion from dots into slashes, but works for inner classes
+				file = findFileByRelativePath(context, module, getClassFileName(className.replace('$', '.'), module) + ".class");
+			}
 		}
 		return file;
+	}
+
+	private static String getClassNmeLastAsInner(String clazzName)
+	{
+		int lastIndex = clazzName.indexOf('.');
+		char[] chars = clazzName.toCharArray();
+		chars[lastIndex] = '$';
+		return new String(chars);
 	}
 
 	private static VirtualFile findFileByRelativePath(final CompileContext context, final Module module, final String relativepath)
