@@ -66,414 +66,498 @@ import com.intellij.uiDesigner.lw.CompiledClassPropertiesProvider;
 import com.intellij.uiDesigner.lw.LwRootContainer;
 import com.intellij.util.ExceptionUtil;
 
-public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.make.Form2ByteCodeCompiler");
+public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
+{
+	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.make.Form2ByteCodeCompiler");
 
-  @Override
-  @NotNull
-  public String getDescription() {
-    return UIDesignerBundle.message("component.gui.designer.form.to.bytecode.compiler");
-  }
+	@Override
+	@NotNull
+	public String getDescription()
+	{
+		return UIDesignerBundle.message("component.gui.designer.form.to.bytecode.compiler");
+	}
 
-  @Override
-  public boolean validateConfiguration(CompileScope scope) {
-    return true;
-  }
+	@Override
+	public boolean validateConfiguration(CompileScope scope)
+	{
+		return true;
+	}
 
-  @Override
-  public void init(@NotNull CompilerManager compilerManager) {
-  }
+	@Override
+	public void init(@NotNull CompilerManager compilerManager)
+	{
+	}
 
-  @NotNull
-  public static InstrumentationClassFinder createClassFinder(@NotNull final String classPath) {
-    final ArrayList<URL> urls = new ArrayList<URL>();
-    for (StringTokenizer tokenizer = new StringTokenizer(classPath, File.pathSeparator); tokenizer.hasMoreTokens(); ) {
-      final String s = tokenizer.nextToken();
-      try {
-        urls.add(new File(s).toURI().toURL());
-      }
-      catch (Exception exc) {
-        throw new RuntimeException(exc);
-      }
-    }
-    return new InstrumentationClassFinder(urls.toArray(new URL[urls.size()]));
-  }
+	@NotNull
+	public static InstrumentationClassFinder createClassFinder(@NotNull final String classPath)
+	{
+		final ArrayList<URL> urls = new ArrayList<URL>();
+		for(StringTokenizer tokenizer = new StringTokenizer(classPath, File.pathSeparator); tokenizer.hasMoreTokens(); )
+		{
+			final String s = tokenizer.nextToken();
+			try
+			{
+				urls.add(new File(s).toURI().toURL());
+			}
+			catch(Exception exc)
+			{
+				throw new RuntimeException(exc);
+			}
+		}
+		return new InstrumentationClassFinder(urls.toArray(new URL[urls.size()]));
+	}
 
-  @Override
-  @NotNull
-  public ProcessingItem[] getProcessingItems(final CompileContext context) {
-    final Project project = context.getProject();
-    if (!GuiDesignerConfiguration.getInstance(project).INSTRUMENT_CLASSES) {
-      return ProcessingItem.EMPTY_ARRAY;
-    }
+	@Override
+	@NotNull
+	public ProcessingItem[] getProcessingItems(final CompileContext context)
+	{
+		final Project project = context.getProject();
+		if(!GuiDesignerConfiguration.getInstance(project).INSTRUMENT_CLASSES)
+		{
+			return ProcessingItem.EMPTY_ARRAY;
+		}
 
-    final ArrayList<ProcessingItem> items = new ArrayList<ProcessingItem>();
+		final ArrayList<ProcessingItem> items = new ArrayList<ProcessingItem>();
 
-    ApplicationManager.getApplication().runReadAction(new Runnable() {
-      @Override
-      public void run() {
-        final CompileScope scope = context.getCompileScope();
-        final CompileScope projectScope = context.getProjectCompileScope();
+		ApplicationManager.getApplication().runReadAction(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				final CompileScope scope = context.getCompileScope();
+				final CompileScope projectScope = context.getProjectCompileScope();
 
-        final VirtualFile[] formFiles = projectScope.getFiles(StdFileTypes.GUI_DESIGNER_FORM, true);
-        if (formFiles.length == 0) return;
-        final CompilerManager compilerManager = CompilerManager.getInstance(project);
-        final BindingsCache bindingsCache = new BindingsCache(project);
+				final VirtualFile[] formFiles = projectScope.getFiles(StdFileTypes.GUI_DESIGNER_FORM, true);
+				if(formFiles.length == 0)
+				{
+					return;
+				}
+				final CompilerManager compilerManager = CompilerManager.getInstance(project);
+				final BindingsCache bindingsCache = new BindingsCache(project);
 
-        final HashMap<Module, ArrayList<VirtualFile>> module2formFiles = sortByModules(project, formFiles);
+				final HashMap<Module, ArrayList<VirtualFile>> module2formFiles = sortByModules(project, formFiles);
 
-        try {
-          for (final Module module : module2formFiles.keySet()) {
-            final HashMap<String, VirtualFile> class2form = new HashMap<String, VirtualFile>();
+				try
+				{
+					for(final Module module : module2formFiles.keySet())
+					{
+						final HashMap<String, VirtualFile> class2form = new HashMap<String, VirtualFile>();
 
-            final ArrayList<VirtualFile> list = module2formFiles.get(module);
-            for (final VirtualFile formFile : list) {
-              if (compilerManager.isExcludedFromCompilation(formFile)) {
-                continue;
-              }
+						final ArrayList<VirtualFile> list = module2formFiles.get(module);
+						for(final VirtualFile formFile : list)
+						{
+							if(compilerManager.isExcludedFromCompilation(formFile))
+							{
+								continue;
+							}
 
-              final String classToBind;
-              try {
-                classToBind = bindingsCache.getBoundClassName(formFile);
-              }
-              catch (AlienFormFileException e) {
-                // ignore non-IDEA forms
-                continue;
-              }
-              catch (Exception e) {
-                addMessage(context, UIDesignerBundle.message("error.cannot.process.form.file", ExceptionUtil.getThrowableText(e)), formFile,
-                           CompilerMessageCategory.ERROR);
-                continue;
-              }
+							final String classToBind;
+							try
+							{
+								classToBind = bindingsCache.getBoundClassName(formFile);
+							}
+							catch(AlienFormFileException e)
+							{
+								// ignore non-IDEA forms
+								continue;
+							}
+							catch(Exception e)
+							{
+								addMessage(context, UIDesignerBundle.message("error.cannot.process.form.file", ExceptionUtil.getThrowableText(e)),
+										formFile, CompilerMessageCategory.ERROR);
+								continue;
+							}
 
-              if (classToBind == null) {
-                continue;
-              }
+							if(classToBind == null)
+							{
+								continue;
+							}
 
-              final VirtualFile classFile = findFile(context, classToBind, module);
-              if (classFile == null) {
-                if (scope.belongs(formFile.getUrl())) {
-                  addMessage(context, UIDesignerBundle.message("error.class.to.bind.does.not.exist", classToBind), formFile,
-                             CompilerMessageCategory.ERROR);
-                }
-                continue;
-              }
+							final VirtualFile classFile = findFile(context, classToBind, module);
+							if(classFile == null)
+							{
+								if(scope.belongs(formFile.getUrl()))
+								{
+									addMessage(context, UIDesignerBundle.message("error.class.to.bind.does.not.exist", classToBind), formFile,
+											CompilerMessageCategory.ERROR);
+								}
+								continue;
+							}
 
-              final VirtualFile alreadyProcessedForm = class2form.get(classToBind);
-              if (alreadyProcessedForm != null) {
-                if (belongsToCompileScope(context, formFile, classToBind)) {
-                  addMessage(context,
-                             UIDesignerBundle.message("error.duplicate.bind", classToBind, alreadyProcessedForm.getPresentableUrl()),
-                             formFile, CompilerMessageCategory.ERROR);
-                }
-                continue;
-              }
-              class2form.put(classToBind, formFile);
+							final VirtualFile alreadyProcessedForm = class2form.get(classToBind);
+							if(alreadyProcessedForm != null)
+							{
+								if(belongsToCompileScope(context, formFile, classToBind))
+								{
+									addMessage(context, UIDesignerBundle.message("error.duplicate.bind", classToBind,
+											alreadyProcessedForm.getPresentableUrl()), formFile, CompilerMessageCategory.ERROR);
+								}
+								continue;
+							}
+							class2form.put(classToBind, formFile);
 
-              final ProcessingItem item = new MyInstrumentationItem(classFile, formFile, classToBind);
-              items.add(item);
-            }
-          }
-        }
-        finally {
-          bindingsCache.close();
-        }
-      }
-    });
+							final ProcessingItem item = new MyInstrumentationItem(classFile, formFile, classToBind);
+							items.add(item);
+						}
+					}
+				}
+				finally
+				{
+					bindingsCache.close();
+				}
+			}
+		});
 
-    return items.toArray(new ProcessingItem[items.size()]);
-  }
+		return items.toArray(new ProcessingItem[items.size()]);
+	}
 
-  private static boolean belongsToCompileScope(final CompileContext context, final VirtualFile formFile, final String classToBind) {
-    final CompileScope compileScope = context.getCompileScope();
-    if (compileScope.belongs(formFile.getUrl())) {
-      return true;
-    }
-    final VirtualFile sourceFile = findSourceFile(context, formFile, classToBind);
-    return sourceFile != null && compileScope.belongs(sourceFile.getUrl());
-  }
+	private static boolean belongsToCompileScope(final CompileContext context, final VirtualFile formFile, final String classToBind)
+	{
+		final CompileScope compileScope = context.getCompileScope();
+		if(compileScope.belongs(formFile.getUrl()))
+		{
+			return true;
+		}
+		final VirtualFile sourceFile = findSourceFile(context, formFile, classToBind);
+		return sourceFile != null && compileScope.belongs(sourceFile.getUrl());
+	}
 
-  private static HashMap<Module, ArrayList<VirtualFile>> sortByModules(final Project project, final VirtualFile[] formFiles) {
-    final HashMap<Module, ArrayList<VirtualFile>> module2formFiles = new HashMap<Module, ArrayList<VirtualFile>>();
-    for (final VirtualFile formFile : formFiles) {
-      final Module module = ModuleUtil.findModuleForFile(formFile, project);
-      if (module != null) {
-        ArrayList<VirtualFile> list = module2formFiles.get(module);
-        if (list == null) {
-          list = new ArrayList<VirtualFile>();
-          module2formFiles.put(module, list);
-        }
-        list.add(formFile);
-      }
-      else {
-        // todo[anton] handle somehow
-      }
-    }
-    return module2formFiles;
-  }
+	private static HashMap<Module, ArrayList<VirtualFile>> sortByModules(final Project project, final VirtualFile[] formFiles)
+	{
+		final HashMap<Module, ArrayList<VirtualFile>> module2formFiles = new HashMap<Module, ArrayList<VirtualFile>>();
+		for(final VirtualFile formFile : formFiles)
+		{
+			final Module module = ModuleUtil.findModuleForFile(formFile, project);
+			if(module != null)
+			{
+				ArrayList<VirtualFile> list = module2formFiles.get(module);
+				if(list == null)
+				{
+					list = new ArrayList<VirtualFile>();
+					module2formFiles.put(module, list);
+				}
+				list.add(formFile);
+			}
+			else
+			{
+				// todo[anton] handle somehow
+			}
+		}
+		return module2formFiles;
+	}
 
-  private static HashMap<Module, ArrayList<MyInstrumentationItem>> sortByModules(final Project project, final ProcessingItem[] items) {
-    final HashMap<Module, ArrayList<MyInstrumentationItem>> module2formFiles = new HashMap<Module, ArrayList<MyInstrumentationItem>>();
-    for (ProcessingItem item1 : items) {
-      final MyInstrumentationItem item = (MyInstrumentationItem)item1;
-      final VirtualFile formFile = item.getFormFile();
+	private static HashMap<Module, ArrayList<MyInstrumentationItem>> sortByModules(final Project project, final ProcessingItem[] items)
+	{
+		final HashMap<Module, ArrayList<MyInstrumentationItem>> module2formFiles = new HashMap<Module, ArrayList<MyInstrumentationItem>>();
+		for(ProcessingItem item1 : items)
+		{
+			final MyInstrumentationItem item = (MyInstrumentationItem) item1;
+			final VirtualFile formFile = item.getFormFile();
 
-      final Module module = ModuleUtil.findModuleForFile(formFile, project);
-      if (module != null) {
-        ArrayList<MyInstrumentationItem> list = module2formFiles.get(module);
-        if (list == null) {
-          list = new ArrayList<MyInstrumentationItem>();
-          module2formFiles.put(module, list);
-        }
-        list.add(item);
-      }
-      else {
-        // todo[anton] handle somehow
-      }
-    }
-    return module2formFiles;
-  }
+			final Module module = ModuleUtil.findModuleForFile(formFile, project);
+			if(module != null)
+			{
+				ArrayList<MyInstrumentationItem> list = module2formFiles.get(module);
+				if(list == null)
+				{
+					list = new ArrayList<MyInstrumentationItem>();
+					module2formFiles.put(module, list);
+				}
+				list.add(item);
+			}
+			else
+			{
+				// todo[anton] handle somehow
+			}
+		}
+		return module2formFiles;
+	}
 
-  @Nullable
-  private static VirtualFile findFile(final CompileContext context, final String className, final Module module) {
-    /*for most cases (top-level classes) this will work*/
-    VirtualFile file = findFileByRelativePath(context, module, className.replace('.', '/') + ".class");
-    if (file == null) {
-      // getClassFileName() is much longer than simply conversion from dots into slashes, but works for inner classes
-      file = findFileByRelativePath(context, module, getClassFileName(className.replace('$', '.'), module) + ".class");
-    }
-    return file;
-  }
+	@Nullable
+	private static VirtualFile findFile(final CompileContext context, final String className, final Module module)
+	{
+	/*for most cases (top-level classes) this will work*/
+		VirtualFile file = findFileByRelativePath(context, module, className.replace('.', '/') + ".class");
+		if(file == null)
+		{
+			// getClassFileName() is much longer than simply conversion from dots into slashes, but works for inner classes
+			file = findFileByRelativePath(context, module, getClassFileName(className.replace('$', '.'), module) + ".class");
+		}
+		return file;
+	}
 
-  private static VirtualFile findFileByRelativePath(final CompileContext context, final Module module, final String relativepath) {
-    final VirtualFile output = context.getModuleOutputDirectory(module);
-    VirtualFile file = output != null ? output.findFileByRelativePath(relativepath) : null;
-    if (file == null) {
-      final VirtualFile testsOutput = context.getModuleOutputDirectoryForTests(module);
-      if (testsOutput != null && !testsOutput.equals(output)) {
-        file = testsOutput.findFileByRelativePath(relativepath);
-      }
-    }
-    return file;
-  }
+	private static VirtualFile findFileByRelativePath(final CompileContext context, final Module module, final String relativepath)
+	{
+		final VirtualFile output = context.getModuleOutputDirectory(module);
+		VirtualFile file = output != null ? output.findFileByRelativePath(relativepath) : null;
+		if(file == null)
+		{
+			final VirtualFile testsOutput = context.getModuleOutputDirectoryForTests(module);
+			if(testsOutput != null && !testsOutput.equals(output))
+			{
+				file = testsOutput.findFileByRelativePath(relativepath);
+			}
+		}
+		return file;
+	}
 
-  private static String getClassFileName(final String _className, final Module module) {
-    final PsiClass aClass = JavaPsiFacade.getInstance(module.getProject()).findClass(_className, GlobalSearchScope.moduleScope(module));
-    if (aClass == null) {
-      return _className.replace('.', '/');
-    }
 
-    PsiClass outerClass = aClass;
-    while (outerClass.getParent() instanceof PsiClass) {
-      outerClass = (PsiClass)outerClass.getParent();
-    }
+	private static String getClassFileName(final String className, final Module module)
+	{
+		final PsiClass aClass = JavaPsiFacade.getInstance(module.getProject()).findClass(className, GlobalSearchScope.moduleScope(module));
+		if(aClass == null)
+		{
+			return className.replace('.', '/');
+		}
 
-    final String outerQualifiedName = outerClass.getQualifiedName();
+		PsiClass outerClass = aClass;
+		while(outerClass.getParent() instanceof PsiClass)
+		{
+			outerClass = (PsiClass) outerClass.getParent();
+		}
 
-    assert outerQualifiedName != null;
-    return outerQualifiedName.replace('.', '/') + _className.substring(outerQualifiedName.length()).replace('.', '$');
-  }
+		final String outerQualifiedName = outerClass.getQualifiedName();
 
-  @Override
-  public ProcessingItem[] process(final CompileContext context, final ProcessingItem[] items) {
-    final DirectoryIndex directoryIndex = DirectoryIndex.getInstance(context.getProject());
-    final ArrayList<ProcessingItem> compiledItems = new ArrayList<ProcessingItem>();
+		assert outerQualifiedName != null;
+		return outerQualifiedName.replace('.', '/') + className.substring(outerQualifiedName.length()).replace('.', '$');
+	}
 
-    context.getProgressIndicator().pushState();
-    context.getProgressIndicator().setText(UIDesignerBundle.message("progress.compiling.ui.forms"));
+	@Override
+	public ProcessingItem[] process(final CompileContext context, final ProcessingItem[] items)
+	{
+		final DirectoryIndex directoryIndex = DirectoryIndex.getInstance(context.getProject());
+		final ArrayList<ProcessingItem> compiledItems = new ArrayList<ProcessingItem>();
 
-    final Project project = context.getProject();
-    final HashMap<Module, ArrayList<MyInstrumentationItem>> module2itemsList = sortByModules(project, items);
+		context.getProgressIndicator().pushState();
+		context.getProgressIndicator().setText(UIDesignerBundle.message("progress.compiling.ui.forms"));
 
-    List<File> filesToRefresh = new ArrayList<File>();
-    for (final Module module : module2itemsList.keySet()) {
-      final String classPath = OrderEnumerator.orderEntries(module).recursively().getPathsList().getPathsString();
-      final InstrumentationClassFinder finder = createClassFinder(classPath);
+		final Project project = context.getProject();
+		final HashMap<Module, ArrayList<MyInstrumentationItem>> module2itemsList = sortByModules(project, items);
 
-      try {
-        if (GuiDesignerConfiguration.getInstance(project).COPY_FORMS_RUNTIME_TO_OUTPUT) {
-          final String moduleOutputPath = CompilerPathsImpl.getModuleOutputPath(module, false);
-          try {
-            if (moduleOutputPath != null) {
-              filesToRefresh.addAll(CopyResourcesUtil.copyFormsRuntime(moduleOutputPath, false));
-            }
-            final String testsOutputPath = CompilerPathsImpl.getModuleOutputPath(module, true);
-            if (testsOutputPath != null && !testsOutputPath.equals(moduleOutputPath)) {
-              filesToRefresh.addAll(CopyResourcesUtil.copyFormsRuntime(testsOutputPath, false));
-            }
-          }
-          catch (IOException e) {
-            addMessage(context, UIDesignerBundle
-              .message("error.cannot.copy.gui.designer.form.runtime", module.getName(), ExceptionUtil.getThrowableText(e)), null,
-                       CompilerMessageCategory.ERROR);
-          }
-        }
+		List<File> filesToRefresh = new ArrayList<File>();
+		for(final Module module : module2itemsList.keySet())
+		{
+			final String classPath = OrderEnumerator.orderEntries(module).recursively().getPathsList().getPathsString();
+			final InstrumentationClassFinder finder = createClassFinder(classPath);
 
-        final ArrayList<MyInstrumentationItem> list = module2itemsList.get(module);
+			try
+			{
+				if(GuiDesignerConfiguration.getInstance(project).COPY_FORMS_RUNTIME_TO_OUTPUT)
+				{
+					final String moduleOutputPath = CompilerPathsImpl.getModuleOutputPath(module, false);
+					try
+					{
+						if(moduleOutputPath != null)
+						{
+							filesToRefresh.addAll(CopyResourcesUtil.copyFormsRuntime(moduleOutputPath, false));
+						}
+						final String testsOutputPath = CompilerPathsImpl.getModuleOutputPath(module, true);
+						if(testsOutputPath != null && !testsOutputPath.equals(moduleOutputPath))
+						{
+							filesToRefresh.addAll(CopyResourcesUtil.copyFormsRuntime(testsOutputPath, false));
+						}
+					}
+					catch(IOException e)
+					{
+						addMessage(context, UIDesignerBundle.message("error.cannot.copy.gui.designer.form.runtime", module.getName(),
+								ExceptionUtil.getThrowableText(e)), null, CompilerMessageCategory.ERROR);
+					}
+				}
 
-        for (final MyInstrumentationItem item : list) {
-          //context.getProgressIndicator().setFraction((double)++formsProcessed / (double)items.length);
+				final ArrayList<MyInstrumentationItem> list = module2itemsList.get(module);
 
-          final VirtualFile formFile = item.getFormFile();
-          context.getProgressIndicator().setText2(formFile.getPresentableUrl());
+				for(final MyInstrumentationItem item : list)
+				{
+					//context.getProgressIndicator().setFraction((double)++formsProcessed / (double)items.length);
 
-          final String text = ApplicationManager.getApplication().runReadAction(new Computable<String>() {
-            @Override
-            public String compute() {
-              if (!belongsToCompileScope(context, formFile, item.getClassToBindFQname())) {
-                return null;
-              }
-              Document document = FileDocumentManager.getInstance().getDocument(formFile);
-              return document == null ? null : document.getText();
-            }
-          });
-          if (text == null) {
-            continue; // does not belong to current scope
-          }
+					final VirtualFile formFile = item.getFormFile();
+					context.getProgressIndicator().setText2(formFile.getPresentableUrl());
 
-          final LwRootContainer rootContainer;
-          try {
-            rootContainer = Utils.getRootContainer(text, new CompiledClassPropertiesProvider(finder.getLoader()));
-          }
-          catch (Exception e) {
-            addMessage(context, UIDesignerBundle.message("error.cannot.process.form.file", ExceptionUtil.getThrowableText(e)), formFile,
-                       CompilerMessageCategory.ERROR);
-            continue;
-          }
+					final String text = ApplicationManager.getApplication().runReadAction(new Computable<String>()
+					{
+						@Override
+						public String compute()
+						{
+							if(!belongsToCompileScope(context, formFile, item.getClassToBindFQname()))
+							{
+								return null;
+							}
+							Document document = FileDocumentManager.getInstance().getDocument(formFile);
+							return document == null ? null : document.getText();
+						}
+					});
+					if(text == null)
+					{
+						continue; // does not belong to current scope
+					}
 
-          if(GuiDesignerConfiguration.getInstance(project).COPY_FORMS_TO_OUTPUT) {
-            VirtualFile outputForFile = context.getOutputForFile(module, formFile);
-            if (outputForFile != null) {
-              String packageName = directoryIndex.getPackageName(formFile.getParent());
+					final LwRootContainer rootContainer;
+					try
+					{
+						rootContainer = Utils.getRootContainer(text, new CompiledClassPropertiesProvider(finder.getLoader()));
+					}
+					catch(Exception e)
+					{
+						addMessage(context, UIDesignerBundle.message("error.cannot.process.form.file", ExceptionUtil.getThrowableText(e)), formFile,
+								CompilerMessageCategory.ERROR);
+						continue;
+					}
 
-              File outputFormFile = null;
-              if (packageName == null || packageName.isEmpty()) {
-                outputFormFile = new File(outputForFile.getPath(), formFile.getName());
-              }
-              else {
-                outputFormFile = new File(outputForFile.getPath(), packageName.replace(".", "/") + "/" + formFile.getName());
-              }
+					if(GuiDesignerConfiguration.getInstance(project).COPY_FORMS_TO_OUTPUT)
+					{
+						VirtualFile outputForFile = context.getOutputForFile(module, formFile);
+						if(outputForFile != null)
+						{
+							String packageName = directoryIndex.getPackageName(formFile.getParent());
 
-              FileUtil.createParentDirs(outputFormFile);
-              try {
-                FileUtil.copy(new File(formFile.getPath()), outputFormFile);
-              }
-              catch (IOException e) {
-                addMessage(context, UIDesignerBundle.message("error.cannot.process.form.file", ExceptionUtil.getThrowableText(e)), formFile,
-                           CompilerMessageCategory.ERROR);
-                continue;
-              }
-            }
-          }
+							File outputFormFile = null;
+							if(packageName == null || packageName.isEmpty())
+							{
+								outputFormFile = new File(outputForFile.getPath(), formFile.getName());
+							}
+							else
+							{
+								outputFormFile = new File(outputForFile.getPath(), packageName.replace(".", "/") + "/" + formFile.getName());
+							}
 
-          final File classFile = VfsUtil.virtualToIoFile(item.getFile());
-          LOG.assertTrue(classFile.exists(), classFile.getPath());
+							FileUtil.createParentDirs(outputFormFile);
+							try
+							{
+								FileUtil.copy(new File(formFile.getPath()), outputFormFile);
+							}
+							catch(IOException e)
+							{
+								addMessage(context, UIDesignerBundle.message("error.cannot.process.form.file", ExceptionUtil.getThrowableText(e)),
+										formFile, CompilerMessageCategory.ERROR);
+								continue;
+							}
+						}
+					}
 
-          final AsmCodeGenerator codeGenerator =
-            new AsmCodeGenerator(rootContainer, finder, new PsiNestedFormLoader(module), false, new PsiClassWriter(module));
-          ApplicationManager.getApplication().runReadAction(new Runnable() {
-            @Override
-            public void run() {
-              codeGenerator.patchFile(classFile);
-            }
-          });
-          final FormErrorInfo[] errors = codeGenerator.getErrors();
-          final FormErrorInfo[] warnings = codeGenerator.getWarnings();
-          for (FormErrorInfo warning : warnings) {
-            addMessage(context, warning, formFile, CompilerMessageCategory.WARNING);
-          }
-          for (FormErrorInfo error : errors) {
-            addMessage(context, error, formFile, CompilerMessageCategory.ERROR);
-          }
-          if (errors.length == 0) {
-            compiledItems.add(item);
-          }
-        }
-      }
-      finally {
-        finder.releaseResources();
-      }
-    }
-    CompilerUtil.refreshIOFiles(filesToRefresh);
-    context.getProgressIndicator().popState();
+					final File classFile = VfsUtil.virtualToIoFile(item.getFile());
+					LOG.assertTrue(classFile.exists(), classFile.getPath());
 
-    return compiledItems.toArray(new ProcessingItem[compiledItems.size()]);
-  }
+					final AsmCodeGenerator codeGenerator = new AsmCodeGenerator(rootContainer, finder, new PsiNestedFormLoader(module), false,
+							new PsiClassWriter(module));
+					ApplicationManager.getApplication().runReadAction(new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							codeGenerator.patchFile(classFile);
+						}
+					});
+					final FormErrorInfo[] errors = codeGenerator.getErrors();
+					final FormErrorInfo[] warnings = codeGenerator.getWarnings();
+					for(FormErrorInfo warning : warnings)
+					{
+						addMessage(context, warning, formFile, CompilerMessageCategory.WARNING);
+					}
+					for(FormErrorInfo error : errors)
+					{
+						addMessage(context, error, formFile, CompilerMessageCategory.ERROR);
+					}
+					if(errors.length == 0)
+					{
+						compiledItems.add(item);
+					}
+				}
+			}
+			finally
+			{
+				finder.releaseResources();
+			}
+		}
+		CompilerUtil.refreshIOFiles(filesToRefresh);
+		context.getProgressIndicator().popState();
 
-  private static void addMessage(final CompileContext context,
-                                 final String s,
-                                 final VirtualFile formFile,
-                                 final CompilerMessageCategory severity) {
-    addMessage(context, new FormErrorInfo(null, s), formFile, severity);
-  }
+		return compiledItems.toArray(new ProcessingItem[compiledItems.size()]);
+	}
 
-  private static void addMessage(final CompileContext context,
-                                 final FormErrorInfo e,
-                                 final VirtualFile formFile,
-                                 final CompilerMessageCategory severity) {
-    if (formFile != null) {
-      FormElementNavigatable navigatable = new FormElementNavigatable(context.getProject(), formFile, e.getComponentId());
-      context.addMessage(severity, formFile.getPresentableUrl() + ": " + e.getErrorMessage(), formFile.getUrl(), -1, -1, navigatable);
-    }
-    else {
-      context.addMessage(severity, e.getErrorMessage(), null, -1, -1);
-    }
-  }
+	private static void addMessage(final CompileContext context, final String s, final VirtualFile formFile, final CompilerMessageCategory severity)
+	{
+		addMessage(context, new FormErrorInfo(null, s), formFile, severity);
+	}
 
-  @Override
-  public ValidityState createValidityState(final DataInput in) throws IOException {
-    return TimestampValidityState.load(in);
-  }
+	private static void addMessage(final CompileContext context, final FormErrorInfo e, final VirtualFile formFile,
+			final CompilerMessageCategory severity)
+	{
+		if(formFile != null)
+		{
+			FormElementNavigatable navigatable = new FormElementNavigatable(context.getProject(), formFile, e.getComponentId());
+			context.addMessage(severity, formFile.getPresentableUrl() + ": " + e.getErrorMessage(), formFile.getUrl(), -1, -1, navigatable);
+		}
+		else
+		{
+			context.addMessage(severity, e.getErrorMessage(), null, -1, -1);
+		}
+	}
 
-  public static VirtualFile findSourceFile(final CompileContext context, final VirtualFile formFile, final String className) {
-    final Module module = context.getModuleByFile(formFile);
-    if (module == null) {
-      return null;
-    }
-    final PsiClass aClass = FormEditingUtil.findClassToBind(module, className);
-    if (aClass == null) {
-      return null;
-    }
+	@Override
+	public ValidityState createValidityState(final DataInput in) throws IOException
+	{
+		return TimestampValidityState.load(in);
+	}
 
-    final PsiFile containingFile = aClass.getContainingFile();
-    if (containingFile == null) {
-      return null;
-    }
+	public static VirtualFile findSourceFile(final CompileContext context, final VirtualFile formFile, final String className)
+	{
+		final Module module = context.getModuleByFile(formFile);
+		if(module == null)
+		{
+			return null;
+		}
+		final PsiClass aClass = FormEditingUtil.findClassToBind(module, className);
+		if(aClass == null)
+		{
+			return null;
+		}
 
-    return containingFile.getVirtualFile();
-  }
+		final PsiFile containingFile = aClass.getContainingFile();
+		if(containingFile == null)
+		{
+			return null;
+		}
 
-  private static final class MyInstrumentationItem implements ProcessingItem {
-    private final VirtualFile myClassFile;
-    private final VirtualFile myFormFile;
-    private final String myClassToBindFQname;
-    private final TimestampValidityState myState;
+		return containingFile.getVirtualFile();
+	}
 
-    private MyInstrumentationItem(final VirtualFile classFile, final VirtualFile formFile, final String classToBindFQname) {
-      myClassFile = classFile;
-      myFormFile = formFile;
-      myClassToBindFQname = classToBindFQname;
-      myState = new TimestampValidityState(formFile.getTimeStamp());
-    }
+	private static final class MyInstrumentationItem implements ProcessingItem
+	{
+		private final VirtualFile myClassFile;
+		private final VirtualFile myFormFile;
+		private final String myClassToBindFQname;
+		private final TimestampValidityState myState;
 
-    @Override
-    @NotNull
-    public VirtualFile getFile() {
-      return myClassFile;
-    }
+		private MyInstrumentationItem(final VirtualFile classFile, final VirtualFile formFile, final String classToBindFQname)
+		{
+			myClassFile = classFile;
+			myFormFile = formFile;
+			myClassToBindFQname = classToBindFQname;
+			myState = new TimestampValidityState(formFile.getTimeStamp());
+		}
 
-    public VirtualFile getFormFile() {
-      return myFormFile;
-    }
+		@Override
+		@NotNull
+		public VirtualFile getFile()
+		{
+			return myClassFile;
+		}
 
-    public String getClassToBindFQname() {
-      return myClassToBindFQname;
-    }
+		public VirtualFile getFormFile()
+		{
+			return myFormFile;
+		}
 
-    @Override
-    public ValidityState getValidityState() {
-      return myState;
-    }
-  }
+		public String getClassToBindFQname()
+		{
+			return myClassToBindFQname;
+		}
+
+		@Override
+		public ValidityState getValidityState()
+		{
+			return myState;
+		}
+	}
 
 }
