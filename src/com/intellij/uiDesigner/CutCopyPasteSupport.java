@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2011 JetBrains s.r.o.
+ * Copyright 2000-2014 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,23 @@
  */
 package com.intellij.uiDesigner;
 
+import gnu.trove.TIntArrayList;
+
+import java.awt.Point;
+import java.awt.datatransfer.DataFlavor;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.input.SAXBuilder;
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.ide.CopyProvider;
 import com.intellij.ide.CutProvider;
 import com.intellij.ide.PasteProvider;
@@ -28,251 +45,279 @@ import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.lw.LwComponent;
 import com.intellij.uiDesigner.lw.LwContainer;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import gnu.trove.TIntArrayList;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.input.SAXBuilder;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
-public final class CutCopyPasteSupport implements CopyProvider, CutProvider, PasteProvider{
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.CutCopyPasteSupport");
-  private static final SAXBuilder SAX_BUILDER = new SAXBuilder();
+public final class CutCopyPasteSupport implements CopyProvider, CutProvider, PasteProvider
+{
+	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.CutCopyPasteSupport");
+	private static final SAXBuilder SAX_BUILDER = new SAXBuilder();
 
-  private final GuiEditor myEditor;
-  @NonNls private static final String ELEMENT_SERIALIZED = "serialized";
-  @NonNls private static final String ATTRIBUTE_X = "x";
-  @NonNls private static final String ATTRIBUTE_Y = "y";
-  @NonNls private static final String ATTRIBUTE_PARENT_LAYOUT = "parent-layout";
+	private final GuiEditor myEditor;
+	@NonNls
+	private static final String ELEMENT_SERIALIZED = "serialized";
+	@NonNls
+	private static final String ATTRIBUTE_X = "x";
+	@NonNls
+	private static final String ATTRIBUTE_Y = "y";
+	@NonNls
+	private static final String ATTRIBUTE_PARENT_LAYOUT = "parent-layout";
 
-  public CutCopyPasteSupport(final GuiEditor uiEditor) {
-    myEditor = uiEditor;
-  }
+	public CutCopyPasteSupport(final GuiEditor uiEditor)
+	{
+		myEditor = uiEditor;
+	}
 
-  public boolean isCopyEnabled(@NotNull final DataContext dataContext) {
-    return FormEditingUtil.getSelectedComponents(myEditor).size() > 0 && !myEditor.getInplaceEditingLayer().isEditing();
-  }
+	@Override
+	public boolean isCopyEnabled(@NotNull final DataContext dataContext)
+	{
+		return FormEditingUtil.getSelectedComponents(myEditor).size() > 0 && !myEditor.getInplaceEditingLayer().isEditing();
+	}
 
-  public boolean isCopyVisible(@NotNull DataContext dataContext) {
-    return true;
-  }
+	@Override
+	public boolean isCopyVisible(@NotNull DataContext dataContext)
+	{
+		return true;
+	}
 
-  public void performCopy(@NotNull final DataContext dataContext) {
-    doCopy();
-  }
+	@Override
+	public void performCopy(@NotNull final DataContext dataContext)
+	{
+		doCopy();
+	}
 
-  private boolean doCopy() {
-    final ArrayList<RadComponent> selectedComponents = FormEditingUtil.getSelectedComponents(myEditor);
-    final SerializedComponentData data = new SerializedComponentData(serializeForCopy(myEditor, selectedComponents));
-    final SimpleTransferable transferable = new SimpleTransferable<SerializedComponentData>(data, SerializedComponentData.class, ourDataFlavor);
-    try {
-      CopyPasteManager.getInstance().setContents(transferable);
-      return true;
-    }
-    catch (Exception e) {
-      LOG.debug(e);
-      return false;
-    }
-  }
+	private boolean doCopy()
+	{
+		final ArrayList<RadComponent> selectedComponents = FormEditingUtil.getSelectedComponents(myEditor);
+		final SerializedComponentData data = new SerializedComponentData(serializeForCopy(myEditor, selectedComponents));
+		final SimpleTransferable transferable = new SimpleTransferable<SerializedComponentData>(data, SerializedComponentData.class, ourDataFlavor);
+		try
+		{
+			CopyPasteManager.getInstance().setContents(transferable);
+			return true;
+		}
+		catch(Exception e)
+		{
+			LOG.debug(e);
+			return false;
+		}
+	}
 
-  public boolean isCutEnabled(@NotNull final DataContext dataContext) {
-    return isCopyEnabled(dataContext) && FormEditingUtil.canDeleteSelection(myEditor);
-  }
+	@Override
+	public boolean isCutEnabled(@NotNull final DataContext dataContext)
+	{
+		return isCopyEnabled(dataContext) && FormEditingUtil.canDeleteSelection(myEditor);
+	}
 
-  public boolean isCutVisible(@NotNull DataContext dataContext) {
-    return true;
-  }
+	@Override
+	public boolean isCutVisible(@NotNull DataContext dataContext)
+	{
+		return true;
+	}
 
-  public void performCut(@NotNull final DataContext dataContext) {
-    if (doCopy() && myEditor.ensureEditable()) {
-      CommandProcessor.getInstance().executeCommand(myEditor.getProject(), new Runnable() {
-        public void run() {
-          FormEditingUtil.deleteSelection(myEditor);
-        }
-      }, UIDesignerBundle.message("command.cut"), null);
-    }
-  }
+	@Override
+	public void performCut(@NotNull final DataContext dataContext)
+	{
+		if(doCopy() && myEditor.ensureEditable())
+		{
+			CommandProcessor.getInstance().executeCommand(myEditor.getProject(), new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					FormEditingUtil.deleteSelection(myEditor);
+				}
+			}, UIDesignerBundle.message("command.cut"), null);
+		}
+	}
 
-  public boolean isPastePossible(@NotNull final DataContext dataContext) {
-    return isPasteEnabled(dataContext);
-  }
+	@Override
+	public boolean isPastePossible(@NotNull final DataContext dataContext)
+	{
+		return isPasteEnabled(dataContext);
+	}
 
-  public boolean isPasteEnabled(@NotNull final DataContext dataContext) {
-    return getSerializedComponents() != null && !myEditor.getInplaceEditingLayer().isEditing();
-  }
+	@Override
+	public boolean isPasteEnabled(@NotNull final DataContext dataContext)
+	{
+		return getSerializedComponents() != null && !myEditor.getInplaceEditingLayer().isEditing();
+	}
 
-  public void performPaste(@NotNull final DataContext dataContext) {
-    final String serializedComponents = getSerializedComponents();
-    if (serializedComponents == null) {
-      return;
-    }
+	@Override
+	public void performPaste(@NotNull final DataContext dataContext)
+	{
+		final String serializedComponents = getSerializedComponents();
+		if(serializedComponents == null)
+		{
+			return;
+		}
 
-    final ArrayList<RadComponent> componentsToPaste = new ArrayList<RadComponent>();
-    final TIntArrayList xs = new TIntArrayList();
-    final TIntArrayList ys = new TIntArrayList();
-    loadComponentsToPaste(myEditor, serializedComponents, xs, ys, componentsToPaste);
+		final ArrayList<RadComponent> componentsToPaste = new ArrayList<RadComponent>();
+		final TIntArrayList xs = new TIntArrayList();
+		final TIntArrayList ys = new TIntArrayList();
+		loadComponentsToPaste(myEditor, serializedComponents, xs, ys, componentsToPaste);
 
-    myEditor.getMainProcessor().startPasteProcessor(componentsToPaste, xs, ys);
-  }
+		myEditor.getMainProcessor().startPasteProcessor(componentsToPaste, xs, ys);
+	}
 
-  @Nullable
-  private static ArrayList<RadComponent> deserializeComponents(final GuiEditor editor, final String serializedComponents) {
-    ArrayList<RadComponent> components = new ArrayList<RadComponent>();
-    TIntArrayList xs = new TIntArrayList();
-    TIntArrayList ys = new TIntArrayList();
-    if (!loadComponentsToPaste(editor, serializedComponents, xs, ys, components)) {
-      return null;
-    }
-    return components;
-  }
+	@Nullable
+	private static ArrayList<RadComponent> deserializeComponents(final GuiEditor editor, final String serializedComponents)
+	{
+		ArrayList<RadComponent> components = new ArrayList<RadComponent>();
+		TIntArrayList xs = new TIntArrayList();
+		TIntArrayList ys = new TIntArrayList();
+		if(!loadComponentsToPaste(editor, serializedComponents, xs, ys, components))
+		{
+			return null;
+		}
+		return components;
+	}
 
-  private static boolean loadComponentsToPaste(final GuiEditor editor, final String serializedComponents,
-                                               final TIntArrayList xs,
-                                               final TIntArrayList ys,
-                                               final ArrayList<RadComponent> componentsToPaste) {
-    final PsiPropertiesProvider provider = new PsiPropertiesProvider(editor.getModule());
+	private static boolean loadComponentsToPaste(
+			final GuiEditor editor,
+			final String serializedComponents,
+			final TIntArrayList xs,
+			final TIntArrayList ys,
+			final ArrayList<RadComponent> componentsToPaste)
+	{
+		final PsiPropertiesProvider provider = new PsiPropertiesProvider(editor.getModule());
 
-    try {
-      //noinspection HardCodedStringLiteral
-      final Document document = SAX_BUILDER.build(new StringReader(serializedComponents), "UTF-8");
+		try
+		{
+			//noinspection HardCodedStringLiteral
+			final Document document = SAX_BUILDER.build(new StringReader(serializedComponents), "UTF-8");
 
-      final Element rootElement = document.getRootElement();
-      if (!rootElement.getName().equals(ELEMENT_SERIALIZED)) {
-        return false;
-      }
+			final Element rootElement = document.getRootElement();
+			if(!rootElement.getName().equals(ELEMENT_SERIALIZED))
+			{
+				return false;
+			}
 
-      final List children = rootElement.getChildren();
-      for (final Object aChildren : children) {
-        final Element e = (Element)aChildren;
+			final List children = rootElement.getChildren();
+			for(final Object aChildren : children)
+			{
+				final Element e = (Element) aChildren;
 
-        // we need to add component to a container in order to read them
-        final LwContainer container = new LwContainer(JPanel.class.getName());
+				// we need to add component to a container in order to read them
+				final LwContainer container = new LwContainer(JPanel.class.getName());
 
-        final String parentLayout = e.getAttributeValue(ATTRIBUTE_PARENT_LAYOUT);
-        if (parentLayout != null) {
-          container.setLayoutManager(parentLayout);
-        }
-        
-        final int x = Integer.parseInt(e.getAttributeValue(ATTRIBUTE_X));
-        final int y = Integer.parseInt(e.getAttributeValue(ATTRIBUTE_Y));
+				final String parentLayout = e.getAttributeValue(ATTRIBUTE_PARENT_LAYOUT);
+				if(parentLayout != null)
+				{
+					container.setLayoutManager(parentLayout);
+				}
 
-        xs.add(x);
-        ys.add(y);
+				final int x = Integer.parseInt(e.getAttributeValue(ATTRIBUTE_X));
+				final int y = Integer.parseInt(e.getAttributeValue(ATTRIBUTE_Y));
 
-        final Element componentElement = (Element)e.getChildren().get(0);
-        final LwComponent lwComponent = LwContainer.createComponentFromTag(componentElement);
+				xs.add(x);
+				ys.add(y);
 
-        container.addComponent(lwComponent);
+				final Element componentElement = (Element) e.getChildren().get(0);
+				final LwComponent lwComponent = LwContainer.createComponentFromTag(componentElement);
 
-        lwComponent.read(componentElement, provider);
+				container.addComponent(lwComponent);
 
-        // pasted components should have no bindings
-        FormEditingUtil.iterate(lwComponent, new FormEditingUtil.ComponentVisitor<LwComponent>() {
-          public boolean visit(final LwComponent c) {
-            if (c.getBinding() != null && FormEditingUtil.findComponentWithBinding(editor.getRootContainer(), c.getBinding()) != null) {
-              c.setBinding(null);
-            }
-            c.setId(FormEditingUtil.generateId(editor.getRootContainer()));
-            return true;
-          }
-        });
+				lwComponent.read(componentElement, provider);
 
-        final ClassLoader loader = LoaderFactory.getInstance(editor.getProject()).getLoader(editor.getFile());
-        final RadComponent radComponent = XmlReader.createComponent(editor, lwComponent, loader, editor.getStringDescriptorLocale());
-        componentsToPaste.add(radComponent);
-      }
-    }
-    catch (Exception e) {
-      return false;
-    }
-    return true;
-  }
+				// pasted components should have no bindings
+				FormEditingUtil.iterate(lwComponent, new FormEditingUtil.ComponentVisitor<LwComponent>()
+				{
+					@Override
+					public boolean visit(final LwComponent c)
+					{
+						if(c.getBinding() != null && FormEditingUtil.findComponentWithBinding(editor.getRootContainer(), c.getBinding()) != null)
+						{
+							c.setBinding(null);
+						}
+						c.setId(FormEditingUtil.generateId(editor.getRootContainer()));
+						return true;
+					}
+				});
 
-  @Nullable
-  private static String getSerializedComponents() {
-    try {
-      final CopyPasteManager copyPasteManager = CopyPasteManager.getInstance();
-      if (!copyPasteManager.isDataFlavorAvailable(ourDataFlavor)) {
-        return null;
-      }
+				final ClassLoader loader = LoaderFactory.getInstance(editor.getProject()).getLoader(editor.getFile());
+				final RadComponent radComponent = XmlReader.createComponent(editor, lwComponent, loader, editor.getStringDescriptorLocale());
+				componentsToPaste.add(radComponent);
+			}
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+		return true;
+	}
 
-      final Transferable content = copyPasteManager.getContents();
-      if (content == null) {
-        return null;
-      }
+	@Nullable
+	private static String getSerializedComponents()
+	{
+		try
+		{
+			final Object transferData = CopyPasteManager.getInstance().getContents(ourDataFlavor);
+			if(!(transferData instanceof SerializedComponentData))
+			{
+				return null;
+			}
 
-      final Object transferData = content.getTransferData(ourDataFlavor);
-      if (!(transferData instanceof SerializedComponentData)) {
-        return null;
-      }
+			final SerializedComponentData dataProxy = (SerializedComponentData) transferData;
+			return dataProxy.getSerializedComponents();
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
+	}
 
-      final SerializedComponentData dataProxy = (SerializedComponentData)transferData;
-      return dataProxy.getSerializedComponents();
-    }
-    catch (Exception e) {
-      return null;
-    }
-  }
+	private static final DataFlavor ourDataFlavor = FileCopyPasteUtil.createJvmDataFlavor(SerializedComponentData.class);
 
-  private static final DataFlavor ourDataFlavor = FileCopyPasteUtil.createJvmDataFlavor(SerializedComponentData.class);
+	@Nullable
+	public static List<RadComponent> copyComponents(GuiEditor editor, List<RadComponent> components)
+	{
+		return deserializeComponents(editor, serializeForCopy(editor, components));
+	}
 
-  @Nullable
-  public static List<RadComponent> copyComponents(GuiEditor editor, List<RadComponent> components) {
-    return deserializeComponents(editor, serializeForCopy(editor, components));
-  }
+	private static String serializeForCopy(final GuiEditor editor, final List<RadComponent> components)
+	{
+		final XmlWriter writer = new XmlWriter();
 
-  private static String serializeForCopy(final GuiEditor editor, final List<RadComponent> components) {
-    final XmlWriter writer = new XmlWriter();
+		writer.startElement(ELEMENT_SERIALIZED, Utils.FORM_NAMESPACE);
 
-    writer.startElement(ELEMENT_SERIALIZED, Utils.FORM_NAMESPACE);
+		for(final RadComponent component : components)
+		{
+			final Point shift;
+			if(component.getParent() != null)
+			{
+				shift = SwingUtilities.convertPoint(component.getParent().getDelegee(), component.getX(), component.getY(),
+						editor.getRootContainer().getDelegee());
+			}
+			else
+			{
+				shift = new Point(0, 0);
+			}
 
-    for (final RadComponent component : components) {
-      final Point shift;
-      if (component.getParent() != null) {
-        shift = SwingUtilities.convertPoint(
-          component.getParent().getDelegee(),
-          component.getX(),
-          component.getY(),
-          editor.getRootContainer().getDelegee()
-        );
-      }
-      else {
-        shift = new Point(0, 0);
-      }
+			component.getX();
 
-      component.getX();
+			writer.startElement("item");
+			writer.addAttribute(ATTRIBUTE_X, shift.x);
+			writer.addAttribute(ATTRIBUTE_Y, shift.y);
+			if(component.getParent() != null)
+			{
+				final String parentLayout = component.getParent().getLayoutManager().getName();
+				if(parentLayout != null)
+				{
+					writer.addAttribute(ATTRIBUTE_PARENT_LAYOUT, parentLayout);
+				}
+			}
+			component.write(writer);
 
-      writer.startElement("item");
-      writer.addAttribute(ATTRIBUTE_X, shift.x);
-      writer.addAttribute(ATTRIBUTE_Y, shift.y);
-      if (component.getParent() != null) {
-        final String parentLayout = component.getParent().getLayoutManager().getName();
-        if (parentLayout != null) {
-          writer.addAttribute(ATTRIBUTE_PARENT_LAYOUT, parentLayout);
-        }
-      }
-      component.write(writer);
+			writer.endElement();
+		}
 
-      writer.endElement();
-    }
+		writer.endElement();
 
-    writer.endElement();
-
-    return writer.getText();
-  }
+		return writer.getText();
+	}
 
 
 }
