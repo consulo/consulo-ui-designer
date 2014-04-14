@@ -32,43 +32,59 @@ import com.intellij.testFramework.LightVirtualFile;
 import com.intellij.uiDesigner.GuiFormFileType;
 import com.intellij.util.ArrayUtil;
 
-public final class UIFormEditorProvider implements FileEditorProvider, DumbAware {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.editor.UIFormEditorProvider");
+public final class UIFormEditorProvider implements FileEditorProvider, DumbAware
+{
+	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.editor.UIFormEditorProvider");
 
-  public boolean accept(@NotNull final Project project, @NotNull final VirtualFile file){
-    return
-      file.getFileType() == GuiFormFileType.INSTANCE &&
-      !GuiFormFileType.INSTANCE.isBinary() &&
-      (ModuleUtil.findModuleForFile(file, project) != null || file instanceof LightVirtualFile);
-  }
+	@Override
+	public boolean accept(@NotNull final Project project, @NotNull final VirtualFile file)
+	{
+		return file.getFileType() == GuiFormFileType.INSTANCE &&
+				!GuiFormFileType.INSTANCE.isBinary() &&
+				(ModuleUtil.findModuleForFile(file, project) != null || file instanceof LightVirtualFile);
+	}
 
-  @NotNull public FileEditor createEditor(@NotNull final Project project, @NotNull final VirtualFile file){
-    LOG.assertTrue(accept(project, file));
-    return new UIFormEditor(project, file);
-  }
+	@Override
+	@NotNull
+	public FileEditor createEditor(@NotNull final Project project, @NotNull final VirtualFile file)
+	{
+		LOG.assertTrue(accept(project, file));
+		return new UIFormEditor(project, file);
+	}
 
-  public void disposeEditor(@NotNull final FileEditor editor){
-    Disposer.dispose(editor);
-  }
+	@Override
+	public void disposeEditor(@NotNull final FileEditor editor)
+	{
+		Disposer.dispose(editor);
+	}
 
-  @NotNull
-  public FileEditorState readState(@NotNull final Element element, @NotNull final Project project, @NotNull final VirtualFile file){
-    //TODO[anton,vova] implement
-    return new MyEditorState(-1, ArrayUtil.EMPTY_STRING_ARRAY);
-  }
+	@Override
+	@NotNull
+	public FileEditorState readState(@NotNull final Element element, @NotNull final Project project, @NotNull final VirtualFile file)
+	{
+		//TODO[anton,vova] implement
+		return new MyEditorState(-1, ArrayUtil.EMPTY_STRING_ARRAY);
+	}
 
-  public void writeState(@NotNull final FileEditorState state, @NotNull final Project project, @NotNull final Element element){
-    //TODO[anton,vova] implement
-  }
+	@Override
+	public void writeState(@NotNull final FileEditorState state, @NotNull final Project project, @NotNull final Element element)
+	{
+		//TODO[anton,vova] implement
+	}
 
-  @NotNull public String getEditorTypeId(){
-    return "ui-designer";
-  }
+	@Override
+	@NotNull
+	public String getEditorTypeId()
+	{
+		return "ui-designer";
+	}
 
-  @NotNull public FileEditorPolicy getPolicy() {
-    return
-      ApplicationManagerEx.getApplicationEx().isInternal() ?
-      FileEditorPolicy.PLACE_BEFORE_DEFAULT_EDITOR : FileEditorPolicy.HIDE_DEFAULT_EDITOR;
-  }
+	@Override
+	@NotNull
+	public FileEditorPolicy getPolicy()
+	{
+		return ApplicationManagerEx.getApplicationEx().isInternal() ? FileEditorPolicy.PLACE_BEFORE_DEFAULT_EDITOR : FileEditorPolicy
+				.HIDE_DEFAULT_EDITOR;
+	}
 
 }
