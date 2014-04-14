@@ -16,13 +16,13 @@
 
 package com.intellij.uiDesigner.binding;
 
-import com.intellij.usages.impl.rules.UsageTypeProvider;
-import com.intellij.usages.impl.rules.UsageType;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.openapi.fileTypes.StdFileTypes;
+import com.intellij.uiDesigner.GuiFormFileType;
 import com.intellij.uiDesigner.UIDesignerBundle;
-import org.jetbrains.annotations.Nullable;
+import com.intellij.usages.impl.rules.UsageType;
+import com.intellij.usages.impl.rules.UsageTypeProvider;
 
 /**
  * @author yole
@@ -31,7 +31,7 @@ public class FormUsageTypeProvider implements UsageTypeProvider {
   @Nullable
   public UsageType getUsageType(PsiElement element) {
     final PsiFile psiFile = element.getContainingFile();
-    if (psiFile.getFileType() == StdFileTypes.GUI_DESIGNER_FORM) {
+    if (psiFile.getFileType() == GuiFormFileType.INSTANCE) {
       return FORM_USAGE_TYPE;
     }
     return null;

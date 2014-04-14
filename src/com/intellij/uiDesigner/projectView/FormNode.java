@@ -15,6 +15,11 @@
  */
 package com.intellij.uiDesigner.projectView;
 
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import org.jetbrains.annotations.NotNull;
 import com.intellij.ide.IdeBundle;
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.projectView.ProjectViewNode;
@@ -24,7 +29,6 @@ import com.intellij.ide.projectView.impl.nodes.ClassTreeNode;
 import com.intellij.ide.projectView.impl.nodes.PsiFileNode;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.navigation.NavigationItemFileStatus;
-import com.intellij.openapi.fileTypes.StdFileTypes;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Condition;
 import com.intellij.openapi.vcs.FileStatus;
@@ -32,11 +36,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import com.intellij.uiDesigner.GuiFormFileType;
 
 public class FormNode extends ProjectViewNode<Form>{
   private final Collection<BasePsiNode<? extends PsiElement>> myChildren;
@@ -72,7 +72,7 @@ public class FormNode extends ProjectViewNode<Form>{
       setValue(null);
     } else {
       presentation.setPresentableText(getValue().getName());
-      presentation.setIcon(StdFileTypes.GUI_DESIGNER_FORM.getIcon());
+      presentation.setIcon(GuiFormFileType.INSTANCE.getIcon());
     }
   }
 

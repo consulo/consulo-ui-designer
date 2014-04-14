@@ -16,8 +16,17 @@
 
 package com.intellij.uiDesigner.palette;
 
-import com.intellij.openapi.actionSystem.*;
-import com.intellij.openapi.fileTypes.StdFileTypes;
+import java.awt.Window;
+import java.util.HashMap;
+
+import javax.swing.JComponent;
+
+import org.jetbrains.annotations.Nullable;
+import com.intellij.ide.highlighter.JavaFileType;
+import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.CommonDataKeys;
+import com.intellij.openapi.actionSystem.LangDataKeys;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.WindowManager;
 import com.intellij.psi.JavaPsiFacade;
@@ -26,15 +35,11 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.ProjectScope;
 import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.uiDesigner.GuiFormFileType;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.lw.StringDescriptor;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.HashMap;
 
 /**
  * @author yole
@@ -131,10 +136,10 @@ public class AddComponentAction extends AnAction {
 
   @Nullable
   private static PsiElement findElementToAdd(final PsiFile psiFile) {
-    if (psiFile.getFileType().equals(StdFileTypes.GUI_DESIGNER_FORM)) {
+    if (psiFile.getFileType().equals(GuiFormFileType.INSTANCE)) {
       return psiFile;
     }
-    else if (psiFile.getFileType().equals(StdFileTypes.JAVA)) {
+    else if (psiFile.getFileType().equals(JavaFileType.INSTANCE)) {
       final PsiClass psiClass = PsiTreeUtil.getChildOfType(psiFile, PsiClass.class);
       Project project = psiFile.getProject();
       final PsiClass componentClass =

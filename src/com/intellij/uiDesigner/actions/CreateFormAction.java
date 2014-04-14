@@ -32,7 +32,6 @@ import com.intellij.ide.fileTemplates.FileTemplate;
 import com.intellij.ide.fileTemplates.FileTemplateManager;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.fileTypes.StdFileTypes;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.psi.JavaDirectoryService;
@@ -44,6 +43,7 @@ import com.intellij.psi.PsiFileFactory;
 import com.intellij.psi.PsiJavaPackage;
 import com.intellij.ui.DocumentAdapter;
 import com.intellij.uiDesigner.GuiDesignerConfiguration;
+import com.intellij.uiDesigner.GuiFormFileType;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.radComponents.LayoutManagerRegistry;
 import com.intellij.util.IncorrectOperationException;
@@ -103,7 +103,7 @@ public class CreateFormAction extends AbstractCreateFormAction {
                                              myLastLayoutManager);
       @NonNls final String fileName = newName + ".form";
       final PsiFile formFile = PsiFileFactory.getInstance(directory.getProject())
-        .createFileFromText(fileName, StdFileTypes.GUI_DESIGNER_FORM, formBody);
+        .createFileFromText(fileName, GuiFormFileType.INSTANCE, formBody);
       createdFile = directory.add(formFile);
 
       if (myLastClassName != null) {

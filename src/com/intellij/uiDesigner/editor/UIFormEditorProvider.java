@@ -15,30 +15,30 @@
  */
 package com.intellij.uiDesigner.editor;
 
+import org.jdom.Element;
+import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.application.ex.ApplicationManagerEx;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.fileEditor.FileEditor;
 import com.intellij.openapi.fileEditor.FileEditorPolicy;
 import com.intellij.openapi.fileEditor.FileEditorProvider;
 import com.intellij.openapi.fileEditor.FileEditorState;
-import com.intellij.openapi.fileTypes.StdFileTypes;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.testFramework.LightVirtualFile;
+import com.intellij.uiDesigner.GuiFormFileType;
 import com.intellij.util.ArrayUtil;
-import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
 
 public final class UIFormEditorProvider implements FileEditorProvider, DumbAware {
   private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.editor.UIFormEditorProvider");
 
   public boolean accept(@NotNull final Project project, @NotNull final VirtualFile file){
     return
-      file.getFileType() == StdFileTypes.GUI_DESIGNER_FORM &&
-      !StdFileTypes.GUI_DESIGNER_FORM.isBinary() &&
+      file.getFileType() == GuiFormFileType.INSTANCE &&
+      !GuiFormFileType.INSTANCE.isBinary() &&
       (ModuleUtil.findModuleForFile(file, project) != null || file instanceof LightVirtualFile);
   }
 

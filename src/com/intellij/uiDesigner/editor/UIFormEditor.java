@@ -15,12 +15,22 @@
  */
 package com.intellij.uiDesigner.editor;
 
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+
+import javax.swing.JComponent;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.codeHighlighting.BackgroundEditorHighlighter;
 import com.intellij.codeHighlighting.HighlightingPass;
 import com.intellij.ide.structureView.StructureViewBuilder;
 import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.fileEditor.*;
-import com.intellij.openapi.fileTypes.StdFileTypes;
+import com.intellij.openapi.fileEditor.FileDocumentManager;
+import com.intellij.openapi.fileEditor.FileEditor;
+import com.intellij.openapi.fileEditor.FileEditorLocation;
+import com.intellij.openapi.fileEditor.FileEditorState;
+import com.intellij.openapi.fileEditor.FileEditorStateLevel;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.Project;
@@ -30,15 +40,10 @@ import com.intellij.psi.PsiDocumentManager;
 import com.intellij.testFramework.LightVirtualFile;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.FormHighlightingPass;
+import com.intellij.uiDesigner.GuiFormFileType;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 
 /**
  * @author Anton Katilin
@@ -89,7 +94,7 @@ public final class UIFormEditor extends UserDataHolderBase implements /*Navigata
     //TODO[anton,vova] fire when changed
     return
       FileDocumentManager.getInstance().getDocument(myFile) != null &&
-      myFile.getFileType() == StdFileTypes.GUI_DESIGNER_FORM;
+      myFile.getFileType() == GuiFormFileType.INSTANCE;
   }
 
   public void selectNotify(){

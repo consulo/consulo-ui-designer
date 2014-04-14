@@ -16,14 +16,14 @@
 
 package com.intellij.uiDesigner.palette;
 
-import com.intellij.ide.palette.PaletteGroup;
-import com.intellij.ide.palette.PaletteItemProvider;
-import com.intellij.openapi.fileTypes.StdFileTypes;
-import com.intellij.openapi.vfs.VirtualFile;
-import org.jetbrains.annotations.NonNls;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+
+import org.jetbrains.annotations.NonNls;
+import com.intellij.ide.palette.PaletteGroup;
+import com.intellij.ide.palette.PaletteItemProvider;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.uiDesigner.GuiFormFileType;
 
 /**
  * @author yole
@@ -48,7 +48,7 @@ public class UIDesignerPaletteProvider implements PaletteItemProvider {
   }
 
   public PaletteGroup[] getActiveGroups(VirtualFile vFile) {
-    if (vFile.getFileType().equals(StdFileTypes.GUI_DESIGNER_FORM)) {
+    if (vFile.getFileType().equals(GuiFormFileType.INSTANCE)) {
       return myPalette.getToolWindowGroups();
     }
     return PaletteGroup.EMPTY_ARRAY;

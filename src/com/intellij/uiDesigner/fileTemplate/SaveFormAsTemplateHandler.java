@@ -15,25 +15,25 @@
  */
 package com.intellij.uiDesigner.fileTemplate;
 
-import com.intellij.openapi.fileTypes.StdFileTypes;
+import java.io.CharArrayWriter;
+
+import org.jdom.Attribute;
+import org.jdom.Document;
+import com.intellij.ide.actions.SaveFileAsTemplateHandler;
 import com.intellij.openapi.util.JDOMUtil;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.codeStyle.CodeStyleSettingsManager;
+import com.intellij.uiDesigner.GuiFormFileType;
 import com.intellij.uiDesigner.UIFormXmlConstants;
 import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.uiDesigner.lw.LwRootContainer;
-import com.intellij.ide.actions.SaveFileAsTemplateHandler;
-import org.jdom.Attribute;
-import org.jdom.Document;
-
-import java.io.CharArrayWriter;
 
 /**
  * @author yole
  */
 public class SaveFormAsTemplateHandler implements SaveFileAsTemplateHandler {
   public String getTemplateText(final PsiFile file, final String fileText, final String nameWithoutExtension) {
-    if (StdFileTypes.GUI_DESIGNER_FORM.equals(file.getFileType())) {
+    if (GuiFormFileType.INSTANCE.equals(file.getFileType())) {
       LwRootContainer rootContainer = null;
       try {
         rootContainer = Utils.getRootContainer(fileText, null);

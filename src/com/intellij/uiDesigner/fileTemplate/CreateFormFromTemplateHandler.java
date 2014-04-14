@@ -17,11 +17,11 @@ package com.intellij.uiDesigner.fileTemplate;
 
 import com.intellij.ide.fileTemplates.DefaultCreateFromTemplateHandler;
 import com.intellij.ide.fileTemplates.FileTemplate;
-import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.JavaDirectoryService;
 import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.openapi.fileTypes.StdFileTypes;
 import com.intellij.openapi.fileTypes.ex.FileTypeManagerEx;
+import com.intellij.psi.JavaDirectoryService;
+import com.intellij.psi.PsiDirectory;
+import com.intellij.uiDesigner.GuiFormFileType;
 
 /**
  * @author yole
@@ -29,7 +29,7 @@ import com.intellij.openapi.fileTypes.ex.FileTypeManagerEx;
 public class CreateFormFromTemplateHandler extends DefaultCreateFromTemplateHandler {
   public boolean handlesTemplate(final FileTemplate template) {
     FileType fileType = FileTypeManagerEx.getInstanceEx().getFileTypeByExtension(template.getExtension());
-    return fileType.equals(StdFileTypes.GUI_DESIGNER_FORM);
+    return fileType.equals(GuiFormFileType.INSTANCE);
   }
 
   public boolean canCreate(final PsiDirectory[] dirs) {

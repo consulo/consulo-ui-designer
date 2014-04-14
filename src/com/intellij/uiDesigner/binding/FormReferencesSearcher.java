@@ -1,12 +1,14 @@
 package com.intellij.uiDesigner.binding;
 
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
 import com.intellij.lang.properties.IProperty;
 import com.intellij.lang.properties.psi.PropertiesFile;
 import com.intellij.lang.properties.psi.Property;
 import com.intellij.openapi.application.AccessToken;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ReadAction;
-import com.intellij.openapi.fileTypes.StdFileTypes;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.project.Project;
@@ -14,20 +16,30 @@ import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.util.Computable;
 import com.intellij.openapi.util.NullableComputable;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiDirectory;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiEnumConstant;
+import com.intellij.psi.PsiField;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiJavaPackage;
+import com.intellij.psi.PsiManager;
+import com.intellij.psi.PsiReference;
 import com.intellij.psi.impl.PsiManagerImpl;
 import com.intellij.psi.impl.cache.CacheManager;
 import com.intellij.psi.impl.search.PsiSearchHelperImpl;
-import com.intellij.psi.search.*;
+import com.intellij.psi.search.GlobalSearchScope;
+import com.intellij.psi.search.LocalSearchScope;
+import com.intellij.psi.search.PsiSearchHelper;
+import com.intellij.psi.search.SearchScope;
+import com.intellij.psi.search.UsageSearchContext;
 import com.intellij.psi.search.searches.ReferencesSearch;
 import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.uiDesigner.GuiFormFileType;
 import com.intellij.util.CommonProcessors;
 import com.intellij.util.Processor;
 import com.intellij.util.QueryExecutor;
 import com.intellij.util.text.CharArrayUtil;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 /**
  * @author max
@@ -89,7 +101,7 @@ public class FormReferencesSearcher implements QueryExecutor<PsiReference, Refer
         if (!element.isValid()) continue;
         file = element.getContainingFile();
       }
-      if (file.getFileType() == StdFileTypes.GUI_DESIGNER_FORM) return true;
+      if (file.getFileType() == GuiFormFileType.INSTANCE) return true;
     }
     return false;
   }
@@ -140,7 +152,7 @@ public class FormReferencesSearcher implements QueryExecutor<PsiReference, Refer
       for (PsiFile file : files) {
         ProgressManager.checkCanceled();
 
-        if (file.getFileType() != StdFileTypes.GUI_DESIGNER_FORM) continue;
+        if (file.getFileType() != GuiFormFileType.INSTANCE) continue;
         if (!processReferences(processor, file, name, element, filterScope)) return false;
       }
     }
@@ -175,7 +187,7 @@ public class FormReferencesSearcher implements QueryExecutor<PsiReference, Refer
       for (PsiFile file : files) {
         ProgressManager.checkCanceled();
 
-        if (file.getFileType() != StdFileTypes.GUI_DESIGNER_FORM) continue;
+        if (file.getFileType() != GuiFormFileType.INSTANCE) continue;
         if (!processReferences(processor, file, fieldName, field, filterScope)) return false;
       }
     }
@@ -248,7 +260,7 @@ public class FormReferencesSearcher implements QueryExecutor<PsiReference, Refer
       CommonProcessors.CollectProcessor<VirtualFile> collector = new CommonProcessors.CollectProcessor<VirtualFile>() {
         @Override
         protected boolean accept(VirtualFile virtualFile) {
-          return virtualFile.getFileType() == StdFileTypes.GUI_DESIGNER_FORM;
+          return virtualFile.getFileType() == GuiFormFileType.INSTANCE;
         }
       };
       ((PsiSearchHelperImpl)PsiSearchHelper.SERVICE.getInstance(project)).processFilesWithText(
@@ -288,7 +300,7 @@ public class FormReferencesSearcher implements QueryExecutor<PsiReference, Refer
       for (PsiFile file : files) {
         ProgressManager.checkCanceled();
 
-        if (file.getFileType() != StdFileTypes.GUI_DESIGNER_FORM) continue;
+        if (file.getFileType() != GuiFormFileType.INSTANCE) continue;
         if (!processReferences(processor, file, baseName, propFile.getContainingFile(), filterScope)) return false;
       }
     }

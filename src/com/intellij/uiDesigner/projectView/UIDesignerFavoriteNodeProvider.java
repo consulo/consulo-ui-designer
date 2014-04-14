@@ -16,6 +16,15 @@
 
 package com.intellij.uiDesigner.projectView;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.ide.favoritesTreeView.FavoriteNodeProvider;
 import com.intellij.ide.projectView.ViewSettings;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
@@ -23,7 +32,6 @@ import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.openapi.fileTypes.StdFileTypes;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.Project;
@@ -33,12 +41,8 @@ import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.search.GlobalSearchScope;
+import com.intellij.uiDesigner.GuiFormFileType;
 import com.intellij.uiDesigner.compiler.Utils;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.*;
 
 /**
  * @author yole
@@ -68,7 +72,7 @@ public class UIDesignerFavoriteNodeProvider extends FavoriteNodeProvider {
     VirtualFile vFile = PlatformDataKeys.VIRTUAL_FILE.getData(context);
     if (vFile != null) {
       final FileType fileType = vFile.getFileType();
-      if (fileType.equals(StdFileTypes.GUI_DESIGNER_FORM)) {
+      if (fileType.equals(GuiFormFileType.INSTANCE)) {
         final PsiFile formFile = PsiManager.getInstance(project).findFile(vFile);
         if (formFile == null) return null;
         String text = formFile.getText();

@@ -41,7 +41,6 @@ import com.intellij.openapi.compiler.ValidityState;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
-import com.intellij.openapi.fileTypes.StdFileTypes;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.Project;
@@ -57,6 +56,7 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.GuiDesignerConfiguration;
+import com.intellij.uiDesigner.GuiFormFileType;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.compiler.AlienFormFileException;
 import com.intellij.uiDesigner.compiler.AsmCodeGenerator;
@@ -127,7 +127,7 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 				final CompileScope scope = context.getCompileScope();
 				final CompileScope projectScope = context.getProjectCompileScope();
 
-				final VirtualFile[] formFiles = projectScope.getFiles(StdFileTypes.GUI_DESIGNER_FORM, true);
+				final VirtualFile[] formFiles = projectScope.getFiles(GuiFormFileType.INSTANCE, true);
 				if(formFiles.length == 0)
 				{
 					return;
