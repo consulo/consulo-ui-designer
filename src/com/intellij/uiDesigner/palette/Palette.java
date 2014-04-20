@@ -15,11 +15,47 @@
  */
 package com.intellij.uiDesigner.palette;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.swing.AbstractButton;
+import javax.swing.Icon;
+import javax.swing.JLabel;
+import javax.swing.JMenuBar;
+import javax.swing.JPopupMenu;
+import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
+import javax.swing.ListModel;
+
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.input.SAXBuilder;
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.ide.ui.LafManager;
 import com.intellij.ide.ui.LafManagerListener;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ApplicationNamesInfo;
-import com.intellij.openapi.components.*;
+import com.intellij.openapi.components.PersistentStateComponent;
+import com.intellij.openapi.components.ProjectComponent;
+import com.intellij.openapi.components.State;
+import com.intellij.openapi.components.Storage;
+import com.intellij.openapi.components.StoragePathMacros;
+import com.intellij.openapi.components.StorageScheme;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
@@ -39,24 +75,6 @@ import com.intellij.uiDesigner.propertyInspector.properties.*;
 import com.intellij.uiDesigner.propertyInspector.renderers.IntEnumRenderer;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.util.containers.ContainerUtil;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.input.SAXBuilder;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
-import java.awt.*;
-import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author Anton Katilin
@@ -199,12 +217,11 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
     // load new components from the predefined Palette2.xml
     try {
       //noinspection HardCodedStringLiteral
-      final Document document = new SAXBuilder().build(getClass().getResourceAsStream("/idea/Palette2.xml"));
-      for(Object o: document.getRootElement().getChildren(ELEMENT_GROUP)) {
-        Element groupElement = (Element) o;
-        for(GroupItem group: myGroups) {
-          if (group.getName().equals(groupElement.getAttributeValue(ATTRIBUTE_NAME))) {
-            upgradeGroup(group, groupElement);
+      final Document document = new SAXBuilder().build(getClass().getResourceAsStream("/Palette2.xml"));
+      for(Element o: document.getRootElement().getChildren(ELEMENT_GROUP)) {
+		for(GroupItem group: myGroups) {
+          if (group.getName().equals(o.getAttributeValue(ATTRIBUTE_NAME))) {
+            upgradeGroup(group, o);
             break;
           }
         }
@@ -216,8 +233,7 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
   }
 
   private void upgradeGroup(final GroupItem group, final Element groupElement) {
-    for(Object o: groupElement.getChildren(ELEMENT_ITEM)) {
-      Element itemElement = (Element) o;
+    for(Element itemElement : groupElement.getChildren(ELEMENT_ITEM)) {
       if (itemElement.getAttributeValue(ATTRIBUTE_SINCE_VERSION, "").equals("2")) {
         processItemElement(itemElement, group, true);
       }
