@@ -15,51 +15,77 @@
  */
 package com.intellij.uiDesigner;
 
+import java.nio.charset.Charset;
+
 import javax.swing.Icon;
 
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
+import com.intellij.icons.AllIcons;
 import com.intellij.ide.IdeBundle;
-import com.intellij.openapi.fileTypes.FileType;
+import com.intellij.openapi.fileTypes.FileTypeWithPredefinedCharset;
+import com.intellij.openapi.util.Pair;
 import com.intellij.openapi.vfs.CharsetToolkit;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.util.PlatformIcons;
 
-public class GuiFormFileType implements FileType {
+public class GuiFormFileType implements FileTypeWithPredefinedCharset
+{
+	public static final GuiFormFileType INSTANCE = new GuiFormFileType();
 
-  public static final GuiFormFileType INSTANCE = new GuiFormFileType();
+	@NonNls
+	public static final String DEFAULT_EXTENSION = "form";
+	@NonNls
+	public static final String DOT_DEFAULT_EXTENSION = "." + DEFAULT_EXTENSION;
 
-  @NonNls public static final String DEFAULT_EXTENSION = "form";
-  @NonNls public static final String DOT_DEFAULT_EXTENSION = "." + DEFAULT_EXTENSION;
+	@Override
+	@NotNull
+	public String getName()
+	{
+		return "GUI_DESIGNER_FORM";
+	}
 
-  @NotNull
-  public String getName() {
-    return "GUI_DESIGNER_FORM";
-  }
+	@Override
+	@NotNull
+	public String getDescription()
+	{
+		return IdeBundle.message("filetype.description.gui.designer.form");
+	}
 
-  @NotNull
-  public String getDescription() {
-    return IdeBundle.message("filetype.description.gui.designer.form");
-  }
+	@Override
+	@NotNull
+	public String getDefaultExtension()
+	{
+		return DEFAULT_EXTENSION;
+	}
 
-  @NotNull
-  public String getDefaultExtension() {
-    return DEFAULT_EXTENSION;
-  }
+	@Override
+	public Icon getIcon()
+	{
+		return AllIcons.FileTypes.UiForm;
+	}
 
-  public Icon getIcon() {
-    return PlatformIcons.UI_FORM_ICON;
-  }
+	@Override
+	public boolean isBinary()
+	{
+		return false;
+	}
 
-  public boolean isBinary() {
-    return false;
-  }
+	@Override
+	public boolean isReadOnly()
+	{
+		return false;
+	}
 
-  public boolean isReadOnly() {
-    return false;
-  }
+	@Override
+	public String getCharset(@NotNull VirtualFile file, final byte[] content)
+	{
+		return CharsetToolkit.UTF8;
+	}
 
-  public String getCharset(@NotNull VirtualFile file, final byte[] content) {
-    return CharsetToolkit.UTF8;
-  }
+	@NotNull
+	@Override
+	public Pair<Charset, String> getPredefinedCharset(@NotNull VirtualFile virtualFile)
+	{
+		return new Pair<Charset, String>(CharsetToolkit.UTF8_CHARSET, "Consulo GUI Designer form");
+	}
 }
