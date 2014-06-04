@@ -15,9 +15,12 @@
  */
 package com.intellij.uiDesigner.inspections;
 
+import java.util.Collections;
+
+import org.jetbrains.annotations.NonNls;
 import com.intellij.codeInspection.InspectionsBundle;
 import com.intellij.codeInspection.java15api.Java15APIUsageInspection;
-import com.intellij.openapi.module.LanguageLevelUtil;
+import com.intellij.openapi.module.EffectiveLanguageLevelUtil;
 import com.intellij.openapi.module.Module;
 import com.intellij.pom.java.LanguageLevel;
 import com.intellij.psi.JavaPsiFacade;
@@ -34,59 +37,72 @@ import com.intellij.uiDesigner.lw.IProperty;
 import com.intellij.uiDesigner.propertyInspector.Property;
 import com.intellij.uiDesigner.quickFixes.QuickFix;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import org.jetbrains.annotations.NonNls;
-
-import java.util.Collections;
 
 /**
  * @author yole
  */
-public class Java15FormInspection extends BaseFormInspection {
-  public Java15FormInspection() {
-    super("Since15");
-  }
+public class Java15FormInspection extends BaseFormInspection
+{
+	public Java15FormInspection()
+	{
+		super("Since15");
+	}
 
-  protected void checkComponentProperties(Module module, final IComponent component, final FormErrorCollector collector) {
-    final GlobalSearchScope scope = GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(module);
-    final PsiManager psiManager = PsiManager.getInstance(module.getProject());
-    final PsiClass aClass = JavaPsiFacade.getInstance(psiManager.getProject()).findClass(component.getComponentClassName(), scope);
-    if (aClass == null) {
-      return;
-    }
+	@Override
+	protected void checkComponentProperties(Module module, final IComponent component, final FormErrorCollector collector)
+	{
+		final GlobalSearchScope scope = GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(module);
+		final PsiManager psiManager = PsiManager.getInstance(module.getProject());
+		final PsiClass aClass = JavaPsiFacade.getInstance(psiManager.getProject()).findClass(component.getComponentClassName(), scope);
+		if(aClass == null)
+		{
+			return;
+		}
 
-    for(final IProperty prop: component.getModifiedProperties()) {
-      final PsiMethod getter = PropertyUtil.findPropertyGetter(aClass, prop.getName(), false, true);
-      if (getter == null) continue;
-      final LanguageLevel languageLevel = LanguageLevelUtil.getEffectiveLanguageLevel(module);
-      if (Java15APIUsageInspection.isForbiddenApiUsage(getter, languageLevel)) {
-        registerError(component, collector, prop, "@since " + Java15APIUsageInspection.getShortName(languageLevel));
-      }
-    }
-  }
+		for(final IProperty prop : component.getModifiedProperties())
+		{
+			final PsiMethod getter = PropertyUtil.findPropertyGetter(aClass, prop.getName(), false, true);
+			if(getter == null)
+			{
+				continue;
+			}
+			final LanguageLevel languageLevel = EffectiveLanguageLevelUtil.getEffectiveLanguageLevel(module);
+			if(Java15APIUsageInspection.isForbiddenApiUsage(getter, languageLevel))
+			{
+				registerError(component, collector, prop, "@since " + Java15APIUsageInspection.getShortName(languageLevel));
+			}
+		}
+	}
 
-  private void registerError(final IComponent component,
-                             final FormErrorCollector collector,
-                             final IProperty prop,
-                             @NonNls final String api) {
-    collector.addError(getID(), component, prop, InspectionsBundle.message("inspection.1.5.problem.descriptor", api),
-                       new EditorQuickFixProvider() {
-                         public QuickFix createQuickFix(GuiEditor editor, RadComponent component) {
-                           return new RemovePropertyFix(editor, component, (Property)prop);
-                         }
-                       });
-  }
+	private void registerError(
+			final IComponent component, final FormErrorCollector collector, final IProperty prop, @NonNls final String api)
+	{
+		collector.addError(getID(), component, prop, InspectionsBundle.message("inspection.1.5.problem.descriptor", api),
+				new EditorQuickFixProvider()
+		{
+			@Override
+			public QuickFix createQuickFix(GuiEditor editor, RadComponent component)
+			{
+				return new RemovePropertyFix(editor, component, (Property) prop);
+			}
+		});
+	}
 
-  private static class RemovePropertyFix extends QuickFix {
-    private final Property myProperty;
+	private static class RemovePropertyFix extends QuickFix
+	{
+		private final Property myProperty;
 
-    public RemovePropertyFix(GuiEditor editor, RadComponent component, Property property) {
-      super(editor, UIDesignerBundle.message("remove.property.quickfix"), component);
-      myProperty = property;
-    }
+		public RemovePropertyFix(GuiEditor editor, RadComponent component, Property property)
+		{
+			super(editor, UIDesignerBundle.message("remove.property.quickfix"), component);
+			myProperty = property;
+		}
 
 
-    public void run() {
-      ResetValueAction.doResetValue(Collections.singletonList(myComponent), myProperty, myEditor);
-    }
-  }
+		@Override
+		public void run()
+		{
+			ResetValueAction.doResetValue(Collections.singletonList(myComponent), myProperty, myEditor);
+		}
+	}
 }
