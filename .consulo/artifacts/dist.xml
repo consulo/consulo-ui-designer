@@ -8,6 +8,7 @@
             <element id="module-output" name="consulo-ui-designer" />
             <element id="module-production-resource-output" name="consulo-ui-designer" />
           </element>
+          <element id="library" level="project" name="forms_compiler" />
         </element>
       </element>
     </root>

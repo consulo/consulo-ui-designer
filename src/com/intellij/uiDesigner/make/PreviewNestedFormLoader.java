@@ -16,6 +16,16 @@
 
 package com.intellij.uiDesigner.make;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Set;
+
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.org.objectweb.asm.ClassWriter;
+import org.jetbrains.org.objectweb.asm.MethodVisitor;
+import org.jetbrains.org.objectweb.asm.Opcodes;
 import com.intellij.compiler.PsiClassWriter;
 import com.intellij.compiler.instrumentation.InstrumentationClassFinder;
 import com.intellij.openapi.module.Module;
@@ -26,16 +36,6 @@ import com.intellij.uiDesigner.compiler.FormErrorInfo;
 import com.intellij.uiDesigner.lw.LwRootContainer;
 import com.intellij.util.ArrayUtil;
 import com.intellij.util.containers.HashSet;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.asm4.ClassWriter;
-import org.jetbrains.asm4.MethodVisitor;
-import org.jetbrains.asm4.Opcodes;
-
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Set;
 
 /**
  * @author yole
@@ -75,7 +75,8 @@ public class PreviewNestedFormLoader extends PsiNestedFormLoader {
     mv.visitMethodInsn(Opcodes.INVOKESPECIAL,
             "java/lang/Object",
             "<init>",
-            "()V");
+            "()V",
+			false);
     mv.visitInsn(Opcodes.RETURN);
     mv.visitMaxs(1, 1);
     mv.visitEnd();
