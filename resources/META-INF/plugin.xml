@@ -34,6 +34,7 @@
 		<i18nInspectionTool implementation="com.intellij.uiDesigner.i18n.I18nFormInspection"/>
 		<java15InspectionTool implementation="com.intellij.uiDesigner.inspections.Java15FormInspection"/>
 		<invalidPropertyKeyInspectionTool implementation="com.intellij.uiDesigner.i18n.InvalidPropertyKeyFormInspection"/>
+		<runConfigurationExtension implementation="com.intellij.uiDesigner.snapShooter.SnapShooterConfigurationExtension"/>
 	</extensions>
 
 	<extensions defaultExtensionNs="com.intellij">
@@ -47,7 +48,6 @@
 		<favoriteNodeProvider implementation="com.intellij.uiDesigner.projectView.UIDesignerFavoriteNodeProvider"/>
 		<renameHandler implementation="com.intellij.uiDesigner.projectView.FormRenameHandler"/>
 		<implicitUsageProvider implementation="com.intellij.uiDesigner.binding.UIDesignerImplicitUsageProvider"/>
-		<runConfigurationExtension implementation="com.intellij.uiDesigner.snapShooter.SnapShooterConfigurationExtension"/>
 		<usageTypeProvider implementation="com.intellij.uiDesigner.binding.FormUsageTypeProvider"/>
 
 		<localInspection shortName="DuplicateMnemonic" bundle="messages.UIDesignerBundle" key="inspection.duplicate.mnemonics"
