@@ -1,6 +1,7 @@
 <idea-plugin version="2">
 	<name>UI Designer</name>
 	<id>com.intellij.uiDesigner</id>
+	<version>SNAPSHOT</version>
 	<vendor>JetBrains</vendor>
 	<resource-bundle>messages.UIDesignerBundle</resource-bundle>
 	<depends>com.intellij.properties</depends>
@@ -146,18 +147,18 @@
 
 	<project-components>
 		<component>
-			<implementation-class>com.intellij.ide.palette.impl.PaletteManager</implementation-class>
-		</component>
-		<component>
 			<implementation-class>com.intellij.uiDesigner.palette.Palette</implementation-class>
 		</component>
 		<component>
-			<implementation-class>com.intellij.uiDesigner.propertyInspector.UIDesignerToolWindowManager</implementation-class>
+			<implementation-class>com.intellij.uiDesigner.propertyInspector.DesignerToolWindowManager</implementation-class>
 			<headless-implementation-class></headless-implementation-class>
 			<skipForDefaultProject/>
 		</component>
 		<component>
 			<implementation-class>com.intellij.uiDesigner.clientProperties.ClientPropertiesManager</implementation-class>
+		</component>
+		<component>
+			<implementation-class>com.intellij.ide.palette.impl.PaletteToolWindowManager</implementation-class>
 		</component>
 	</project-components>
 
@@ -214,6 +215,8 @@
 			<action id="GuiDesigner.SurroundPopup" class="com.intellij.uiDesigner.actions.SurroundPopupAction"
 					use-shortcut-of="SurroundWith"/>
 			<action id="GuiDesigner.Flatten" class="com.intellij.uiDesigner.actions.FlattenAction"/>
+			<separator/>
+			<action id="GuiDesigner.FormSource" class="com.intellij.uiDesigner.actions.ShowFormSourceAction"/>
 			<separator/>
 			<reference ref="VersionControlsGroup"/>
 			<separator/>

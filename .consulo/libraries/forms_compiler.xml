@@ -1,11 +1,10 @@
 <component name="libraryTable">
   <library name="forms_compiler">
-    <CLASSES>
+    <binaries>
       <root url="jar://$PROJECT_DIR$/lib/forms_compiler.jar!/" />
-    </CLASSES>
-    <DOCUMENTATION />
-    <SOURCES>
+    </binaries>
+    <sources>
       <root url="jar://$PROJECT_DIR$/libSrc/forms_compiler-sources.jar!/" />
-    </SOURCES>
+    </sources>
   </library>
 </component>

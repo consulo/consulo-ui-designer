@@ -16,28 +16,34 @@
 
 package com.intellij.uiDesigner;
 
+import org.jetbrains.annotations.NotNull;
 import com.intellij.codeHighlighting.HighlightingPass;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
-import com.intellij.uiDesigner.propertyInspector.UIDesignerToolWindowManager;
-import org.jetbrains.annotations.NotNull;
+import com.intellij.uiDesigner.propertyInspector.DesignerToolWindowManager;
 
 /**
  * @author yole
  */
-public class FormHighlightingPass implements HighlightingPass {
-  private final GuiEditor myEditor;
+public class FormHighlightingPass implements HighlightingPass
+{
+	private final GuiEditor myEditor;
 
-  public FormHighlightingPass(final GuiEditor editor) {
-    myEditor = editor;
-  }
+	public FormHighlightingPass(final GuiEditor editor)
+	{
+		myEditor = editor;
+	}
 
-  public void collectInformation(@NotNull ProgressIndicator progress) {
-    ErrorAnalyzer.analyzeErrors(myEditor, myEditor.getRootContainer(), progress);
-  }
+	@Override
+	public void collectInformation(@NotNull ProgressIndicator progress)
+	{
+		ErrorAnalyzer.analyzeErrors(myEditor, myEditor.getRootContainer(), progress);
+	}
 
-  public void applyInformationToEditor() {
-    UIDesignerToolWindowManager.getInstance(myEditor.getProject()).refreshErrors();
-    myEditor.refreshIntentionHint();
-  }
+	@Override
+	public void applyInformationToEditor()
+	{
+		DesignerToolWindowManager.getInstance(myEditor).refreshErrors();
+		myEditor.refreshIntentionHint();
+	}
 }

@@ -31,6 +31,7 @@ import com.intellij.openapi.fileEditor.FileEditor;
 import com.intellij.openapi.fileEditor.FileEditorLocation;
 import com.intellij.openapi.fileEditor.FileEditorState;
 import com.intellij.openapi.fileEditor.FileEditorStateLevel;
+import com.intellij.openapi.fileTypes.StdFileTypes;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.Project;
@@ -40,7 +41,6 @@ import com.intellij.psi.PsiDocumentManager;
 import com.intellij.testFramework.LightVirtualFile;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.FormHighlightingPass;
-import com.intellij.uiDesigner.GuiFormFileType;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.radComponents.RadComponent;
@@ -49,140 +49,151 @@ import com.intellij.uiDesigner.radComponents.RadComponent;
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
-public final class UIFormEditor extends UserDataHolderBase implements /*Navigatable*/FileEditor {
-  private final VirtualFile myFile;
-  private final GuiEditor myEditor;
-  private UIFormEditor.MyBackgroundEditorHighlighter myBackgroundEditorHighlighter;
+public final class UIFormEditor extends UserDataHolderBase implements /*Navigatable*/FileEditor
+{
+	private final VirtualFile myFile;
+	private final GuiEditor myEditor;
+	private UIFormEditor.MyBackgroundEditorHighlighter myBackgroundEditorHighlighter;
 
-  public UIFormEditor(final Project project, final VirtualFile file){
-    final VirtualFile vf = file instanceof LightVirtualFile ? ((LightVirtualFile)file).getOriginalFile() : file;
-    final Module module = ModuleUtil.findModuleForFile(vf, project);
-    if (module == null) {
-      throw new IllegalArgumentException("No module for file " + file + " in project " + project);
-    }
-    myFile = file;
-    myEditor = new GuiEditor(project, module, file);
-  }
+	public UIFormEditor(@NotNull final Project project, @NotNull final VirtualFile file)
+	{
+		final VirtualFile vf = file instanceof LightVirtualFile ? ((LightVirtualFile) file).getOriginalFile() : file;
+		final Module module = ModuleUtil.findModuleForFile(vf, project);
+		if(module == null)
+		{
+			throw new IllegalArgumentException("No module for file " + file + " in project " + project);
+		}
+		myFile = file;
+		myEditor = new GuiEditor(this, project, module, file);
+	}
 
-  @Override
-  @NotNull
-  public JComponent getComponent(){
-    return myEditor;
-  }
+	@NotNull
+	public JComponent getComponent()
+	{
+		return myEditor;
+	}
 
-  @Override
-  public void dispose() {
-    myEditor.dispose();
-  }
+	public void dispose()
+	{
+		myEditor.dispose();
+	}
 
-  @Override
-  public JComponent getPreferredFocusedComponent(){
-    return myEditor.getPreferredFocusedComponent();
-  }
+	public JComponent getPreferredFocusedComponent()
+	{
+		return myEditor.getPreferredFocusedComponent();
+	}
 
-  @Override
-  @NotNull
-  public String getName(){
-    return UIDesignerBundle.message("title.gui.designer");
-  }
+	@NotNull
+	public String getName()
+	{
+		return UIDesignerBundle.message("title.gui.designer");
+	}
 
-  public GuiEditor getEditor() {
-    return myEditor;
-  }
+	public GuiEditor getEditor()
+	{
+		return myEditor;
+	}
 
-  @Override
-  public boolean isModified(){
-    return false;
-  }
+	public boolean isModified()
+	{
+		return false;
+	}
 
-  @Override
-  public boolean isValid(){
-    //TODO[anton,vova] fire when changed
-    return
-      FileDocumentManager.getInstance().getDocument(myFile) != null &&
-      myFile.getFileType() == GuiFormFileType.INSTANCE;
-  }
+	public boolean isValid()
+	{
+		//TODO[anton,vova] fire when changed
+		return FileDocumentManager.getInstance().getDocument(myFile) != null && myFile.getFileType() == StdFileTypes.GUI_DESIGNER_FORM;
+	}
 
-  @Override
-  public void selectNotify(){
-  }
+	public void selectNotify()
+	{
+	}
 
-  @Override
-  public void deselectNotify(){
-  }
+	public void deselectNotify()
+	{
+	}
 
-  @Override
-  public void addPropertyChangeListener(@NotNull final PropertyChangeListener listener){
-    //TODO[anton,vova]
-  }
+	public void addPropertyChangeListener(@NotNull final PropertyChangeListener listener)
+	{
+		//TODO[anton,vova]
+	}
 
-  @Override
-  public void removePropertyChangeListener(@NotNull final PropertyChangeListener listener){
-    //TODO[anton,vova]
-  }
+	public void removePropertyChangeListener(@NotNull final PropertyChangeListener listener)
+	{
+		//TODO[anton,vova]
+	}
 
-  @Override
-  public BackgroundEditorHighlighter getBackgroundHighlighter() {
-    if (myBackgroundEditorHighlighter == null) {
-      myBackgroundEditorHighlighter = new MyBackgroundEditorHighlighter(myEditor);
-    }
-    return myBackgroundEditorHighlighter;
-  }
+	public BackgroundEditorHighlighter getBackgroundHighlighter()
+	{
+		if(myBackgroundEditorHighlighter == null)
+		{
+			myBackgroundEditorHighlighter = new MyBackgroundEditorHighlighter(myEditor);
+		}
+		return myBackgroundEditorHighlighter;
+	}
 
-  @Override
-  public FileEditorLocation getCurrentLocation() {
-    return null;
-  }
+	public FileEditorLocation getCurrentLocation()
+	{
+		return null;
+	}
 
-  @Override
-  @NotNull
-  public FileEditorState getState(@NotNull final FileEditorStateLevel ignored) {
-    final Document document = FileDocumentManager.getInstance().getCachedDocument(myFile);
-    long modificationStamp = document != null ? document.getModificationStamp() : myFile.getModificationStamp();
-    final ArrayList<RadComponent> selection = FormEditingUtil.getSelectedComponents(myEditor);
-    final String[] ids = new String[selection.size()];
-    for (int i = ids.length - 1; i >= 0; i--) {
-      ids[i] = selection.get(i).getId();
-    }
-    return new MyEditorState(modificationStamp, ids);
-  }
+	@NotNull
+	public FileEditorState getState(@NotNull final FileEditorStateLevel ignored)
+	{
+		final Document document = FileDocumentManager.getInstance().getCachedDocument(myFile);
+		long modificationStamp = document != null ? document.getModificationStamp() : myFile.getModificationStamp();
+		final ArrayList<RadComponent> selection = FormEditingUtil.getSelectedComponents(myEditor);
+		final String[] ids = new String[selection.size()];
+		for(int i = ids.length - 1; i >= 0; i--)
+		{
+			ids[i] = selection.get(i).getId();
+		}
+		return new MyEditorState(modificationStamp, ids);
+	}
 
-  @Override
-  public void setState(@NotNull final FileEditorState state){
-    FormEditingUtil.clearSelection(myEditor.getRootContainer());
-    final String[] ids = ((MyEditorState)state).getSelectedComponentIds();
-    for (final String id : ids) {
-      final RadComponent component = (RadComponent)FormEditingUtil.findComponent(myEditor.getRootContainer(), id);
-      if (component != null) {
-        component.setSelected(true);
-      }
-    }
-  }
+	public void setState(@NotNull final FileEditorState state)
+	{
+		FormEditingUtil.clearSelection(myEditor.getRootContainer());
+		final String[] ids = ((MyEditorState) state).getSelectedComponentIds();
+		for(final String id : ids)
+		{
+			final RadComponent component = (RadComponent) FormEditingUtil.findComponent(myEditor.getRootContainer(), id);
+			if(component != null)
+			{
+				component.setSelected(true);
+			}
+		}
+	}
 
-  public void selectComponent(@NotNull final String binding) {
-    final RadComponent component = (RadComponent) FormEditingUtil.findComponentWithBinding(myEditor.getRootContainer(), binding);
-    if (component != null) {
-      FormEditingUtil.selectSingleComponent(getEditor(), component);
-    }
-  }
+	public void selectComponent(@NotNull final String binding)
+	{
+		final RadComponent component = (RadComponent) FormEditingUtil.findComponentWithBinding(myEditor.getRootContainer(), binding);
+		if(component != null)
+		{
+			FormEditingUtil.selectSingleComponent(getEditor(), component);
+		}
+	}
 
-  public void selectComponentById(@NotNull final String id) {
-    final RadComponent component = (RadComponent)FormEditingUtil.findComponent(myEditor.getRootContainer(), id);
-    if (component != null) {
-      FormEditingUtil.selectSingleComponent(getEditor(), component);
-    }
-  }
+	public void selectComponentById(@NotNull final String id)
+	{
+		final RadComponent component = (RadComponent) FormEditingUtil.findComponent(myEditor.getRootContainer(), id);
+		if(component != null)
+		{
+			FormEditingUtil.selectSingleComponent(getEditor(), component);
+		}
+	}
 
-  @Override
-  public StructureViewBuilder getStructureViewBuilder() {
-    return null;
-  }
+	public StructureViewBuilder getStructureViewBuilder()
+	{
+		return null;
+	}
 
-  @Nullable
-  @Override
-  public VirtualFile getVirtualFile() {
-    return myFile;
-  }
+	@Nullable
+	@Override
+	public VirtualFile getVirtualFile()
+	{
+		return myFile;
+	}
 
   /*
   public boolean canNavigateTo(@NotNull final Navigatable navigatable) {
@@ -200,24 +211,26 @@ public final class UIFormEditor extends UserDataHolderBase implements /*Navigata
   }
   */
 
-  private class MyBackgroundEditorHighlighter implements BackgroundEditorHighlighter {
-    private final HighlightingPass[] myPasses;
+	private class MyBackgroundEditorHighlighter implements BackgroundEditorHighlighter
+	{
+		private final HighlightingPass[] myPasses;
 
-    public MyBackgroundEditorHighlighter(final GuiEditor editor) {
-      myPasses = new HighlightingPass[] { new FormHighlightingPass(editor) };
-    }
+		public MyBackgroundEditorHighlighter(final GuiEditor editor)
+		{
+			myPasses = new HighlightingPass[]{new FormHighlightingPass(editor)};
+		}
 
-    @Override
-	@NotNull
-    public HighlightingPass[] createPassesForEditor() {
-      PsiDocumentManager.getInstance(myEditor.getProject()).commitAllDocuments();
-      return myPasses;
-    }
+		@NotNull
+		public HighlightingPass[] createPassesForEditor()
+		{
+			PsiDocumentManager.getInstance(myEditor.getProject()).commitAllDocuments();
+			return myPasses;
+		}
 
-    @Override
-	@NotNull
-    public HighlightingPass[] createPassesForVisibleArea() {
-      return HighlightingPass.EMPTY_ARRAY;
-    }
-  }
+		@NotNull
+		public HighlightingPass[] createPassesForVisibleArea()
+		{
+			return HighlightingPass.EMPTY_ARRAY;
+		}
+	}
 }

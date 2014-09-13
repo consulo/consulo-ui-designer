@@ -15,47 +15,57 @@
  */
 package com.intellij.uiDesigner.quickFixes;
 
-import com.intellij.openapi.actionSystem.*;
-import com.intellij.uiDesigner.designSurface.GuiEditor;
-import com.intellij.uiDesigner.propertyInspector.PropertyInspector;
-import com.intellij.uiDesigner.propertyInspector.UIDesignerToolWindowManager;
-import org.jetbrains.annotations.NotNull;
+import javax.swing.JComponent;
 
-import javax.swing.*;
+import org.jetbrains.annotations.NotNull;
+import com.intellij.openapi.actionSystem.ActionManager;
+import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.CommonDataKeys;
+import com.intellij.openapi.actionSystem.IdeActions;
+import com.intellij.uiDesigner.designSurface.GuiEditor;
+import com.intellij.uiDesigner.propertyInspector.DesignerToolWindowManager;
+import com.intellij.uiDesigner.propertyInspector.PropertyInspector;
 
 /**
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
-final class ShowHintAction extends AnAction {
-  private final QuickFixManager myManager;
+final class ShowHintAction extends AnAction
+{
+	private final QuickFixManager myManager;
 
-  public ShowHintAction(@NotNull final QuickFixManager manager, @NotNull final JComponent component) {
-    myManager = manager;
-    registerCustomShortcutSet(
-      ActionManager.getInstance().getAction(IdeActions.ACTION_SHOW_INTENTION_ACTIONS).getShortcutSet(),
-      component
-    );
-  }
+	public ShowHintAction(@NotNull final QuickFixManager manager, @NotNull final JComponent component)
+	{
+		myManager = manager;
+		registerCustomShortcutSet(ActionManager.getInstance().getAction(IdeActions.ACTION_SHOW_INTENTION_ACTIONS).getShortcutSet(), component);
+	}
 
-  public void actionPerformed(final AnActionEvent e) {
-    final GuiEditor editor = myManager.getEditor();
-    if (editor == null) return;
+	@Override
+	public void actionPerformed(final AnActionEvent e)
+	{
+		final GuiEditor editor = myManager.getEditor();
+		if(editor == null)
+		{
+			return;
+		}
 
-    // 1. Show light bulb
-    myManager.showIntentionHint();
+		// 1. Show light bulb
+		myManager.showIntentionHint();
 
-    // 2. Commit possible non committed value and show popup
-    final UIDesignerToolWindowManager manager = UIDesignerToolWindowManager.getInstance(editor.getProject());
-    final PropertyInspector propertyInspector = manager.getPropertyInspector();
-    if(propertyInspector != null && propertyInspector.isEditing()) {
-      propertyInspector.stopEditing();
-    }
-    myManager.showIntentionPopup();
-  }
+		// 2. Commit possible non committed value and show popup
+		final PropertyInspector propertyInspector = DesignerToolWindowManager.getInstance(myManager.getEditor()).getPropertyInspector();
+		if(propertyInspector != null && propertyInspector.isEditing())
+		{
+			propertyInspector.stopEditing();
+		}
+		myManager.showIntentionPopup();
+	}
 
-  public void update(AnActionEvent e) {
-    // Alt-Enter hotkey for editor takes precedence over this action
-    e.getPresentation().setEnabled(e.getData(PlatformDataKeys.EDITOR) == null);
-  }
+	@Override
+	public void update(AnActionEvent e)
+	{
+		// Alt-Enter hotkey for editor takes precedence over this action
+		e.getPresentation().setEnabled(e.getData(CommonDataKeys.EDITOR) == null);
+	}
 }

@@ -14,29 +14,25 @@
           </content>
           <orderEntry type="module-extension-sdk" extension-id="java" />
           <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
-          <orderEntry type="sourceFolder" forTests="false" />
+          <orderEntry type="sourceFolder" />
           <orderEntry type="module-library">
             <library name="consulo:Properties Support">
-              <CLASSES>
+              <binaries>
                 <root url="jar://$MODULE_DIR$/dep/properties/lib/properties.jar!/" />
-              </CLASSES>
-              <DOCUMENTATION />
-              <SOURCES />
+              </binaries>
             </library>
           </orderEntry>
           <orderEntry type="module-library">
             <library name="consulo:Spellchecker">
-              <CLASSES>
+              <binaries>
                 <root url="jar://$MODULE_DIR$/dep/spellchecker/lib/spellchecker.jar!/" />
-              </CLASSES>
-              <DOCUMENTATION />
-              <SOURCES />
+              </binaries>
             </library>
           </orderEntry>
           <orderEntry type="library" name="forms_compiler" level="project" />
           <orderEntry type="module-library">
             <library name="consulo:Java">
-              <CLASSES>
+              <binaries>
                 <root url="jar://$MODULE_DIR$/dep/java/lib/asm-all.jar!/" />
                 <root url="jar://$MODULE_DIR$/dep/java/lib/coverage-report-idea.jar!/" />
                 <root url="jar://$MODULE_DIR$/dep/java/lib/coverage-report.jar!/" />
@@ -51,21 +47,17 @@
                 <root url="jar://$MODULE_DIR$/dep/java/lib/java.jar!/" />
                 <root url="jar://$MODULE_DIR$/dep/java/lib/jdi.jar!/" />
                 <root url="jar://$MODULE_DIR$/dep/java/lib/jdk-annotations.jar!/" />
-              </CLASSES>
-              <DOCUMENTATION />
-              <SOURCES />
+              </binaries>
             </library>
           </orderEntry>
           <orderEntry type="module-library">
             <library name="consulo:XML">
-              <CLASSES>
+              <binaries>
                 <root url="jar://$MODULE_DIR$/dep/xml/lib/jsr173_1.0_api.jar!/" />
                 <root url="jar://$MODULE_DIR$/dep/xml/lib/resolver.jar!/" />
                 <root url="jar://$MODULE_DIR$/dep/xml/lib/xerces.jar!/" />
                 <root url="jar://$MODULE_DIR$/dep/xml/lib/xml.jar!/" />
-              </CLASSES>
-              <DOCUMENTATION />
-              <SOURCES />
+              </binaries>
             </library>
           </orderEntry>
         </module-layer>

@@ -82,7 +82,6 @@ public final class UIFormEditorProvider implements FileEditorProvider, DumbAware
 	@NotNull
 	public FileEditorPolicy getPolicy()
 	{
-		return FileEditorPolicy.PLACE_BEFORE_DEFAULT_EDITOR;
+		return FileEditorPolicy.HIDE_DEFAULT_EDITOR;
 	}
-
 }
