@@ -31,7 +31,6 @@ import com.intellij.openapi.fileEditor.FileEditor;
 import com.intellij.openapi.fileEditor.FileEditorLocation;
 import com.intellij.openapi.fileEditor.FileEditorState;
 import com.intellij.openapi.fileEditor.FileEditorStateLevel;
-import com.intellij.openapi.fileTypes.StdFileTypes;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.Project;
@@ -41,6 +40,7 @@ import com.intellij.psi.PsiDocumentManager;
 import com.intellij.testFramework.LightVirtualFile;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.FormHighlightingPass;
+import com.intellij.uiDesigner.GuiFormFileType;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.radComponents.RadComponent;
@@ -67,22 +67,26 @@ public final class UIFormEditor extends UserDataHolderBase implements /*Navigata
 		myEditor = new GuiEditor(this, project, module, file);
 	}
 
+	@Override
 	@NotNull
 	public JComponent getComponent()
 	{
 		return myEditor;
 	}
 
+	@Override
 	public void dispose()
 	{
 		myEditor.dispose();
 	}
 
+	@Override
 	public JComponent getPreferredFocusedComponent()
 	{
 		return myEditor.getPreferredFocusedComponent();
 	}
 
+	@Override
 	@NotNull
 	public String getName()
 	{
@@ -94,35 +98,42 @@ public final class UIFormEditor extends UserDataHolderBase implements /*Navigata
 		return myEditor;
 	}
 
+	@Override
 	public boolean isModified()
 	{
 		return false;
 	}
 
+	@Override
 	public boolean isValid()
 	{
 		//TODO[anton,vova] fire when changed
-		return FileDocumentManager.getInstance().getDocument(myFile) != null && myFile.getFileType() == StdFileTypes.GUI_DESIGNER_FORM;
+		return FileDocumentManager.getInstance().getDocument(myFile) != null && myFile.getFileType() == GuiFormFileType.INSTANCE;
 	}
 
+	@Override
 	public void selectNotify()
 	{
 	}
 
+	@Override
 	public void deselectNotify()
 	{
 	}
 
+	@Override
 	public void addPropertyChangeListener(@NotNull final PropertyChangeListener listener)
 	{
 		//TODO[anton,vova]
 	}
 
+	@Override
 	public void removePropertyChangeListener(@NotNull final PropertyChangeListener listener)
 	{
 		//TODO[anton,vova]
 	}
 
+	@Override
 	public BackgroundEditorHighlighter getBackgroundHighlighter()
 	{
 		if(myBackgroundEditorHighlighter == null)
@@ -132,11 +143,13 @@ public final class UIFormEditor extends UserDataHolderBase implements /*Navigata
 		return myBackgroundEditorHighlighter;
 	}
 
+	@Override
 	public FileEditorLocation getCurrentLocation()
 	{
 		return null;
 	}
 
+	@Override
 	@NotNull
 	public FileEditorState getState(@NotNull final FileEditorStateLevel ignored)
 	{
@@ -151,6 +164,7 @@ public final class UIFormEditor extends UserDataHolderBase implements /*Navigata
 		return new MyEditorState(modificationStamp, ids);
 	}
 
+	@Override
 	public void setState(@NotNull final FileEditorState state)
 	{
 		FormEditingUtil.clearSelection(myEditor.getRootContainer());
@@ -183,6 +197,7 @@ public final class UIFormEditor extends UserDataHolderBase implements /*Navigata
 		}
 	}
 
+	@Override
 	public StructureViewBuilder getStructureViewBuilder()
 	{
 		return null;
@@ -220,6 +235,7 @@ public final class UIFormEditor extends UserDataHolderBase implements /*Navigata
 			myPasses = new HighlightingPass[]{new FormHighlightingPass(editor)};
 		}
 
+		@Override
 		@NotNull
 		public HighlightingPass[] createPassesForEditor()
 		{
@@ -227,6 +243,7 @@ public final class UIFormEditor extends UserDataHolderBase implements /*Navigata
 			return myPasses;
 		}
 
+		@Override
 		@NotNull
 		public HighlightingPass[] createPassesForVisibleArea()
 		{

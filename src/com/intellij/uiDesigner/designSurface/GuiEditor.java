@@ -80,7 +80,6 @@ import com.intellij.openapi.editor.event.DocumentEvent;
 import com.intellij.openapi.editor.ex.EditorEx;
 import com.intellij.openapi.editor.ex.util.LexerEditorHighlighter;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
-import com.intellij.openapi.fileTypes.StdFileTypes;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.Project;
@@ -321,12 +320,14 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 
 		myGlassLayer.addFocusListener(new FocusListener()
 		{
+			@Override
 			public void focusGained(FocusEvent e)
 			{
 				myDecorationLayer.repaint();
 				//fireSelectedComponentChanged(); // EA-36478
 			}
 
+			@Override
 			public void focusLost(FocusEvent e)
 			{
 				myDecorationLayer.repaint();
@@ -343,6 +344,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 		final Alarm alarm = new Alarm();
 		myDocumentListener = new DocumentAdapter()
 		{
+			@Override
 			public void documentChanged(final DocumentEvent e)
 			{
 				if(!myInsideChange)
@@ -608,6 +610,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 		}
 	}
 
+	@Override
 	public Object getData(final String dataId)
 	{
 		if(PlatformDataKeys.HELP_ID.is(dataId))
@@ -755,10 +758,12 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 		LOG.debug("GuiEditor.saveToFile(): group ID=" + myNextSaveGroupId);
 		CommandProcessor.getInstance().executeCommand(getProject(), new Runnable()
 		{
+			@Override
 			public void run()
 			{
 				ApplicationManager.getApplication().runWriteAction(new Runnable()
 				{
+					@Override
 					public void run()
 					{
 						myInsideChange = true;
@@ -824,6 +829,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 		final Ref<Boolean> anythingModified = new Ref<Boolean>();
 		FormEditingUtil.iterate(myRootContainer, new FormEditingUtil.ComponentVisitor()
 		{
+			@Override
 			public boolean visit(final IComponent component)
 			{
 				final RadComponent radComponent = (RadComponent) component;
@@ -1103,6 +1109,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 		final Map<String, String> result = new HashMap<String, String>();
 		FormEditingUtil.iterate(getRootContainer(), new FormEditingUtil.ComponentVisitor()
 		{
+			@Override
 			public boolean visit(final IComponent component)
 			{
 				if(component instanceof RadTabbedPane)
@@ -1124,6 +1131,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 	{
 		FormEditingUtil.iterate(getRootContainer(), new FormEditingUtil.ComponentVisitor()
 		{
+			@Override
 			public boolean visit(final IComponent component)
 			{
 				if(component instanceof RadTabbedPane)
@@ -1259,6 +1267,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 		/**
 		 * All components allocate whole pane's area.
 		 */
+		@Override
 		public void doLayout()
 		{
 			for(int i = getComponentCount() - 1; i >= 0; i--)
@@ -1268,11 +1277,13 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 			}
 		}
 
+		@Override
 		public Dimension getMinimumSize()
 		{
 			return getPreferredSize();
 		}
 
+		@Override
 		public Dimension getPreferredSize()
 		{
 			// make sure all components fit
@@ -1293,16 +1304,19 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 			return new Dimension(Math.max(width, bounds.width), Math.max(height, bounds.height));
 		}
 
+		@Override
 		public Dimension getPreferredScrollableViewportSize()
 		{
 			return getPreferredSize();
 		}
 
+		@Override
 		public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction)
 		{
 			return 10;
 		}
 
+		@Override
 		public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction)
 		{
 			if(orientation == SwingConstants.HORIZONTAL)
@@ -1312,11 +1326,13 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 			return visibleRect.height - 10;
 		}
 
+		@Override
 		public boolean getScrollableTracksViewportWidth()
 		{
 			return false;
 		}
 
+		@Override
 		public boolean getScrollableTracksViewportHeight()
 		{
 			return false;
@@ -1328,12 +1344,14 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 	 */
 	private final class CancelCurrentOperationAction extends AnAction
 	{
+		@Override
 		public void actionPerformed(final AnActionEvent e)
 		{
 			myProcessor.cancelOperation();
 			myQuickFixManager.hideIntentionHint();
 		}
 
+		@Override
 		public void update(final AnActionEvent e)
 		{
 			PropertyInspector inspector = DesignerToolWindowManager.getInstance(GuiEditor.this).getPropertyInspector();
@@ -1346,6 +1364,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 	 */
 	private final class MyDeleteProvider implements DeleteProvider
 	{
+		@Override
 		public void deleteElement(@NotNull final DataContext dataContext)
 		{
 			if(!GuiEditor.this.ensureEditable())
@@ -1354,6 +1373,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 			}
 			CommandProcessor.getInstance().executeCommand(getProject(), new Runnable()
 			{
+				@Override
 				public void run()
 				{
 					FormEditingUtil.deleteSelection(GuiEditor.this);
@@ -1361,6 +1381,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 			}, UIDesignerBundle.message("command.delete.selection"), null);
 		}
 
+		@Override
 		public boolean canDeleteElement(@NotNull final DataContext dataContext)
 		{
 			return !DesignerToolWindowManager.getInstance(GuiEditor.this).getPropertyInspector().isEditing() &&
@@ -1392,31 +1413,37 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 			myAlarm.cancelAllRequests();
 		}
 
+		@Override
 		public void childAdded(@NotNull final PsiTreeChangeEvent event)
 		{
 			handleEvent(event);
 		}
 
+		@Override
 		public void childMoved(@NotNull final PsiTreeChangeEvent event)
 		{
 			handleEvent(event);
 		}
 
+		@Override
 		public void childrenChanged(@NotNull final PsiTreeChangeEvent event)
 		{
 			handleEvent(event);
 		}
 
+		@Override
 		public void childRemoved(@NotNull PsiTreeChangeEvent event)
 		{
 			handleEvent(event);
 		}
 
+		@Override
 		public void childReplaced(@NotNull PsiTreeChangeEvent event)
 		{
 			handleEvent(event);
 		}
 
+		@Override
 		public void propertyChanged(@NotNull final PsiTreeChangeEvent event)
 		{
 			if(PsiTreeChangeEvent.PROP_ROOTS.equals(event.getPropertyName()))
@@ -1437,7 +1464,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 					myAlarm.cancelRequest(myRefreshPropertiesRequest);
 					myAlarm.addRequest(myRefreshPropertiesRequest, 500, ModalityState.stateForComponent(GuiEditor.this));
 				}
-				else if(containingFile instanceof PsiPlainTextFile && containingFile.getFileType().equals(StdFileTypes.GUI_DESIGNER_FORM))
+				else if(containingFile instanceof PsiPlainTextFile && containingFile.getFileType().equals(GuiFormFileType.INSTANCE))
 				{
 					// quick check if relevant
 					String resourceName = FormEditingUtil.buildResourceName(containingFile);
@@ -1462,6 +1489,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 			myKeepSelection = keepSelection;
 		}
 
+		@Override
 		public void run()
 		{
 			if(getModule().isDisposed())
@@ -1481,6 +1509,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 
 	private class MyRefreshPropertiesRequest implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			if(!getModule().isDisposed() && !getProject().isDisposed())
