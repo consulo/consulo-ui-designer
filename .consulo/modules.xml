@@ -60,9 +60,9 @@
               </binaries>
             </library>
           </orderEntry>
+          <orderEntry type="library" name="jgoodies" level="project" />
         </module-layer>
       </module>
     </modules>
   </component>
 </project>
-
