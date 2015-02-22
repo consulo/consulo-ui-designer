@@ -9,6 +9,7 @@
             <element id="module-production-resource-output" name="consulo-ui-designer" />
           </element>
           <element id="library" level="project" name="forms_compiler" />
+          <element id="library" level="project" name="jgoodies" />
         </element>
       </element>
     </root>
