@@ -51,11 +51,13 @@ import com.intellij.util.ExceptionUtil;
 
 public final class Form2SourceCompiler implements SourceInstrumentingCompiler{
 
+  @Override
   @NotNull
   public String getDescription() {
     return UIDesignerBundle.message("component.gui.designer.form.to.source.compiler");
   }
 
+  @Override
   public boolean validateConfiguration(CompileScope scope) {
     return true;
   }
@@ -64,6 +66,7 @@ public final class Form2SourceCompiler implements SourceInstrumentingCompiler{
   public void init(@NotNull CompilerManager compilerManager) {
   }
 
+  @Override
   @NotNull
   public ProcessingItem[] getProcessingItems(final CompileContext context) {
     final Project project = context.getProject();
@@ -74,9 +77,10 @@ public final class Form2SourceCompiler implements SourceInstrumentingCompiler{
     final ArrayList<ProcessingItem> items = new ArrayList<ProcessingItem>();
 
     ApplicationManager.getApplication().runReadAction(new Runnable() {
+      @Override
       public void run() {
         final CompileScope scope = context.getCompileScope();
-        final CompileScope projectScope = context.getProjectCompileScope();
+        final CompileScope projectScope = CompilerManager.getInstance(project).createProjectCompileScope();
 
         final VirtualFile[] formFiles = projectScope.getFiles(GuiFormFileType.INSTANCE, true);
         final CompilerManager compilerManager = CompilerManager.getInstance(project);
@@ -142,6 +146,7 @@ public final class Form2SourceCompiler implements SourceInstrumentingCompiler{
     return items.toArray(new ProcessingItem[items.size()]);
   }
 
+  @Override
   public ProcessingItem[] process(final CompileContext context, final ProcessingItem[] items) {
     final ArrayList<ProcessingItem> compiledItems = new ArrayList<ProcessingItem>();
 
@@ -192,6 +197,7 @@ public final class Form2SourceCompiler implements SourceInstrumentingCompiler{
 
       if (GuiDesignerConfiguration.getInstance(project).COPY_FORMS_RUNTIME_TO_OUTPUT) {
         ApplicationManager.getApplication().runReadAction(new Runnable() {
+          @Override
           public void run() {
             final Module module = ModuleUtilCore.findModuleForFile(formFile, project);
             if (module != null && !processedModules.contains(module)) {
@@ -220,10 +226,13 @@ public final class Form2SourceCompiler implements SourceInstrumentingCompiler{
       }
 
       ApplicationManager.getApplication().invokeAndWait(new Runnable() {
+        @Override
         public void run() {
           CommandProcessor.getInstance().executeCommand(project, new Runnable() {
+            @Override
             public void run() {
               ApplicationManager.getApplication().runWriteAction(new Runnable() {
+                @Override
                 public void run() {
                   PsiDocumentManager.getInstance(project).commitAllDocuments();
                   generator.generate(formFile);
@@ -261,6 +270,7 @@ public final class Form2SourceCompiler implements SourceInstrumentingCompiler{
     }
   }
 
+  @Override
   public ValidityState createValidityState(final DataInput in) throws IOException {
     return TimestampValidityState.load(in);
   }
@@ -276,6 +286,7 @@ public final class Form2SourceCompiler implements SourceInstrumentingCompiler{
       myState = new TimestampValidityState(formFile.getTimeStamp());
     }
 
+    @Override
     @NotNull
     public VirtualFile getFile() {
       return mySourceFile;
@@ -285,6 +296,7 @@ public final class Form2SourceCompiler implements SourceInstrumentingCompiler{
       return myFormFile;
     }
 
+    @Override
     public ValidityState getValidityState() {
       return myState;
     }
