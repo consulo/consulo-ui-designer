@@ -27,15 +27,19 @@ import com.intellij.usages.impl.rules.UsageTypeProvider;
 /**
  * @author yole
  */
-public class FormUsageTypeProvider implements UsageTypeProvider {
-  @Nullable
-  public UsageType getUsageType(PsiElement element) {
-    final PsiFile psiFile = element.getContainingFile();
-    if (psiFile.getFileType() == GuiFormFileType.INSTANCE) {
-      return FORM_USAGE_TYPE;
-    }
-    return null;
-  }
+public class FormUsageTypeProvider implements UsageTypeProvider
+{
+	private static final UsageType FORM_USAGE_TYPE = new UsageType(UIDesignerBundle.message("form.usage.type"));
 
-  private static final UsageType FORM_USAGE_TYPE = new UsageType(UIDesignerBundle.message("form.usage.type"));
+	@Override
+	@Nullable
+	public UsageType getUsageType(PsiElement element)
+	{
+		final PsiFile psiFile = element.getContainingFile();
+		if(psiFile.getFileType() == GuiFormFileType.INSTANCE)
+		{
+			return FORM_USAGE_TYPE;
+		}
+		return null;
+	}
 }
