@@ -1,7 +1,0 @@
-<options>
-	<dep>consulo-java-i18n</dep>
-	<dep>consulo-java</dep>
-	<dep>consulo-xml</dep>
-	<dep>consulo-properties</dep>
-	<dep>consulo-spellchecker</dep>
-</options>
