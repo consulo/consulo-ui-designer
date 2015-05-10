@@ -16,9 +16,20 @@
 
 package com.intellij.uiDesigner.actions;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.swing.Icon;
+
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.Nullable;
+import org.mustbe.consulo.java.module.extension.JavaModuleExtension;
 import com.intellij.ide.IdeView;
 import com.intellij.ide.actions.CreateElementActionBase;
-import com.intellij.openapi.actionSystem.*;
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.CommonDataKeys;
+import com.intellij.openapi.actionSystem.LangDataKeys;
+import com.intellij.openapi.actionSystem.Presentation;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.project.DumbAware;
@@ -30,13 +41,6 @@ import com.intellij.psi.JavaDirectoryService;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.util.IncorrectOperationException;
-import org.consulo.java.platform.module.extension.JavaModuleExtensionImpl;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
-import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * @author yole
@@ -53,7 +57,7 @@ public abstract class AbstractCreateFormAction extends CreateElementActionBase i
     final Presentation presentation = e.getPresentation();
     if (presentation.isEnabled()) {
       final Module module = e.getData(LangDataKeys.MODULE);
-      if (module != null && ModuleUtilCore.getExtension(module, JavaModuleExtensionImpl.class) != null) {
+      if (module != null && ModuleUtilCore.getExtension(module, JavaModuleExtension.class) != null) {
         final IdeView view = e.getData(LangDataKeys.IDE_VIEW);
         if (view != null) {
           final ProjectFileIndex projectFileIndex = ProjectRootManager.getInstance(project).getFileIndex();
