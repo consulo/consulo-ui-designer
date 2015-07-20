@@ -27,6 +27,8 @@ import java.util.StringTokenizer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mustbe.consulo.compiler.roots.CompilerPathsImpl;
+import org.mustbe.consulo.roots.impl.ProductionContentFolderTypeProvider;
+import org.mustbe.consulo.roots.impl.TestContentFolderTypeProvider;
 import com.intellij.compiler.PsiClassWriter;
 import com.intellij.compiler.impl.CompilerUtil;
 import com.intellij.compiler.instrumentation.InstrumentationClassFinder;
@@ -50,10 +52,8 @@ import com.intellij.openapi.util.Computable;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.GuiDesignerConfiguration;
 import com.intellij.uiDesigner.GuiFormFileType;
@@ -68,6 +68,7 @@ import com.intellij.util.ExceptionUtil;
 
 public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 {
+	private static final String CLASS_SUFFIX = ".class";
 	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.make.Form2ByteCodeCompiler");
 
 	@Override
@@ -238,10 +239,6 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 				}
 				list.add(formFile);
 			}
-			else
-			{
-				// todo[anton] handle somehow
-			}
 		}
 		return module2formFiles;
 	}
@@ -265,10 +262,6 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 				}
 				list.add(item);
 			}
-			else
-			{
-				// todo[anton] handle somehow
-			}
 		}
 		return module2formFiles;
 	}
@@ -276,36 +269,50 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 	@Nullable
 	private static VirtualFile findFile(final CompileContext context, final String className, final Module module)
 	{
-		// for most cases (top-level classes) this will work
-		VirtualFile file = findFileByRelativePath(context, module, className.replace('.', '/') + ".class");
-		if(file == null)
+		String classPath = className.replace('.', '/');
+
+		VirtualFile file = findFileByRelativePath(context, module, classPath + CLASS_SUFFIX);
+		if(file != null)
 		{
-			// check last class name as inner - it ill work for most cases - if it not top level
-			file = findFileByRelativePath(context, module, getClassNameLastAsInner(className).replace('.', '/') + ".class");
-			if(file == null)
+			return file;
+		}
+
+		int prev = 0;
+		while(true)
+		{
+			int i = classPath.indexOf('/', prev);
+			if(i == -1)
 			{
-				// getClassFileName() is much longer than simply conversion from dots into slashes, but works for inner classes
-				file = findFileByRelativePath(context, module, getClassFileName(className.replace('$', '.'), module) + ".class");
+				if(prev == 0)
+				{
+					return findFileByRelativePath(context, module, classPath);
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			prev = i + 1;
+
+			String targetFilePath = classPath.substring(0, i) + CLASS_SUFFIX;
+			VirtualFile targetFile = findFileByRelativePath(context, module, targetFilePath);
+			if(targetFile != null)
+			{
+				String mergedPath = classPath.substring(0, i) + '$' + classPath.substring(i + 1, classPath.length()).replace('/', '$') + CLASS_SUFFIX;
+				return findFileByRelativePath(context, module, mergedPath);
 			}
 		}
-		return file;
-	}
-
-	private static String getClassNameLastAsInner(String clazzName)
-	{
-		int lastIndex = clazzName.lastIndexOf('.');
-		char[] chars = clazzName.toCharArray();
-		chars[lastIndex] = '$';
-		return new String(chars);
+		return null;
 	}
 
 	private static VirtualFile findFileByRelativePath(final CompileContext context, final Module module, final String relativepath)
 	{
-		final VirtualFile output = context.getModuleOutputDirectory(module);
+		final VirtualFile output = context.getOutputForFile(module, ProductionContentFolderTypeProvider.getInstance());
 		VirtualFile file = output != null ? output.findFileByRelativePath(relativepath) : null;
 		if(file == null)
 		{
-			final VirtualFile testsOutput = context.getModuleOutputDirectoryForTests(module);
+			final VirtualFile testsOutput = context.getOutputForFile(module, TestContentFolderTypeProvider.getInstance());
 			if(testsOutput != null && !testsOutput.equals(output))
 			{
 				file = testsOutput.findFileByRelativePath(relativepath);
@@ -314,32 +321,11 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 		return file;
 	}
 
-
-	private static String getClassFileName(final String className, final Module module)
-	{
-		final PsiClass aClass = JavaPsiFacade.getInstance(module.getProject()).findClass(className, GlobalSearchScope.moduleScope(module));
-		if(aClass == null)
-		{
-			return className.replace('.', '/');
-		}
-
-		PsiClass outerClass = aClass;
-		while(outerClass.getParent() instanceof PsiClass)
-		{
-			outerClass = (PsiClass) outerClass.getParent();
-		}
-
-		final String outerQualifiedName = outerClass.getQualifiedName();
-
-		assert outerQualifiedName != null;
-		return outerQualifiedName.replace('.', '/') + className.substring(outerQualifiedName.length()).replace('.', '$');
-	}
-
 	@Override
 	public ProcessingItem[] process(final CompileContext context, final ProcessingItem[] items)
 	{
 		final DirectoryIndex directoryIndex = DirectoryIndex.getInstance(context.getProject());
-		final ArrayList<ProcessingItem> compiledItems = new ArrayList<ProcessingItem>();
+		final List<ProcessingItem> compiledItems = new ArrayList<ProcessingItem>();
 
 		context.getProgressIndicator().pushState();
 		context.getProgressIndicator().setText(UIDesignerBundle.message("progress.compiling.ui.forms"));
@@ -357,14 +343,14 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 			{
 				if(GuiDesignerConfiguration.getInstance(project).COPY_FORMS_RUNTIME_TO_OUTPUT)
 				{
-					final String moduleOutputPath = CompilerPathsImpl.getModuleOutputPath(module, false);
+					final String moduleOutputPath = CompilerPathsImpl.getModuleOutputPath(module, ProductionContentFolderTypeProvider.getInstance());
 					try
 					{
 						if(moduleOutputPath != null)
 						{
 							filesToRefresh.addAll(CopyResourcesUtil.copyFormsRuntime(moduleOutputPath, false));
 						}
-						final String testsOutputPath = CompilerPathsImpl.getModuleOutputPath(module, true);
+						final String testsOutputPath = CompilerPathsImpl.getModuleOutputPath(module, TestContentFolderTypeProvider.getInstance());
 						if(testsOutputPath != null && !testsOutputPath.equals(moduleOutputPath))
 						{
 							filesToRefresh.addAll(CopyResourcesUtil.copyFormsRuntime(testsOutputPath, false));
@@ -423,7 +409,7 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 						{
 							String packageName = directoryIndex.getPackageName(formFile.getParent());
 
-							File outputFormFile = null;
+							File outputFormFile;
 							if(packageName == null || packageName.isEmpty())
 							{
 								outputFormFile = new File(outputForFile.getPath(), formFile.getName());
