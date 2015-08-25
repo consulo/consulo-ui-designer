@@ -68,6 +68,7 @@ import com.intellij.psi.util.InheritanceUtil;
 import com.intellij.uiDesigner.ErrorAnalyzer;
 import com.intellij.uiDesigner.ErrorInfo;
 import com.intellij.uiDesigner.FormEditingUtil;
+import com.intellij.uiDesigner.GuiDesignerConfiguration;
 import com.intellij.uiDesigner.PsiPropertiesProvider;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.UIFormXmlConstants;
@@ -81,6 +82,7 @@ import com.intellij.uiDesigner.core.SupportCode;
 import com.intellij.uiDesigner.lw.*;
 import com.intellij.uiDesigner.shared.BorderType;
 import com.intellij.util.IncorrectOperationException;
+import com.intellij.util.ui.JBUI;
 
 public final class FormSourceCodeGenerator
 {
@@ -90,6 +92,7 @@ public final class FormSourceCodeGenerator
 	private StringBuffer myBuffer;
 	private Stack<Boolean> myIsFirstParameterStack;
 	private final Project myProject;
+	private final GuiDesignerConfiguration myConfiguration;
 	private final ArrayList<FormErrorInfo> myErrors;
 	private boolean myNeedLoadLabelText;
 	private boolean myNeedLoadButtonText;
@@ -141,6 +144,7 @@ public final class FormSourceCodeGenerator
 	{
 		myProject = project;
 		myErrors = new ArrayList<FormErrorInfo>();
+		myConfiguration = GuiDesignerConfiguration.getInstance(project);
 	}
 
 	public void generate(final VirtualFile formFile)
@@ -1391,28 +1395,28 @@ public final class FormSourceCodeGenerator
 	void newDimension(final Dimension dimension)
 	{
 		startConstructor(Dimension.class.getName());
-		push(dimension.width);
-		push(dimension.height);
+		pushScaling(dimension.width);
+		pushScaling(dimension.height);
 		endConstructor();
 	}
 
 	void newInsets(final Insets insets)
 	{
 		startConstructor(Insets.class.getName());
-		push(insets.top);
-		push(insets.left);
-		push(insets.bottom);
-		push(insets.right);
+		pushScaling(insets.top);
+		pushScaling(insets.left);
+		pushScaling(insets.bottom);
+		pushScaling(insets.right);
 		endConstructor();
 	}
 
 	private void newRectangle(final Rectangle rectangle)
 	{
 		startConstructor(Rectangle.class.getName());
-		push(rectangle.x);
-		push(rectangle.y);
-		push(rectangle.width);
-		push(rectangle.height);
+		pushScaling(rectangle.x);
+		pushScaling(rectangle.y);
+		pushScaling(rectangle.width);
+		pushScaling(rectangle.height);
 		endConstructor();
 	}
 
@@ -1497,6 +1501,22 @@ public final class FormSourceCodeGenerator
 	{
 		checkParameter();
 		append(value);
+	}
+
+	void pushScaling(final int value)
+	{
+		checkParameter();
+		if(value > 0 && myConfiguration.USE_JB_SCALING)
+		{
+			append(JBUI.class.getName());
+			append(".scale(");
+			append(value);
+			append(")");
+		}
+		else
+		{
+			append(value);
+		}
 	}
 
 	void append(final int value)

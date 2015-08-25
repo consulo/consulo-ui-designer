@@ -54,13 +54,10 @@ import com.intellij.util.IncorrectOperationException;
  */
 public final class GuiDesignerConfigurable implements SearchableConfigurable, Configurable.NoScroll
 {
-	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.GuiDesignerConfigurable");
+	private static final Logger LOG = Logger.getInstance(GuiDesignerConfigurable.class);
 	private final Project myProject;
 	private MyGeneralUI myGeneralUI;
 
-	/**
-	 * Invoked by reflection
-	 */
 	public GuiDesignerConfigurable(final Project project)
 	{
 		myProject = project;
@@ -131,6 +128,10 @@ public final class GuiDesignerConfigurable implements SearchableConfigurable, Co
 			return true;
 		}
 
+		if(configuration.USE_JB_SCALING != myGeneralUI.myUseJBScalingCheckBox.isSelected())
+		{
+			return true;
+		}
 		return false;
 	}
 
@@ -145,6 +146,7 @@ public final class GuiDesignerConfigurable implements SearchableConfigurable, Co
 		configuration.DEFAULT_FIELD_ACCESSIBILITY = (String) myGeneralUI.myDefaultFieldAccessibilityCombo
 				.getSelectedItem();
 		configuration.RESIZE_HEADERS = myGeneralUI.myResizeHeaders.isSelected();
+		configuration.USE_JB_SCALING = myGeneralUI.myUseJBScalingCheckBox.isSelected();
 
 		if(configuration.INSTRUMENT_CLASSES && !myProject.isDefault())
 		{
@@ -187,6 +189,7 @@ public final class GuiDesignerConfigurable implements SearchableConfigurable, Co
 		myGeneralUI.myDefaultFieldAccessibilityCombo.setSelectedItem(configuration.DEFAULT_FIELD_ACCESSIBILITY);
 
 		myGeneralUI.myResizeHeaders.setSelected(configuration.RESIZE_HEADERS);
+		myGeneralUI.myUseJBScalingCheckBox.setSelected(configuration.USE_JB_SCALING);
 	}
 
 	@Override

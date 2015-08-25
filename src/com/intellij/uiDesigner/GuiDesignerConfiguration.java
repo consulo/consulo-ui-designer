@@ -58,6 +58,8 @@ public final class GuiDesignerConfiguration implements PersistentStateComponent<
 
 	public boolean RESIZE_HEADERS = true;
 
+	public boolean USE_JB_SCALING = false;
+
 	@Override
 	public GuiDesignerConfiguration getState()
 	{
