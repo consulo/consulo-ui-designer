@@ -341,7 +341,8 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 
 			try
 			{
-				if(GuiDesignerConfiguration.getInstance(project).COPY_FORMS_RUNTIME_TO_OUTPUT)
+				GuiDesignerConfiguration designerConfiguration = GuiDesignerConfiguration.getInstance(project);
+				if(designerConfiguration.COPY_FORMS_RUNTIME_TO_OUTPUT)
 				{
 					final String moduleOutputPath = CompilerPathsImpl.getModuleOutputPath(module, ProductionContentFolderTypeProvider.getInstance());
 					try
@@ -402,7 +403,7 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 						continue;
 					}
 
-					if(GuiDesignerConfiguration.getInstance(project).COPY_FORMS_TO_OUTPUT)
+					if(designerConfiguration.COPY_FORMS_TO_OUTPUT)
 					{
 						VirtualFile outputForFile = context.getOutputForFile(module, formFile);
 						if(outputForFile != null)
@@ -437,7 +438,7 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 					LOG.assertTrue(classFile.exists(), classFile.getPath());
 
 					final AsmCodeGenerator codeGenerator = new AsmCodeGenerator(rootContainer, finder, new PsiNestedFormLoader(module), false,
-							new PsiClassWriter(module));
+							new PsiClassWriter(module), designerConfiguration.USE_JB_SCALING);
 					ApplicationManager.getApplication().runReadAction(new Runnable()
 					{
 						@Override
