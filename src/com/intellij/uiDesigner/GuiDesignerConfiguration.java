@@ -15,7 +15,12 @@
  */
 package com.intellij.uiDesigner;
 
-import com.intellij.openapi.components.*;
+import com.intellij.openapi.components.PersistentStateComponent;
+import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.components.State;
+import com.intellij.openapi.components.Storage;
+import com.intellij.openapi.components.StoragePathMacros;
+import com.intellij.openapi.components.StorageScheme;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiModifier;
 import com.intellij.util.xmlb.XmlSerializerUtil;
@@ -25,39 +30,43 @@ import com.intellij.util.xmlb.XmlSerializerUtil;
  * @author Vladimir Kondratyev
  */
 @State(
-  name = "uidesigner-configuration",
-  storages = {
-    @Storage(
-      file = StoragePathMacros.PROJECT_FILE
-    )
-    ,@Storage( file = StoragePathMacros.PROJECT_CONFIG_DIR + "/uiDesigner.xml", scheme = StorageScheme.DIRECTORY_BASED)
-    }
+		name = "uidesigner-configuration",
+		storages = {
+				@Storage(file = StoragePathMacros.PROJECT_CONFIG_DIR + "/uiDesigner.xml",
+						scheme = StorageScheme.DIRECTORY_BASED)
+		}
 )
-public final class GuiDesignerConfiguration implements PersistentStateComponent<GuiDesignerConfiguration> {
-  public static GuiDesignerConfiguration getInstance(final Project project){
-    return ServiceManager.getService(project, GuiDesignerConfiguration.class);
-  }
+public final class GuiDesignerConfiguration implements PersistentStateComponent<GuiDesignerConfiguration>
+{
+	public static GuiDesignerConfiguration getInstance(final Project project)
+	{
+		return ServiceManager.getService(project, GuiDesignerConfiguration.class);
+	}
 
-  /**
-   * Defines how the designer generate UI (instrument classes or generate Java code)
-   */
-  public boolean INSTRUMENT_CLASSES = true;
-  
-  public boolean COPY_FORMS_RUNTIME_TO_OUTPUT = true;
+	/**
+	 * Defines how the designer generate UI (instrument classes or generate Java code)
+	 */
+	public boolean INSTRUMENT_CLASSES = true;
 
-  public boolean COPY_FORMS_TO_OUTPUT = true;
+	public boolean COPY_FORMS_RUNTIME_TO_OUTPUT = true;
 
-  public String DEFAULT_LAYOUT_MANAGER = UIFormXmlConstants.LAYOUT_INTELLIJ;
+	public boolean COPY_FORMS_TO_OUTPUT = true;
 
-  public String DEFAULT_FIELD_ACCESSIBILITY = PsiModifier.PRIVATE;
+	public String DEFAULT_LAYOUT_MANAGER = UIFormXmlConstants.LAYOUT_INTELLIJ;
 
-  public boolean RESIZE_HEADERS = true;
+	public String DEFAULT_FIELD_ACCESSIBILITY = PsiModifier.PRIVATE;
 
-  public GuiDesignerConfiguration getState() {
-    return this;
-  }
+	public boolean RESIZE_HEADERS = true;
 
-  public void loadState(GuiDesignerConfiguration object) {
-    XmlSerializerUtil.copyBean(object, this);
-  }
+	@Override
+	public GuiDesignerConfiguration getState()
+	{
+		return this;
+	}
+
+	@Override
+	public void loadState(GuiDesignerConfiguration object)
+	{
+		XmlSerializerUtil.copyBean(object, this);
+	}
 }
