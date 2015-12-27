@@ -15,16 +15,20 @@
  */
 package com.intellij.uiDesigner.binding;
 
-import com.intellij.codeInsight.daemon.QuickFixBundle;
+import org.jetbrains.annotations.NotNull;
+import org.mustbe.consulo.java.JavaQuickFixBundle;
 import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.ReadonlyStatusHandler;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiClassType;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiPlainTextFile;
+import com.intellij.psi.PsiType;
 import com.intellij.psi.util.ClassUtil;
 import com.intellij.util.IncorrectOperationException;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Eugene Zhuravlev
@@ -54,7 +58,7 @@ public class ChangeFormComponentTypeFix implements IntentionAction {
 
   @NotNull
   public String getText() {
-    return QuickFixBundle.message("uidesigner.change.gui.component.type");
+    return JavaQuickFixBundle.message("uidesigner.change.gui.component.type");
   }
 
   @NotNull
