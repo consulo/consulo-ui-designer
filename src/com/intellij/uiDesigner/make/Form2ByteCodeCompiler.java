@@ -26,12 +26,14 @@ import java.util.StringTokenizer;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.org.objectweb.asm.ClassWriter;
 import org.mustbe.consulo.compiler.roots.CompilerPathsImpl;
+import org.mustbe.consulo.java.module.extension.JavaModuleExtension;
 import org.mustbe.consulo.roots.impl.ProductionContentFolderTypeProvider;
 import org.mustbe.consulo.roots.impl.TestContentFolderTypeProvider;
-import com.intellij.compiler.PsiClassWriter;
 import com.intellij.compiler.impl.CompilerUtil;
 import com.intellij.compiler.instrumentation.InstrumentationClassFinder;
+import com.intellij.compiler.instrumentation.InstrumenterClassWriter;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.compiler.ClassInstrumentingCompiler;
 import com.intellij.openapi.compiler.CompileContext;
@@ -45,7 +47,11 @@ import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
+import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.projectRoots.JavaSdk;
+import com.intellij.openapi.projectRoots.JavaSdkVersion;
+import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.roots.OrderEnumerator;
 import com.intellij.openapi.roots.impl.DirectoryIndex;
 import com.intellij.openapi.util.Computable;
@@ -164,8 +170,7 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 							}
 							catch(Exception e)
 							{
-								addMessage(context, UIDesignerBundle.message("error.cannot.process.form.file", ExceptionUtil.getThrowableText(e)),
-										formFile, CompilerMessageCategory.ERROR);
+								addMessage(context, UIDesignerBundle.message("error.cannot.process.form.file", ExceptionUtil.getThrowableText(e)), formFile, CompilerMessageCategory.ERROR);
 								continue;
 							}
 
@@ -179,8 +184,7 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 							{
 								if(scope.belongs(formFile.getUrl()))
 								{
-									addMessage(context, UIDesignerBundle.message("error.class.to.bind.does.not.exist", classToBind), formFile,
-											CompilerMessageCategory.ERROR);
+									addMessage(context, UIDesignerBundle.message("error.class.to.bind.does.not.exist", classToBind), formFile, CompilerMessageCategory.ERROR);
 								}
 								continue;
 							}
@@ -190,8 +194,8 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 							{
 								if(belongsToCompileScope(context, formFile, classToBind))
 								{
-									addMessage(context, UIDesignerBundle.message("error.duplicate.bind", classToBind,
-											alreadyProcessedForm.getPresentableUrl()), formFile, CompilerMessageCategory.ERROR);
+									addMessage(context, UIDesignerBundle.message("error.duplicate.bind", classToBind, alreadyProcessedForm.getPresentableUrl()), formFile,
+											CompilerMessageCategory.ERROR);
 								}
 								continue;
 							}
@@ -359,8 +363,8 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 					}
 					catch(IOException e)
 					{
-						addMessage(context, UIDesignerBundle.message("error.cannot.copy.gui.designer.form.runtime", module.getName(),
-								ExceptionUtil.getThrowableText(e)), null, CompilerMessageCategory.ERROR);
+						addMessage(context, UIDesignerBundle.message("error.cannot.copy.gui.designer.form.runtime", module.getName(), ExceptionUtil.getThrowableText(e)), null,
+								CompilerMessageCategory.ERROR);
 					}
 				}
 
@@ -398,8 +402,7 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 					}
 					catch(Exception e)
 					{
-						addMessage(context, UIDesignerBundle.message("error.cannot.process.form.file", ExceptionUtil.getThrowableText(e)), formFile,
-								CompilerMessageCategory.ERROR);
+						addMessage(context, UIDesignerBundle.message("error.cannot.process.form.file", ExceptionUtil.getThrowableText(e)), formFile, CompilerMessageCategory.ERROR);
 						continue;
 					}
 
@@ -427,8 +430,7 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 							}
 							catch(IOException e)
 							{
-								addMessage(context, UIDesignerBundle.message("error.cannot.process.form.file", ExceptionUtil.getThrowableText(e)),
-										formFile, CompilerMessageCategory.ERROR);
+								addMessage(context, UIDesignerBundle.message("error.cannot.process.form.file", ExceptionUtil.getThrowableText(e)), formFile, CompilerMessageCategory.ERROR);
 								continue;
 							}
 						}
@@ -438,15 +440,8 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 					LOG.assertTrue(classFile.exists(), classFile.getPath());
 
 					final AsmCodeGenerator codeGenerator = new AsmCodeGenerator(rootContainer, finder, new PsiNestedFormLoader(module), false,
-							new PsiClassWriter(module), designerConfiguration.USE_JB_SCALING);
-					ApplicationManager.getApplication().runReadAction(new Runnable()
-					{
-						@Override
-						public void run()
-						{
-							codeGenerator.patchFile(classFile);
-						}
-					});
+							new InstrumenterClassWriter(isJdk6(module) ? ClassWriter.COMPUTE_FRAMES : ClassWriter.COMPUTE_MAXS, finder), designerConfiguration.USE_JB_SCALING);
+					ApplicationManager.getApplication().runReadAction(() -> codeGenerator.patchFile(classFile));
 					final FormErrorInfo[] errors = codeGenerator.getErrors();
 					final FormErrorInfo[] warnings = codeGenerator.getWarnings();
 					for(FormErrorInfo warning : warnings)
@@ -474,13 +469,22 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 		return compiledItems.toArray(new ProcessingItem[compiledItems.size()]);
 	}
 
+	private static boolean isJdk6(final Module module)
+	{
+		final Sdk projectJdk = ModuleUtilCore.getSdk(module, JavaModuleExtension.class);
+		if(projectJdk == null)
+		{
+			return false;
+		}
+		return JavaSdk.getInstance().isOfVersionOrHigher(projectJdk, JavaSdkVersion.JDK_1_6);
+	}
+
 	private static void addMessage(final CompileContext context, final String s, final VirtualFile formFile, final CompilerMessageCategory severity)
 	{
 		addMessage(context, new FormErrorInfo(null, s), formFile, severity);
 	}
 
-	private static void addMessage(final CompileContext context, final FormErrorInfo e, final VirtualFile formFile,
-			final CompilerMessageCategory severity)
+	private static void addMessage(final CompileContext context, final FormErrorInfo e, final VirtualFile formFile, final CompilerMessageCategory severity)
 	{
 		if(formFile != null)
 		{
