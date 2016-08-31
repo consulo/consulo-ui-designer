@@ -23,10 +23,10 @@ import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import com.intellij.icons.AllIcons;
 import com.intellij.ide.IdeBundle;
-import com.intellij.openapi.fileTypes.FileTypeWithPredefinedCharset;
 import com.intellij.openapi.util.Pair;
 import com.intellij.openapi.vfs.CharsetToolkit;
 import com.intellij.openapi.vfs.VirtualFile;
+import consulo.fileTypes.FileTypeWithPredefinedCharset;
 
 public class GuiFormFileType implements FileTypeWithPredefinedCharset
 {

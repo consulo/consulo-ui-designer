@@ -29,10 +29,7 @@ import java.util.StringTokenizer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.org.objectweb.asm.ClassWriter;
-import org.mustbe.consulo.compiler.roots.CompilerPathsImpl;
 import org.mustbe.consulo.java.module.extension.JavaModuleExtension;
-import org.mustbe.consulo.roots.impl.ProductionContentFolderTypeProvider;
-import org.mustbe.consulo.roots.impl.TestContentFolderTypeProvider;
 import com.intellij.compiler.JavaCompilerUtil;
 import com.intellij.compiler.impl.CompilerUtil;
 import com.intellij.compiler.impl.ModuleChunk;
@@ -77,6 +74,9 @@ import com.intellij.uiDesigner.lw.CompiledClassPropertiesProvider;
 import com.intellij.uiDesigner.lw.LwRootContainer;
 import com.intellij.util.Chunk;
 import com.intellij.util.ExceptionUtil;
+import consulo.compiler.roots.CompilerPathsImpl;
+import consulo.roots.impl.ProductionContentFolderTypeProvider;
+import consulo.roots.impl.TestContentFolderTypeProvider;
 
 public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 {

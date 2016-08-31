@@ -24,7 +24,6 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
-import org.mustbe.consulo.compiler.roots.CompilerPathsImpl;
 import com.intellij.compiler.impl.CompilerUtil;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ModalityState;
@@ -48,6 +47,7 @@ import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.compiler.AlienFormFileException;
 import com.intellij.uiDesigner.compiler.FormErrorInfo;
 import com.intellij.util.ExceptionUtil;
+import consulo.compiler.roots.CompilerPathsImpl;
 
 public final class Form2SourceCompiler implements SourceInstrumentingCompiler{
 

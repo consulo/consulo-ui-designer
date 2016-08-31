@@ -15,6 +15,18 @@
  */
 package com.intellij.uiDesigner;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.StringTokenizer;
+
+import javax.swing.UIDefaults;
+import javax.swing.UIManager;
+
+import org.jetbrains.annotations.NotNull;
 import com.intellij.ProjectTopics;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.components.ServiceManager;
@@ -28,19 +40,12 @@ import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileManager;
-import com.intellij.openapi.vfs.util.ArchiveVfsUtil;
 import com.intellij.uiDesigner.core.Spacer;
 import com.intellij.util.PathUtil;
 import com.intellij.util.containers.ConcurrentWeakHashMap;
 import com.intellij.util.lang.UrlClassLoader;
 import com.intellij.util.messages.MessageBusConnection;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.*;
+import consulo.vfs.util.ArchiveVfsUtil;
 
 /**
  * @author Anton Katilin
