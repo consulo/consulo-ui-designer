@@ -20,8 +20,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.jetbrains.annotations.NotNull;
@@ -31,7 +33,9 @@ import org.mustbe.consulo.compiler.roots.CompilerPathsImpl;
 import org.mustbe.consulo.java.module.extension.JavaModuleExtension;
 import org.mustbe.consulo.roots.impl.ProductionContentFolderTypeProvider;
 import org.mustbe.consulo.roots.impl.TestContentFolderTypeProvider;
+import com.intellij.compiler.JavaCompilerUtil;
 import com.intellij.compiler.impl.CompilerUtil;
+import com.intellij.compiler.impl.ModuleChunk;
 import com.intellij.compiler.instrumentation.InstrumentationClassFinder;
 import com.intellij.compiler.instrumentation.InstrumenterClassWriter;
 import com.intellij.openapi.application.ApplicationManager;
@@ -42,6 +46,7 @@ import com.intellij.openapi.compiler.CompilerManager;
 import com.intellij.openapi.compiler.CompilerMessageCategory;
 import com.intellij.openapi.compiler.TimestampValidityState;
 import com.intellij.openapi.compiler.ValidityState;
+import com.intellij.openapi.compiler.ex.CompileContextEx;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
@@ -52,11 +57,11 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.projectRoots.JavaSdk;
 import com.intellij.openapi.projectRoots.JavaSdkVersion;
 import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.roots.OrderEnumerator;
 import com.intellij.openapi.roots.impl.DirectoryIndex;
 import com.intellij.openapi.util.Computable;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.vfs.VfsUtil;
+import com.intellij.openapi.vfs.VfsUtilCore;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiFile;
@@ -70,6 +75,7 @@ import com.intellij.uiDesigner.compiler.FormErrorInfo;
 import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.uiDesigner.lw.CompiledClassPropertiesProvider;
 import com.intellij.uiDesigner.lw.LwRootContainer;
+import com.intellij.util.Chunk;
 import com.intellij.util.ExceptionUtil;
 
 public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
@@ -112,6 +118,36 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 			}
 		}
 		return new InstrumentationClassFinder(urls.toArray(new URL[urls.size()]));
+	}
+
+	@NotNull
+	public static InstrumentationClassFinder createClassFinder(@NotNull CompileContext context, @NotNull final Module module)
+	{
+		ModuleChunk moduleChunk = new ModuleChunk((CompileContextEx) context, new Chunk<>(module), Collections.<Module, List<VirtualFile>>emptyMap());
+
+		Set<VirtualFile> compilationBootClasspath = JavaCompilerUtil.getCompilationBootClasspath(context, moduleChunk);
+		Set<VirtualFile> compilationClasspath = JavaCompilerUtil.getCompilationClasspath(context, moduleChunk);
+
+		return new InstrumentationClassFinder(toUrls(compilationBootClasspath), toUrls(compilationClasspath));
+	}
+
+	@NotNull
+	private static URL[] toUrls(Set<VirtualFile> files)
+	{
+		List<URL> urls = new ArrayList<>(files.size());
+		for(VirtualFile file : files)
+		{
+			try
+			{
+				File javaFile = VfsUtilCore.virtualToIoFile(file);
+				urls.add(javaFile.getCanonicalFile().toURI().toURL());
+			}
+			catch(Exception e)
+			{
+				LOG.error(e);
+			}
+		}
+		return urls.toArray(new URL[urls.size()]);
 	}
 
 	@Override
@@ -340,8 +376,7 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 		List<File> filesToRefresh = new ArrayList<File>();
 		for(final Module module : module2itemsList.keySet())
 		{
-			final String classPath = OrderEnumerator.orderEntries(module).recursively().getPathsList().getPathsString();
-			final InstrumentationClassFinder finder = createClassFinder(classPath);
+			final InstrumentationClassFinder finder = createClassFinder(context, module);
 
 			try
 			{
