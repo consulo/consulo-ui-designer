@@ -16,7 +16,6 @@
 package com.intellij.uiDesigner.binding;
 
 import org.jetbrains.annotations.NotNull;
-import org.mustbe.consulo.java.JavaQuickFixBundle;
 import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.editor.Editor;
@@ -29,6 +28,7 @@ import com.intellij.psi.PsiPlainTextFile;
 import com.intellij.psi.PsiType;
 import com.intellij.psi.util.ClassUtil;
 import com.intellij.util.IncorrectOperationException;
+import consulo.java.JavaQuickFixBundle;
 
 /**
  * @author Eugene Zhuravlev

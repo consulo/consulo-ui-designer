@@ -29,8 +29,6 @@ import java.util.StringTokenizer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.org.objectweb.asm.ClassWriter;
-import org.mustbe.consulo.java.module.extension.JavaModuleExtension;
-import com.intellij.compiler.JavaCompilerUtil;
 import com.intellij.compiler.impl.CompilerUtil;
 import com.intellij.compiler.impl.ModuleChunk;
 import com.intellij.compiler.instrumentation.InstrumentationClassFinder;
@@ -75,6 +73,8 @@ import com.intellij.uiDesigner.lw.LwRootContainer;
 import com.intellij.util.Chunk;
 import com.intellij.util.ExceptionUtil;
 import consulo.compiler.roots.CompilerPathsImpl;
+import consulo.java.compiler.JavaCompilerUtil;
+import consulo.java.module.extension.JavaModuleExtension;
 import consulo.roots.impl.ProductionContentFolderTypeProvider;
 import consulo.roots.impl.TestContentFolderTypeProvider;
 

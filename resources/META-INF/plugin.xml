@@ -6,7 +6,7 @@
 	<resource-bundle>messages.UIDesignerBundle</resource-bundle>
 	<depends>com.intellij.properties</depends>
 	<depends>com.intellij.xml</depends>
-	<depends>org.consulo.java</depends>
+	<depends>consulo.java</depends>
 	<depends>com.intellij.spellchecker</depends>
 
 	<extensionPoints>
@@ -30,7 +30,7 @@
 
 	</extensions>
 
-	<extensions defaultExtensionNs="org.consulo.java">
+	<extensions defaultExtensionNs="consulo.java">
 		<i18nInspectionTool implementation="com.intellij.uiDesigner.i18n.I18nFormInspection"/>
 		<java15InspectionTool implementation="com.intellij.uiDesigner.inspections.Java15FormInspection"/>
 		<invalidPropertyKeyInspectionTool implementation="com.intellij.uiDesigner.i18n.InvalidPropertyKeyFormInspection"/>
@@ -38,8 +38,6 @@
 	</extensions>
 
 	<extensions defaultExtensionNs="com.intellij">
-		<errorHandler implementation="com.intellij.diagnostic.ITNReporter"/>
-
 		<fileTypeFactory implementation="com.intellij.uiDesigner.FormFileTypeFactory"/>
 
 		<projectConfigurable instance="com.intellij.uiDesigner.GuiDesignerConfigurable" id="project.propGUI" key="title.gui.designer"

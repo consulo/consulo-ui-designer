@@ -17,7 +17,7 @@
           <orderEntry type="sourceFolder" />
           <orderEntry type="library" name="forms_compiler" level="project" />
           <orderEntry type="library" name="jgoodies" level="project" />
-          <orderEntry type="library" name="consulo-plugin: org.consulo.java" level="project" />
+          <orderEntry type="library" name="consulo-plugin: consulo.java" level="project" />
           <orderEntry type="library" name="consulo-plugin: com.intellij.xml" level="project" />
           <orderEntry type="library" name="consulo-plugin: com.intellij.properties" level="project" />
           <orderEntry type="library" name="consulo-plugin: com.intellij.spellchecker" level="project" />
