@@ -39,6 +39,7 @@ import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.vfs.VfsUtilCore;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.uiDesigner.GuiDesignerConfiguration;
@@ -288,8 +289,8 @@ public final class Form2SourceCompiler implements SourceInstrumentingCompiler{
 
     @Override
     @NotNull
-    public VirtualFile getFile() {
-      return mySourceFile;
+    public File getFile() {
+      return VfsUtilCore.virtualToIoFile(mySourceFile);
     }
 
     public VirtualFile getFormFile() {
