@@ -1,4 +1,4 @@
-<idea-plugin version="2">
+<idea-plugin>
 	<name>UI Designer</name>
 	<id>com.intellij.uiDesigner</id>
 	<version>SNAPSHOT</version>
@@ -7,7 +7,7 @@
 	<depends>com.intellij.properties</depends>
 	<depends>com.intellij.xml</depends>
 	<depends>consulo.java</depends>
-	<depends>com.intellij.spellchecker</depends>
+	<depends config-file="com.intellij.spellchecker.xml" optional="true">com.intellij.spellchecker</depends>
 
 	<extensionPoints>
 		<extensionPoint name="formInspectionTool"
@@ -25,9 +25,7 @@
 		<formInspectionTool implementation="com.intellij.uiDesigner.inspections.NoButtonGroupInspection"/>
 		<formInspectionTool implementation="com.intellij.uiDesigner.inspections.NoScrollPaneInspection"/>
 		<formInspectionTool implementation="com.intellij.uiDesigner.inspections.OneButtonGroupInspection"/>
-		<formInspectionTool implementation="com.intellij.uiDesigner.inspections.FormSpellCheckingInspection"/>
 		<paletteItemProvider implementation="com.intellij.uiDesigner.palette.UIDesignerPaletteProvider"/>
-
 	</extensions>
 
 	<extensions defaultExtensionNs="consulo.java">
