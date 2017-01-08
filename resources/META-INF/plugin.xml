@@ -12,7 +12,7 @@
 	<extensionPoints>
 		<extensionPoint name="formInspectionTool"
 						interface="com.intellij.uiDesigner.inspections.FormInspectionTool"/>
-		<extensionPoint name="paletteItemProvider" interface="com.intellij.ide.palette.PaletteItemProvider" area="CONSULO_PROJECT"/>
+		<extensionPoint name="paletteItemProvider" interface="com.intellij.ide.palette.PaletteItemProvider" area="PROJECT"/>
 	</extensionPoints>
 
 	<extensions defaultExtensionNs="com.intellij.uiDesigner">
