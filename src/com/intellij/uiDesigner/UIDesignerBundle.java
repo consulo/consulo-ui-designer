@@ -15,11 +15,28 @@
  */
 package com.intellij.uiDesigner;
 
-import consulo.lombok.annotations.Bundle;
+import org.jetbrains.annotations.PropertyKey;
+import com.intellij.AbstractBundle;
 
 /**
  * @author yole
  */
-@Bundle("messages.UIDesignerBundle")
-public class UIDesignerBundle {
+public class UIDesignerBundle extends AbstractBundle
+{
+	private static final UIDesignerBundle ourInstance = new UIDesignerBundle();
+
+	private UIDesignerBundle()
+	{
+		super("messages.UIDesignerBundle");
+	}
+
+	public static String message(@PropertyKey(resourceBundle = "messages.UIDesignerBundle") String key)
+	{
+		return ourInstance.getMessage(key);
+	}
+
+	public static String message(@PropertyKey(resourceBundle = "messages.UIDesignerBundle") String key, Object... params)
+	{
+		return ourInstance.getMessage(key, params);
+	}
 }
