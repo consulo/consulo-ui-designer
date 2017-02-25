@@ -55,7 +55,6 @@ import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.components.StoragePathMacros;
-import com.intellij.openapi.components.StorageScheme;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
@@ -80,13 +79,7 @@ import com.intellij.util.containers.ContainerUtil;
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
-@State(
-  name = "Palette2",
-  storages = {
-    @Storage( file = StoragePathMacros.PROJECT_FILE)
-   ,@Storage( file = StoragePathMacros.PROJECT_CONFIG_DIR + "/uiDesigner.xml", scheme = StorageScheme.DIRECTORY_BASED)
-    }
-)
+@State(name = "Palette2", storages = @Storage(file = StoragePathMacros.PROJECT_CONFIG_DIR + "/uiDesigner.xml"))
 public final class Palette implements ProjectComponent, PersistentStateComponent<Element> {
   private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.palette.Palette");
 
