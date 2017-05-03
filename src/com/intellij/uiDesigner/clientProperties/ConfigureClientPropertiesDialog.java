@@ -16,21 +16,15 @@
 
 package com.intellij.uiDesigner.clientProperties;
 
-import com.intellij.ide.util.PropertiesComponent;
-import com.intellij.openapi.actionSystem.ActionToolbarPosition;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.DialogWrapper;
-import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.ui.Splitter;
-import com.intellij.openapi.util.SystemInfo;
-import com.intellij.ui.*;
-import com.intellij.ui.table.JBTable;
-import com.intellij.ui.treeStructure.Tree;
-import com.intellij.uiDesigner.UIDesignerBundle;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.Nullable;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JTable;
+import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.AbstractTableModel;
@@ -38,7 +32,24 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
-import java.util.*;
+
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.Nullable;
+import com.intellij.ide.util.PropertiesComponent;
+import com.intellij.openapi.actionSystem.ActionToolbarPosition;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.DialogWrapper;
+import com.intellij.openapi.ui.Messages;
+import com.intellij.openapi.ui.Splitter;
+import com.intellij.openapi.util.SystemInfo;
+import com.intellij.ui.AnActionButton;
+import com.intellij.ui.AnActionButtonRunnable;
+import com.intellij.ui.ColoredTreeCellRenderer;
+import com.intellij.ui.SimpleTextAttributes;
+import com.intellij.ui.ToolbarDecorator;
+import com.intellij.ui.table.JBTable;
+import com.intellij.ui.treeStructure.Tree;
+import com.intellij.uiDesigner.UIDesignerBundle;
 
 /**
  * @author yole
@@ -47,7 +58,7 @@ public class ConfigureClientPropertiesDialog extends DialogWrapper {
   private JTree myClassTree;
   private JTable myPropertiesTable;
   private Class mySelectedClass;
-  private ClientPropertiesManager.ClientProperty[] mySelectedProperties = new ClientPropertiesManager.ClientProperty[0];
+  private List<ClientPropertiesManager.ClientProperty> mySelectedProperties = Collections.emptyList();
   private final MyTableModel myTableModel = new MyTableModel();
   private final Project myProject;
   private final ClientPropertiesManager myManager;
@@ -165,7 +176,7 @@ public class ConfigureClientPropertiesDialog extends DialogWrapper {
             AddClientPropertyDialog dlg = new AddClientPropertyDialog(myProject);
             dlg.show();
             if (dlg.getExitCode() == OK_EXIT_CODE) {
-              ClientPropertiesManager.ClientProperty[] props = myManager.getClientProperties(mySelectedClass);
+              List<ClientPropertiesManager.ClientProperty> props = myManager.getClientProperties(mySelectedClass);
               for (ClientPropertiesManager.ClientProperty prop : props) {
                 if (prop.getName().equalsIgnoreCase(dlg.getEnteredProperty().getName())) {
                   Messages.showErrorDialog(mySplitter,
@@ -182,11 +193,11 @@ public class ConfigureClientPropertiesDialog extends DialogWrapper {
         @Override
         public void run(AnActionButton button) {
           int row = myPropertiesTable.getSelectedRow();
-          if (row >= 0 && row < mySelectedProperties.length) {
-            myManager.removeConfiguredProperty(mySelectedClass, mySelectedProperties[row].getName());
+          if (row >= 0 && row < mySelectedProperties.size()) {
+            myManager.removeConfiguredProperty(mySelectedClass, mySelectedProperties.get(row).getName());
             updateSelectedProperties();
-            if (mySelectedProperties.length > 0) {
-              if (row >= mySelectedProperties.length) row--;
+            if (mySelectedProperties.size() > 0) {
+              if (row >= mySelectedProperties.size()) row--;
               myPropertiesTable.getSelectionModel().setSelectionInterval(row, row);
             }
           }
@@ -197,7 +208,7 @@ public class ConfigureClientPropertiesDialog extends DialogWrapper {
   }
 
   private void fillClassTree() {
-    List<Class> configuredClasses = myManager.getConfiguredClasses();
+    List<Class> configuredClasses = myManager.getConfiguredClasses(myProject);
     Collections.sort(configuredClasses, new Comparator<Class>() {
       public int compare(final Class o1, final Class o2) {
         return getInheritanceLevel(o1) - getInheritanceLevel(o2);
@@ -244,7 +255,7 @@ public class ConfigureClientPropertiesDialog extends DialogWrapper {
 
   private class MyTableModel extends AbstractTableModel {
     public int getRowCount() {
-      return mySelectedProperties.length;
+      return mySelectedProperties.size();
     }
 
     public int getColumnCount() {
@@ -254,9 +265,9 @@ public class ConfigureClientPropertiesDialog extends DialogWrapper {
     public Object getValueAt(int rowIndex, int columnIndex) {
       switch (columnIndex) {
         case 0:
-          return mySelectedProperties[rowIndex].getName();
+          return mySelectedProperties.get(rowIndex).getName();
         default:
-          return mySelectedProperties[rowIndex].getValueClass();
+          return mySelectedProperties.get(rowIndex).getValueClass();
       }
     }
 

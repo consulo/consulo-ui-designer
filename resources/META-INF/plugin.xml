@@ -112,6 +112,7 @@
 
 		<projectService serviceInterface="com.intellij.uiDesigner.LoaderFactory"
 						serviceImplementation="com.intellij.uiDesigner.LoaderFactory"/>
+		<projectService serviceImplementation="com.intellij.uiDesigner.clientProperties.ClientPropertiesManager" />
 
 		<projectService serviceInterface="com.intellij.uiDesigner.GuiDesignerConfiguration"
 						serviceImplementation="com.intellij.uiDesigner.GuiDesignerConfiguration"/>
@@ -150,9 +151,6 @@
 			<implementation-class>com.intellij.uiDesigner.propertyInspector.DesignerToolWindowManager</implementation-class>
 			<headless-implementation-class></headless-implementation-class>
 			<skipForDefaultProject/>
-		</component>
-		<component>
-			<implementation-class>com.intellij.uiDesigner.clientProperties.ClientPropertiesManager</implementation-class>
 		</component>
 		<component>
 			<implementation-class>com.intellij.ide.palette.impl.PaletteToolWindowManager</implementation-class>

@@ -16,6 +16,14 @@
 
 package com.intellij.uiDesigner.propertyInspector.properties;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.JComponent;
+import javax.swing.SwingUtilities;
+
+import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
@@ -24,14 +32,13 @@ import com.intellij.ui.JBColor;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.clientProperties.ClientPropertiesManager;
 import com.intellij.uiDesigner.clientProperties.ConfigureClientPropertiesDialog;
-import com.intellij.uiDesigner.propertyInspector.*;
+import com.intellij.uiDesigner.propertyInspector.InplaceContext;
+import com.intellij.uiDesigner.propertyInspector.Property;
+import com.intellij.uiDesigner.propertyInspector.PropertyEditor;
+import com.intellij.uiDesigner.propertyInspector.PropertyRenderer;
+import com.intellij.uiDesigner.propertyInspector.ReadOnlyProperty;
 import com.intellij.uiDesigner.propertyInspector.renderers.LabelPropertyRenderer;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * @author yole
@@ -64,10 +71,10 @@ public class ClientPropertiesProperty extends ReadOnlyProperty {
   @NotNull @Override
   public Property[] getChildren(final RadComponent component) {
     ClientPropertiesManager manager = ClientPropertiesManager.getInstance(component.getProject());
-    ClientPropertiesManager.ClientProperty[] props = manager.getClientProperties(component.getComponentClass());
-    Property[] result = new Property[props.length];
-    for(int i=0; i<props.length; i++) {
-      result [i] = new ClientPropertyProperty(this, props [i].getName(), props [i].getValueClass());
+    List<ClientPropertiesManager.ClientProperty> props = manager.getClientProperties(component.getComponentClass());
+    Property[] result = new Property[props.size()];
+    for(int i=0; i<props.size(); i++) {
+      result [i] = new ClientPropertyProperty(this, props.get(i).getName(), props.get(i).getValueClass());
     }
     return result;
   }
