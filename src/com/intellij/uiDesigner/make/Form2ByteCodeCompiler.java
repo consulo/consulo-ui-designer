@@ -95,11 +95,6 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 		return true;
 	}
 
-	@Override
-	public void init(@NotNull CompilerManager compilerManager)
-	{
-	}
-
 	@NotNull
 	public static InstrumentationClassFinder createClassFinder(@NotNull final String classPath)
 	{
