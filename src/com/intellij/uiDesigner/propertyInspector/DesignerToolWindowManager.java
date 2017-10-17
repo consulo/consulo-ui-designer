@@ -24,12 +24,12 @@ import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindowAnchor;
 import com.intellij.openapi.wm.ToolWindowManager;
-import com.intellij.openapi.wm.impl.content.ToolWindowContentUi;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentManager;
 import com.intellij.uiDesigner.AbstractToolWindowManager;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
+import consulo.wm.impl.ToolWindowContentUI;
 import icons.UIDesignerIcons;
 
 /**
@@ -75,7 +75,7 @@ public class DesignerToolWindowManager extends AbstractToolWindowManager
 
 		if(!ApplicationManager.getApplication().isHeadlessEnvironment())
 		{
-			myToolWindow.getComponent().putClientProperty(ToolWindowContentUi.HIDE_ID_LABEL, "true");
+			myToolWindow.getComponent().putClientProperty(ToolWindowContentUI.HIDE_ID_LABEL, "true");
 		}
 
 		initGearActions();
