@@ -37,7 +37,7 @@ public class ResetValueAction extends AbstractGuiEditorAction
 	@Override
 	protected void actionPerformed(final GuiEditor editor, final List<RadComponent> selection, final AnActionEvent e)
 	{
-		final PropertyInspectorTable inspector = PropertyInspectorTable.DATA_KEY.getData(e.getDataContext());
+		final PropertyInspectorTable inspector = e.getData(PropertyInspectorTable.DATA_KEY);
 		assert inspector != null;
 		final Property property = inspector.getSelectedProperty();
 		assert property != null;
@@ -80,7 +80,7 @@ public class ResetValueAction extends AbstractGuiEditorAction
 	@Override
 	protected void update(final GuiEditor editor, final ArrayList<RadComponent> selection, final AnActionEvent e)
 	{
-		PropertyInspectorTable inspector = PropertyInspectorTable.DATA_KEY.getData(e.getDataContext());
+		PropertyInspectorTable inspector = e.getData(PropertyInspectorTable.DATA_KEY);
 		if(inspector != null)
 		{
 			final Property selectedProperty = inspector.getSelectedProperty();

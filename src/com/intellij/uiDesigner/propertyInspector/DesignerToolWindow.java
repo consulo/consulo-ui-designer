@@ -29,6 +29,7 @@ import com.intellij.openapi.actionSystem.DataProvider;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Splitter;
 import com.intellij.openapi.util.Disposer;
+import com.intellij.openapi.util.Key;
 import com.intellij.ui.IdeBorderFactory;
 import com.intellij.ui.ScrollPaneFactory;
 import com.intellij.ui.SideBorder;
@@ -150,9 +151,9 @@ public class DesignerToolWindow implements LightToolWindowContent
 		}
 
 		@Nullable
-		public Object getData(@NonNls String dataId)
+		public Object getData(@NonNls Key dataId)
 		{
-			if(GuiEditor.DATA_KEY.is(dataId) && myComponentTree != null)
+			if(GuiEditor.DATA_KEY == dataId && myComponentTree != null)
 			{
 				return myComponentTree.getData(dataId);
 			}

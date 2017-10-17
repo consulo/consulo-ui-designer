@@ -22,6 +22,7 @@ import com.intellij.ide.palette.PaletteGroup;
 import com.intellij.ide.palette.PaletteItem;
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.Key;
 import com.intellij.ui.PopupHandler;
 import com.intellij.util.ui.UIUtil;
 import org.jetbrains.annotations.NonNls;
@@ -156,10 +157,10 @@ public class PaletteGroupHeader extends JCheckBox implements DataProvider {
     return myGroup;
   }
 
-  @Nullable public Object getData(String dataId) {
+  @Nullable public Object getData(Key<?> dataId) {
     Object data = myPaletteWindow.getData(dataId);
     if (data != null) return data;
-    Project project = CommonDataKeys.PROJECT.getData(myPaletteWindow);
+    Project project = myPaletteWindow.getDataUnchecked(CommonDataKeys.PROJECT);
     return myGroup.getData(project, dataId);
   }
 

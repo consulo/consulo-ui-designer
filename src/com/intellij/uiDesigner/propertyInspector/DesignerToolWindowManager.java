@@ -69,8 +69,7 @@ public class DesignerToolWindowManager extends AbstractToolWindowManager
 	@Override
 	protected void initToolWindow()
 	{
-		myToolWindow = ToolWindowManager.getInstance(myProject).registerToolWindow(UIDesignerBundle.message("toolwindow.ui.designer.name"), false,
-				getAnchor(), myProject, true);
+		myToolWindow = ToolWindowManager.getInstance(myProject).registerToolWindow(UIDesignerBundle.message("toolwindow.ui.designer.name"), false, getAnchor(), myProject, true);
 		myToolWindow.setIcon(UIDesignerIcons.ToolWindowUIDesigner);
 
 		if(!ApplicationManager.getApplication().isHeadlessEnvironment())
@@ -81,8 +80,7 @@ public class DesignerToolWindowManager extends AbstractToolWindowManager
 		initGearActions();
 
 		ContentManager contentManager = myToolWindow.getContentManager();
-		Content content = contentManager.getFactory().createContent(myToolWindowPanel.getToolWindowPanel(),
-				UIDesignerBundle.message("toolwindow.ui.designer.title"), false);
+		Content content = contentManager.getFactory().createContent(myToolWindowPanel.getToolWindowPanel(), UIDesignerBundle.message("toolwindow.ui.designer.title"), false);
 		content.setCloseable(false);
 		content.setPreferredFocusableComponent(myToolWindowPanel.getComponentTree());
 		contentManager.addContent(content);
@@ -118,8 +116,8 @@ public class DesignerToolWindowManager extends AbstractToolWindowManager
 		DesignerToolWindow toolWindowContent = new DesignerToolWindow(myProject);
 		toolWindowContent.update((GuiEditor) designer);
 
-		return createContent(designer, toolWindowContent, UIDesignerBundle.message("toolwindow.ui.designer.title"),
-				UIDesignerIcons.ToolWindowUIDesigner, toolWindowContent.getToolWindowPanel(), toolWindowContent.getComponentTree(), 320, null);
+		return createContent(designer, toolWindowContent, UIDesignerBundle.message("toolwindow.ui.designer.title"), UIDesignerIcons.ToolWindowUIDesigner, toolWindowContent.getToolWindowPanel(),
+				toolWindowContent.getComponentTree(), 320, null);
 	}
 
 	@Override

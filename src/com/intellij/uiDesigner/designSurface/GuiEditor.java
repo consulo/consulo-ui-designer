@@ -63,7 +63,6 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonShortcuts;
 import com.intellij.openapi.actionSystem.CustomShortcutSet;
 import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.actionSystem.DataKey;
 import com.intellij.openapi.actionSystem.DataProvider;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.application.ApplicationManager;
@@ -86,6 +85,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogBuilder;
 import com.intellij.openapi.ui.ThreeComponentsSplitter;
 import com.intellij.openapi.util.Disposer;
+import com.intellij.openapi.util.Key;
 import com.intellij.openapi.util.Ref;
 import com.intellij.openapi.util.registry.Registry;
 import com.intellij.openapi.vfs.ReadonlyStatusHandler;
@@ -265,7 +265,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 	@NonNls
 	private static final String ourHelpID = "guiDesigner.uiTour.workspace";
 
-	public static final DataKey<GuiEditor> DATA_KEY = DataKey.create(GuiEditor.class.getName());
+	public static final Key<GuiEditor> DATA_KEY = Key.create(GuiEditor.class.getName());
 
 	/**
 	 * @param file file to be edited
@@ -611,9 +611,9 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 	}
 
 	@Override
-	public Object getData(final String dataId)
+	public Object getData(@NotNull final Key<?> dataId)
 	{
-		if(PlatformDataKeys.HELP_ID.is(dataId))
+		if(PlatformDataKeys.HELP_ID == dataId)
 		{
 			return ourHelpID;
 		}
@@ -630,14 +630,14 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 			return null;
 		}
 
-		if(PlatformDataKeys.DELETE_ELEMENT_PROVIDER.is(dataId))
+		if(PlatformDataKeys.DELETE_ELEMENT_PROVIDER == dataId)
 		{
 			return myDeleteProvider;
 		}
 
-		if(PlatformDataKeys.COPY_PROVIDER.is(dataId) ||
-				PlatformDataKeys.CUT_PROVIDER.is(dataId) ||
-				PlatformDataKeys.PASTE_PROVIDER.is(dataId))
+		if(PlatformDataKeys.COPY_PROVIDER == dataId ||
+				PlatformDataKeys.CUT_PROVIDER == dataId ||
+				PlatformDataKeys.PASTE_PROVIDER == dataId)
 		{
 			return myCutCopyPasteSupport;
 		}

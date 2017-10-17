@@ -37,6 +37,7 @@ import com.intellij.openapi.actionSystem.DataProvider;
 import com.intellij.openapi.actionSystem.IdeActions;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.diagnostic.Logger;
+import com.intellij.openapi.util.Key;
 import com.intellij.ui.popup.PopupOwner;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.actions.MoveComponentAction;
@@ -163,9 +164,9 @@ public final class GlassLayer extends JComponent implements DataProvider, PopupO
 	 * binding of currently selected component (if any)
 	 */
 	@Override
-	public Object getData(final String dataId)
+	public Object getData(@NotNull Key<?> dataId)
 	{
-		if(CommonDataKeys.NAVIGATABLE.is(dataId))
+		if(CommonDataKeys.NAVIGATABLE == dataId)
 		{
 			final ComponentTree componentTree = DesignerToolWindowManager.getInstance(myEditor).getComponentTree();
 			if(componentTree != null)

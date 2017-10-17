@@ -31,8 +31,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -55,6 +53,7 @@ import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.colors.EditorColors;
 import com.intellij.openapi.editor.colors.EditorColorsManager;
+import com.intellij.openapi.util.Key;
 import com.intellij.openapi.util.Pair;
 import com.intellij.ui.JBColor;
 import com.intellij.ui.LightColors;
@@ -337,18 +336,19 @@ public class GridCaptionPanel extends JPanel implements ComponentSelectionListen
 		}
 	}
 
+	@Override
 	@Nullable
-	public Object getData(String dataId)
+	public Object getData(@NotNull Key dataId)
 	{
-		if(GuiEditor.DATA_KEY.is(dataId))
+		if(GuiEditor.DATA_KEY == dataId)
 		{
 			return myEditor;
 		}
-		if(CaptionSelection.DATA_KEY.is(dataId))
+		if(CaptionSelection.DATA_KEY == dataId)
 		{
 			return new CaptionSelection(mySelectedContainer, myIsRow, getSelectedCells(null), mySelectionModel.getLeadSelectionIndex());
 		}
-		if(PlatformDataKeys.DELETE_ELEMENT_PROVIDER.is(dataId))
+		if(PlatformDataKeys.DELETE_ELEMENT_PROVIDER == dataId)
 		{
 			return myDeleteProvider;
 		}
@@ -357,13 +357,7 @@ public class GridCaptionPanel extends JPanel implements ComponentSelectionListen
 
 	public void attachToScrollPane(final JScrollPane scrollPane)
 	{
-		scrollPane.getViewport().addChangeListener(new ChangeListener()
-		{
-			public void stateChanged(ChangeEvent e)
-			{
-				repaint();
-			}
-		});
+		scrollPane.getViewport().addChangeListener(e -> repaint());
 	}
 
 	private boolean canResizeCells()

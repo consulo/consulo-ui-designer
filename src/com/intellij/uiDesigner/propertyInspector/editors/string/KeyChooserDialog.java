@@ -15,6 +15,33 @@
  */
 package com.intellij.uiDesigner.propertyInspector.editors.string;
 
+import gnu.trove.TObjectIntHashMap;
+
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FontMetrics;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JComponent;
+import javax.swing.JTable;
+import javax.swing.KeyStroke;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.ide.DataManager;
 import com.intellij.lang.properties.IProperty;
 import com.intellij.lang.properties.psi.PropertiesFile;
@@ -31,24 +58,6 @@ import com.intellij.ui.table.JBTable;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.lw.StringDescriptor;
-import gnu.trove.TObjectIntHashMap;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 /**
  * @author Anton Katilin
@@ -110,7 +119,7 @@ public final class KeyChooserDialog extends DialogWrapper{
     });
 
     // Calculate width for "Key" columns
-    final Project projectGuess = CommonDataKeys.PROJECT.getData(DataManager.getInstance().getDataContext(parent));
+    final Project projectGuess = DataManager.getInstance().getDataContext(parent).getData(CommonDataKeys.PROJECT);
     final Dimension size = DimensionService.getInstance().getSize(getDimensionServiceKey(), projectGuess);
     final FontMetrics metrics = myTable.getFontMetrics(myTable.getFont());
     int minWidth = 200;

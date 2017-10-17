@@ -15,18 +15,18 @@
  */
 package com.intellij.uiDesigner.palette;
 
+import java.util.ArrayList;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.ide.palette.PaletteGroup;
 import com.intellij.ide.palette.PaletteItem;
 import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.actionSystem.ActionManager;
-import com.intellij.openapi.actionSystem.DataKey;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.Key;
 import com.intellij.uiDesigner.UIDesignerBundle;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
 
 /**
  * @author Vladimir Kondratyev
@@ -34,7 +34,7 @@ import java.util.ArrayList;
 public final class GroupItem implements Cloneable, PaletteGroup {
   private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.palette.GroupItem");
 
-  public static final DataKey<GroupItem> DATA_KEY = DataKey.create(GroupItem.class.getName());
+  public static final Key<GroupItem> DATA_KEY = Key.create(GroupItem.class.getName());
 
   @NotNull private String myName;
   @NotNull private final ArrayList<ComponentItem> myItems = new ArrayList<ComponentItem>();
@@ -142,8 +142,8 @@ public final class GroupItem implements Cloneable, PaletteGroup {
     return (ActionGroup) ActionManager.getInstance().getAction("GuiDesigner.PaletteGroupPopupMenu");
   }
 
-  @Nullable public Object getData(Project project, String dataId) {
-    if (dataId.equals(getClass().getName())) {
+  @Nullable public Object getData(Project project, Key<?> dataId) {
+    if (DATA_KEY == dataId) {
       return this;
     }
     return null;

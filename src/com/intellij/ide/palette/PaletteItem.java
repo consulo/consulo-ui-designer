@@ -16,11 +16,12 @@
 
 package com.intellij.ide.palette;
 
+import org.jetbrains.annotations.Nullable;
 import com.intellij.ide.dnd.DnDDragStartBean;
 import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.Key;
 import com.intellij.ui.ColoredListCellRenderer;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * @author yole
@@ -52,5 +53,5 @@ public interface PaletteItem {
    * @param dataId  the data constant id (see {@link com.intellij.openapi.actionSystem.PlatformDataKeys}).
    * @return the data item, or null if no data is available for this constant.
    */
-  @Nullable Object getData(Project project, String dataId);
+  @Nullable Object getData(Project project, Key<?> dataId);
 }

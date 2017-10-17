@@ -16,68 +16,82 @@
 
 package com.intellij.uiDesigner.actions;
 
+import javax.swing.Icon;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.Presentation;
-import com.intellij.openapi.util.IconLoader;
 import com.intellij.uiDesigner.CaptionSelection;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
+import consulo.annotations.RequiredDispatchThread;
 
 /**
  * @author yole
  */
-public abstract class RowColumnAction extends AnAction {
-  private final String myColumnText;
-  private final Icon myColumnIcon;
-  private final String myRowText;
-  private final Icon myRowIcon;
+public abstract class RowColumnAction extends AnAction
+{
+	private final String myColumnText;
+	private final Icon myColumnIcon;
+	private final String myRowText;
+	private final Icon myRowIcon;
 
-  public RowColumnAction(final String columnText, @Nullable final Icon columnIcon,
-                         final String rowText, @Nullable final Icon rowIcon) {
-    myColumnText = columnText;
-    myColumnIcon = columnIcon;
-    myRowText = rowText;
-    myRowIcon = rowIcon;
-  }
+	public RowColumnAction(final String columnText, @Nullable final Icon columnIcon, final String rowText, @Nullable final Icon rowIcon)
+	{
+		myColumnText = columnText;
+		myColumnIcon = columnIcon;
+		myRowText = rowText;
+		myRowIcon = rowIcon;
+	}
 
-  public void actionPerformed(final AnActionEvent e) {
-    GuiEditor editor = FormEditingUtil.getEditorFromContext(e.getDataContext());
-    CaptionSelection selection = CaptionSelection.DATA_KEY.getData(e.getDataContext());
-    if (editor == null || selection == null || !editor.ensureEditable()) {
-      return;
-    }
-    actionPerformed(selection);
-    selection.getContainer().revalidate();
-    editor.refreshAndSave(true);
-  }
+	@RequiredDispatchThread
+	@Override
+	public void actionPerformed(@NotNull final AnActionEvent e)
+	{
+		GuiEditor editor = FormEditingUtil.getEditorFromContext(e.getDataContext());
+		CaptionSelection selection = e.getData(CaptionSelection.DATA_KEY);
+		if(editor == null || selection == null || !editor.ensureEditable())
+		{
+			return;
+		}
+		actionPerformed(selection);
+		selection.getContainer().revalidate();
+		editor.refreshAndSave(true);
+	}
 
-  protected abstract void actionPerformed(CaptionSelection selection);
+	protected abstract void actionPerformed(CaptionSelection selection);
 
-  public void update(final AnActionEvent e) {
-    final Presentation presentation = e.getPresentation();
-    CaptionSelection selection = CaptionSelection.DATA_KEY.getData(e.getDataContext());
-    if (selection == null) {
-      presentation.setEnabled(false);
-    }
-    else {
-      presentation.setEnabled(selection.getContainer() != null && selection.getFocusedIndex() >= 0);
-      if (!selection.isRow()) {
-        presentation.setText(myColumnText);
-        if (myColumnIcon != null) {
-          presentation.setIcon(myColumnIcon);
-        }
-      }
-      else {
-        presentation.setText(myRowText);
-        if (myRowIcon != null) {
-          presentation.setIcon(myRowIcon);
-        }
-      }
-    }
-  }
+	@RequiredDispatchThread
+	@Override
+	public void update(@NotNull final AnActionEvent e)
+	{
+		final Presentation presentation = e.getPresentation();
+		CaptionSelection selection = e.getData(CaptionSelection.DATA_KEY);
+		if(selection == null)
+		{
+			presentation.setEnabled(false);
+		}
+		else
+		{
+			presentation.setEnabled(selection.getContainer() != null && selection.getFocusedIndex() >= 0);
+			if(!selection.isRow())
+			{
+				presentation.setText(myColumnText);
+				if(myColumnIcon != null)
+				{
+					presentation.setIcon(myColumnIcon);
+				}
+			}
+			else
+			{
+				presentation.setText(myRowText);
+				if(myRowIcon != null)
+				{
+					presentation.setIcon(myRowIcon);
+				}
+			}
+		}
+	}
 }

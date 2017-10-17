@@ -15,7 +15,10 @@
  */
 package com.intellij.uiDesigner.projectView;
 
-import com.intellij.openapi.actionSystem.DataKey;
+import java.util.Collection;
+import java.util.HashSet;
+
+import com.intellij.openapi.util.Key;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.pom.Navigatable;
 import com.intellij.psi.PsiClass;
@@ -23,11 +26,8 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiUtilCore;
 import com.intellij.uiDesigner.binding.FormClassIndex;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 public class Form implements Navigatable {
-  public static final DataKey<Form[]> DATA_KEY = DataKey.create("form.array");
+  public static final Key<Form[]> DATA_KEY = Key.create("form.array");
   
   private final Collection<PsiFile> myFormFiles;
   private final PsiClass myClassToBind;

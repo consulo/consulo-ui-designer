@@ -724,21 +724,21 @@ public final class FormEditingUtil
 	@Nullable
 	public static GuiEditor getEditorFromContext(@NotNull final DataContext context)
 	{
-		final FileEditor editor = PlatformDataKeys.FILE_EDITOR.getData(context);
+		final FileEditor editor = context.getData(PlatformDataKeys.FILE_EDITOR);
 		if(editor instanceof UIFormEditor)
 		{
 			return ((UIFormEditor) editor).getEditor();
 		}
 		else
 		{
-			return GuiEditor.DATA_KEY.getData(context);
+			return context.getData(GuiEditor.DATA_KEY);
 		}
 	}
 
 	@Nullable
 	public static GuiEditor getActiveEditor(final DataContext context)
 	{
-		Project project = CommonDataKeys.PROJECT.getData(context);
+		Project project = context.getData(CommonDataKeys.PROJECT);
 		if(project == null)
 		{
 			return null;

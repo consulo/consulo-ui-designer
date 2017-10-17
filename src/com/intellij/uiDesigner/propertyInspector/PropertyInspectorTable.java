@@ -52,7 +52,6 @@ import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.ActionPlaces;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.actionSystem.DataKey;
 import com.intellij.openapi.actionSystem.DataProvider;
 import com.intellij.openapi.actionSystem.IdeActions;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
@@ -65,6 +64,7 @@ import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.util.Comparing;
+import com.intellij.openapi.util.Key;
 import com.intellij.openapi.util.Ref;
 import com.intellij.openapi.wm.ex.IdeFocusTraversalPolicy;
 import com.intellij.psi.JavaPsiFacade;
@@ -109,7 +109,7 @@ public final class PropertyInspectorTable extends Table implements DataProvider
 {
 	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.propertyInspector.PropertyInspectorTable");
 
-	public static final DataKey<PropertyInspectorTable> DATA_KEY = DataKey.create(PropertyInspectorTable.class.getName());
+	public static final Key<PropertyInspectorTable> DATA_KEY = Key.create(PropertyInspectorTable.class.getName());
 
 	private static final Color SYNTETIC_PROPERTY_BACKGROUND = new JBColor(Gray._230, UIUtil.getPanelBackground().brighter());
 	private static final Color SYNTETIC_SUBPROPERTY_BACKGROUND = new JBColor(Gray._240, UIUtil.getPanelBackground().brighter());
@@ -308,13 +308,13 @@ public final class PropertyInspectorTable extends Table implements DataProvider
 	}
 
 	@Override
-	public Object getData(final String dataId)
+	public Object getData(Key<?> dataId)
 	{
-		if(getClass().getName().equals(dataId))
+		if(DATA_KEY == dataId)
 		{
 			return this;
 		}
-		else if(CommonDataKeys.PSI_ELEMENT.is(dataId))
+		else if(CommonDataKeys.PSI_ELEMENT == dataId)
 		{
 			final IntrospectedProperty introspectedProperty = getSelectedIntrospectedProperty();
 			if(introspectedProperty == null)
@@ -335,20 +335,20 @@ public final class PropertyInspectorTable extends Table implements DataProvider
 
 			return PropertyUtil.findPropertySetter(aClass, introspectedProperty.getName(), false, true);
 		}
-		else if(CommonDataKeys.PSI_FILE.is(dataId) && myEditor != null)
+		else if(CommonDataKeys.PSI_FILE == dataId && myEditor != null)
 		{
 			return PsiManager.getInstance(myEditor.getProject()).findFile(myEditor.getFile());
 		}
-		else if(GuiEditor.DATA_KEY.is(dataId))
+		else if(GuiEditor.DATA_KEY == dataId)
 		{
 			return myEditor;
 		}
-		else if(PlatformDataKeys.FILE_EDITOR.is(dataId))
+		else if(PlatformDataKeys.FILE_EDITOR == dataId)
 		{
 			GuiEditor designer = DesignerToolWindowManager.getInstance(myProject).getActiveFormEditor();
 			return designer == null ? null : designer.getEditor();
 		}
-		else if(PlatformDataKeys.HELP_ID.is(dataId))
+		else if(PlatformDataKeys.HELP_ID == dataId)
 		{
 			return ourHelpID;
 		}

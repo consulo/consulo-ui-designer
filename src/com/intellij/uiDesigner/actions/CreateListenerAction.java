@@ -16,11 +16,28 @@
 
 package com.intellij.uiDesigner.actions;
 
+import java.beans.BeanInfo;
+import java.beans.EventSetDescriptor;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
+import javax.swing.JComponent;
+
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
 import com.intellij.CommonBundle;
 import com.intellij.codeInsight.FileModificationService;
 import com.intellij.codeInsight.generation.OverrideImplementUtil;
 import com.intellij.ide.DataManager;
-import com.intellij.openapi.actionSystem.*;
+import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.DataContext;
+import com.intellij.openapi.actionSystem.DefaultActionGroup;
+import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.diagnostic.Logger;
@@ -42,18 +59,6 @@ import com.intellij.uiDesigner.propertyInspector.properties.BindingProperty;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
 import com.intellij.util.IncorrectOperationException;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import java.beans.BeanInfo;
-import java.beans.EventSetDescriptor;
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
 
 /**
  * @author yole
@@ -230,7 +235,7 @@ public class CreateListenerAction extends AbstractGuiEditorAction {
         IdeFocusManager.findInstance().doWhenFocusSettlesDown(new Runnable() {
           public void run() {
             final PsiClass newClass = (PsiClass)ptr.getElement();
-            final Editor editor = PlatformDataKeys.EDITOR.getData(DataManager.getInstance().getDataContext());
+            final Editor editor = DataManager.getInstance().getDataContext().getData(PlatformDataKeys.EDITOR);
             if (editor != null && newClass != null) {
               CommandProcessor.getInstance().executeCommand(myClass.getProject(), new Runnable() {
                 public void run() {

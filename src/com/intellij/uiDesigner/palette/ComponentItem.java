@@ -15,16 +15,32 @@
  */
 package com.intellij.uiDesigner.palette;
 
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.ide.dnd.DnDDragStartBean;
 import com.intellij.ide.palette.PaletteItem;
 import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.actionSystem.ActionManager;
-import com.intellij.openapi.actionSystem.DataKey;
 import com.intellij.openapi.actionSystem.LangDataKeys;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.module.ResourceFileUtil;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.IconLoader;
+import com.intellij.openapi.util.Key;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiFile;
@@ -40,15 +56,6 @@ import com.intellij.uiDesigner.lw.StringDescriptor;
 import com.intellij.uiDesigner.propertyInspector.IntrospectedProperty;
 import com.intellij.uiDesigner.radComponents.RadAtomicComponent;
 import icons.UIDesignerIcons;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
-import java.awt.*;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * @author Anton Katilin
@@ -57,7 +64,7 @@ import java.util.List;
 public final class ComponentItem implements Cloneable, PaletteItem {
   private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.palette.ComponentItem");
 
-  public static final DataKey<ComponentItem> DATA_KEY = DataKey.create(ComponentItem.class.getName());
+  public static final Key<ComponentItem> DATA_KEY = Key.create(ComponentItem.class.getName());
 
   @NonNls private String myClassName;
   private final GridConstraints myDefaultConstraints;
@@ -365,14 +372,14 @@ public final class ComponentItem implements Cloneable, PaletteItem {
     return (ActionGroup) ActionManager.getInstance().getAction("GuiDesigner.PaletteComponentPopupMenu");
   }
 
-  @Nullable public Object getData(Project project, String dataId) {
-    if (LangDataKeys.PSI_ELEMENT.is(dataId)) {
+  @Nullable public Object getData(Project project, Key<?> dataId) {
+    if (LangDataKeys.PSI_ELEMENT == dataId) {
       return JavaPsiFacade.getInstance(project).findClass(myClassName, GlobalSearchScope.allScope(project));
     }
-    if (getClass().getName().equals(dataId)) {
+    if (DATA_KEY == dataId) {
       return this;
     }
-    if (GroupItem.DATA_KEY.is(dataId)) {
+    if (GroupItem.DATA_KEY == dataId) {
       return Palette.getInstance(project).findGroup(this);
     }
     return null;

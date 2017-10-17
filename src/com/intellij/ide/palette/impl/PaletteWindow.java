@@ -53,6 +53,7 @@ import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.extensions.Extensions;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.Key;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.PopupHandler;
 import com.intellij.ui.ScrollPaneFactory;
@@ -296,13 +297,13 @@ public class PaletteWindow extends JPanel implements LightToolWindowContent, Dat
 	}
 
 	@Nullable
-	public Object getData(String dataId)
+	public Object getData(Key<?> dataId)
 	{
-		if(PlatformDataKeys.HELP_ID.is(dataId))
+		if(PlatformDataKeys.HELP_ID == dataId)
 		{
 			return ourHelpID;
 		}
-		if(CommonDataKeys.PROJECT.is(dataId))
+		if(CommonDataKeys.PROJECT == dataId)
 		{
 			return myProject;
 		}
