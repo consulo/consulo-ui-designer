@@ -205,7 +205,7 @@ public final class UIFormEditor extends UserDataHolderBase implements /*Navigata
 
 	@Nullable
 	@Override
-	public VirtualFile getVirtualFile()
+	public VirtualFile getFile()
 	{
 		return myFile;
 	}
