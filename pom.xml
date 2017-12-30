@@ -38,6 +38,10 @@
 				<updatePolicy>always</updatePolicy>
 			</snapshots>
 		</repository>
+		<repository>
+			<id>nuiton</id>
+			<url>http://maven.nuiton.org/release/</url>
+		</repository>
 	</repositories>
 
 	<build>
