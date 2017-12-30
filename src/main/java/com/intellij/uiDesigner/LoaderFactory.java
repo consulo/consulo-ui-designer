@@ -121,7 +121,7 @@ public final class LoaderFactory {
       try {
         VirtualFile vFile = manager.findFileByUrl(VfsUtil.pathToUrl(s));
 
-        VirtualFile archiveFile = ArchiveVfsUtil.getVirtualFileForJar(vFile);
+        VirtualFile archiveFile = ArchiveVfsUtil.getVirtualFileForArchive(vFile);
         if(archiveFile != null) {
           urls.add(new File(archiveFile.getCanonicalPath()).toURI().toURL());
         }

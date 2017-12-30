@@ -39,7 +39,7 @@ public class GuiFormFileType implements FileTypeWithPredefinedCharset
 
 	@Override
 	@NotNull
-	public String getName()
+	public String getId()
 	{
 		return "GUI_DESIGNER_FORM";
 	}
