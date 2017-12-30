@@ -35,7 +35,7 @@
 			<url>https://maven.consulo.io/repository/snapshots/</url>
 			<snapshots>
 				<enabled>true</enabled>
-				<updatePolicy>interval:60</updatePolicy>
+				<updatePolicy>always</updatePolicy>
 			</snapshots>
 		</repository>
 	</repositories>
@@ -118,6 +118,12 @@
 			<version>1.8.1</version>
 		</dependency>
 
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>consulo.java-java.impl.testing</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
 			<artifactId>consulo-lang-impl-testing</artifactId>

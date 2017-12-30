@@ -16,10 +16,9 @@
 
 package com.intellij.uiDesigner.make;
 
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.application.PluginPathManager;
+import java.io.IOException;
+
 import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.projectRoots.impl.JavaSdkImpl;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -29,8 +28,6 @@ import com.intellij.psi.search.ProjectScope;
 import com.intellij.testFramework.IdeaTestUtil;
 import com.intellij.testFramework.PsiTestCase;
 import com.intellij.testFramework.PsiTestUtil;
-
-import java.io.IOException;
 
 /**
  * @author yole
@@ -43,7 +40,7 @@ public class FormSourceCodeGeneratorTest extends PsiTestCase {
   protected void setUp() throws Exception {
     super.setUp();
 
-    String root = PluginPathManager.getPluginHomePath("ui-designer") + "/testData/sourceCodeGenerator/" + getTestName(true);
+    String root = "/testData/sourceCodeGenerator/" + getTestName(true);
     PsiTestUtil.removeAllRoots(myModule, IdeaTestUtil.getMockJdk17());
     myTestProjectRoot = PsiTestUtil.createTestProjectStructure(myProject, myModule, root, myFilesToDelete);
     myGenerator = new FormSourceCodeGenerator(getProject());

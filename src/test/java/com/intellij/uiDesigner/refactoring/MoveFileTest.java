@@ -1,11 +1,8 @@
 package com.intellij.uiDesigner.refactoring;
 
-import com.intellij.openapi.application.PluginPathManager;
-import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.refactoring.MultiFileTestCase;
@@ -14,7 +11,7 @@ import com.intellij.refactoring.move.moveFilesOrDirectories.MoveFilesOrDirectori
 public class MoveFileTest extends MultiFileTestCase {
   @Override
   protected String getTestDataPath() {
-    return PluginPathManager.getPluginHomePath("ui-designer") + "/testData";
+    return "/testData";
   }
 
   @Override

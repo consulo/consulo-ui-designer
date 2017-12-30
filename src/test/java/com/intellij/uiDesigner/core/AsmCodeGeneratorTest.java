@@ -15,10 +15,39 @@
  */
 package com.intellij.uiDesigner.core;
 
+import gnu.trove.TIntObjectHashMap;
+
+import java.awt.CardLayout;
+import java.awt.GraphicsEnvironment;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.LayoutManager;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.swing.*;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+
+import org.jetbrains.org.objectweb.asm.ClassWriter;
 import com.intellij.compiler.instrumentation.InstrumentationClassFinder;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.PathManager;
-import com.intellij.openapi.application.PluginPathManager;
 import com.intellij.openapi.util.SystemInfoRt;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.ui.components.JBTabbedPane;
@@ -30,25 +59,7 @@ import com.intellij.uiDesigner.lw.CompiledClassPropertiesProvider;
 import com.intellij.uiDesigner.lw.LwRootContainer;
 import com.intellij.util.PathUtil;
 import com.intellij.util.ui.UIUtil;
-import gnu.trove.TIntObjectHashMap;
 import junit.framework.TestCase;
-import org.jetbrains.asm4.ClassWriter;
-
-import javax.swing.*;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
-import java.awt.*;
-import java.io.*;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author yole
@@ -100,7 +111,7 @@ public class AsmCodeGeneratorTest extends TestCase {
   }
 
   private AsmCodeGenerator initCodeGenerator(final String formFileName, final String className) throws Exception {
-    final String testDataPath = PluginPathManager.getPluginHomePath("ui-designer") + "/testData/";
+    final String testDataPath = "/testData/";
     return initCodeGenerator(formFileName, className, testDataPath);
   }
 
@@ -415,7 +426,7 @@ public class AsmCodeGeneratorTest extends TestCase {
   public void testIdeadev14081() throws Exception {
     // NOTE: That doesn't really reproduce the bug as it's dependent on a particular instrumentation sequence used during form preview
     // (the nested form is instrumented with a new AsmCodeGenerator instance directly in the middle of instrumentation of the current form)
-    final String testDataPath = PluginPathManager.getPluginHomePath("ui-designer") + File.separatorChar + "testData" + File.separatorChar +
+    final String testDataPath = "testData" + File.separatorChar +
       File.separatorChar + "formEmbedding" + File.separatorChar + "Ideadev14081" + File.separatorChar;
     AsmCodeGenerator embeddedClassGenerator = initCodeGenerator("Embedded.form", "Embedded", testDataPath);
     byte[] embeddedPatchedData = getVerifiedPatchedData(embeddedClassGenerator);

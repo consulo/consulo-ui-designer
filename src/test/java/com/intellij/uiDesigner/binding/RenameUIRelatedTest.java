@@ -15,14 +15,15 @@
  */
 package com.intellij.uiDesigner.binding;
 
-import com.intellij.openapi.application.PluginPathManager;
-import com.intellij.openapi.roots.LanguageLevelProjectExtension;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.pom.java.LanguageLevel;
-import com.intellij.psi.*;
+import com.intellij.psi.JavaPsiFacade;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiField;
+import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.ProjectScope;
 import com.intellij.refactoring.MultiFileTestCase;
 import com.intellij.refactoring.rename.RenameProcessor;
+import consulo.psi.PsiPackage;
 import junit.framework.Assert;
 
 /**
@@ -36,12 +37,12 @@ public class RenameUIRelatedTest extends MultiFileTestCase {
 
   @Override
   protected String getTestDataPath() {
-    return PluginPathManager.getPluginHomePath("ui-designer") + "/testData";
+    return "/testData";
   }
 
   @Override
   protected void prepareProject(VirtualFile rootDir) {
-    LanguageLevelProjectExtension.getInstance(myJavaFacade.getProject()).setLanguageLevel(LanguageLevel.JDK_1_5);
+    //LanguageLevelProjectExtension.getInstance(myJavaFacade.getProject()).setLanguageLevel(LanguageLevel.JDK_1_5);
     super.prepareProject(rootDir);
   }
 

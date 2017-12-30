@@ -22,11 +22,8 @@
  */
 package com.intellij.uiDesigner.binding;
 
-import com.intellij.openapi.application.PluginPathManager;
 import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.roots.LanguageLevelProjectExtension;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.pom.java.LanguageLevel;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiEnumConstant;
 import com.intellij.psi.PsiField;
@@ -44,7 +41,7 @@ public class FormEnumUsageTest extends PsiTestCase {
   protected void setUp() throws Exception {
     super.setUp();
 
-    String root = PluginPathManager.getPluginHomePath("ui-designer") + "/testData/binding/" + getTestName(true);
+    String root = "/testData/binding/" + getTestName(true);
     PsiTestUtil.removeAllRoots(myModule, IdeaTestUtil.getMockJdk17());
     myTestProjectRoot = PsiTestUtil.createTestProjectStructure(myProject, myModule, root, myFilesToDelete);
   }
@@ -55,7 +52,7 @@ public class FormEnumUsageTest extends PsiTestCase {
   }
 
   public void testEnumUsage() throws IncorrectOperationException {
-    LanguageLevelProjectExtension.getInstance(myJavaFacade.getProject()).setLanguageLevel(LanguageLevel.JDK_1_5);
+    //LanguageLevelProjectExtension.getInstance(myJavaFacade.getProject()).setLanguageLevel(LanguageLevel.JDK_1_5);
     CommandProcessor.getInstance().executeCommand(myProject, new Runnable() {
       @Override
       public void run() {

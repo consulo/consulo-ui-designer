@@ -16,14 +16,14 @@
 
 package com.intellij.uiDesigner.radComponents;
 
+import javax.swing.JLabel;
+
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.intellij.uiDesigner.core.GridConstraints;
 import junit.framework.TestCase;
-
-import javax.swing.*;
 
 /**
  * @author yole

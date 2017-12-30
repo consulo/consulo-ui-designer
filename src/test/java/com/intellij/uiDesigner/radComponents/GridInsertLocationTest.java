@@ -15,14 +15,14 @@
  */
 package com.intellij.uiDesigner.radComponents;
 
+import javax.swing.JLabel;
+
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.designSurface.DraggedComponentList;
 import com.intellij.uiDesigner.designSurface.GridInsertLocation;
 import com.intellij.uiDesigner.designSurface.GridInsertMode;
 import junit.framework.TestCase;
-
-import javax.swing.*;
 
 /**
  * @author yole

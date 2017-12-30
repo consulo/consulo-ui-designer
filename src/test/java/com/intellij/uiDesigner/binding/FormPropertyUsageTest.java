@@ -16,10 +16,12 @@
 
 package com.intellij.uiDesigner.binding;
 
+import java.util.Collection;
+
+import javax.swing.JButton;
+
 import com.intellij.lang.properties.psi.PropertiesFile;
 import com.intellij.lang.properties.psi.Property;
-import com.intellij.openapi.application.PluginPathManager;
-import com.intellij.openapi.projectRoots.impl.JavaSdkImpl;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
@@ -31,9 +33,6 @@ import com.intellij.testFramework.PsiTestCase;
 import com.intellij.testFramework.PsiTestUtil;
 import com.intellij.util.Query;
 
-import javax.swing.*;
-import java.util.Collection;
-
 /**
  * @author yole
  */
@@ -44,7 +43,7 @@ public class FormPropertyUsageTest extends PsiTestCase {
   protected void setUp() throws Exception {
     super.setUp();
 
-    String root = PluginPathManager.getPluginHomePath("ui-designer") + "/testData/binding/" + getTestName(true);
+    String root = "/testData/binding/" + getTestName(true);
     PsiTestUtil.removeAllRoots(myModule, IdeaTestUtil.getMockJdk17());
     myTestProjectRoot = PsiTestUtil.createTestProjectStructure(myProject, myModule, root, myFilesToDelete);
   }
