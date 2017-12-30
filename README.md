@@ -1,1 +1,1 @@
-[![Build Status](http://must-be.org/jenkins/job/consulo-ui-designer/badge/icon)](http://must-be.org/jenkins/job/consulo-ui-designer/)
+[![Build Status](https://ci.consulo.io/job/consulo-ui-designer/badge/icon)](https://ci.consulo.io/job/consulo-ui-designer/)
