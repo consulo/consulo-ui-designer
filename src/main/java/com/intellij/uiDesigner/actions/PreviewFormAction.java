@@ -36,7 +36,6 @@ import com.intellij.execution.ExecutionResult;
 import com.intellij.execution.Executor;
 import com.intellij.execution.RunnerRegistry;
 import com.intellij.execution.configurations.JavaCommandLineState;
-import com.intellij.execution.configurations.JavaParameters;
 import com.intellij.execution.configurations.ModuleRunProfile;
 import com.intellij.execution.configurations.RunProfile;
 import com.intellij.execution.configurations.RunProfileState;
@@ -82,6 +81,7 @@ import com.intellij.uiDesigner.make.Form2ByteCodeCompiler;
 import com.intellij.uiDesigner.make.PreviewNestedFormLoader;
 import com.intellij.util.PathsList;
 import com.intellij.util.containers.HashSet;
+import consulo.java.execution.configurations.OwnJavaParameters;
 
 /**
  * @author Anton Katilin
@@ -284,7 +284,7 @@ public final class PreviewFormAction extends AnAction{
   private static void runPreviewProcess(final String tempPath, final PathsList sources, final Module module, final VirtualFile formFile,
                                         @Nullable final Locale stringDescriptorLocale) {
     // 3. Now we are ready to launch Java process
-    final JavaParameters parameters = new JavaParameters();
+    final OwnJavaParameters parameters = new OwnJavaParameters();
     parameters.getClassPath().add(tempPath);
     parameters.getClassPath().add(PathManager.findFileInLibDirectory("jgoodies-forms.jar").getAbsolutePath());
     final List<String> paths = sources.getPathList();
@@ -292,7 +292,7 @@ public final class PreviewFormAction extends AnAction{
       parameters.getClassPath().add(path);
     }
     try {
-      parameters.configureByModule(module, JavaParameters.JDK_AND_CLASSES);
+      parameters.configureByModule(module, OwnJavaParameters.JDK_AND_CLASSES);
     }
     catch (CantRunException e) {
       Messages.showErrorDialog(
@@ -327,11 +327,11 @@ public final class PreviewFormAction extends AnAction{
 
   private static final class MyRunProfile implements ModuleRunProfile {
     private final Module myModule;
-    private final JavaParameters myParams;
+    private final OwnJavaParameters myParams;
     private final String myTempPath;
     private final String myStatusbarMessage;
 
-    public MyRunProfile(final Module module, final JavaParameters params, final String tempPath, final String statusbarMessage) {
+    public MyRunProfile(final Module module, final OwnJavaParameters params, final String tempPath, final String statusbarMessage) {
       myModule = module;
       myParams = params;
       myTempPath = tempPath;
@@ -344,7 +344,7 @@ public final class PreviewFormAction extends AnAction{
 
     public RunProfileState getState(@NotNull final Executor executor, @NotNull final ExecutionEnvironment env) throws ExecutionException {
       return new JavaCommandLineState(env) {
-        protected JavaParameters createJavaParameters() {
+        protected OwnJavaParameters createJavaParameters() {
           return myParams;
         }
 

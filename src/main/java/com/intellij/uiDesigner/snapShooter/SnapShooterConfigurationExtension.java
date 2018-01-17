@@ -16,10 +16,15 @@
 
 package com.intellij.uiDesigner.snapShooter;
 
+import java.io.IOException;
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.jdom.Element;
+import org.jetbrains.annotations.NotNull;
 import com.intellij.execution.Location;
 import com.intellij.execution.RunConfigurationExtension;
 import com.intellij.execution.application.ApplicationConfiguration;
-import com.intellij.execution.configurations.JavaParameters;
 import com.intellij.execution.configurations.RunConfigurationBase;
 import com.intellij.execution.configurations.RunnerSettings;
 import com.intellij.execution.configurations.RuntimeConfigurationException;
@@ -42,19 +47,14 @@ import com.intellij.util.PathUtil;
 import com.intellij.util.net.NetUtils;
 import com.intellij.xml.util.XmlStringUtil;
 import com.jgoodies.forms.layout.FormLayout;
-import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
-
-import java.io.IOException;
-import java.util.Set;
-import java.util.TreeSet;
+import consulo.java.execution.configurations.OwnJavaParameters;
 
 /**
  * @author yole
  */
 public class SnapShooterConfigurationExtension extends RunConfigurationExtension {
   @Override
-  public void updateJavaParameters(RunConfigurationBase configuration, JavaParameters params, RunnerSettings runnerSettings) {
+  public void updateJavaParameters(RunConfigurationBase configuration, OwnJavaParameters params, RunnerSettings runnerSettings) {
     if (!isApplicableFor(configuration)) {
       return;
     }
