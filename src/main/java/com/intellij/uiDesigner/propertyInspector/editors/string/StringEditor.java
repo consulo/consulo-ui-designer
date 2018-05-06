@@ -32,8 +32,8 @@ import com.intellij.uiDesigner.propertyInspector.InplaceContext;
 import com.intellij.uiDesigner.propertyInspector.properties.IntroStringProperty;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.util.ui.UIUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -124,7 +124,7 @@ public final class StringEditor extends PropertyEditor<StringDescriptor> {
     }
   }
 
-  public JComponent getPreferredFocusedComponent(@NotNull final JComponent component) {
+  public JComponent getPreferredFocusedComponent(@Nonnull final JComponent component) {
     return ((TextFieldWithBrowseButton)component).getTextField();
   }
 

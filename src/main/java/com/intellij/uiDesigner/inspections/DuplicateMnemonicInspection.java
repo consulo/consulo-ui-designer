@@ -25,8 +25,8 @@ import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.lw.*;
 import com.intellij.uiDesigner.quickFixes.QuickFix;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class DuplicateMnemonicInspection extends BaseFormInspection {
     super("DuplicateMnemonic");
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getDisplayName() {
     return UIDesignerBundle.message("inspection.duplicate.mnemonics");

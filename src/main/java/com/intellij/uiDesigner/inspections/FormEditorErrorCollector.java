@@ -26,8 +26,8 @@ import com.intellij.uiDesigner.lw.IComponent;
 import com.intellij.uiDesigner.lw.IProperty;
 import com.intellij.uiDesigner.quickFixes.QuickFix;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,8 +55,8 @@ public class FormEditorErrorCollector extends FormErrorCollector {
     return myResults == null ? null : myResults.toArray(new ErrorInfo[myResults.size()]);
   }
 
-  public void addError(@NotNull final String inspectionId, final IComponent component, @Nullable IProperty prop,
-                       @NotNull String errorMessage,
+  public void addError(@Nonnull final String inspectionId, final IComponent component, @Nullable IProperty prop,
+                       @Nonnull String errorMessage,
                        EditorQuickFixProvider... editorQuickFixProviders) {
     if (myResults == null) {
       myResults = new ArrayList<ErrorInfo>();

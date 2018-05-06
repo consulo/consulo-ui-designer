@@ -20,8 +20,8 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.uiDesigner.SelectionWatcher;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.util.ui.PlatformColors;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,7 +47,7 @@ final class ActiveDecorationLayer extends JComponent implements FeedbackLayer {
   private final FeedbackPainterPanel myFeedbackPainterPanel = new FeedbackPainterPanel();
   private final RectangleFeedbackPainter myRectangleFeedbackPainter = new RectangleFeedbackPainter();
 
-  public ActiveDecorationLayer(@NotNull final GuiEditor editor) {
+  public ActiveDecorationLayer(@Nonnull final GuiEditor editor) {
     myEditor = editor;
     myToolTip = new JToolTip();
   }

@@ -24,7 +24,7 @@ import com.intellij.uiDesigner.propertyInspector.PropertyRenderer;
 import com.intellij.uiDesigner.propertyInspector.editors.IntRegexEditor;
 import com.intellij.uiDesigner.propertyInspector.renderers.DimensionRenderer;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.awt.*;
 
@@ -50,12 +50,12 @@ public abstract class AbstractDimensionProperty<T extends RadComponent> extends 
     myEditor = new IntRegexEditor<Dimension>(Dimension.class, myRenderer, new int[] { -1, -1 });
   }
 
-  @NotNull
+  @Nonnull
   public final Property[] getChildren(final RadComponent component){
     return myChildren;
   }
 
-  @NotNull
+  @Nonnull
   public final PropertyRenderer<Dimension> getRenderer() {
     return myRenderer;
   }

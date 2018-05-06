@@ -27,7 +27,7 @@ import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
 import com.intellij.util.ArrayUtil;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.lang.reflect.Method;
@@ -52,7 +52,7 @@ public class IntroListModelProperty extends IntrospectedProperty<String[]> {
     }
   }
 
-  @NotNull
+  @Nonnull
   public PropertyRenderer<String[]> getRenderer() {
     if (myRenderer == null) {
       myRenderer = new MyRenderer();

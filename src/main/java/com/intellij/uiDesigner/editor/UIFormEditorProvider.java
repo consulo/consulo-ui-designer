@@ -15,8 +15,9 @@
  */
 package com.intellij.uiDesigner.editor;
 
+import javax.annotation.Nonnull;
+
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.fileEditor.FileEditor;
 import com.intellij.openapi.fileEditor.FileEditorPolicy;
@@ -36,7 +37,7 @@ public final class UIFormEditorProvider implements FileEditorProvider, DumbAware
 	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.editor.UIFormEditorProvider");
 
 	@Override
-	public boolean accept(@NotNull final Project project, @NotNull final VirtualFile file)
+	public boolean accept(@Nonnull final Project project, @Nonnull final VirtualFile file)
 	{
 		return file.getFileType() == GuiFormFileType.INSTANCE &&
 				!GuiFormFileType.INSTANCE.isBinary() &&
@@ -44,42 +45,42 @@ public final class UIFormEditorProvider implements FileEditorProvider, DumbAware
 	}
 
 	@Override
-	@NotNull
-	public FileEditor createEditor(@NotNull final Project project, @NotNull final VirtualFile file)
+	@Nonnull
+	public FileEditor createEditor(@Nonnull final Project project, @Nonnull final VirtualFile file)
 	{
 		LOG.assertTrue(accept(project, file));
 		return new UIFormEditor(project, file);
 	}
 
 	@Override
-	public void disposeEditor(@NotNull final FileEditor editor)
+	public void disposeEditor(@Nonnull final FileEditor editor)
 	{
 		Disposer.dispose(editor);
 	}
 
 	@Override
-	@NotNull
-	public FileEditorState readState(@NotNull final Element element, @NotNull final Project project, @NotNull final VirtualFile file)
+	@Nonnull
+	public FileEditorState readState(@Nonnull final Element element, @Nonnull final Project project, @Nonnull final VirtualFile file)
 	{
 		//TODO[anton,vova] implement
 		return new MyEditorState(-1, ArrayUtil.EMPTY_STRING_ARRAY);
 	}
 
 	@Override
-	public void writeState(@NotNull final FileEditorState state, @NotNull final Project project, @NotNull final Element element)
+	public void writeState(@Nonnull final FileEditorState state, @Nonnull final Project project, @Nonnull final Element element)
 	{
 		//TODO[anton,vova] implement
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	public String getEditorTypeId()
 	{
 		return "ui-designer";
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	public FileEditorPolicy getPolicy()
 	{
 		return FileEditorPolicy.HIDE_DEFAULT_EDITOR;

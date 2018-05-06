@@ -16,6 +16,8 @@
 
 package com.intellij.uiDesigner.binding;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ResourceFileUtil;
 import com.intellij.openapi.project.Project;
@@ -29,8 +31,8 @@ import com.intellij.psi.PsiManager;
 import com.intellij.psi.PsiPlainTextFile;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.util.IncorrectOperationException;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 /**
  * @author yole
@@ -59,7 +61,7 @@ public class ResourceFileReference extends ReferenceInForm {
     return PsiManager.getInstance(project).findFile(formFile);
   }
 
-  public PsiElement bindToElement(@NotNull PsiElement element) throws IncorrectOperationException {
+  public PsiElement bindToElement(@Nonnull PsiElement element) throws IncorrectOperationException {
     if (!(element instanceof PsiFile)) { //should be icon file or nested form
       throw new IncorrectOperationException();
     }

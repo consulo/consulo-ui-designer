@@ -23,7 +23,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.ide.DeleteProvider;
 import com.intellij.ide.projectView.ProjectViewNode;
 import com.intellij.ide.projectView.TreeStructureProvider;
@@ -212,14 +212,14 @@ public class FormMergerTreeStructureProvider implements TreeStructureProvider
 		}
 
 		@Override
-		public void deleteElement(@NotNull DataContext dataContext)
+		public void deleteElement(@Nonnull DataContext dataContext)
 		{
 			Project project = dataContext.getData(CommonDataKeys.PROJECT);
 			DeleteHandler.deletePsiElement(myElements, project);
 		}
 
 		@Override
-		public boolean canDeleteElement(@NotNull DataContext dataContext)
+		public boolean canDeleteElement(@Nonnull DataContext dataContext)
 		{
 			return DeleteHandler.shouldEnableDeleteAction(myElements);
 		}

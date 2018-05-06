@@ -15,10 +15,12 @@
  */
 package com.intellij.uiDesigner.quickFixes;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 /**
  * @author Anton Katilin
@@ -31,7 +33,7 @@ public abstract class QuickFix {
   private final String myName;
   protected RadComponent myComponent;
 
-  public QuickFix(@NotNull final GuiEditor editor, @NotNull final String name, @Nullable RadComponent component) {
+  public QuickFix(@Nonnull final GuiEditor editor, @Nonnull final String name, @Nullable RadComponent component) {
     myEditor = editor;
     myName = name;
     myComponent = component;
@@ -40,7 +42,8 @@ public abstract class QuickFix {
   /**
    * @return name of the quick fix.
    */
-  @NotNull public final String getName() {
+  @Nonnull
+  public final String getName() {
     return myName;
   }
 

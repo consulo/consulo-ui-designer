@@ -21,7 +21,7 @@ import com.intellij.uiDesigner.lw.IComponent;
 import com.intellij.uiDesigner.lw.IRootContainer;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.FormEditingUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author yole
@@ -31,7 +31,7 @@ public class OneButtonGroupInspection extends BaseFormInspection {
     super("OneButtonGroup");
   }
 
-  @NotNull
+  @Nonnull
   @Override public String getDisplayName() {
     return UIDesignerBundle.message("inspection.one.button.group");
   }

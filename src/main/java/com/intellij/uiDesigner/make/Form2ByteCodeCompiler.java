@@ -26,8 +26,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.jetbrains.org.objectweb.asm.ClassWriter;
 import com.intellij.compiler.impl.CompilerUtil;
 import com.intellij.compiler.impl.ModuleChunk;
@@ -83,7 +84,7 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.make.Form2ByteCodeCompiler");
 
 	@Override
-	@NotNull
+	@Nonnull
 	public String getDescription()
 	{
 		return UIDesignerBundle.message("component.gui.designer.form.to.bytecode.compiler");
@@ -95,8 +96,8 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 		return true;
 	}
 
-	@NotNull
-	public static InstrumentationClassFinder createClassFinder(@NotNull final String classPath)
+	@Nonnull
+	public static InstrumentationClassFinder createClassFinder(@Nonnull final String classPath)
 	{
 		final ArrayList<URL> urls = new ArrayList<>();
 		for(StringTokenizer tokenizer = new StringTokenizer(classPath, File.pathSeparator); tokenizer.hasMoreTokens(); )
@@ -114,8 +115,8 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 		return new InstrumentationClassFinder(urls.toArray(new URL[urls.size()]));
 	}
 
-	@NotNull
-	public static InstrumentationClassFinder createClassFinder(@NotNull CompileContext context, @NotNull final Module module)
+	@Nonnull
+	public static InstrumentationClassFinder createClassFinder(@Nonnull CompileContext context, @Nonnull final Module module)
 	{
 		ModuleChunk moduleChunk = new ModuleChunk((CompileContextEx) context, new Chunk<>(module), Collections.<Module, List<VirtualFile>>emptyMap());
 
@@ -125,7 +126,7 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 		return new InstrumentationClassFinder(toUrls(compilationBootClasspath), toUrls(compilationClasspath));
 	}
 
-	@NotNull
+	@Nonnull
 	private static URL[] toUrls(Set<VirtualFile> files)
 	{
 		List<URL> urls = new ArrayList<>(files.size());
@@ -145,7 +146,7 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	public ProcessingItem[] getProcessingItems(final CompileContext context)
 	{
 		final Project project = context.getProject();
@@ -574,7 +575,7 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 		}
 
 		@Override
-		@NotNull
+		@Nonnull
 		public File getFile()
 		{
 			return myClassFile;

@@ -23,7 +23,7 @@ import com.intellij.uiDesigner.propertyInspector.PropertyRenderer;
 import com.intellij.uiDesigner.propertyInspector.editors.IntRegexEditor;
 import com.intellij.uiDesigner.propertyInspector.renderers.RectangleRenderer;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.awt.Rectangle;
 import java.lang.reflect.Method;
@@ -56,12 +56,12 @@ public final class IntroRectangleProperty extends IntrospectedProperty<Rectangle
     writer.addAttribute("height",value.height);
   }
 
-  @NotNull
+  @Nonnull
   public Property[] getChildren(final RadComponent component){
     return myChildren;
   }
 
-  @NotNull
+  @Nonnull
   public PropertyRenderer<Rectangle> getRenderer() {
     return myRenderer;
   }

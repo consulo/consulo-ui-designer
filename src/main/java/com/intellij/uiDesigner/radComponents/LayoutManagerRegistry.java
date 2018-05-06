@@ -22,7 +22,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.util.ArrayUtil;
 import com.jgoodies.forms.layout.FormLayout;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.awt.*;

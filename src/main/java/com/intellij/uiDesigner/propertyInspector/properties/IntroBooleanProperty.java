@@ -15,14 +15,12 @@
  */
 package com.intellij.uiDesigner.propertyInspector.properties;
 
-import com.intellij.uiDesigner.XmlWriter;
-import com.intellij.uiDesigner.UIFormXmlConstants;
 import com.intellij.uiDesigner.propertyInspector.IntrospectedProperty;
 import com.intellij.uiDesigner.propertyInspector.PropertyEditor;
 import com.intellij.uiDesigner.propertyInspector.PropertyRenderer;
 import com.intellij.uiDesigner.propertyInspector.editors.BooleanEditor;
 import com.intellij.uiDesigner.propertyInspector.renderers.BooleanRenderer;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.lang.reflect.Method;
 
@@ -45,7 +43,7 @@ public final class IntroBooleanProperty extends IntrospectedProperty<Boolean> {
     return myEditor;
   }
 
-  @NotNull
+  @Nonnull
   public PropertyRenderer<Boolean> getRenderer() {
     if (myRenderer == null) {
       myRenderer = new BooleanRenderer();

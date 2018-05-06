@@ -35,7 +35,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.CommonBundle;
 import com.intellij.ide.highlighter.JavaFileType;
 import com.intellij.ide.util.TreeClassChooser;
@@ -108,7 +108,7 @@ public final class ComponentItemDialog extends DialogWrapper {
    * @param itemToBeEdited item to be edited. If user closes dialog by "OK" button then
    * @param oneOff
    */
-  public ComponentItemDialog(final Project project, final Component parent, @NotNull ComponentItem itemToBeEdited, final boolean oneOff) {
+  public ComponentItemDialog(final Project project, final Component parent, @Nonnull ComponentItem itemToBeEdited, final boolean oneOff) {
     super(parent, false);
     myProject = project;
 
@@ -222,7 +222,7 @@ public final class ComponentItemDialog extends DialogWrapper {
     updateOKAction();
   }
 
-  @NotNull
+  @Nonnull
   protected Action[] createActions() {
     return new Action[]{getOKAction(), getCancelAction(), getHelpAction()};
   }

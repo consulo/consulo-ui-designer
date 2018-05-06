@@ -25,10 +25,10 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.swing.JComponent;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 import com.intellij.CommonBundle;
 import com.intellij.codeInsight.FileModificationService;
 import com.intellij.codeInsight.generation.OverrideImplementUtil;
@@ -102,7 +102,7 @@ public class CreateListenerAction extends AbstractGuiEditorAction {
   }
 
   @Override
-  protected void update(@NotNull GuiEditor editor, final ArrayList<RadComponent> selection, final AnActionEvent e) {
+  protected void update(@Nonnull GuiEditor editor, final ArrayList<RadComponent> selection, final AnActionEvent e) {
     e.getPresentation().setEnabled(canCreateListener(selection));
   }
 

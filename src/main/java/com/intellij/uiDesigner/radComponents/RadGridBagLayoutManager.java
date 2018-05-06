@@ -35,9 +35,9 @@ import com.intellij.uiDesigner.propertyInspector.properties.VertAlignProperty;
 import com.intellij.uiDesigner.propertyInspector.renderers.LabelPropertyRenderer;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
 import com.intellij.util.IncorrectOperationException;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import java.awt.*;
 
@@ -240,9 +240,9 @@ public class RadGridBagLayoutManager extends RadAbstractGridLayoutManager {
     return result;
   }
 
-  @NotNull
+  @Nonnull
   @Override
-  public ComponentDropLocation getDropLocation(@NotNull RadContainer container, @Nullable final Point location) {
+  public ComponentDropLocation getDropLocation(@Nonnull RadContainer container, @Nullable final Point location) {
     if (getGridRowCount(container) == 0 && getGridColumnCount(container) == 0) {
       return new FirstComponentInsertLocation(container, new Rectangle(0, 0, container.getWidth(), container.getHeight()), 0, 0);
     }
@@ -543,7 +543,7 @@ public class RadGridBagLayoutManager extends RadAbstractGridLayoutManager {
       }
     }
 
-    @NotNull
+    @Nonnull
     public PropertyRenderer<Double> getRenderer() {
       if (myRenderer == null) {
         myRenderer = new LabelPropertyRenderer<Double>();

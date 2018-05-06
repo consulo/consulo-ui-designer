@@ -20,7 +20,7 @@ import com.intellij.openapi.actionSystem.IdeActions;
 import com.intellij.openapi.keymap.KeymapUtil;
 import com.intellij.ui.ClickListener;
 import com.intellij.uiDesigner.UIDesignerBundle;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,7 +37,7 @@ final class LightBulbComponentImpl extends JComponent{
   private final QuickFixManager myManager;
   private final Icon myIcon;
 
-  public LightBulbComponentImpl(@NotNull final QuickFixManager manager, @NotNull final Icon icon) {
+  public LightBulbComponentImpl(@Nonnull final QuickFixManager manager, @Nonnull final Icon icon) {
     myManager = manager;
     myIcon = icon;
 

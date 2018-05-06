@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.propertyInspector.renderers;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.awt.Insets;
 
@@ -30,7 +30,7 @@ public final class InsetsPropertyRenderer extends LabelPropertyRenderer<Insets> 
     myBuffer=new StringBuffer();
   }
 
-  protected void customize(@NotNull final Insets value){
+  protected void customize(@Nonnull final Insets value){
     setText(formatText(value)); 
   }
 

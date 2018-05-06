@@ -21,7 +21,7 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.propertyInspector.properties.IndentProperty;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class IncreaseIndentAction extends AbstractGuiEditorAction {
     }
   }
 
-  protected void update(@NotNull GuiEditor editor, final ArrayList<RadComponent> selection, final AnActionEvent e) {
+  protected void update(@Nonnull GuiEditor editor, final ArrayList<RadComponent> selection, final AnActionEvent e) {
     final boolean applicable = canAdjustIndent(selection);
     e.getPresentation().setVisible(applicable);
     final Component focusOwner = IdeFocusManager.findInstanceByComponent(editor).getFocusOwner();

@@ -43,7 +43,7 @@ import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import com.intellij.util.IncorrectOperationException;
 import com.intellij.util.Processor;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -178,7 +178,7 @@ public class MorphAction extends AbstractGuiEditorAction {
   }
 
   @Override
-  protected void update(@NotNull GuiEditor editor, final ArrayList<RadComponent> selection, final AnActionEvent e) {
+  protected void update(@Nonnull GuiEditor editor, final ArrayList<RadComponent> selection, final AnActionEvent e) {
     if (selection.size() == 0) {
       e.getPresentation().setEnabled(false);
       return;

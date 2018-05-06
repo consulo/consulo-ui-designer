@@ -34,8 +34,8 @@ import com.intellij.uiDesigner.propertyInspector.properties.HGapProperty;
 import com.intellij.uiDesigner.propertyInspector.properties.VGapProperty;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
 import com.intellij.util.IncorrectOperationException;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -75,7 +75,8 @@ public class RadBorderLayoutManager extends RadLayoutManager {
     writer.addAttribute(UIFormXmlConstants.ATTRIBUTE_BORDER_CONSTRAINT, (String) child.getCustomLayoutConstraints());
   }
 
-  @NotNull @Override
+  @Nonnull
+  @Override
   public ComponentDropLocation getDropLocation(RadContainer container, final Point location) {
     return new MyDropLocation(container, getQuadrantAt(container, location));
   }
@@ -359,7 +360,7 @@ public class RadBorderLayoutManager extends RadLayoutManager {
       }
     }
 
-    @NotNull
+    @Nonnull
     public PropertyRenderer<String> getRenderer() {
       if (myRenderer == null) {
         myRenderer = new LabelPropertyRenderer<String>();

@@ -15,6 +15,8 @@
  */
 package com.intellij.uiDesigner.binding;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.RangeMarker;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
@@ -25,7 +27,6 @@ import com.intellij.psi.PsiPlainTextFile;
 import com.intellij.psi.PsiReference;
 import com.intellij.util.ArrayUtil;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Eugene Zhuravlev
@@ -58,7 +59,7 @@ public abstract class ReferenceInForm implements PsiReference {
     return TextRange.create(myRangeMarker);
   }
 
-  @NotNull
+  @Nonnull
   public String getCanonicalText() {
     return getRangeText();
   }
@@ -77,7 +78,7 @@ public abstract class ReferenceInForm implements PsiReference {
     return resolve() == element;
   }
 
-  @NotNull
+  @Nonnull
   public Object[] getVariants() {
     return ArrayUtil.EMPTY_OBJECT_ARRAY;
   }

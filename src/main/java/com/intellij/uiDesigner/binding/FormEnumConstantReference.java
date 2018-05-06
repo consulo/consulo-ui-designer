@@ -22,8 +22,9 @@
  */
 package com.intellij.uiDesigner.binding;
 
-import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiPlainTextFile;
 import com.intellij.psi.PsiClass;
@@ -46,7 +47,7 @@ public class FormEnumConstantReference extends ReferenceInForm {
     return enumClass.findFieldByName(getRangeText(), false);
   }
 
-  public PsiElement bindToElement(@NotNull PsiElement element) throws IncorrectOperationException {
+  public PsiElement bindToElement(@Nonnull PsiElement element) throws IncorrectOperationException {
     throw new IncorrectOperationException();
   }
 }

@@ -24,19 +24,20 @@ import com.intellij.uiDesigner.propertyInspector.renderers.LabelPropertyRenderer
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.util.ArrayUtil;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.lang.reflect.Method;
 
 public final class IntFieldProperty extends Property<RadComponent, Integer> {
   private final LabelPropertyRenderer<Integer> myRenderer;
   private final IntEditor myEditor;
-  @NotNull private final Property myParent;
+  @Nonnull
+  private final Property myParent;
   private final String myFieldName;
   private final Object myTemplateValue;
   @NonNls private static final String METHOD_CLONE = "clone";
 
-  public IntFieldProperty(@NotNull final Property parent, @NonNls final String fieldName, final int lowBoundary, final Object templateValue) {
+  public IntFieldProperty(@Nonnull final Property parent, @NonNls final String fieldName, final int lowBoundary, final Object templateValue) {
     super(parent, fieldName);
     myParent = parent;
     myFieldName = fieldName;
@@ -72,7 +73,7 @@ public final class IntFieldProperty extends Property<RadComponent, Integer> {
     myParent.setValue(component, parentValue);
   }
 
-  @NotNull
+  @Nonnull
   public PropertyRenderer<Integer> getRenderer() {
     return myRenderer;
   }

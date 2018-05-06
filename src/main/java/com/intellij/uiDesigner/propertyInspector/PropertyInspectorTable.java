@@ -32,6 +32,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.plaf.TableUI;
@@ -40,8 +41,8 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.codeInsight.daemon.impl.SeverityRegistrar;
 import com.intellij.icons.AllIcons;
 import com.intellij.ide.ui.LafManager;
@@ -136,7 +137,7 @@ public final class PropertyInspectorTable extends Table implements DataProvider
 	/**
 	 * Component to be edited
 	 */
-	@NotNull
+	@Nonnull
 	private final List<RadComponent> mySelection = new ArrayList<RadComponent>();
 	/**
 	 * If true then inspector will show "expert" properties
@@ -160,7 +161,7 @@ public final class PropertyInspectorTable extends Table implements DataProvider
 	@NonNls
 	private static final String ourHelpID = "guiDesigner.uiTour.inspector";
 
-	PropertyInspectorTable(Project project, @NotNull final ComponentTree componentTree)
+	PropertyInspectorTable(Project project, @Nonnull final ComponentTree componentTree)
 	{
 		myProject = project;
 		myClassToBindProperty = new ClassToBindProperty(project);
@@ -1267,7 +1268,7 @@ public final class PropertyInspectorTable extends Table implements DataProvider
 		}
 
 		@Override
-		public Component getTableCellRendererComponent(final JTable table, @NotNull final Object value, final boolean selected,
+		public Component getTableCellRendererComponent(final JTable table, @Nonnull final Object value, final boolean selected,
 				final boolean hasFocus, final int row, int column)
 		{
 			myPropertyNameRenderer.getTableCellRendererComponent(table, value, selected, hasFocus, row, column);
@@ -1449,7 +1450,7 @@ public final class PropertyInspectorTable extends Table implements DataProvider
 	{
 		private PropertyEditor myEditor;
 
-		public void setEditor(@NotNull final PropertyEditor editor)
+		public void setEditor(@Nonnull final PropertyEditor editor)
 		{
 			myEditor = editor;
 		}
@@ -1468,7 +1469,7 @@ public final class PropertyInspectorTable extends Table implements DataProvider
 		}
 
 		@Override
-		public Component getTableCellEditorComponent(final JTable table, @NotNull final Object value, final boolean isSelected, final int row,
+		public Component getTableCellEditorComponent(final JTable table, @Nonnull final Object value, final boolean isSelected, final int row,
 				final int column)
 		{
 			final Property property = (Property) value;

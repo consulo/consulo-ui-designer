@@ -15,8 +15,9 @@
  */
 package com.intellij.uiDesigner.wizard;
 
+import javax.annotation.Nonnull;
+
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Anton Katilin
@@ -26,7 +27,8 @@ final class BeanProperty implements Comparable<BeanProperty>{
   /**
    * Property name.
    */
-  @NotNull public final String myName;
+  @Nonnull
+  public final String myName;
   /**
    * Property type.
    * There are two possible types:
@@ -35,9 +37,10 @@ final class BeanProperty implements Comparable<BeanProperty>{
    *  <li>boolean</li>
    * </ul>
    */
-  @NotNull public final String myType;
+  @Nonnull
+  public final String myType;
 
-  public BeanProperty(@NotNull final String name, @NonNls @NotNull final String type) {
+  public BeanProperty(@Nonnull final String name, @NonNls @Nonnull final String type) {
     if(!"java.lang.String".equals(type) && !"boolean".equals(type)){
       throw new IllegalArgumentException("unknown type: " + type);
     }

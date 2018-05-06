@@ -19,8 +19,8 @@ import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.lw.IProperty;
 import com.intellij.uiDesigner.lw.IComponent;import com.intellij.openapi.diagnostic.Logger;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public abstract class Property<T extends RadComponent, V> implements IProperty {
    */
   private final String myName;
 
-  public Property(final Property parent, @NotNull @NonNls final String name) {
+  public Property(final Property parent, @Nonnull @NonNls final String name) {
     myParent = parent;
     myName = name;
   }
@@ -50,7 +50,7 @@ public abstract class Property<T extends RadComponent, V> implements IProperty {
   /**
    * @return property's name.
    */
-  @NotNull
+  @Nonnull
   public final String getName() {
     return myName;
   }
@@ -130,14 +130,15 @@ public abstract class Property<T extends RadComponent, V> implements IProperty {
    * @return child properties.
    * @param component
    */
-  @NotNull public Property[] getChildren(final RadComponent component) {
+  @Nonnull
+  public Property[] getChildren(final RadComponent component) {
     return EMPTY_ARRAY;
   }
 
   /**
    * @return property's renderer.
    */
-  @NotNull
+  @Nonnull
   public abstract PropertyRenderer<V> getRenderer();
 
   /**

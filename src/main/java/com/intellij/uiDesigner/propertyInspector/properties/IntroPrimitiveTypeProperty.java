@@ -20,7 +20,7 @@ import com.intellij.uiDesigner.propertyInspector.PropertyEditor;
 import com.intellij.uiDesigner.propertyInspector.PropertyRenderer;
 import com.intellij.uiDesigner.propertyInspector.editors.PrimitiveTypeEditor;
 import com.intellij.uiDesigner.propertyInspector.renderers.LabelPropertyRenderer;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.lang.reflect.Method;
 
@@ -38,7 +38,7 @@ public class IntroPrimitiveTypeProperty<T> extends IntrospectedProperty<T> {
     myClass = aClass;
   }
 
-  @NotNull
+  @Nonnull
   public PropertyRenderer<T> getRenderer(){
     if (myRenderer == null) {
       myRenderer = new LabelPropertyRenderer<T>();

@@ -19,7 +19,7 @@ package com.intellij.uiDesigner.propertyInspector.renderers;
 import com.intellij.uiDesigner.lw.IconDescriptor;
 import com.intellij.uiDesigner.propertyInspector.properties.IntroIconProperty;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,7 +41,7 @@ public class IconRenderer extends LabelPropertyRenderer<IconDescriptor> {
     return component;
   }
 
-  protected void customize(@NotNull IconDescriptor value) {
+  protected void customize(@Nonnull IconDescriptor value) {
     setIcon(value.getIcon());
     setText(value.getIconPath());
   }

@@ -16,7 +16,7 @@
 
 package com.intellij.uiDesigner;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.codeHighlighting.HighlightingPass;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
@@ -35,7 +35,7 @@ public class FormHighlightingPass implements HighlightingPass
 	}
 
 	@Override
-	public void collectInformation(@NotNull ProgressIndicator progress)
+	public void collectInformation(@Nonnull ProgressIndicator progress)
 	{
 		ErrorAnalyzer.analyzeErrors(myEditor, myEditor.getRootContainer(), progress);
 	}

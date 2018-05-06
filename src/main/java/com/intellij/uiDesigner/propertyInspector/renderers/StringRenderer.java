@@ -15,9 +15,10 @@
  */
 package com.intellij.uiDesigner.propertyInspector.renderers;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.uiDesigner.lw.StringDescriptor;
 import com.intellij.openapi.util.text.StringUtil;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Anton Katilin
@@ -25,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public final class StringRenderer extends LabelPropertyRenderer<StringDescriptor> {
 
-  protected void customize(@NotNull final StringDescriptor value) {
+  protected void customize(@Nonnull final StringDescriptor value) {
     String resolvedValue = value.getResolvedValue();
     if (resolvedValue == null) {
       resolvedValue = value.getValue();

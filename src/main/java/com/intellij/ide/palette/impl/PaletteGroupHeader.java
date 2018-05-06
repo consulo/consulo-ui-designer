@@ -26,8 +26,8 @@ import com.intellij.openapi.util.Key;
 import com.intellij.ui.PopupHandler;
 import com.intellij.util.ui.UIUtil;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import java.awt.*;
@@ -157,7 +157,8 @@ public class PaletteGroupHeader extends JCheckBox implements DataProvider {
     return myGroup;
   }
 
-  @Nullable public Object getData(Key<?> dataId) {
+  @Nullable
+  public Object getData(Key<?> dataId) {
     Object data = myPaletteWindow.getData(dataId);
     if (data != null) return data;
     Project project = myPaletteWindow.getDataUnchecked(CommonDataKeys.PROJECT);

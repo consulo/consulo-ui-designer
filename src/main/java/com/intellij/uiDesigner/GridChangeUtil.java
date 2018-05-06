@@ -19,7 +19,7 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.radComponents.RadAbstractGridLayoutManager;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.awt.*;
 
@@ -131,7 +131,7 @@ public final class GridChangeUtil {
    * @param isRow if true, row is deleted, otherwise column
    * @return whether the specified column can be deleted
    */
- public static CellStatus canDeleteCell(@NotNull final RadContainer grid, final int cellIndex, final boolean isRow) {
+ public static CellStatus canDeleteCell(@Nonnull final RadContainer grid, final int cellIndex, final boolean isRow) {
     check(grid, isRow, cellIndex);
 
     // Do not allow to delete the single row/column
@@ -225,7 +225,7 @@ public final class GridChangeUtil {
   /**
    * check whether passed container is grid and cellIndex is in proper range
    */
-  private static void check(@NotNull RadContainer grid, final boolean isRow, final int cellIndex){
+  private static void check(@Nonnull RadContainer grid, final boolean isRow, final int cellIndex){
     if (!grid.getLayoutManager().isGrid()){
       throw new IllegalArgumentException("container must be grid");
     }

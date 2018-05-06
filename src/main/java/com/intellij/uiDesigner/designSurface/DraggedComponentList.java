@@ -20,8 +20,8 @@ import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -257,7 +257,7 @@ public class DraggedComponentList implements Transferable, ComponentDragObject {
     return null;
   }
 
-  @NotNull
+  @Nonnull
   public Dimension getInitialSize(final RadContainer targetContainer) {
     if (myOriginalBounds.length == 1) {
       return myOriginalBounds [0].getSize();

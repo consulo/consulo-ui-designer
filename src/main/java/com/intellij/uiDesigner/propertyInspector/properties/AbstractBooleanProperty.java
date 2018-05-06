@@ -16,13 +16,14 @@
 
 package com.intellij.uiDesigner.propertyInspector.properties;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.propertyInspector.Property;
 import com.intellij.uiDesigner.propertyInspector.PropertyRenderer;
 import com.intellij.uiDesigner.propertyInspector.PropertyEditor;
 import com.intellij.uiDesigner.propertyInspector.editors.BooleanEditor;
 import com.intellij.uiDesigner.propertyInspector.renderers.BooleanRenderer;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.NonNls;
 
 /**
@@ -38,7 +39,7 @@ public abstract class AbstractBooleanProperty<T extends RadComponent> extends Pr
     myDefaultValue = defaultValue;
   }
 
-  @NotNull
+  @Nonnull
   public PropertyRenderer<Boolean> getRenderer() {
     if (myRenderer == null) {
       myRenderer = new BooleanRenderer();

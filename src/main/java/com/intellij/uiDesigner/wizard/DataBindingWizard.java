@@ -24,7 +24,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.uiDesigner.UIDesignerBundle;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 
@@ -38,7 +38,7 @@ public final class DataBindingWizard extends AbstractWizard{
   private final Project myProject;
   private final BeanStep myBeanStep;
 
-  public DataBindingWizard(@NotNull final Project project, @NotNull final VirtualFile formFile, @NotNull final WizardData data) {
+  public DataBindingWizard(@Nonnull final Project project, @Nonnull final VirtualFile formFile, @Nonnull final WizardData data) {
     super(UIDesignerBundle.message("title.data.binding.wizard"), project);
     myProject = project;
     myData = data;

@@ -22,8 +22,8 @@ import com.intellij.psi.util.ClassUtil;
 import com.intellij.psi.util.InheritanceUtil;
 import com.intellij.psi.util.PropertyUtil;
 import com.intellij.uiDesigner.lw.*;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,7 +37,7 @@ public final class PsiPropertiesProvider implements PropertiesProvider {
   private final Module myModule;
   private final HashMap<String, HashMap> myCache;
 
-  public PsiPropertiesProvider(@NotNull final Module module) {
+  public PsiPropertiesProvider(@Nonnull final Module module) {
     myModule = module;
     myCache = new HashMap<String, HashMap>();
   }

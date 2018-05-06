@@ -25,7 +25,7 @@ import com.intellij.psi.util.PropertyUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.util.ArrayUtil;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -51,7 +51,7 @@ final class BindToExistingBeanStep extends StepAdapter{
   private JCheckBox myChkSetData;
   private JPanel myPanel;
 
-  BindToExistingBeanStep(@NotNull final WizardData data) {
+  BindToExistingBeanStep(@Nonnull final WizardData data) {
     myData = data;
     myTableModel = new MyTableModel();
     myTable.setModel(myTableModel);

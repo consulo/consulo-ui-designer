@@ -30,7 +30,7 @@ import com.intellij.uiDesigner.radComponents.RadButtonGroup;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class NoButtonGroupInspection extends BaseFormInspection {
     super("NoButtonGroup");
   }
 
-  @NotNull
+  @Nonnull
   @Override public String getDisplayName() {
     return UIDesignerBundle.message("inspection.no.button.group");
   }

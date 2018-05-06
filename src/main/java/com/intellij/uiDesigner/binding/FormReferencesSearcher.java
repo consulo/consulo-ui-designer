@@ -2,7 +2,7 @@ package com.intellij.uiDesigner.binding;
 
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.lang.properties.IProperty;
 import com.intellij.lang.properties.psi.PropertiesFile;
 import com.intellij.lang.properties.psi.Property;
@@ -46,7 +46,7 @@ import com.intellij.util.text.CharArrayUtil;
  */
 public class FormReferencesSearcher implements QueryExecutor<PsiReference, ReferencesSearch.SearchParameters>
 {
-	public boolean execute(@NotNull final ReferencesSearch.SearchParameters p, @NotNull final Processor<PsiReference> consumer)
+	public boolean execute(@Nonnull final ReferencesSearch.SearchParameters p, @Nonnull final Processor<PsiReference> consumer)
 	{
 		if(!scopeCanContainForms(p.getScope()))
 		{

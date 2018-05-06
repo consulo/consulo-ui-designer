@@ -35,7 +35,7 @@ import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.lw.IComponent;
 import com.intellij.util.IncorrectOperationException;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author Anton Katilin
@@ -46,7 +46,7 @@ public final class CreateClassToBindFix extends QuickFix{
 
   private final String myClassName;
 
-  public CreateClassToBindFix(final GuiEditor editor, @NotNull final String className) {
+  public CreateClassToBindFix(final GuiEditor editor, @Nonnull final String className) {
     super(editor, UIDesignerBundle.message("action.create.class", className), null);
     myClassName = className;
   }

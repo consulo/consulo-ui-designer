@@ -25,7 +25,7 @@ import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.radComponents.RadAtomicComponent;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,7 +42,7 @@ abstract class AbstractMoveSelectionAction extends AnAction implements DumbAware
   private final boolean myExtend;
   private final boolean myMoveToLast;
 
-  public AbstractMoveSelectionAction(@NotNull final GuiEditor editor, boolean extend, final boolean moveToLast) {
+  public AbstractMoveSelectionAction(@Nonnull final GuiEditor editor, boolean extend, final boolean moveToLast) {
     myEditor = editor;
     myExtend = extend;
     myMoveToLast = moveToLast;

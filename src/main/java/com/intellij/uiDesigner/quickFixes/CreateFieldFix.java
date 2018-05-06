@@ -15,6 +15,8 @@
  */
 package com.intellij.uiDesigner.quickFixes;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.CommonBundle;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
@@ -31,8 +33,8 @@ import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.lw.IContainer;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import com.intellij.util.IncorrectOperationException;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 /**
  * @author Anton Katilin
@@ -47,9 +49,9 @@ public final class CreateFieldFix extends QuickFix{
 
   public CreateFieldFix(
     final GuiEditor editor,
-    @NotNull final PsiClass aClass,
-    @NotNull final String fieldClass,
-    @NotNull final String fieldName
+    @Nonnull final PsiClass aClass,
+    @Nonnull final String fieldClass,
+    @Nonnull final String fieldName
   ) {
     super(editor, UIDesignerBundle.message("action.create.field", fieldName), null);
     myClass = aClass;
@@ -61,11 +63,11 @@ public final class CreateFieldFix extends QuickFix{
    * @param showErrors if <code>true</code> the error messages will be shown to the
    * @param undoGroupId the group used to undo the action together with some other action.
    */
-  public static void runImpl(@NotNull final Project project,
-                             @NotNull final RadContainer rootContainer,
-                             @NotNull final PsiClass boundClass,
-                             @NotNull final String fieldClassName,
-                             @NotNull final String fieldName,
+  public static void runImpl(@Nonnull final Project project,
+                             @Nonnull final RadContainer rootContainer,
+                             @Nonnull final PsiClass boundClass,
+                             @Nonnull final String fieldClassName,
+                             @Nonnull final String fieldName,
                              final boolean showErrors,
                              @Nullable final Object undoGroupId) {
     ApplicationManager.getApplication().assertReadAccessAllowed();

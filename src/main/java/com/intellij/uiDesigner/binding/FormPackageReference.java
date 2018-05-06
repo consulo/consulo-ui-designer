@@ -15,6 +15,8 @@
  */
 package com.intellij.uiDesigner.binding;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.JavaPsiFacade;
@@ -22,7 +24,6 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiJavaPackage;
 import com.intellij.psi.PsiPlainTextFile;
 import com.intellij.util.IncorrectOperationException;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author yole
@@ -61,7 +62,7 @@ public class FormPackageReference extends ReferenceInForm {
     return myFile;
   }
 
-  public PsiElement bindToElement(@NotNull final PsiElement element) throws IncorrectOperationException {
+  public PsiElement bindToElement(@Nonnull final PsiElement element) throws IncorrectOperationException {
     return myFile;
   }
 }

@@ -19,9 +19,9 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.uiDesigner.ErrorInfo;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.quickFixes.QuickFixManager;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.*;
@@ -57,7 +57,7 @@ final class QuickFixManagerImpl extends QuickFixManager <PropertyInspectorTable>
     }
   }
 
-  @NotNull
+  @Nonnull
   public ErrorInfo[] getErrorInfos() {
     final int selectedRow = myComponent.getSelectedRow();
     if(selectedRow < 0 || selectedRow >= myComponent.getRowCount()){

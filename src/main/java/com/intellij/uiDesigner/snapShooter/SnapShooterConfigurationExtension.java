@@ -20,8 +20,9 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.annotation.Nonnull;
+
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
 import com.intellij.execution.Location;
 import com.intellij.execution.RunConfigurationExtension;
 import com.intellij.execution.application.ApplicationConfiguration;
@@ -98,11 +99,11 @@ public class SnapShooterConfigurationExtension extends RunConfigurationExtension
     }
   }
 
-  protected boolean isApplicableFor(@NotNull RunConfigurationBase configuration) {
+  protected boolean isApplicableFor(@Nonnull RunConfigurationBase configuration) {
     return configuration instanceof ApplicationConfiguration;
   }
 
-  public void attachToProcess(@NotNull final RunConfigurationBase configuration, @NotNull final ProcessHandler handler, RunnerSettings runnerSettings) {
+  public void attachToProcess(@Nonnull final RunConfigurationBase configuration, @Nonnull final ProcessHandler handler, RunnerSettings runnerSettings) {
     SnapShooterConfigurationSettings settings = configuration.getUserData(SnapShooterConfigurationSettings.SNAP_SHOOTER_KEY);
     if (settings != null) {
       final Runnable runnable = settings.getNotifyRunnable();
@@ -118,7 +119,7 @@ public class SnapShooterConfigurationExtension extends RunConfigurationExtension
   }
 
   @Override
-  public SettingsEditor createEditor(@NotNull RunConfigurationBase configuration) {
+  public SettingsEditor createEditor(@Nonnull RunConfigurationBase configuration) {
     return null;
   }
 
@@ -127,27 +128,27 @@ public class SnapShooterConfigurationExtension extends RunConfigurationExtension
     return null;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getSerializationId() {
     return "snapshooter";
   }
 
   @Override
-  public void readExternal(@NotNull RunConfigurationBase runConfiguration, @NotNull Element element) throws InvalidDataException {
+  public void readExternal(@Nonnull RunConfigurationBase runConfiguration, @Nonnull Element element) throws InvalidDataException {
   }
 
   @Override
-  public void writeExternal(@NotNull RunConfigurationBase runConfiguration, @NotNull Element element) throws WriteExternalException {
+  public void writeExternal(@Nonnull RunConfigurationBase runConfiguration, @Nonnull Element element) throws WriteExternalException {
     throw new WriteExternalException();
   }
 
   @Override
-  public void extendCreatedConfiguration(@NotNull RunConfigurationBase runJavaConfiguration, @NotNull Location location) {
+  public void extendCreatedConfiguration(@Nonnull RunConfigurationBase runJavaConfiguration, @Nonnull Location location) {
   }
 
   @Override
-  public void validateConfiguration(@NotNull RunConfigurationBase runJavaConfiguration, boolean isExecution)
+  public void validateConfiguration(@Nonnull RunConfigurationBase runJavaConfiguration, boolean isExecution)
     throws RuntimeConfigurationException {
 
   }

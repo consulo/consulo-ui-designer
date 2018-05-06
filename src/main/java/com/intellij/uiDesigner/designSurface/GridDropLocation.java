@@ -21,8 +21,8 @@ import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import com.intellij.uiDesigner.shared.XYLayoutManager;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.Rectangle;
@@ -38,7 +38,7 @@ public class GridDropLocation implements ComponentDropLocation {
   protected int myRow;
   protected int myColumn;
 
-  public GridDropLocation(@NotNull final RadContainer container, final int row, final int column) {
+  public GridDropLocation(@Nonnull final RadContainer container, final int row, final int column) {
     myContainer = container;
     myRow = row;
     myColumn = column;

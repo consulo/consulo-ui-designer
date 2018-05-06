@@ -23,7 +23,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultTreeModel;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.ide.util.treeView.AbstractTreeBuilder;
 import com.intellij.ide.util.treeView.NodeDescriptor;
 import com.intellij.openapi.diagnostic.Logger;
@@ -57,7 +57,7 @@ public final class ComponentTreeBuilder extends AbstractTreeBuilder
 	private final MyHierarchyChangeListener myHierarchyChangeListener;
 	private MyTreeSelectionListener myTreeSelectionListener;
 
-	public ComponentTreeBuilder(final ComponentTree tree, @NotNull final GuiEditor editor)
+	public ComponentTreeBuilder(final ComponentTree tree, @Nonnull final GuiEditor editor)
 	{
 		super(tree, (DefaultTreeModel) tree.getModel(), new ComponentTreeStructure(editor), MyComparator.ourComparator);
 
@@ -152,7 +152,7 @@ public final class ComponentTreeBuilder extends AbstractTreeBuilder
 		myEditor.fireSelectedComponentChanged();
 	}
 
-	@NotNull
+	@Nonnull
 	protected ProgressIndicator createProgressIndicator()
 	{
 		return new StatusBarProgress();

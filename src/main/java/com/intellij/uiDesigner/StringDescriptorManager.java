@@ -30,8 +30,8 @@ import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
 import com.intellij.util.messages.MessageBus;
 import com.intellij.ProjectTopics;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -63,13 +63,15 @@ public class StringDescriptorManager {
     return service;
   }
 
-  @Nullable public String resolve(@NotNull RadComponent component, @Nullable StringDescriptor descriptor) {
+  @Nullable
+  public String resolve(@Nonnull RadComponent component, @Nullable StringDescriptor descriptor) {
     RadRootContainer root = (RadRootContainer) FormEditingUtil.getRoot(component);
     Locale locale = (root != null) ? root.getStringDescriptorLocale() : null;
     return resolve(descriptor, locale);
   }
 
-  @Nullable public String resolve(@Nullable StringDescriptor descriptor, @Nullable Locale locale) {
+  @Nullable
+  public String resolve(@Nullable StringDescriptor descriptor, @Nullable Locale locale) {
     if (descriptor == null) {
       return null;
     }
@@ -89,7 +91,7 @@ public class StringDescriptorManager {
     return "[" + descriptor.getKey() + " / " + descriptor.getBundleName() + "]";
   }
 
-  public IProperty resolveToProperty(@NotNull StringDescriptor descriptor, @Nullable Locale locale) {
+  public IProperty resolveToProperty(@Nonnull StringDescriptor descriptor, @Nullable Locale locale) {
     String propFileName = descriptor.getDottedBundleName();
     Pair<Locale, String> cacheKey = new Pair<Locale, String>(locale, propFileName);
     SoftReference<PropertiesFile> propertiesFileRef;

@@ -26,8 +26,8 @@ import com.intellij.uiDesigner.designSurface.FeedbackLayer;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.palette.Palette;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -98,7 +98,7 @@ public final class RadScrollPane extends RadContainer {
     public void writeChildConstraints(final XmlWriter writer, final RadComponent child) {
     }
 
-    @Override @NotNull
+    @Override @Nonnull
     public ComponentDropLocation getDropLocation(RadContainer container, @Nullable final Point location) {
       if (myDropLocation == null) {
         myDropLocation = new MyDropLocation();

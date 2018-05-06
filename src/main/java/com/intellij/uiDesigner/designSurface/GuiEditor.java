@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -48,8 +49,8 @@ import javax.swing.event.EventListenerList;
 import javax.swing.event.ListSelectionEvent;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.codeInsight.daemon.DaemonCodeAnalyzer;
 import com.intellij.designer.DesignerEditorPanelFacade;
 import com.intellij.designer.LightFillLayout;
@@ -138,10 +139,10 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.GuiEditor");
 
 	private final Project myProject;
-	@NotNull
+	@Nonnull
 	private final UIFormEditor myEditor;
 	private Module myModule;
-	@NotNull
+	@Nonnull
 	private final VirtualFile myFile;
 
 	/**
@@ -185,13 +186,13 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 	private final Document myDocument;
 
 	final MainProcessor myProcessor;
-	@NotNull
+	@Nonnull
 	private final JScrollPane myScrollPane;
 	/**
 	 * This layered pane contains all layers to lay components out and to
 	 * show all necessary decoration items
 	 */
-	@NotNull
+	@Nonnull
 	private final MyLayeredPane myLayeredPane;
 	/**
 	 * The component which represents decoration layer. All passive
@@ -244,7 +245,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 	 * Implementation of Crtl+W and Ctrl+Shift+W behavior
 	 */
 	private final SelectionState mySelectionState;
-	@NotNull
+	@Nonnull
 	private final GlassLayer myGlassLayer;
 	private final ActiveDecorationLayer myActiveDecorationLayer;
 
@@ -272,7 +273,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 	 * @throws java.lang.IllegalArgumentException if the <code>file</code>
 	 *                                            is <code>null</code> or <code>file</code> is not valid PsiFile
 	 */
-	public GuiEditor(@NotNull UIFormEditor editor, @NotNull Project project, @NotNull Module module, @NotNull VirtualFile file)
+	public GuiEditor(@Nonnull UIFormEditor editor, @Nonnull Project project, @Nonnull Module module, @Nonnull VirtualFile file)
 	{
 		myEditor = editor;
 		LOG.assertTrue(file.isValid());
@@ -390,7 +391,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 		myScrollPane = ScrollPaneFactory.createScrollPane(myLayeredPane);
 		myScrollPane.setBackground(new JBColor(new NotNullProducer<Color>()
 		{
-			@NotNull
+			@Nonnull
 			@Override
 			public Color produce()
 			{
@@ -444,13 +445,13 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 		return myContentSplitter;
 	}
 
-	@NotNull
+	@Nonnull
 	public UIFormEditor getEditor()
 	{
 		return myEditor;
 	}
 
-	@NotNull
+	@Nonnull
 	public SelectionState getSelectionState()
 	{
 		return mySelectionState;
@@ -480,7 +481,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 		Disposer.dispose(myContentSplitter);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Module getModule()
 	{
@@ -495,14 +496,14 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 		return myModule;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Project getProject()
 	{
 		return myProject;
 	}
 
-	@NotNull
+	@Nonnull
 	public VirtualFile getFile()
 	{
 		return myFile;
@@ -611,7 +612,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 	}
 
 	@Override
-	public Object getData(@NotNull final Key<?> dataId)
+	public Object getData(@Nonnull final Key<?> dataId)
 	{
 		if(PlatformDataKeys.HELP_ID == dataId)
 		{
@@ -667,7 +668,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 	 * @return the topmost <code>UiConainer</code> which in the root of
 	 * component hierarchy. This method never returns <code>null</code>.
 	 */
-	@NotNull
+	@Nonnull
 	public RadRootContainer getRootContainer()
 	{
 		return myRootContainer;
@@ -694,7 +695,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 		}
 	}
 
-	@NotNull
+	@Nonnull
 	public GlassLayer getGlassLayer()
 	{
 		return myGlassLayer;
@@ -709,7 +710,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 		return myInplaceEditingLayer;
 	}
 
-	@NotNull
+	@Nonnull
 	public JLayeredPane getLayeredPane()
 	{
 		return myLayeredPane;
@@ -740,7 +741,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 	/**
 	 * Adds specified hierarchy change listener
 	 */
-	public void addHierarchyChangeListener(@NotNull final HierarchyChangeListener l)
+	public void addHierarchyChangeListener(@Nonnull final HierarchyChangeListener l)
 	{
 		myListenerList.add(HierarchyChangeListener.class, l);
 	}
@@ -748,7 +749,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 	/**
 	 * Removes specified hierarchy change listener
 	 */
-	public void removeHierarchyChangeListener(@NotNull final HierarchyChangeListener l)
+	public void removeHierarchyChangeListener(@Nonnull final HierarchyChangeListener l)
 	{
 		myListenerList.remove(HierarchyChangeListener.class, l);
 	}
@@ -999,7 +1000,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 	/**
 	 * @param rootContainer new container to be set as a root.
 	 */
-	private void setRootContainer(@NotNull final RadRootContainer rootContainer)
+	private void setRootContainer(@Nonnull final RadRootContainer rootContainer)
 	{
 		if(myRootContainer != null)
 		{
@@ -1365,7 +1366,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 	private final class MyDeleteProvider implements DeleteProvider
 	{
 		@Override
-		public void deleteElement(@NotNull final DataContext dataContext)
+		public void deleteElement(@Nonnull final DataContext dataContext)
 		{
 			if(!GuiEditor.this.ensureEditable())
 			{
@@ -1382,7 +1383,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 		}
 
 		@Override
-		public boolean canDeleteElement(@NotNull final DataContext dataContext)
+		public boolean canDeleteElement(@Nonnull final DataContext dataContext)
 		{
 			return !DesignerToolWindowManager.getInstance(GuiEditor.this).getPropertyInspector().isEditing() &&
 					!myInplaceEditingLayer.isEditing() &&
@@ -1414,37 +1415,37 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 		}
 
 		@Override
-		public void childAdded(@NotNull final PsiTreeChangeEvent event)
+		public void childAdded(@Nonnull final PsiTreeChangeEvent event)
 		{
 			handleEvent(event);
 		}
 
 		@Override
-		public void childMoved(@NotNull final PsiTreeChangeEvent event)
+		public void childMoved(@Nonnull final PsiTreeChangeEvent event)
 		{
 			handleEvent(event);
 		}
 
 		@Override
-		public void childrenChanged(@NotNull final PsiTreeChangeEvent event)
+		public void childrenChanged(@Nonnull final PsiTreeChangeEvent event)
 		{
 			handleEvent(event);
 		}
 
 		@Override
-		public void childRemoved(@NotNull PsiTreeChangeEvent event)
+		public void childRemoved(@Nonnull PsiTreeChangeEvent event)
 		{
 			handleEvent(event);
 		}
 
 		@Override
-		public void childReplaced(@NotNull PsiTreeChangeEvent event)
+		public void childReplaced(@Nonnull PsiTreeChangeEvent event)
 		{
 			handleEvent(event);
 		}
 
 		@Override
-		public void propertyChanged(@NotNull final PsiTreeChangeEvent event)
+		public void propertyChanged(@Nonnull final PsiTreeChangeEvent event)
 		{
 			if(PsiTreeChangeEvent.PROP_ROOTS.equals(event.getPropertyName()))
 			{

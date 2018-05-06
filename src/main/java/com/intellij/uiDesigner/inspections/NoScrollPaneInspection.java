@@ -26,7 +26,7 @@ import com.intellij.uiDesigner.palette.ComponentItem;
 import com.intellij.uiDesigner.palette.Palette;
 import com.intellij.uiDesigner.quickFixes.QuickFix;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class NoScrollPaneInspection extends BaseFormInspection {
     super("NoScrollPane");
   }
 
-  @NotNull
+  @Nonnull
   @Override public String getDisplayName() {
     return UIDesignerBundle.message("inspection.no.scroll.pane");
   }

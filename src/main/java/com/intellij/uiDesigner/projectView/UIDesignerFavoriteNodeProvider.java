@@ -23,8 +23,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.ide.favoritesTreeView.FavoriteNodeProvider;
 import com.intellij.ide.projectView.ViewSettings;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
@@ -167,7 +167,7 @@ public class UIDesignerFavoriteNodeProvider extends FavoriteNodeProvider
 		return false;
 	}
 
-	@NotNull
+	@Nonnull
 	@NonNls
 	public String getFavoriteTypeId()
 	{

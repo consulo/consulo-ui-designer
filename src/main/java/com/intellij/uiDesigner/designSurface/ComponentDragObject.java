@@ -17,8 +17,8 @@
 package com.intellij.uiDesigner.designSurface;
 
 import com.intellij.uiDesigner.radComponents.RadContainer;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.awt.*;
 
@@ -33,6 +33,8 @@ public interface ComponentDragObject {
   int getRelativeCol(int componentIndex);
   int getRowSpan(int componentIndex);
   int getColSpan(int componentIndex);
-  @Nullable Point getDelta(int componentIndex);
-  @NotNull Dimension getInitialSize(final RadContainer targetContainer);
+  @Nullable
+  Point getDelta(int componentIndex);
+  @Nonnull
+  Dimension getInitialSize(final RadContainer targetContainer);
 }

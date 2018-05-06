@@ -18,7 +18,7 @@ package com.intellij.uiDesigner.propertyInspector.editors;
 import com.intellij.uiDesigner.propertyInspector.PropertyEditor;
 import com.intellij.uiDesigner.propertyInspector.InplaceContext;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
@@ -32,7 +32,7 @@ public final class IntEnumEditor extends PropertyEditor<Integer> {
   private JComboBox myCbx;
   private final Pair[] myPairs;
 
-  public IntEnumEditor(@NotNull final Pair[] pairs) {
+  public IntEnumEditor(@Nonnull final Pair[] pairs) {
     myPairs = pairs;
   }
 
@@ -98,7 +98,7 @@ public final class IntEnumEditor extends PropertyEditor<Integer> {
      */
     public final String myText;
 
-    public Pair(final int value, @NotNull final String text) {
+    public Pair(final int value, @Nonnull final String text) {
       myValue = value;
       myText = text;
     }

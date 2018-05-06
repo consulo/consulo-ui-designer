@@ -26,7 +26,7 @@ import com.intellij.uiDesigner.propertyInspector.IntrospectedProperty;
 import com.intellij.uiDesigner.radComponents.*;
 import com.intellij.uiDesigner.shared.XYLayoutManager;
 import com.intellij.util.ui.UIUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,16 +45,16 @@ public final class XmlReader {
   private XmlReader() {
   }
 
-  @NotNull
+  @Nonnull
   public static RadRootContainer createRoot(final ModuleProvider module, final LwRootContainer lwRootContainer, final ClassLoader loader,
                                             final Locale stringDescriptorLocale) throws Exception{
     return (RadRootContainer)createComponent(module, lwRootContainer, loader, stringDescriptorLocale);
   }
 
-  @NotNull
-  public static RadComponent createComponent(@NotNull final ModuleProvider module,
-                                             @NotNull final LwComponent lwComponent,
-                                             @NotNull final ClassLoader loader,
+  @Nonnull
+  public static RadComponent createComponent(@Nonnull final ModuleProvider module,
+                                             @Nonnull final LwComponent lwComponent,
+                                             @Nonnull final ClassLoader loader,
                                              final Locale stringDescriptorLocale) throws Exception{
     // Id
     final String id = lwComponent.getId();

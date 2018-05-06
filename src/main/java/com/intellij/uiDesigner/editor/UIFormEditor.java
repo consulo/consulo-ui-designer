@@ -18,10 +18,10 @@ package com.intellij.uiDesigner.editor;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.JComponent;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.codeHighlighting.BackgroundEditorHighlighter;
 import com.intellij.codeHighlighting.HighlightingPass;
 import com.intellij.ide.structureView.StructureViewBuilder;
@@ -55,7 +55,7 @@ public final class UIFormEditor extends UserDataHolderBase implements /*Navigata
 	private final GuiEditor myEditor;
 	private UIFormEditor.MyBackgroundEditorHighlighter myBackgroundEditorHighlighter;
 
-	public UIFormEditor(@NotNull final Project project, @NotNull final VirtualFile file)
+	public UIFormEditor(@Nonnull final Project project, @Nonnull final VirtualFile file)
 	{
 		final VirtualFile vf = file instanceof LightVirtualFile ? ((LightVirtualFile) file).getOriginalFile() : file;
 		final Module module = ModuleUtil.findModuleForFile(vf, project);
@@ -68,7 +68,7 @@ public final class UIFormEditor extends UserDataHolderBase implements /*Navigata
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	public JComponent getComponent()
 	{
 		return myEditor;
@@ -87,7 +87,7 @@ public final class UIFormEditor extends UserDataHolderBase implements /*Navigata
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	public String getName()
 	{
 		return UIDesignerBundle.message("title.gui.designer");
@@ -122,13 +122,13 @@ public final class UIFormEditor extends UserDataHolderBase implements /*Navigata
 	}
 
 	@Override
-	public void addPropertyChangeListener(@NotNull final PropertyChangeListener listener)
+	public void addPropertyChangeListener(@Nonnull final PropertyChangeListener listener)
 	{
 		//TODO[anton,vova]
 	}
 
 	@Override
-	public void removePropertyChangeListener(@NotNull final PropertyChangeListener listener)
+	public void removePropertyChangeListener(@Nonnull final PropertyChangeListener listener)
 	{
 		//TODO[anton,vova]
 	}
@@ -150,8 +150,8 @@ public final class UIFormEditor extends UserDataHolderBase implements /*Navigata
 	}
 
 	@Override
-	@NotNull
-	public FileEditorState getState(@NotNull final FileEditorStateLevel ignored)
+	@Nonnull
+	public FileEditorState getState(@Nonnull final FileEditorStateLevel ignored)
 	{
 		final Document document = FileDocumentManager.getInstance().getCachedDocument(myFile);
 		long modificationStamp = document != null ? document.getModificationStamp() : myFile.getModificationStamp();
@@ -165,7 +165,7 @@ public final class UIFormEditor extends UserDataHolderBase implements /*Navigata
 	}
 
 	@Override
-	public void setState(@NotNull final FileEditorState state)
+	public void setState(@Nonnull final FileEditorState state)
 	{
 		FormEditingUtil.clearSelection(myEditor.getRootContainer());
 		final String[] ids = ((MyEditorState) state).getSelectedComponentIds();
@@ -179,7 +179,7 @@ public final class UIFormEditor extends UserDataHolderBase implements /*Navigata
 		}
 	}
 
-	public void selectComponent(@NotNull final String binding)
+	public void selectComponent(@Nonnull final String binding)
 	{
 		final RadComponent component = (RadComponent) FormEditingUtil.findComponentWithBinding(myEditor.getRootContainer(), binding);
 		if(component != null)
@@ -188,7 +188,7 @@ public final class UIFormEditor extends UserDataHolderBase implements /*Navigata
 		}
 	}
 
-	public void selectComponentById(@NotNull final String id)
+	public void selectComponentById(@Nonnull final String id)
 	{
 		final RadComponent component = (RadComponent) FormEditingUtil.findComponent(myEditor.getRootContainer(), id);
 		if(component != null)
@@ -236,7 +236,7 @@ public final class UIFormEditor extends UserDataHolderBase implements /*Navigata
 		}
 
 		@Override
-		@NotNull
+		@Nonnull
 		public HighlightingPass[] createPassesForEditor()
 		{
 			PsiDocumentManager.getInstance(myEditor.getProject()).commitAllDocuments();
@@ -244,7 +244,7 @@ public final class UIFormEditor extends UserDataHolderBase implements /*Navigata
 		}
 
 		@Override
-		@NotNull
+		@Nonnull
 		public HighlightingPass[] createPassesForVisibleArea()
 		{
 			return HighlightingPass.EMPTY_ARRAY;

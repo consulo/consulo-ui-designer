@@ -22,7 +22,7 @@ import com.intellij.uiDesigner.lw.IButtonGroup;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
 import com.intellij.uiDesigner.radComponents.RadButtonGroup;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +48,7 @@ public class UngroupButtonsAction extends AbstractGuiEditorAction {
     }
   }
 
-  protected void update(@NotNull final GuiEditor editor, final ArrayList<RadComponent> selection, final AnActionEvent e) {
+  protected void update(@Nonnull final GuiEditor editor, final ArrayList<RadComponent> selection, final AnActionEvent e) {
     boolean visible = GroupButtonsAction.allButtons(selection);
     e.getPresentation().setVisible(visible);
     e.getPresentation().setEnabled(visible && canUngroup(editor, selection));

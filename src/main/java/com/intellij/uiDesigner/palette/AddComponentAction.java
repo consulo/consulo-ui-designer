@@ -19,9 +19,9 @@ package com.intellij.uiDesigner.palette;
 import java.awt.Window;
 import java.util.HashMap;
 
+import javax.annotation.Nullable;
 import javax.swing.JComponent;
 
-import org.jetbrains.annotations.Nullable;
 import com.intellij.ide.highlighter.JavaFileType;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;

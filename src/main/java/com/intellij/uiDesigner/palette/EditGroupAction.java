@@ -18,7 +18,7 @@ package com.intellij.uiDesigner.palette;
 
 import java.util.ArrayList;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.CommonBundle;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -34,7 +34,7 @@ public class EditGroupAction extends AnAction
 {
 	@RequiredDispatchThread
 	@Override
-	public void actionPerformed(@NotNull AnActionEvent e)
+	public void actionPerformed(@Nonnull AnActionEvent e)
 	{
 		Project project = e.getProject();
 		GroupItem groupToBeEdited = e.getData(GroupItem.DATA_KEY);
@@ -68,7 +68,7 @@ public class EditGroupAction extends AnAction
 
 	@RequiredDispatchThread
 	@Override
-	public void update(@NotNull AnActionEvent e)
+	public void update(@Nonnull AnActionEvent e)
 	{
 		Project project = e.getProject();
 		GroupItem groupItem = e.getData(GroupItem.DATA_KEY);

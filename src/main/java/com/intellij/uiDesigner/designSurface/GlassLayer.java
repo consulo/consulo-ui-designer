@@ -22,13 +22,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import javax.annotation.Nonnull;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
@@ -149,7 +150,7 @@ public final class GlassLayer extends JComponent implements DataProvider, PopupO
 		}
 	}
 
-	@NotNull
+	@Nonnull
 	public Point getLastMousePosition()
 	{
 		if(myLastMousePosition == null)
@@ -164,7 +165,7 @@ public final class GlassLayer extends JComponent implements DataProvider, PopupO
 	 * binding of currently selected component (if any)
 	 */
 	@Override
-	public Object getData(@NotNull Key<?> dataId)
+	public Object getData(@Nonnull Key<?> dataId)
 	{
 		if(CommonDataKeys.NAVIGATABLE == dataId)
 		{

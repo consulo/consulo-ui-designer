@@ -17,7 +17,8 @@ package com.intellij.uiDesigner.actions;
 
 import java.awt.Point;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.codeInsight.documentation.DocumentationComponent;
 import com.intellij.codeInsight.documentation.DocumentationManager;
 import com.intellij.openapi.Disposable;
@@ -47,7 +48,7 @@ public final class ShowJavadocAction extends AnAction
 
 	@RequiredDispatchThread
 	@Override
-	public void actionPerformed(@NotNull final AnActionEvent e)
+	public void actionPerformed(@Nonnull final AnActionEvent e)
 	{
 		final PropertyInspectorTable inspector = e.getData(PropertyInspectorTable.DATA_KEY);
 		final IntrospectedProperty introspectedProperty = inspector.getSelectedIntrospectedProperty();
@@ -92,7 +93,7 @@ public final class ShowJavadocAction extends AnAction
 
 	@RequiredDispatchThread
 	@Override
-	public void update(@NotNull final AnActionEvent e)
+	public void update(@Nonnull final AnActionEvent e)
 	{
 		final PropertyInspectorTable inspector = e.getData(PropertyInspectorTable.DATA_KEY);
 		e.getPresentation().setEnabled(inspector != null && inspector.getSelectedIntrospectedProperty() != null && inspector.getComponentClass() != null);

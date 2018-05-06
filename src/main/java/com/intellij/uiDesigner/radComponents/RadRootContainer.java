@@ -31,8 +31,8 @@ import com.intellij.uiDesigner.lw.IRootContainer;
 import com.intellij.uiDesigner.lw.LwInspectionSuppression;
 import com.intellij.util.ui.UIUtil;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -146,7 +146,7 @@ public final class RadRootContainer extends RadContainer implements IRootContain
     return RadXYLayoutManager.INSTANCE;
   }
 
-  public void setGroupForComponent(@NotNull RadComponent component, @Nullable RadButtonGroup value) {
+  public void setGroupForComponent(@Nonnull RadComponent component, @Nullable RadButtonGroup value) {
     for(int i=myButtonGroups.size()-1; i >= 0; i--) {
       RadButtonGroup group = myButtonGroups.get(i);
       if (group == value) {

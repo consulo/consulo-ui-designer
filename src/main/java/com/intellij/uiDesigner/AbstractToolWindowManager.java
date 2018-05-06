@@ -15,7 +15,8 @@
  */
 package com.intellij.uiDesigner;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
+
 import com.intellij.designer.DesignerEditorPanelFacade;
 import com.intellij.designer.LightToolWindowManager;
 import com.intellij.designer.ToggleEditorModeAction;

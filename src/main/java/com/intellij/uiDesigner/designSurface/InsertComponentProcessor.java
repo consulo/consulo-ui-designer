@@ -32,8 +32,8 @@ import javax.swing.JTable;
 import javax.swing.JToolBar;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.CommonBundle;
 import com.intellij.codeInsight.FileModificationService;
 import com.intellij.ide.palette.impl.PaletteToolWindowManager;
@@ -106,7 +106,7 @@ public final class InsertComponentProcessor extends EventProcessor
 		myComponentClassMap.put(JTable.class.getName(), new RadTable.Factory());
 	}
 
-	public InsertComponentProcessor(@NotNull final GuiEditor editor)
+	public InsertComponentProcessor(@Nonnull final GuiEditor editor)
 	{
 		myEditor = editor;
 		myGridInsertProcessor = new GridInsertProcessor(editor);
@@ -183,8 +183,8 @@ public final class InsertComponentProcessor extends EventProcessor
 		}
 	}
 
-	@NotNull
-	public static String suggestBinding(final RadRootContainer rootContainer, @NotNull final String componentClassName)
+	@Nonnull
+	public static String suggestBinding(final RadRootContainer rootContainer, @Nonnull final String componentClassName)
 	{
 		String shortClassName = getShortClassName(componentClassName);
 
@@ -316,7 +316,7 @@ public final class InsertComponentProcessor extends EventProcessor
 				.class);
 	}
 
-	public void processComponentInsert(@NotNull final Point point, final ComponentItem item)
+	public void processComponentInsert(@Nonnull final Point point, final ComponentItem item)
 	{
 		final ComponentDropLocation location = GridInsertProcessor.getDropLocation(myEditor.getRootContainer(), point);
 		processComponentInsert(item, location);

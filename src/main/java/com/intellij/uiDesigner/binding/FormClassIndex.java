@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.IndexNotReadyException;
 import com.intellij.openapi.project.Project;
@@ -53,13 +53,13 @@ public class FormClassIndex extends ScalarIndexExtension<String> {
   private final MyDataIndexer myDataIndexer = new MyDataIndexer();
 
   @Override
-  @NotNull
+  @Nonnull
   public ID<String, Void> getName() {
     return NAME;
   }
 
   @Override
-  @NotNull
+  @Nonnull
   public DataIndexer<String, Void, FileContent> getIndexer() {
     return myDataIndexer;
   }
@@ -86,7 +86,7 @@ public class FormClassIndex extends ScalarIndexExtension<String> {
 
   private static class MyDataIndexer implements DataIndexer<String, Void, FileContent> {
     @Override
-    @NotNull
+    @Nonnull
     public Map<String, Void> map(final FileContent inputData) {
       String className = null;
       try {
@@ -141,7 +141,7 @@ public class FormClassIndex extends ScalarIndexExtension<String> {
     });
   }
 
-  public static List<PsiFile> findFormsBoundToClass(@NotNull PsiClass psiClass) {
+  public static List<PsiFile> findFormsBoundToClass(@Nonnull PsiClass psiClass) {
     String qName = FormReferencesSearcher.getQualifiedName(psiClass);
     if (qName == null) return Collections.emptyList();
     return findFormsBoundToClass(psiClass.getProject(), qName);

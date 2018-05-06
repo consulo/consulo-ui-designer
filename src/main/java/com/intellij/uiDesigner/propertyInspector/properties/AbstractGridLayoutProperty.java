@@ -25,7 +25,7 @@ import com.intellij.uiDesigner.propertyInspector.editors.BooleanEditor;
 import com.intellij.uiDesigner.propertyInspector.renderers.BooleanRenderer;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.awt.*;
 
@@ -36,7 +36,7 @@ public abstract class AbstractGridLayoutProperty extends Property<RadContainer, 
   protected final BooleanRenderer myRenderer = new BooleanRenderer();
   protected final BooleanEditor myEditor = new BooleanEditor();
 
-  public AbstractGridLayoutProperty(final Property parent, @NotNull @NonNls final String name) {
+  public AbstractGridLayoutProperty(final Property parent, @Nonnull @NonNls final String name) {
     super(parent, name);
   }
 
@@ -60,7 +60,7 @@ public abstract class AbstractGridLayoutProperty extends Property<RadContainer, 
 
   protected abstract void setGridLayoutPropertyValue(GridLayoutManager gridLayoutManager, boolean booleanValue);
 
-  @NotNull
+  @Nonnull
   public PropertyRenderer<Boolean> getRenderer(){
     return myRenderer;
   }

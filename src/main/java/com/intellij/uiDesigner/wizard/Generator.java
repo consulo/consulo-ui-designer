@@ -44,7 +44,7 @@ import com.intellij.uiDesigner.lw.LwRootContainer;
 import com.intellij.util.ArrayUtil;
 import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
@@ -411,7 +411,7 @@ public final class Generator {
     }
   }
 
-  @NotNull
+  @Nonnull
   private static PsiClass createBeanClass(final WizardData wizardData) throws MyException {
     final PsiManager psiManager = PsiManager.getInstance(wizardData.myProject);
 

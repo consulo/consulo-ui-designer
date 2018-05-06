@@ -32,7 +32,7 @@ import com.intellij.uiDesigner.radComponents.RadRootContainer;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
 import com.intellij.util.containers.HashMap;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.lang.reflect.Method;
@@ -65,7 +65,7 @@ public final class IntroStringProperty extends IntrospectedProperty<StringDescri
     myRenderer = new StringRenderer();
   }
 
-  @NotNull
+  @Nonnull
   public PropertyRenderer<StringDescriptor> getRenderer() {
     return myRenderer;
   }
@@ -80,7 +80,7 @@ public final class IntroStringProperty extends IntrospectedProperty<StringDescri
   /**
    * @return per RadComponent map between string property name and its StringDescriptor value.
    */
-  @NotNull
+  @Nonnull
   private static HashMap<String, StringDescriptor> getName2Descriptor(final RadComponent component){
     //noinspection unchecked
     HashMap<String, StringDescriptor> name2Descriptor = (HashMap<String, StringDescriptor>)component.getClientProperty(CLIENT_PROP_NAME_2_DESCRIPTOR);
@@ -279,7 +279,7 @@ public final class IntroStringProperty extends IntrospectedProperty<StringDescri
     }
   }
 
-  public void write(@NotNull final StringDescriptor value, final XmlWriter writer) {
+  public void write(@Nonnull final StringDescriptor value, final XmlWriter writer) {
     writer.writeStringDescriptor(value,
                                  UIFormXmlConstants.ATTRIBUTE_VALUE,
                                  UIFormXmlConstants.ATTRIBUTE_RESOURCE_BUNDLE,

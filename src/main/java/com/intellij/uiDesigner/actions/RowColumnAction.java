@@ -18,8 +18,8 @@ package com.intellij.uiDesigner.actions;
 
 import javax.swing.Icon;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.Presentation;
@@ -48,7 +48,7 @@ public abstract class RowColumnAction extends AnAction
 
 	@RequiredDispatchThread
 	@Override
-	public void actionPerformed(@NotNull final AnActionEvent e)
+	public void actionPerformed(@Nonnull final AnActionEvent e)
 	{
 		GuiEditor editor = FormEditingUtil.getEditorFromContext(e.getDataContext());
 		CaptionSelection selection = e.getData(CaptionSelection.DATA_KEY);
@@ -65,7 +65,7 @@ public abstract class RowColumnAction extends AnAction
 
 	@RequiredDispatchThread
 	@Override
-	public void update(@NotNull final AnActionEvent e)
+	public void update(@Nonnull final AnActionEvent e)
 	{
 		final Presentation presentation = e.getPresentation();
 		CaptionSelection selection = e.getData(CaptionSelection.DATA_KEY);

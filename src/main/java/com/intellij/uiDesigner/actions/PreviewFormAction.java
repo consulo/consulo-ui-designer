@@ -20,12 +20,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.Icon;
 import javax.swing.SwingUtilities;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.CommonBundle;
 import com.intellij.compiler.PsiClassWriter;
 import com.intellij.compiler.impl.FileSetCompileScope;
@@ -120,7 +120,7 @@ public final class PreviewFormAction extends AnAction{
     );
   }
 
-  private static void showPreviewFrame(@NotNull final Module module, @NotNull final VirtualFile formFile,
+  private static void showPreviewFrame(@Nonnull final Module module, @Nonnull final VirtualFile formFile,
                                        @Nullable final Locale stringDescriptorLocale) {
     final String tempPath;
     try {
@@ -342,13 +342,13 @@ public final class PreviewFormAction extends AnAction{
       return null;
     }
 
-    public RunProfileState getState(@NotNull final Executor executor, @NotNull final ExecutionEnvironment env) throws ExecutionException {
+    public RunProfileState getState(@Nonnull final Executor executor, @Nonnull final ExecutionEnvironment env) throws ExecutionException {
       return new JavaCommandLineState(env) {
         protected OwnJavaParameters createJavaParameters() {
           return myParams;
         }
 
-        public ExecutionResult execute(@NotNull final Executor executor, @NotNull final ProgramRunner runner) throws ExecutionException {
+        public ExecutionResult execute(@Nonnull final Executor executor, @Nonnull final ProgramRunner runner) throws ExecutionException {
           try {
             ExecutionResult executionResult = super.execute(executor, runner);
             executionResult.getProcessHandler().addProcessListener(new ProcessAdapter() {
@@ -375,7 +375,7 @@ public final class PreviewFormAction extends AnAction{
       return UIDesignerBundle.message("title.form.preview");
     }
 
-    @NotNull
+    @Nonnull
     public Module[] getModules() {
       return new Module[] {myModule};
     }

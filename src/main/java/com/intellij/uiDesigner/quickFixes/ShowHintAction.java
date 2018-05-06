@@ -15,9 +15,9 @@
  */
 package com.intellij.uiDesigner.quickFixes;
 
+import javax.annotation.Nonnull;
 import javax.swing.JComponent;
 
-import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -35,7 +35,7 @@ final class ShowHintAction extends AnAction
 {
 	private final QuickFixManager myManager;
 
-	public ShowHintAction(@NotNull final QuickFixManager manager, @NotNull final JComponent component)
+	public ShowHintAction(@Nonnull final QuickFixManager manager, @Nonnull final JComponent component)
 	{
 		myManager = manager;
 		registerCustomShortcutSet(ActionManager.getInstance().getAction(IdeActions.ACTION_SHOW_INTENTION_ACTIONS).getShortcutSet(), component);

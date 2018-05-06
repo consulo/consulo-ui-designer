@@ -15,25 +15,30 @@
  */
 package com.intellij.uiDesigner.wizard;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.uiDesigner.lw.LwComponent;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
 public final class FormProperty {
-  @NotNull private final LwComponent myLwComponent;
-  @NotNull private final String myComponentPropertyGetterName;
-  @NotNull private final String myComponentPropertySetterName;
-  @NotNull private final String myComponentPropertyClassName;
+  @Nonnull
+  private final LwComponent myLwComponent;
+  @Nonnull
+  private final String myComponentPropertyGetterName;
+  @Nonnull
+  private final String myComponentPropertySetterName;
+  @Nonnull
+  private final String myComponentPropertyClassName;
 
   public FormProperty(
-    final @NotNull LwComponent component,
-    final @NotNull @NonNls String componentPropertyGetterName,
-    final @NotNull @NonNls String componentPropertySetterName,
-    final @NotNull @NonNls String componentPropertyClassName
+    final @Nonnull LwComponent component,
+    final @Nonnull @NonNls String componentPropertyGetterName,
+    final @Nonnull @NonNls String componentPropertySetterName,
+    final @Nonnull @NonNls String componentPropertyClassName
   ) {
     if(
       !String.class.getName().equals(componentPropertyClassName) &&
@@ -55,15 +60,18 @@ public final class FormProperty {
     myComponentPropertyClassName = componentPropertyClassName;
   }
 
-  @NotNull public LwComponent getLwComponent() {
+  @Nonnull
+  public LwComponent getLwComponent() {
     return myLwComponent;
   }
 
-  @NotNull public String getComponentPropertyGetterName() {
+  @Nonnull
+  public String getComponentPropertyGetterName() {
     return myComponentPropertyGetterName;
   }
 
-  @NotNull public String getComponentPropertySetterName() {
+  @Nonnull
+  public String getComponentPropertySetterName() {
     return myComponentPropertySetterName;
   }
 
@@ -71,7 +79,8 @@ public final class FormProperty {
    * @return This method can return only one of the following values:
    * "int", "float", "double", "long", "boolean", "char", "byte", "short", "java.lang.String"
    */
-  @NotNull public String getComponentPropertyClassName() {
+  @Nonnull
+  public String getComponentPropertyClassName() {
     return myComponentPropertyClassName;
   }
 }

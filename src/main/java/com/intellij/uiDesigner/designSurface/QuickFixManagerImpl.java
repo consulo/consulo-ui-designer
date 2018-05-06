@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import javax.swing.JViewport;
 import javax.swing.SwingUtilities;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.uiDesigner.ErrorAnalyzer;
 import com.intellij.uiDesigner.ErrorInfo;
 import com.intellij.uiDesigner.FormEditingUtil;
@@ -49,7 +49,7 @@ public class QuickFixManagerImpl extends QuickFixManager<GlassLayer>
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	protected ErrorInfo[] getErrorInfos()
 	{
 		final ArrayList<RadComponent> list = FormEditingUtil.getSelectedComponents(getEditor());

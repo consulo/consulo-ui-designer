@@ -15,8 +15,9 @@
  */
 package com.intellij.uiDesigner.propertyInspector.renderers;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.uiDesigner.propertyInspector.editors.IntEnumEditor;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Anton Katilin
@@ -25,11 +26,11 @@ import org.jetbrains.annotations.NotNull;
 public final class IntEnumRenderer extends LabelPropertyRenderer<Integer> {
   private final IntEnumEditor.Pair[] myPairs;
 
-  public IntEnumRenderer(@NotNull final IntEnumEditor.Pair[] pairs) {
+  public IntEnumRenderer(@Nonnull final IntEnumEditor.Pair[] pairs) {
     myPairs = pairs;
   }
 
-  protected void customize(@NotNull final Integer value) {
+  protected void customize(@Nonnull final Integer value) {
     // Find pair
     for(int i = myPairs.length - 1; i >= 0; i--){
       if(myPairs[i].myValue == value.intValue()){

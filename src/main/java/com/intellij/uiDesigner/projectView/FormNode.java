@@ -19,7 +19,8 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.ide.IdeBundle;
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.projectView.ProjectViewNode;
@@ -50,7 +51,7 @@ public class FormNode extends ProjectViewNode<Form>{
     myChildren = children;
   }
 
-  @NotNull
+  @Nonnull
   public Collection<BasePsiNode<? extends PsiElement>> getChildren() {
     return myChildren;
   }
@@ -59,7 +60,7 @@ public class FormNode extends ProjectViewNode<Form>{
     return "Form:" + getValue().getName();
   }
 
-  public boolean contains(@NotNull VirtualFile file) {
+  public boolean contains(@Nonnull VirtualFile file) {
     for (final AbstractTreeNode aMyChildren : myChildren) {
       ProjectViewNode treeNode = (ProjectViewNode)aMyChildren;
       if (treeNode.contains(file)) return true;

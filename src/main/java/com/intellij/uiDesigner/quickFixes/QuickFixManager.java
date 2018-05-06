@@ -32,8 +32,8 @@ import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.util.Alarm;
 import com.intellij.util.IJSwingUtilities;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -65,7 +65,7 @@ public abstract class QuickFixManager <T extends JComponent>{
   private LightweightHint myHint;
   private Rectangle myLastHintBounds;
 
-  public QuickFixManager(@Nullable final GuiEditor editor, @NotNull final T component, @NotNull final JViewport viewPort) {
+  public QuickFixManager(@Nullable final GuiEditor editor, @Nonnull final T component, @Nonnull final JViewport viewPort) {
     myEditor = editor;
     myComponent = component;
     myAlarm = new Alarm();
@@ -95,7 +95,7 @@ public abstract class QuickFixManager <T extends JComponent>{
   /**
    * @return error info for the current {@link #myComponent} state.
    */
-  @NotNull
+  @Nonnull
   protected abstract ErrorInfo[] getErrorInfos();
 
   /**
@@ -267,7 +267,7 @@ public abstract class QuickFixManager <T extends JComponent>{
       myShowSuppresses = showSuppresses;
     }
 
-    @NotNull
+    @Nonnull
     public String getTextFor(final ErrorWithFix value) {
       return value.second.getName();
     }
@@ -325,7 +325,7 @@ public abstract class QuickFixManager <T extends JComponent>{
   private final class MyShowHintRequest implements Runnable{
     private final QuickFixManager myManager;
 
-    public MyShowHintRequest(@NotNull final QuickFixManager manager) {
+    public MyShowHintRequest(@Nonnull final QuickFixManager manager) {
       myManager = manager;
     }
 

@@ -29,7 +29,7 @@ import com.intellij.uiDesigner.radComponents.RadRootContainer;
 import com.intellij.uiDesigner.radComponents.RadScrollPane;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,7 +57,8 @@ public class IntroComponentProperty extends IntrospectedProperty<String> {
     myFilter = filter;
   }
 
-  @NotNull public PropertyRenderer<String> getRenderer() {
+  @Nonnull
+  public PropertyRenderer<String> getRenderer() {
     return myRenderer;
   }
 

@@ -19,7 +19,7 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.util.ui.UIUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.awt.Component;
 import java.awt.Point;
@@ -50,7 +50,7 @@ public final class DragSelectionProcessor extends EventProcessor {
   private final MyDragGestureRecognizer myDragGestureRecognizer;
   private final MyDragSourceListener myDragSourceListener = new MyDragSourceListener();
 
-  public DragSelectionProcessor(@NotNull final GuiEditor editor) {
+  public DragSelectionProcessor(@Nonnull final GuiEditor editor) {
     myEditor = editor;
     myDragGestureRecognizer = new MyDragGestureRecognizer(DragSource.getDefaultDragSource(),
                                                           myEditor.getActiveDecorationLayer(),

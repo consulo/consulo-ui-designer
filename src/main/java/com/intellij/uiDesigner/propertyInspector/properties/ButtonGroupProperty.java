@@ -27,7 +27,7 @@ import com.intellij.uiDesigner.propertyInspector.renderers.LabelPropertyRenderer
 import com.intellij.uiDesigner.radComponents.RadButtonGroup;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.event.ItemEvent;
@@ -38,7 +38,7 @@ import java.awt.event.ItemListener;
  */
 public class ButtonGroupProperty extends Property<RadComponent, RadButtonGroup> {
   private final LabelPropertyRenderer<RadButtonGroup> myRenderer = new LabelPropertyRenderer<RadButtonGroup>() {
-    @Override protected void customize(@NotNull final RadButtonGroup value) {
+    @Override protected void customize(@Nonnull final RadButtonGroup value) {
       setText(value.getName());
     }
   };
@@ -60,7 +60,8 @@ public class ButtonGroupProperty extends Property<RadComponent, RadButtonGroup> 
     radRootContainer.setGroupForComponent(component, value);
   }
 
-  @NotNull public PropertyRenderer<RadButtonGroup> getRenderer() {
+  @Nonnull
+  public PropertyRenderer<RadButtonGroup> getRenderer() {
     return myRenderer;
   }
 

@@ -19,7 +19,7 @@ import com.intellij.uiDesigner.core.AbstractLayout;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.components.ServiceManager;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.awt.*;
 
@@ -52,7 +52,7 @@ public final class MarginProperty extends AbstractInsetsProperty<RadContainer> {
     return DEFAULT_INSETS;
   }
 
-  protected void setValueImpl(final RadContainer component, @NotNull final Insets value) throws Exception{
+  protected void setValueImpl(final RadContainer component, @Nonnull final Insets value) throws Exception{
     final AbstractLayout layoutManager=(AbstractLayout)component.getLayout();
     layoutManager.setMargin(value);
   }

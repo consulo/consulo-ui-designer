@@ -15,11 +15,12 @@
  */
 package com.intellij.uiDesigner.componentTree;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Anton Katilin
@@ -33,7 +34,7 @@ public final class ComponentPtr{
   /**
    * @param component
    */
-  public ComponentPtr(@NotNull final GuiEditor editor, @NotNull final RadComponent component) {
+  public ComponentPtr(@Nonnull final GuiEditor editor, @Nonnull final RadComponent component) {
     this(editor, component, true);
   }
 
@@ -41,7 +42,7 @@ public final class ComponentPtr{
    * @param component
    * @param validate
    */
-  public ComponentPtr(@NotNull final GuiEditor editor, @NotNull final RadComponent component, final boolean validate){
+  public ComponentPtr(@Nonnull final GuiEditor editor, @Nonnull final RadComponent component, final boolean validate){
     myEditor=editor;
     myId=component.getId();
 

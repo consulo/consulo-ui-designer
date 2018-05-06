@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.compiler.impl.CompilerUtil;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ModalityState;
@@ -53,7 +53,7 @@ import consulo.compiler.roots.CompilerPathsImpl;
 public final class Form2SourceCompiler implements SourceInstrumentingCompiler{
 
   @Override
-  @NotNull
+  @Nonnull
   public String getDescription() {
     return UIDesignerBundle.message("component.gui.designer.form.to.source.compiler");
   }
@@ -64,7 +64,7 @@ public final class Form2SourceCompiler implements SourceInstrumentingCompiler{
   }
 
   @Override
-  @NotNull
+  @Nonnull
   public ProcessingItem[] getProcessingItems(final CompileContext context) {
     final Project project = context.getProject();
     if (GuiDesignerConfiguration.getInstance(project).INSTRUMENT_CLASSES) {
@@ -273,18 +273,19 @@ public final class Form2SourceCompiler implements SourceInstrumentingCompiler{
   }
 
   private static final class MyInstrumentationItem implements ProcessingItem {
-    @NotNull private final VirtualFile mySourceFile;
+    @Nonnull
+	private final VirtualFile mySourceFile;
     private final VirtualFile myFormFile;
     private final TimestampValidityState myState;
 
-    public MyInstrumentationItem(@NotNull final VirtualFile sourceFile, final VirtualFile formFile) {
+    public MyInstrumentationItem(@Nonnull final VirtualFile sourceFile, final VirtualFile formFile) {
       mySourceFile = sourceFile;
       myFormFile = formFile;
       myState = new TimestampValidityState(formFile.getTimeStamp());
     }
 
     @Override
-    @NotNull
+    @Nonnull
     public File getFile() {
       return VfsUtilCore.virtualToIoFile(mySourceFile);
     }

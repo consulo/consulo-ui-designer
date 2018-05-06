@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
 import javax.swing.AbstractButton;
 import javax.swing.Icon;
 import javax.swing.JLabel;
@@ -44,8 +45,8 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.ide.ui.LafManager;
 import com.intellij.ide.ui.LafManagerListener;
 import com.intellij.openapi.application.ApplicationManager;
@@ -123,7 +124,7 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
   @NonNls private static final String ATTRIBUTE_CAN_ATTACH_LABEL = "can-attach-label";
   @NonNls private static final String ATTRIBUTE_IS_CONTAINER = "is-container";
 
-  public static Palette getInstance(@NotNull final Project project) {
+  public static Palette getInstance(@Nonnull final Project project) {
     return project.getComponent(Palette.class);
   }
 
@@ -153,13 +154,13 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
 
 
   /**Adds specified listener.*/
-  public void addListener(@NotNull final Listener l){
+  public void addListener(@Nonnull final Listener l){
     LOG.assertTrue(!myListeners.contains(l));
     myListeners.add(l);
   }
 
   /**Removes specified listener.*/
-  public void removeListener(@NotNull final Listener l){
+  public void removeListener(@Nonnull final Listener l){
     LOG.assertTrue(myListeners.contains(l));
     myListeners.remove(l);
   }
@@ -170,7 +171,7 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
     }
   }
 
-  @NotNull
+  @Nonnull
   public String getComponentName(){
     return "Palette2";
   }
@@ -183,7 +184,7 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
     LafManager.getInstance().removeLafManagerListener(myLafManagerListener);
   }
 
-  public void readExternal(@NotNull final Element element) {
+  public void readExternal(@Nonnull final Element element) {
     /*
     ApplicationManager.getApplication().assertIsDispatchThread();
     */
@@ -243,7 +244,7 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
     }
   }
 
-  public void writeExternal(@NotNull final Element element) {
+  public void writeExternal(@Nonnull final Element element) {
     ApplicationManager.getApplication().assertIsDispatchThread();
 
     writeGroups(element);
@@ -257,7 +258,7 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
   /**
    * @return a predefined palette item which corresponds to the JPanel.
    */
-  @NotNull
+  @Nonnull
   public ComponentItem getPanelItem(){
     return myPanelItem;
   }
@@ -268,7 +269,7 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
    * class.
    */
   @Nullable
-  public ComponentItem getItem(@NotNull final String componentClassName) {
+  public ComponentItem getItem(@Nonnull final String componentClassName) {
     return myClassName2Item.get(componentClassName);
   }
 
@@ -292,7 +293,7 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
   /**
    * @param groups list of new groups.
    */
-  public void setGroups(@NotNull final ArrayList<GroupItem> groups){
+  public void setGroups(@Nonnull final ArrayList<GroupItem> groups){
     myGroups.clear();
     myGroups.addAll(groups);
 
@@ -305,7 +306,7 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
    * @exception java.lang.IllegalArgumentException  if an item for the same class
    * is already exists in the palette
    */
-  public void addItem(@NotNull final GroupItem group, @NotNull final ComponentItem item) {
+  public void addItem(@Nonnull final GroupItem group, @Nonnull final ComponentItem item) {
     // class -> item
     final String componentClassName = item.getClassName();
     if (getItem(componentClassName) != null) {
@@ -349,7 +350,7 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
   /**
    * Helper method.
    */
-  private static GridConstraints processDefaultConstraintsElement(@NotNull final Element element){
+  private static GridConstraints processDefaultConstraintsElement(@Nonnull final Element element){
     final GridConstraints constraints = new GridConstraints();
 
     // grid related attributes
@@ -382,7 +383,7 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
     return constraints;
   }
 
-  private void processItemElement(@NotNull final Element itemElement, @NotNull final GroupItem group, final boolean skipExisting){
+  private void processItemElement(@Nonnull final Element itemElement, @Nonnull final GroupItem group, final boolean skipExisting){
     // Class name. It's OK if class does not exist.
     final String className = LwXmlReader.getRequiredString(itemElement, ATTRIBUTE_CLASS);
     if (skipExisting && getItem(className) != null) {
@@ -462,7 +463,7 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
   }
 
   /** Helper method */
-  private static void writeDefaultConstraintsElement(@NotNull final Element itemElement, @NotNull final GridConstraints c){
+  private static void writeDefaultConstraintsElement(@Nonnull final Element itemElement, @Nonnull final GridConstraints c){
     LOG.assertTrue(ELEMENT_ITEM.equals(itemElement.getName()));
 
     final Element element = new Element(ELEMENT_DEFAULT_CONSTRAINTS);
@@ -509,8 +510,8 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
 
   /** Helper method */
   private static void writeInitialValuesElement(
-    @NotNull final Element itemElement,
-    @NotNull final HashMap<String, StringDescriptor> name2value
+    @Nonnull final Element itemElement,
+    @Nonnull final HashMap<String, StringDescriptor> name2value
   ){
     LOG.assertTrue(ELEMENT_ITEM.equals(itemElement.getName()));
 
@@ -530,7 +531,7 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
   }
 
   /** Helper method */
-  private static void writeComponentItem(@NotNull final Element groupElement, @NotNull final ComponentItem item){
+  private static void writeComponentItem(@Nonnull final Element groupElement, @Nonnull final ComponentItem item){
     LOG.assertTrue(ELEMENT_GROUP.equals(groupElement.getName()));
 
     final Element itemElement = new Element(ELEMENT_ITEM);
@@ -568,7 +569,7 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
   /**
    * @param parentElement element to which all "group" elements will be appended
    */
-  private void writeGroups(@NotNull final Element parentElement){
+  private void writeGroups(@Nonnull final Element parentElement){
     for (final GroupItem group : myGroups) {
       final Element groupElement = new Element(ELEMENT_GROUP);
       parentElement.addContent(groupElement);
@@ -597,8 +598,8 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
       new IntEnumEditor(pairs), false);
   }
 
-  @NotNull
-  public IntrospectedProperty[] getIntrospectedProperties(@NotNull final RadComponent component) {
+  @Nonnull
+  public IntrospectedProperty[] getIntrospectedProperties(@Nonnull final RadComponent component) {
     return getIntrospectedProperties(component.getComponentClass(), component.getDelegee().getClass());
   }
 
@@ -607,8 +608,8 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
    * specified class. Only properties with getter and setter methods are
    * returned.
    */
-  @NotNull
-  public IntrospectedProperty[] getIntrospectedProperties(@NotNull final Class aClass, @NotNull final Class delegeeClass) {
+  @Nonnull
+  public IntrospectedProperty[] getIntrospectedProperties(@Nonnull final Class aClass, @Nonnull final Class delegeeClass) {
     // Try the cache first
     // TODO[vova, anton] update cache after class reloading (its properties caould be hanged).
     if (myClass2Properties.containsKey(aClass)) {
@@ -769,7 +770,7 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
    * property with the such name.
    */
   @Nullable
-  public IntrospectedProperty getIntrospectedProperty(@NotNull final RadComponent component, @NotNull final String name){
+  public IntrospectedProperty getIntrospectedProperty(@Nonnull final RadComponent component, @Nonnull final String name){
     final IntrospectedProperty[] properties = getIntrospectedProperties(component);
     for (final IntrospectedProperty property: properties) {
       if (name.equals(property.getName())) {
@@ -785,7 +786,7 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
    * instead.
    */
   @Nullable
-  public IntrospectedProperty getInplaceProperty(@NotNull final RadComponent component) {
+  public IntrospectedProperty getInplaceProperty(@Nonnull final RadComponent component) {
     final String inplaceProperty = Properties.getInstance().getInplaceProperty(component.getComponentClass());
     final IntrospectedProperty[] properties = getIntrospectedProperties(component);
     for (int i = properties.length - 1; i >= 0; i--) {
@@ -797,7 +798,7 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
     return null;
   }
 
-  public static boolean isRemovable(@NotNull final GroupItem group){
+  public static boolean isRemovable(@Nonnull final GroupItem group){
     final ComponentItem[] items = group.getItems();
     for(int i = items.length - 1; i >=0; i--){
       if(!items [i].isRemovable()){

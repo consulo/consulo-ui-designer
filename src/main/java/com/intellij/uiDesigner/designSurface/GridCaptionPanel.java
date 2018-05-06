@@ -26,6 +26,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
+import javax.annotation.Nonnull;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -34,8 +35,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import com.intellij.ide.DeleteProvider;
 import com.intellij.ide.dnd.DnDAction;
 import com.intellij.ide.dnd.DnDDragStartBean;
@@ -142,7 +142,7 @@ public class GridCaptionPanel extends JPanel implements ComponentSelectionListen
 	{
 		return new JBColor(new NotNullProducer<Color>()
 		{
-			@NotNull
+			@Nonnull
 			@Override
 			public Color produce()
 			{
@@ -338,7 +338,7 @@ public class GridCaptionPanel extends JPanel implements ComponentSelectionListen
 
 	@Override
 	@Nullable
-	public Object getData(@NotNull Key dataId)
+	public Object getData(@Nonnull Key dataId)
 	{
 		if(GuiEditor.DATA_KEY == dataId)
 		{
@@ -600,7 +600,7 @@ public class GridCaptionPanel extends JPanel implements ComponentSelectionListen
 
 	private class MyDeleteProvider implements DeleteProvider
 	{
-		public void deleteElement(@NotNull DataContext dataContext)
+		public void deleteElement(@Nonnull DataContext dataContext)
 		{
 			int[] selection = getSelectedCells(null);
 			if(selection.length > 0)
@@ -609,7 +609,7 @@ public class GridCaptionPanel extends JPanel implements ComponentSelectionListen
 			}
 		}
 
-		public boolean canDeleteElement(@NotNull DataContext dataContext)
+		public boolean canDeleteElement(@Nonnull DataContext dataContext)
 		{
 			if(mySelectedContainer == null || mySelectionModel.isSelectionEmpty())
 			{

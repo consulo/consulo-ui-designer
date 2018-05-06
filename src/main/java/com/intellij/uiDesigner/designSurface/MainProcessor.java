@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.ide.palette.impl.PaletteToolWindowManager;
 import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.actionSystem.ActionManager;
@@ -54,14 +54,14 @@ public final class MainProcessor extends EventProcessor
 	private static final int DRAGGER_SIZE = 10;
 
 	private EventProcessor myCurrentProcessor;
-	@NotNull
+	@Nonnull
 	private final InsertComponentProcessor myInsertComponentProcessor;
-	@NotNull
+	@Nonnull
 	private final GuiEditor myEditor;
 	private boolean myInsertFeedbackEnabled = true;
 	private Point myLastMousePosition = new Point(0, 0);
 
-	public MainProcessor(@NotNull final GuiEditor editor)
+	public MainProcessor(@Nonnull final GuiEditor editor)
 	{
 		myEditor = editor;
 		myInsertComponentProcessor = new InsertComponentProcessor(myEditor);
@@ -425,7 +425,7 @@ public final class MainProcessor extends EventProcessor
 				false));
 	}
 
-	public void startInsertProcessor(@NotNull final ComponentItem componentToInsert, final ComponentDropLocation location)
+	public void startInsertProcessor(@Nonnull final ComponentItem componentToInsert, final ComponentDropLocation location)
 	{
 		removeDragger();
 		myEditor.hideIntentionHint();

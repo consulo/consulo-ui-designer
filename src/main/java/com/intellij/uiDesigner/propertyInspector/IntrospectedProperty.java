@@ -27,7 +27,7 @@ import com.intellij.uiDesigner.radComponents.RadGridLayoutManager;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
 import com.intellij.util.ArrayUtil;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.lang.reflect.Constructor;
@@ -44,19 +44,21 @@ public abstract class IntrospectedProperty<V> extends Property<RadComponent, V> 
   /**
    * This method is used to set property value to "delegee" JComponent
    */
-  @NotNull protected final Method myReadMethod;
+  @Nonnull
+  protected final Method myReadMethod;
   /**
    * This method is used to get property value from "delegee" JComponent
    */
-  @NotNull private final Method myWriteMethod;
+  @Nonnull
+  private final Method myWriteMethod;
 
   private final boolean myStoreAsClient;
 
   @NonNls private static final String INTRO_PREFIX = "Intro:";
 
   public IntrospectedProperty(final String name,
-                              @NotNull final Method readMethod,
-                              @NotNull final Method writeMethod,
+                              @Nonnull final Method readMethod,
+                              @Nonnull final Method writeMethod,
                               final boolean storeAsClient) {
     super(null, name);
     myReadMethod = readMethod;
@@ -111,7 +113,7 @@ public abstract class IntrospectedProperty<V> extends Property<RadComponent, V> 
    * that corresponds to this property. You can just append some attributes
    * here or add some subtags.
    */
-  public void write(@NotNull V value, XmlWriter writer) {
+  public void write(@Nonnull V value, XmlWriter writer) {
     writer.addAttribute(UIFormXmlConstants.ATTRIBUTE_VALUE, value.toString());
   }
 

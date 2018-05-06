@@ -20,14 +20,14 @@ import com.intellij.openapi.util.NotNullLazyValue;
 import com.intellij.uiDesigner.lw.*;
 import com.intellij.uiDesigner.propertyInspector.properties.BorderProperty;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author yole
  */
 public abstract class StringDescriptorInspection extends BaseFormInspection {
   private static final NotNullLazyValue<BorderProperty> myBorderProperty = new NotNullLazyValue<BorderProperty>() {
-    @NotNull
+    @Nonnull
     @Override
     protected BorderProperty compute() {
       return new BorderProperty(null);

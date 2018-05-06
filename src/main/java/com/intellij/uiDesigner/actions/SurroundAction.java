@@ -29,7 +29,7 @@ import com.intellij.uiDesigner.palette.ComponentItem;
 import com.intellij.uiDesigner.palette.Palette;
 import com.intellij.uiDesigner.radComponents.*;
 import com.intellij.uiDesigner.shared.XYLayoutManager;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -175,7 +175,7 @@ public class SurroundAction extends AbstractGuiEditorAction {
       }, null, null);
   }
 
-  protected void update(@NotNull final GuiEditor editor, final ArrayList<RadComponent> selection, final AnActionEvent e) {
+  protected void update(@Nonnull final GuiEditor editor, final ArrayList<RadComponent> selection, final AnActionEvent e) {
     FormEditingUtil.remapToActionTargets(selection);
     RadContainer selectionParent = FormEditingUtil.getSelectionParent(selection);
     e.getPresentation().setEnabled(selectionParent != null &&

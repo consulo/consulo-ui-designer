@@ -25,7 +25,7 @@ import com.intellij.uiDesigner.lw.IComponent;
 import com.intellij.uiDesigner.lw.IProperty;
 import com.intellij.uiDesigner.quickFixes.QuickFix;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 
@@ -37,7 +37,7 @@ public class MissingMnemonicInspection extends BaseFormInspection {
     super("MissingMnemonic");
   }
 
-  @NotNull
+  @Nonnull
   @Override public String getDisplayName() {
     return UIDesignerBundle.message("inspection.missing.mnemonics");
   }

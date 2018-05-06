@@ -28,9 +28,9 @@ import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
 import com.intellij.util.ArrayUtil;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
@@ -50,15 +50,17 @@ public class IntroFontProperty extends IntrospectedProperty<FontDescriptor> {
     super(name, readMethod, writeMethod, storeAsClient);
   }
 
-  public void write(@NotNull FontDescriptor value, XmlWriter writer) {
+  public void write(@Nonnull FontDescriptor value, XmlWriter writer) {
     writer.writeFontDescriptor(value);
   }
 
-  @NotNull public PropertyRenderer<FontDescriptor> getRenderer() {
+  @Nonnull
+  public PropertyRenderer<FontDescriptor> getRenderer() {
     return myFontRenderer;
   }
 
-  @Nullable public PropertyEditor<FontDescriptor> getEditor() {
+  @Nullable
+  public PropertyEditor<FontDescriptor> getEditor() {
     if (myFontEditor == null) {
       myFontEditor = new FontEditor(getName());
     }

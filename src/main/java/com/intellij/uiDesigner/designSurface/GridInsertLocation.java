@@ -25,8 +25,8 @@ import com.intellij.uiDesigner.radComponents.RadAbstractGridLayoutManager;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.awt.*;
 
@@ -43,7 +43,7 @@ public class GridInsertLocation extends GridDropLocation {
 
   private boolean mySpanInsertMode;
 
-  public GridInsertLocation(@NotNull final RadContainer container,
+  public GridInsertLocation(@Nonnull final RadContainer container,
                             final int row,
                             final int column,
                             final GridInsertMode mode) {

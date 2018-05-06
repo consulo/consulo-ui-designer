@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.binding;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.CommonBundle;
 import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.openapi.application.ApplicationManager;
@@ -47,27 +47,27 @@ public class ChangeBoundFieldTypeFix implements IntentionAction
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	public String getText()
 	{
 		return JavaQuickFixBundle.message("uidesigner.change.bound.field.type");
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	public String getFamilyName()
 	{
 		return getText();
 	}
 
 	@Override
-	public boolean isAvailable(@NotNull Project project, Editor editor, PsiFile file)
+	public boolean isAvailable(@Nonnull Project project, Editor editor, PsiFile file)
 	{
 		return true;
 	}
 
 	@Override
-	public void invoke(@NotNull Project project, Editor editor, PsiFile file) throws IncorrectOperationException
+	public void invoke(@Nonnull Project project, Editor editor, PsiFile file) throws IncorrectOperationException
 	{
 		CommandProcessor.getInstance().executeCommand(myField.getProject(), new Runnable()
 		{

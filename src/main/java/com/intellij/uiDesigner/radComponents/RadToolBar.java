@@ -21,8 +21,8 @@ import com.intellij.uiDesigner.UIFormXmlConstants;
 import com.intellij.uiDesigner.XmlWriter;
 import com.intellij.uiDesigner.designSurface.ComponentDropLocation;
 import com.intellij.uiDesigner.palette.Palette;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,11 +65,12 @@ public class RadToolBar extends RadContainer {
 
   private class RadToolBarLayoutManager extends RadAbstractIndexedLayoutManager {
 
-    @Nullable public String getName() {
+    @Nullable
+	public String getName() {
       return null;
     }
 
-    @Override @NotNull
+    @Override @Nonnull
     public ComponentDropLocation getDropLocation(RadContainer container, @Nullable final Point location) {
       return new FlowDropLocation(RadToolBar.this, location, FlowLayout.LEFT, 0, 0);
     }

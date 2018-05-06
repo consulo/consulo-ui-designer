@@ -16,7 +16,7 @@
 
 package com.intellij.ide.palette;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import com.intellij.ide.dnd.DnDDragStartBean;
 import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.project.Project;
@@ -36,7 +36,8 @@ public interface PaletteItem {
    *
    * @return the drag start bean for the drag process, or null if the item cannot be dragged.
    */
-  @Nullable DnDDragStartBean startDragging();
+  @Nullable
+  DnDDragStartBean startDragging();
 
   /**
    * Returns the action group from which the context menu is built when the palette
@@ -44,7 +45,8 @@ public interface PaletteItem {
    *
    * @return the action group, or null if no context menu should be shown.
    */
-  @Nullable ActionGroup getPopupActionGroup();
+  @Nullable
+  ActionGroup getPopupActionGroup();
 
   /**
    * Returns the data for the specified data constant.

@@ -24,7 +24,7 @@ import com.intellij.psi.*;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.compiler.AsmCodeGenerator;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,18 +33,18 @@ import java.util.List;
  * @author yole
  */
 public class GeneratedCodeFoldingBuilder extends FoldingBuilderEx {
-  @NotNull
-  public FoldingDescriptor[] buildFoldRegions(@NotNull PsiElement root, @NotNull Document document, boolean quick) {
+  @Nonnull
+  public FoldingDescriptor[] buildFoldRegions(@Nonnull PsiElement root, @Nonnull Document document, boolean quick) {
     MyFoldingVisitor visitor = new MyFoldingVisitor();
     root.accept(visitor);
     return visitor.myFoldingData.toArray(new FoldingDescriptor[visitor.myFoldingData.size()]);
   }
 
-  public String getPlaceholderText(@NotNull ASTNode node) {
+  public String getPlaceholderText(@Nonnull ASTNode node) {
     return UIDesignerBundle.message("uidesigner.generated.code.folding.placeholder.text");
   }
 
-  public boolean isCollapsedByDefault(@NotNull ASTNode node) {
+  public boolean isCollapsedByDefault(@Nonnull ASTNode node) {
     return true;
   }
 

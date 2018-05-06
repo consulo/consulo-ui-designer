@@ -23,7 +23,7 @@ import com.intellij.uiDesigner.lw.LwComponent;
 import com.intellij.uiDesigner.palette.ComponentItem;
 import com.intellij.uiDesigner.palette.Palette;
 import icons.UIDesignerIcons;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,7 +40,7 @@ final class FormPropertyTableCellRenderer extends ColoredTableCellRenderer{
   private final SimpleTextAttributes myAttrs2;
   private final SimpleTextAttributes myAttrs3;
 
-  FormPropertyTableCellRenderer(@NotNull final Project project) {
+  FormPropertyTableCellRenderer(@Nonnull final Project project) {
     myPalette = Palette.getInstance(project);
     myAttrs1 = SimpleTextAttributes.REGULAR_BOLD_ATTRIBUTES;
     myAttrs2 = SimpleTextAttributes.REGULAR_ATTRIBUTES;

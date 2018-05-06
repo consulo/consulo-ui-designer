@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.psi.JavaDirectoryService;
@@ -53,7 +53,7 @@ public final class CreateDialogAction extends AbstractCreateFormAction {
           UIDesignerBundle.message("action.description.create.dialog"), PlatformIcons.UI_FORM_ICON);
   }
 
-  @NotNull
+  @Nonnull
   protected PsiElement[] invokeDialog(final Project project, final PsiDirectory directory) {
     final MyInputValidator validator = new MyInputValidator(project, directory);
 
@@ -189,7 +189,7 @@ public final class CreateDialogAction extends AbstractCreateFormAction {
   }
 
 
-  @NotNull
+  @Nonnull
   protected PsiElement[] create(final String newName, final PsiDirectory directory) throws IncorrectOperationException {
     PsiFile sourceFile = PsiFileFactory.getInstance(directory.getProject())
       .createFileFromText(newName + ".java", createClassBody(newName, myRecentGenerateOK, myRecentGenerateCancel, myRecentGenerateMain));

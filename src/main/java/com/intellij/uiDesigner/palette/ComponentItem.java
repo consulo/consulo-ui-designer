@@ -24,13 +24,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.ide.dnd.DnDDragStartBean;
 import com.intellij.ide.palette.PaletteItem;
 import com.intellij.openapi.actionSystem.ActionGroup;
@@ -95,15 +95,16 @@ public final class ComponentItem implements Cloneable, PaletteItem {
   private boolean myAnyComponent;
   private Dimension myInitialSize;
 
-  @NotNull private final Project myProject;
+  @Nonnull
+  private final Project myProject;
 
   public ComponentItem(
-    @NotNull Project project,
-    @NotNull final String className,
+    @Nonnull Project project,
+    @Nonnull final String className,
     @Nullable final String iconPath,
     @Nullable final String toolTipText,
-    @NotNull final GridConstraints defaultConstraints,
-    @NotNull final HashMap<String, StringDescriptor> propertyName2initialValue,
+    @Nonnull final GridConstraints defaultConstraints,
+    @Nonnull final HashMap<String, StringDescriptor> propertyName2initialValue,
     final boolean removable,
     final boolean autoCreateBinding,
     final boolean canAttachLabel
@@ -128,7 +129,7 @@ public final class ComponentItem implements Cloneable, PaletteItem {
     return myRemovable;
   }
 
-  private static String calcToolTipText(@NotNull final String className) {
+  private static String calcToolTipText(@Nonnull final String className) {
     final int lastDotIndex = className.lastIndexOf('.');
     if (lastDotIndex != -1 && lastDotIndex != className.length() - 1/*not the last char in class name*/) {
       return className.substring(lastDotIndex + 1) + " (" + className.substring(0, lastDotIndex) + ")";
@@ -160,7 +161,8 @@ public final class ComponentItem implements Cloneable, PaletteItem {
    * icon returned by {@link #getIcon()} method. This method can returns <code>null</code>.
    * It means that palette item has some "unknown" item.
    */
-  @Nullable String getIconPath() {
+  @Nullable
+  String getIconPath() {
     return myIconPath;
   }
 
@@ -181,7 +183,8 @@ public final class ComponentItem implements Cloneable, PaletteItem {
    * Note, that the method never returns <code>null</code>. It returns some
    * default "unknown" icon for the items that has no specified icon in the XML.
    */
-  @NotNull public Icon getIcon() {
+  @Nonnull
+  public Icon getIcon() {
     // Check cached value first
     if(myIcon != null){
       return myIcon;
@@ -214,7 +217,8 @@ public final class ComponentItem implements Cloneable, PaletteItem {
    * component tree. The method never returns <code>null</code>. It returns some
    * default "unknown" icon for the items that has no specified icon in the XML.
    */
-  @NotNull public Icon getSmallIcon() {
+  @Nonnull
+  public Icon getSmallIcon() {
     // Check cached value first
     if(mySmallIcon != null){
       return myIcon;
@@ -237,7 +241,8 @@ public final class ComponentItem implements Cloneable, PaletteItem {
   /**
    * @return name of component's class which is represented by the item.
    */
-  @NotNull public String getClassName() {
+  @Nonnull
+  public String getClassName() {
     return myClassName;
   }
 
@@ -258,7 +263,7 @@ public final class ComponentItem implements Cloneable, PaletteItem {
    * it's not a subclass of JComponent, etc) then placeholder component will be
    * added to the form.
    */
-  public void setClassName(@NotNull final String className){
+  public void setClassName(@Nonnull final String className){
     myClassName = className;
   }
 
@@ -266,7 +271,8 @@ public final class ComponentItem implements Cloneable, PaletteItem {
     return myToolTipText != null ? myToolTipText : calcToolTipText(myClassName);
   }
 
-  @NotNull public GridConstraints getDefaultConstraints() {
+  @Nonnull
+  public GridConstraints getDefaultConstraints() {
     return myDefaultConstraints;
   }
 
@@ -363,16 +369,19 @@ public final class ComponentItem implements Cloneable, PaletteItem {
     }
   }
 
-  @Nullable public DnDDragStartBean startDragging() {
+  @Nullable
+  public DnDDragStartBean startDragging() {
     if (isAnyComponent()) return null;
     return new DnDDragStartBean(this);
   }
 
-  @Nullable public ActionGroup getPopupActionGroup() {
+  @Nullable
+  public ActionGroup getPopupActionGroup() {
     return (ActionGroup) ActionManager.getInstance().getAction("GuiDesigner.PaletteComponentPopupMenu");
   }
 
-  @Nullable public Object getData(Project project, Key<?> dataId) {
+  @Nullable
+  public Object getData(Project project, Key<?> dataId) {
     if (LangDataKeys.PSI_ELEMENT == dataId) {
       return JavaPsiFacade.getInstance(project).findClass(myClassName, GlobalSearchScope.allScope(project));
     }
@@ -385,7 +394,8 @@ public final class ComponentItem implements Cloneable, PaletteItem {
     return null;
   }
 
-  @Nullable public PsiFile getBoundForm() {
+  @Nullable
+  public PsiFile getBoundForm() {
     if (myClassName.length() == 0 || myClassName.startsWith("javax.swing")) {
       return null;
     }
@@ -396,7 +406,7 @@ public final class ComponentItem implements Cloneable, PaletteItem {
     return null;
   }
 
-  @NotNull
+  @Nonnull
   public Dimension getInitialSize(final JComponent parent, final ClassLoader loader) {
     if (myInitialSize != null) {
       return myInitialSize;
@@ -449,7 +459,7 @@ public final class ComponentItem implements Cloneable, PaletteItem {
   private static final class MySmallIcon implements Icon{
     private final Image myImage;
 
-    public MySmallIcon(@NotNull final Image delegate) {
+    public MySmallIcon(@Nonnull final Image delegate) {
       myImage = delegate;
     }
 

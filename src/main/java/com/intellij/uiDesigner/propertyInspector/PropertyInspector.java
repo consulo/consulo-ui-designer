@@ -30,7 +30,7 @@ import com.intellij.uiDesigner.quickFixes.QuickFixManager;
 import com.intellij.uiDesigner.radComponents.*;
 import com.intellij.util.IJSwingUtilities;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -58,7 +58,7 @@ public final class PropertyInspector extends JPanel{
   private final ChangeListener myCustomPropertiesChangeListener;
   private RadContainer myPropertiesPanelContainer;
 
-  public PropertyInspector(Project project, @NotNull final ComponentTree componentTree) {
+  public PropertyInspector(Project project, @Nonnull final ComponentTree componentTree) {
     super(new CardLayout());
 
     myInspectorTable = new PropertyInspectorTable(project, componentTree);

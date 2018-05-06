@@ -19,9 +19,9 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.uiDesigner.ModuleProvider;
 import com.intellij.uiDesigner.XmlWriter;
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import java.awt.*;
 
@@ -41,7 +41,7 @@ public final class RadErrorComponent extends RadAtomicComponent {
     final String id,
     final String componentClassName,
     final Element properties,
-    @NotNull final String errorDescription
+    @Nonnull final String errorDescription
   ) {
     return new RadErrorComponent(module, id, componentClassName, properties, errorDescription);
   }
@@ -49,9 +49,9 @@ public final class RadErrorComponent extends RadAtomicComponent {
   private RadErrorComponent(
     final ModuleProvider module,
     final String id,
-    @NotNull final String componentClassName,
+    @Nonnull final String componentClassName,
     @Nullable final Element properties,
-    @NotNull final String errorDescription
+    @Nonnull final String errorDescription
   ) {
     super(module, MyComponent.class, id);
 
@@ -60,7 +60,7 @@ public final class RadErrorComponent extends RadAtomicComponent {
     myProperties = properties;
   }
 
-  @NotNull
+  @Nonnull
   public String getComponentClassName() {
     return myComponentClassName;
   }

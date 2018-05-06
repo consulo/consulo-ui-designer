@@ -17,8 +17,8 @@ package com.intellij.uiDesigner.palette;
 
 import java.util.ArrayList;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.ide.palette.PaletteGroup;
 import com.intellij.ide.palette.PaletteItem;
 import com.intellij.openapi.actionSystem.ActionGroup;
@@ -36,12 +36,14 @@ public final class GroupItem implements Cloneable, PaletteGroup {
 
   public static final Key<GroupItem> DATA_KEY = Key.create(GroupItem.class.getName());
 
-  @NotNull private String myName;
-  @NotNull private final ArrayList<ComponentItem> myItems = new ArrayList<ComponentItem>();
+  @Nonnull
+  private String myName;
+  @Nonnull
+  private final ArrayList<ComponentItem> myItems = new ArrayList<ComponentItem>();
   private boolean myReadOnly = false;
   private boolean mySpecialGroup = false;
 
-  public GroupItem(@NotNull final String name) {
+  public GroupItem(@Nonnull final String name) {
     setName(name);
   }
 
@@ -70,7 +72,8 @@ public final class GroupItem implements Cloneable, PaletteGroup {
     myReadOnly = readOnly;
   }
 
-  @NotNull public String getName() {
+  @Nonnull
+  public String getName() {
     if (mySpecialGroup) {
       return UIDesignerBundle.message("palette.special.group");
     }
@@ -81,26 +84,27 @@ public final class GroupItem implements Cloneable, PaletteGroup {
     return "Swing";
   }
 
-  public void setName(@NotNull final String name){
+  public void setName(@Nonnull final String name){
     myName = name;
   }
 
   /**
    * @return read-only list of items that belong to the group.
    */
-  @NotNull public ComponentItem[] getItems() {
+  @Nonnull
+  public ComponentItem[] getItems() {
     return myItems.toArray(new ComponentItem[myItems.size()]);
   }
 
   /** Adds specified {@link ComponentItem} to the group.*/
-  public void addItem(@NotNull final ComponentItem item){
+  public void addItem(@Nonnull final ComponentItem item){
     LOG.assertTrue(!myItems.contains(item));
 
     myItems.add(item);
   }
 
   /** Replaces specified item with the new one. */
-  public void replaceItem(@NotNull final ComponentItem itemToBeReplaced, @NotNull final ComponentItem replacement) {
+  public void replaceItem(@Nonnull final ComponentItem itemToBeReplaced, @Nonnull final ComponentItem replacement) {
     LOG.assertTrue(myItems.contains(itemToBeReplaced));
 
     final int index = myItems.indexOf(itemToBeReplaced);
@@ -108,7 +112,7 @@ public final class GroupItem implements Cloneable, PaletteGroup {
   }
 
   /** Removed specified {@link ComponentItem} from the group.*/
-  public void removeItem(@NotNull final ComponentItem item){
+  public void removeItem(@Nonnull final ComponentItem item){
     LOG.assertTrue(myItems.contains(item));
 
     myItems.remove(item);
@@ -118,7 +122,7 @@ public final class GroupItem implements Cloneable, PaletteGroup {
     return myItems.contains(item);
   }
 
-  public boolean containsItemClass(@NotNull final String className){
+  public boolean containsItemClass(@Nonnull final String className){
     for(int i = myItems.size() - 1; i >= 0; i--){
       if(className.equals(myItems.get(i).getClassName())){
         return true;
@@ -128,7 +132,7 @@ public final class GroupItem implements Cloneable, PaletteGroup {
     return false;
   }
 
-  public boolean containsItemCopy(@NotNull final ComponentItem originalItem, final String className) {
+  public boolean containsItemCopy(@Nonnull final ComponentItem originalItem, final String className) {
     for(int i = myItems.size() - 1; i >= 0; i--){
       if(className.equals(myItems.get(i).getClassName()) && originalItem != myItems.get(i)) {
         return true;

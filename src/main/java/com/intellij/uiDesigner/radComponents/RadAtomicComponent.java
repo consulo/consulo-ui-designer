@@ -15,10 +15,11 @@
  */
 package com.intellij.uiDesigner.radComponents;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.uiDesigner.ModuleProvider;
 import com.intellij.uiDesigner.XmlWriter;
 import com.intellij.uiDesigner.palette.Palette;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Anton Katilin
@@ -29,7 +30,7 @@ public class RadAtomicComponent extends RadComponent {
     super(module, aClass, id);
   }
 
-  public RadAtomicComponent(@NotNull final Class aClass, @NotNull final String id, final Palette palette) {
+  public RadAtomicComponent(@Nonnull final Class aClass, @Nonnull final String id, final Palette palette) {
     super(null, aClass, id, palette);
   }
 

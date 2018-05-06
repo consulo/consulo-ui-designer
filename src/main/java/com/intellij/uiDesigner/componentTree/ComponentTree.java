@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JComponent;
@@ -46,8 +47,8 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.codeHighlighting.HighlightDisplayLevel;
 import com.intellij.codeInsight.daemon.impl.SeverityRegistrar;
 import com.intellij.icons.AllIcons;
@@ -138,7 +139,7 @@ public final class ComponentTree extends Tree implements DataProvider
 	private static final String ourHelpID = "guiDesigner.uiTour.compsTree";
 	private final Project myProject;
 
-	public ComponentTree(@NotNull final Project project)
+	public ComponentTree(@Nonnull final Project project)
 	{
 		super(new DefaultTreeModel(new DefaultMutableTreeNode()));
 		myProject = project;
@@ -182,7 +183,7 @@ public final class ComponentTree extends Tree implements DataProvider
 		}
 	}
 
-	@NotNull
+	@Nonnull
 	public Project getProject()
 	{
 		return myProject;
@@ -263,7 +264,7 @@ public final class ComponentTree extends Tree implements DataProvider
 	 *
 	 * @return currently selected components.
 	 */
-	@NotNull
+	@Nonnull
 	public RadComponent[] getSelectedComponents()
 	{
 		final TreePath[] paths = getSelectionPaths();
@@ -293,7 +294,7 @@ public final class ComponentTree extends Tree implements DataProvider
 	 * binding of currently selected component (if any)
 	 */
 	@Override
-	public Object getData(@NotNull Key<?> dataId)
+	public Object getData(@Nonnull Key<?> dataId)
 	{
 		if(GuiEditor.DATA_KEY == dataId)
 		{
@@ -394,7 +395,7 @@ public final class ComponentTree extends Tree implements DataProvider
 		return result;
 	}
 
-	private SimpleTextAttributes getAttribute(@NotNull final SimpleTextAttributes attrs, @Nullable HighlightDisplayLevel level)
+	private SimpleTextAttributes getAttribute(@Nonnull final SimpleTextAttributes attrs, @Nullable HighlightDisplayLevel level)
 	{
 		if(level == null)
 		{
@@ -737,7 +738,7 @@ public final class ComponentTree extends Tree implements DataProvider
 		}
 
 		@Override
-		public void deleteElement(@NotNull DataContext dataContext)
+		public void deleteElement(@Nonnull DataContext dataContext)
 		{
 			if(myEditor != null)
 			{
@@ -766,7 +767,7 @@ public final class ComponentTree extends Tree implements DataProvider
 		}
 
 		@Override
-		public boolean canDeleteElement(@NotNull DataContext dataContext)
+		public boolean canDeleteElement(@Nonnull DataContext dataContext)
 		{
 			if(myEditor != null)
 			{

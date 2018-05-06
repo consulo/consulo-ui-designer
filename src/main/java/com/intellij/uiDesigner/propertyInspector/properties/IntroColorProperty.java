@@ -26,9 +26,9 @@ import com.intellij.uiDesigner.propertyInspector.renderers.ColorRenderer;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import java.awt.Color;
 import java.lang.reflect.Method;
@@ -45,21 +45,23 @@ public class IntroColorProperty extends IntrospectedProperty<ColorDescriptor> {
     super(name, readMethod, writeMethod, storeAsClient);
   }
 
-  @NotNull public PropertyRenderer<ColorDescriptor> getRenderer() {
+  @Nonnull
+  public PropertyRenderer<ColorDescriptor> getRenderer() {
     if (myColorRenderer == null) {
       myColorRenderer = new ColorRenderer();
     }
     return myColorRenderer;
   }
 
-  @Nullable public PropertyEditor<ColorDescriptor> getEditor() {
+  @Nullable
+  public PropertyEditor<ColorDescriptor> getEditor() {
     if (myColorEditor == null) {
       myColorEditor = new ColorEditor(getName());
     }
     return myColorEditor;
   }
 
-  public void write(@NotNull ColorDescriptor value, XmlWriter writer) {
+  public void write(@Nonnull ColorDescriptor value, XmlWriter writer) {
     writer.writeColorDescriptor(value);
   }
 

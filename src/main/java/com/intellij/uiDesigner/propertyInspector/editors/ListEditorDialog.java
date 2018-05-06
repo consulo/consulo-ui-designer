@@ -21,9 +21,9 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.util.ArrayUtil;
-import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.NonNls;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 
 /**

@@ -23,7 +23,7 @@ import com.intellij.uiDesigner.propertyInspector.renderers.LabelPropertyRenderer
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.SwingProperties;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.lang.reflect.Method;
@@ -51,7 +51,7 @@ public final class IntroIntProperty extends IntrospectedProperty<Integer> {
     myEditor = editor;
   }
 
-  @NotNull
+  @Nonnull
   public PropertyRenderer<Integer> getRenderer() {
     if (myRenderer == null) {
       myRenderer = new LabelPropertyRenderer<Integer>();

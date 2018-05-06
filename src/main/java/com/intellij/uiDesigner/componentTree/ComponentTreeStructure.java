@@ -26,7 +26,7 @@ import com.intellij.uiDesigner.radComponents.RadButtonGroup;
 import com.intellij.uiDesigner.lw.LwInspectionSuppression;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.util.ArrayUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 
@@ -41,7 +41,7 @@ final class ComponentTreeStructure extends AbstractTreeStructure{
   private final Object myRootElement;
   private final GuiEditor myEditor;
 
-  public ComponentTreeStructure(@NotNull final GuiEditor editor){
+  public ComponentTreeStructure(@Nonnull final GuiEditor editor){
     myRootElement = new ComponentTreeStructureRoot();
     myEditor = editor;
   }
@@ -130,7 +130,7 @@ final class ComponentTreeStructure extends AbstractTreeStructure{
     }
   }
 
-  @NotNull
+  @Nonnull
   public NodeDescriptor createDescriptor(final Object element,final NodeDescriptor parentDescriptor){
     if(element==myRootElement){
       return new RootDescriptor(parentDescriptor,myRootElement);

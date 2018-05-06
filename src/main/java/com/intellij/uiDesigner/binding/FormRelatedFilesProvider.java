@@ -26,7 +26,7 @@ import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.uiDesigner.GuiFormFileType;
 import com.intellij.uiDesigner.compiler.Utils;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.Collections;
 import java.util.List;
@@ -36,9 +36,9 @@ import java.util.List;
  */
 public class FormRelatedFilesProvider extends GotoRelatedProvider {
 
-  @NotNull
+  @Nonnull
   @Override
-  public List<? extends GotoRelatedItem> getItems(@NotNull PsiElement context) {
+  public List<? extends GotoRelatedItem> getItems(@Nonnull PsiElement context) {
     PsiClass psiClass = PsiTreeUtil.getParentOfType(context, PsiClass.class, false);
     if (psiClass != null) {
       while (psiClass != null) {

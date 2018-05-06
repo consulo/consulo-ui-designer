@@ -16,7 +16,8 @@
 
 package com.intellij.uiDesigner.actions;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.Presentation;
@@ -39,7 +40,7 @@ public final class DeleteAction extends AnAction
 
 	@RequiredDispatchThread
 	@Override
-	public void actionPerformed(@NotNull final AnActionEvent e)
+	public void actionPerformed(@Nonnull final AnActionEvent e)
 	{
 		final GuiEditor editor = FormEditingUtil.getEditorFromContext(e.getDataContext());
 		CaptionSelection selection = e.getData(CaptionSelection.DATA_KEY);
@@ -53,7 +54,7 @@ public final class DeleteAction extends AnAction
 
 	@RequiredDispatchThread
 	@Override
-	public void update(@NotNull final AnActionEvent e)
+	public void update(@Nonnull final AnActionEvent e)
 	{
 		final Presentation presentation = e.getPresentation();
 		CaptionSelection selection = e.getData(CaptionSelection.DATA_KEY);

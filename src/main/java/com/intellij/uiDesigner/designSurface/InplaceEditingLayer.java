@@ -30,8 +30,8 @@ import com.intellij.uiDesigner.propertyInspector.PropertyEditor;
 import com.intellij.uiDesigner.propertyInspector.PropertyEditorAdapter;
 import com.intellij.uiDesigner.propertyInspector.InplaceContext;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -80,7 +80,7 @@ public final class InplaceEditingLayer extends JComponent{
    */
   private boolean myInsideChange;
 
-  public InplaceEditingLayer(@NotNull final GuiEditor editor) {
+  public InplaceEditingLayer(@Nonnull final GuiEditor editor) {
     myEditor = editor;
     myEditor.addComponentSelectionListener(new MyComponentSelectionListener());
     myFocusWatcher = new MyFocusWatcher();
@@ -142,7 +142,7 @@ public final class InplaceEditingLayer extends JComponent{
     }
   }
 
-  public void startInplaceEditing(@NotNull final RadComponent inplaceComponent,
+  public void startInplaceEditing(@Nonnull final RadComponent inplaceComponent,
                                   @Nullable final Property property,
                                   @Nullable final Rectangle bounds,
                                   final InplaceContext context) {

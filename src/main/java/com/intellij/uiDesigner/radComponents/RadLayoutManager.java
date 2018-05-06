@@ -27,9 +27,9 @@ import com.intellij.uiDesigner.lw.LwContainer;
 import com.intellij.uiDesigner.propertyInspector.Property;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
 import com.intellij.util.IncorrectOperationException;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import java.awt.*;
 
@@ -69,7 +69,7 @@ public abstract class RadLayoutManager {
   public void refresh(RadContainer container) {
   }
 
-  @NotNull
+  @Nonnull
   public ComponentDropLocation getDropLocation(RadContainer container, @Nullable final Point location) {
     return NoDropLocation.INSTANCE;
   }

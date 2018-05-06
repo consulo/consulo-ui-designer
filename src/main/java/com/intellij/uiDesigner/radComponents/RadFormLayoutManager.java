@@ -40,8 +40,8 @@ import com.intellij.util.ArrayUtil;
 import com.intellij.util.ui.PlatformColors;
 import com.jgoodies.forms.layout.*;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -269,8 +269,9 @@ public class RadFormLayoutManager extends RadAbstractGridLayoutManager implement
     return -1;
   }
 
-  @NotNull @Override
-  public ComponentDropLocation getDropLocation(@NotNull RadContainer container, @Nullable final Point location) {
+  @Nonnull
+  @Override
+  public ComponentDropLocation getDropLocation(@Nonnull RadContainer container, @Nullable final Point location) {
     FormLayout formLayout = getFormLayout(container);
     if (formLayout.getRowCount() == 0 || formLayout.getColumnCount() == 0) {
       if (location != null) {

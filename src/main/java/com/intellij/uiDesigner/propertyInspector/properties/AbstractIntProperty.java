@@ -15,15 +15,16 @@
  */
 package com.intellij.uiDesigner.propertyInspector.properties;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.uiDesigner.propertyInspector.Property;
 import com.intellij.uiDesigner.propertyInspector.PropertyRenderer;
 import com.intellij.uiDesigner.propertyInspector.PropertyEditor;
 import com.intellij.uiDesigner.propertyInspector.renderers.LabelPropertyRenderer;
 import com.intellij.uiDesigner.propertyInspector.editors.IntEditor;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 /**
  * @author yole
@@ -33,13 +34,14 @@ public abstract class AbstractIntProperty<T extends RadComponent> extends Proper
   private final LabelPropertyRenderer<Integer> myRenderer = new LabelPropertyRenderer<Integer>();
   private final IntEditor myEditor;
 
-  protected AbstractIntProperty(Property parent, @NotNull @NonNls String name, int defaultValue) {
+  protected AbstractIntProperty(Property parent, @Nonnull @NonNls String name, int defaultValue) {
     super(parent, name);
     myDefaultValue = defaultValue;
     myEditor = new IntEditor(defaultValue);
   }
 
-  @NotNull public PropertyRenderer<Integer> getRenderer() {
+  @Nonnull
+  public PropertyRenderer<Integer> getRenderer() {
     return myRenderer;
   }
 

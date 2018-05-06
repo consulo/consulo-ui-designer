@@ -29,9 +29,9 @@ import com.intellij.uiDesigner.palette.ComponentItem;
 import com.intellij.uiDesigner.palette.Palette;
 import com.intellij.util.PlatformIcons;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import java.util.Collections;
 import java.util.List;
@@ -40,11 +40,12 @@ import java.util.List;
  * @author yole
  */
 public class BoundIconRenderer extends GutterIconRenderer {
-  @NotNull private final PsiElement myElement;
+  @Nonnull
+  private final PsiElement myElement;
   private Icon myIcon;
   private final String myQName;
 
-  public BoundIconRenderer(@NotNull final PsiElement element) {
+  public BoundIconRenderer(@Nonnull final PsiElement element) {
     myElement = element;
     if (myElement instanceof PsiField) {
       final PsiField field = (PsiField)myElement;
@@ -68,7 +69,7 @@ public class BoundIconRenderer extends GutterIconRenderer {
     }
   }
 
-  @NotNull
+  @Nonnull
   public Icon getIcon() {
     if (myIcon != null) {
       return myIcon;

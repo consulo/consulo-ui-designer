@@ -21,7 +21,7 @@ import com.intellij.uiDesigner.propertyInspector.PropertyEditor;
 import com.intellij.uiDesigner.propertyInspector.PropertyRenderer;
 import com.intellij.uiDesigner.propertyInspector.editors.EnumEditor;
 import com.intellij.uiDesigner.propertyInspector.renderers.LabelPropertyRenderer;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.lang.reflect.Method;
 
@@ -39,7 +39,7 @@ public class IntroEnumProperty extends IntrospectedProperty<Enum> {
     myEnumClass = enumClass;
   }
 
-  @NotNull
+  @Nonnull
   public PropertyRenderer<Enum> getRenderer() {
     if (myRenderer == null) {
       myRenderer = new LabelPropertyRenderer<Enum>();

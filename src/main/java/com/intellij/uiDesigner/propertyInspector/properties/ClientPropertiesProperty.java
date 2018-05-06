@@ -20,10 +20,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
-import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
@@ -59,7 +59,7 @@ public class ClientPropertiesProperty extends ReadOnlyProperty {
     myProject = project;
   }
 
-  @NotNull
+  @Nonnull
   public PropertyRenderer getRenderer() {
     return myRenderer;
   }
@@ -68,7 +68,8 @@ public class ClientPropertiesProperty extends ReadOnlyProperty {
     return myEditor;
   }
 
-  @NotNull @Override
+  @Nonnull
+  @Override
   public Property[] getChildren(final RadComponent component) {
     ClientPropertiesManager manager = ClientPropertiesManager.getInstance(component.getProject());
     List<ClientPropertiesManager.ClientProperty> props = manager.getClientProperties(component.getComponentClass());

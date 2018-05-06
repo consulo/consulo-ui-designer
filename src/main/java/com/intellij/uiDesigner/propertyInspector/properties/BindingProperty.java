@@ -20,9 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import javax.annotation.Nonnull;
+
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.CommonBundle;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
@@ -74,7 +76,7 @@ public final class BindingProperty extends Property<RadComponent, String> {
   private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.propertyInspector.properties.BindingProperty");
 
   private final PropertyRenderer<String> myRenderer = new LabelPropertyRenderer<String>() {
-    protected void customize(@NotNull final String value) {
+    protected void customize(@Nonnull final String value) {
       setText(value);
     }
   };
@@ -90,7 +92,7 @@ public final class BindingProperty extends Property<RadComponent, String> {
     return myEditor;
   }
 
-  @NotNull
+  @Nonnull
   public PropertyRenderer<String> getRenderer(){
     return myRenderer;
   }
@@ -215,7 +217,7 @@ public final class BindingProperty extends Property<RadComponent, String> {
   }
 
   @Nullable
-  public static PsiField findBoundField(@NotNull final RadRootContainer root, final String fieldName) {
+  public static PsiField findBoundField(@Nonnull final RadRootContainer root, final String fieldName) {
     final Project project = root.getProject();
     final String classToBind = root.getClassToBind();
     if (classToBind != null) {

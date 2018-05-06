@@ -19,8 +19,8 @@ import com.intellij.ide.util.treeView.NodeDescriptor;
 import com.intellij.openapi.util.Comparing;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Anton Katilin
@@ -34,7 +34,7 @@ final class ComponentPtrDescriptor extends NodeDescriptor<ComponentPtr> {
   private String myBinding;
   private String myTitle;
 
-  public ComponentPtrDescriptor(@NotNull final NodeDescriptor parentDescriptor, @NotNull final ComponentPtr ptr) {
+  public ComponentPtrDescriptor(@Nonnull final NodeDescriptor parentDescriptor, @Nonnull final ComponentPtr ptr) {
     super(null,parentDescriptor);
 
     myPtr=ptr;

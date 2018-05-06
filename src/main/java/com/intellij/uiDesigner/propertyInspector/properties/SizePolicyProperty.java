@@ -25,7 +25,7 @@ import com.intellij.uiDesigner.propertyInspector.editors.BooleanEditor;
 import com.intellij.uiDesigner.propertyInspector.renderers.BooleanRenderer;
 import com.intellij.uiDesigner.propertyInspector.renderers.SizePolicyRenderer;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author Anton Katilin
@@ -57,11 +57,13 @@ public abstract class SizePolicyProperty extends Property<RadComponent, Integer>
     setValueImpl(component.getConstraints(), value.intValue());
   }
 
-  @NotNull public final Property[] getChildren(final RadComponent component){
+  @Nonnull
+  public final Property[] getChildren(final RadComponent component){
     return myChildren;
   }
 
-  @NotNull public final PropertyRenderer<Integer> getRenderer(){
+  @Nonnull
+  public final PropertyRenderer<Integer> getRenderer(){
     return myRenderer;
   }
 
@@ -109,7 +111,7 @@ public abstract class SizePolicyProperty extends Property<RadComponent, Integer>
       SizePolicyProperty.this.setValueImpl(component.getConstraints(),newValue);
     }
 
-    @NotNull
+    @Nonnull
     public final PropertyRenderer<Boolean> getRenderer(){
       return myRenderer;
     }

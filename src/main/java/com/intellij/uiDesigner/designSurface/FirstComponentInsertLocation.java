@@ -25,8 +25,8 @@ import com.intellij.uiDesigner.palette.Palette;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import com.intellij.uiDesigner.radComponents.RadAbstractGridLayoutManager;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -40,9 +40,9 @@ public class FirstComponentInsertLocation extends GridDropLocation {
   protected final int myXPart;
   protected final int myYPart;
 
-  public FirstComponentInsertLocation(@NotNull final RadContainer container,
+  public FirstComponentInsertLocation(@Nonnull final RadContainer container,
                                       final Point targetPoint,
-                                      @NotNull final Rectangle cellRect) {
+                                      @Nonnull final Rectangle cellRect) {
     super(container, 0, 0);
     myCellRect = cellRect;
     int midX1 = myCellRect.x + myCellRect.width / 3;
@@ -69,7 +69,7 @@ public class FirstComponentInsertLocation extends GridDropLocation {
     }
   }
 
-  public FirstComponentInsertLocation(@NotNull final RadContainer container,
+  public FirstComponentInsertLocation(@Nonnull final RadContainer container,
                                       final Rectangle cellRect,
                                       final int xPart,
                                       final int yPart) {

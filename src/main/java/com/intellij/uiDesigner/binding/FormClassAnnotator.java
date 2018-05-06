@@ -27,7 +27,7 @@ import com.intellij.psi.*;
 import com.intellij.ui.UIBundle;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.util.IncorrectOperationException;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ import java.util.List;
 public class FormClassAnnotator implements Annotator {
   private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.binding.FormClassAnnotator");
 
-  public void annotate(@NotNull PsiElement psiElement, @NotNull AnnotationHolder holder) {
+  public void annotate(@Nonnull PsiElement psiElement, @Nonnull AnnotationHolder holder) {
     if (psiElement instanceof PsiField) {
       PsiField field = (PsiField) psiElement;
       final PsiFile boundForm = FormReferenceProvider.getFormFile(field);
@@ -76,21 +76,21 @@ public class FormClassAnnotator implements Annotator {
       final String message = UIDesignerBundle.message("field.is.overwritten.by.generated.code", field.getName());
       Annotation annotation = holder.createWarningAnnotation(field.getInitializer(), message);
       annotation.registerFix(new IntentionAction() {
-        @NotNull
+        @Nonnull
         public String getText() {
           return message;
         }
 
-        @NotNull
+        @Nonnull
         public String getFamilyName() {
           return UIBundle.message("remove.field.initializer.quick.fix");
         }
 
-        public boolean isAvailable(@NotNull Project project, Editor editor, PsiFile file) {
+        public boolean isAvailable(@Nonnull Project project, Editor editor, PsiFile file) {
           return field.getInitializer() != null;
         }
 
-        public void invoke(@NotNull Project project, Editor editor, PsiFile file) throws IncorrectOperationException {
+        public void invoke(@Nonnull Project project, Editor editor, PsiFile file) throws IncorrectOperationException {
           if (!FileModificationService.getInstance().preparePsiElementForWrite(field)) return;
           final PsiExpression initializer = field.getInitializer();
           LOG.assertTrue(initializer != null);

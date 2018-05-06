@@ -24,7 +24,7 @@ import com.intellij.uiDesigner.propertyInspector.PropertyRenderer;
 import com.intellij.uiDesigner.propertyInspector.editors.IntRegexEditor;
 import com.intellij.uiDesigner.propertyInspector.editors.InsetsEditor;
 import com.intellij.uiDesigner.propertyInspector.renderers.InsetsPropertyRenderer;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.awt.Insets;
 import java.lang.reflect.Method;
@@ -54,12 +54,12 @@ public final class IntroInsetsProperty extends IntrospectedProperty<Insets> {
     writer.writeInsets(value);
   }
 
-  @NotNull
+  @Nonnull
   public Property[] getChildren(final RadComponent component) {
     return myChildren;
   }
 
-  @NotNull
+  @Nonnull
   public PropertyRenderer<Insets> getRenderer() {
     return myRenderer;
   }

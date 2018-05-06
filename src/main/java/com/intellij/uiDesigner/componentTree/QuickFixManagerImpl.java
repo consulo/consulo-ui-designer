@@ -22,7 +22,7 @@ import com.intellij.uiDesigner.ErrorInfo;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.quickFixes.QuickFixManager;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
@@ -37,12 +37,12 @@ import java.awt.*;
 public final class QuickFixManagerImpl extends QuickFixManager<ComponentTree>{
   private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.componentTree.QuickFixManagerImpl");
 
-  public QuickFixManagerImpl(final GuiEditor editor, @NotNull final ComponentTree componentTree, final JViewport viewPort) {
+  public QuickFixManagerImpl(final GuiEditor editor, @Nonnull final ComponentTree componentTree, final JViewport viewPort) {
     super(editor, componentTree, viewPort);
     myComponent.addTreeSelectionListener(new MyTreeSelectionListener());
   }
 
-  @NotNull
+  @Nonnull
   protected ErrorInfo[] getErrorInfos() {
     final RadComponent component = myComponent.getSelectedComponent();
     if(component == null){

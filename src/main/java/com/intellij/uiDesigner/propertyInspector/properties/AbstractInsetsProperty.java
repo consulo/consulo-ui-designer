@@ -22,7 +22,7 @@ import com.intellij.uiDesigner.propertyInspector.editors.IntRegexEditor;
 import com.intellij.uiDesigner.propertyInspector.renderers.InsetsPropertyRenderer;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.awt.Insets;
 
@@ -50,12 +50,12 @@ public abstract class AbstractInsetsProperty<T extends RadComponent> extends Pro
     myRenderer=new InsetsPropertyRenderer();
   }
 
-  @NotNull
+  @Nonnull
   public final Property[] getChildren(final RadComponent component) {
     return myChildren;
   }
 
-  @NotNull
+  @Nonnull
   public final PropertyRenderer<Insets> getRenderer() {
     return myRenderer;
   }

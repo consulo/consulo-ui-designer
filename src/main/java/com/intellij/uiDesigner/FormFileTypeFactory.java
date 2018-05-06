@@ -15,16 +15,17 @@
  */
 package com.intellij.uiDesigner;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.fileTypes.FileTypeConsumer;
 import com.intellij.openapi.fileTypes.FileTypeFactory;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author yole
  */
 public class FormFileTypeFactory extends FileTypeFactory {
 
-  public void createFileTypes(@NotNull FileTypeConsumer consumer) {
+  public void createFileTypes(@Nonnull FileTypeConsumer consumer) {
     consumer.consume(GuiFormFileType.INSTANCE);
   }
 }

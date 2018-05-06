@@ -39,8 +39,8 @@ import com.intellij.uiDesigner.propertyInspector.renderers.LabelPropertyRenderer
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
 import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.awt.CardLayout;
@@ -113,7 +113,7 @@ public class RadCardLayoutManager extends RadLayoutManager {
     super.changeContainerLayout(container);
   }
 
-  @Override @NotNull
+  @Override @Nonnull
   public ComponentDropLocation getDropLocation(RadContainer container, @Nullable final Point location) {
     return new CardDropLocation(container);
   }
@@ -266,7 +266,7 @@ public class RadCardLayoutManager extends RadLayoutManager {
       }
     }
 
-    @NotNull
+    @Nonnull
     public PropertyRenderer<String> getRenderer() {
       return myRenderer;
     }
@@ -293,7 +293,7 @@ public class RadCardLayoutManager extends RadLayoutManager {
       super(null, NAME);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public PropertyRenderer<String> getRenderer() {
       return myRenderer;

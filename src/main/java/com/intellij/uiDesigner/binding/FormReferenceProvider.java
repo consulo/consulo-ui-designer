@@ -20,8 +20,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.ide.highlighter.XmlFileType;
 import com.intellij.lang.properties.psi.PropertiesFile;
 import com.intellij.openapi.application.ApplicationManager;
@@ -66,8 +67,8 @@ public class FormReferenceProvider extends PsiReferenceProvider {
 
   private static final Key<CachedValue<CachedFormData>> CACHED_DATA = Key.create("Cached form reference");
 
-  @NotNull
-  public PsiReference[] getReferencesByElement(@NotNull final PsiElement element, @NotNull final ProcessingContext context) {
+  @Nonnull
+  public PsiReference[] getReferencesByElement(@Nonnull final PsiElement element, @Nonnull final ProcessingContext context) {
     if (element instanceof PsiPlainTextFile) {
       final PsiPlainTextFile plainTextFile = (PsiPlainTextFile) element;
       if (plainTextFile.getFileType().equals(GuiFormFileType.INSTANCE)) {
@@ -383,7 +384,8 @@ public class FormReferenceProvider extends PsiReferenceProvider {
   public void projectClosed() {
   }
 
-  @NotNull @NonNls
+  @Nonnull
+  @NonNls
   public String getComponentName() {
     return "FormReferenceProvider";
   }

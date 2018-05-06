@@ -15,6 +15,8 @@
  */
 package com.intellij.uiDesigner.binding;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.properties.PropertiesUtil;
 import com.intellij.lang.properties.PropertiesFileType;
 import com.intellij.lang.properties.psi.PropertiesFile;
@@ -28,7 +30,6 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiPlainTextFile;
 import com.intellij.util.IncorrectOperationException;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Eugene Zhuravlev
@@ -71,7 +72,7 @@ public final class ResourceBundleFileReference extends ReferenceInForm {
     return handleFileRename(newElementName, PropertiesFileType.DOT_DEFAULT_EXTENSION, false);
   }
 
-  public PsiElement bindToElement(@NotNull final PsiElement element) throws IncorrectOperationException {
+  public PsiElement bindToElement(@Nonnull final PsiElement element) throws IncorrectOperationException {
     if (!(element instanceof PropertiesFile)) {
       throw new IncorrectOperationException();
     }

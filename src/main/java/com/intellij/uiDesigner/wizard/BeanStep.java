@@ -29,7 +29,7 @@ import com.intellij.openapi.util.IconLoader;
 import com.intellij.psi.*;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.uiDesigner.UIDesignerBundle;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -52,7 +52,7 @@ final class BeanStep extends StepAdapter{
   private JLabel myExistClassLabel;
   private final WizardData myData;
 
-  public BeanStep(@NotNull final WizardData data) {
+  public BeanStep(@Nonnull final WizardData data) {
     myData = data;
 
     myPackageLabel.setLabelFor(myTfWithBtnChoosePackage.getTextField());

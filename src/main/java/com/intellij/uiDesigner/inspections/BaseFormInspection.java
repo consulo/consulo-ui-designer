@@ -15,10 +15,12 @@
  */
 package com.intellij.uiDesigner.inspections;
 
+import javax.annotation.Nonnull;
+
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.codeInsight.daemon.HighlightDisplayKey;
 import com.intellij.codeInspection.BaseJavaLocalInspectionTool;
 import com.intellij.codeInspection.FileCheckingInspection;
@@ -49,21 +51,22 @@ import com.intellij.uiDesigner.radComponents.RadComponent;
 public abstract class BaseFormInspection extends BaseJavaLocalInspectionTool implements FileCheckingInspection, FormInspectionTool {
   private final String myInspectionKey;
 
-  public BaseFormInspection(@NonNls @NotNull String inspectionKey) {
+  public BaseFormInspection(@NonNls @Nonnull String inspectionKey) {
     myInspectionKey = inspectionKey;
   }
 
-  @Nls @NotNull
+  @Nls @Nonnull
   public String getDisplayName() {
     return "";
   }
 
-  @NotNull
+  @Nonnull
   public String getGroupDisplayName() {
     return UIDesignerBundle.message("form.inspections.group");
   }
 
-  @NotNull @NonNls public String getShortName() {
+  @Nonnull
+  @NonNls public String getShortName() {
     return myInspectionKey;
   }
 
@@ -77,7 +80,7 @@ public abstract class BaseFormInspection extends BaseJavaLocalInspectionTool imp
     return key != null && profile.isToolEnabled(key, psiRoot);
   }
 
-  @Nullable public ProblemDescriptor[] checkFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
+  @Nullable public ProblemDescriptor[] checkFile(@Nonnull PsiFile file, @Nonnull InspectionManager manager, boolean isOnTheFly) {
     if (file.getFileType().equals(GuiFormFileType.INSTANCE)) {
       final VirtualFile virtualFile = file.getVirtualFile();
       if (virtualFile == null) {
@@ -122,7 +125,7 @@ public abstract class BaseFormInspection extends BaseJavaLocalInspectionTool imp
   }
 
   @Nullable
-  public ErrorInfo[] checkComponent(@NotNull GuiEditor editor, @NotNull RadComponent component) {
+  public ErrorInfo[] checkComponent(@Nonnull GuiEditor editor, @Nonnull RadComponent component) {
     FormEditorErrorCollector collector = new FormEditorErrorCollector(editor, component);
     checkComponentProperties(component.getModule(), component, collector);
     return collector.result();

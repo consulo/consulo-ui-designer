@@ -27,7 +27,7 @@ import com.intellij.uiDesigner.*;
 import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.uiDesigner.lw.CompiledClassPropertiesProvider;
 import com.intellij.uiDesigner.lw.LwRootContainer;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -90,7 +90,7 @@ public class RadNestedForm extends RadComponent {
   }
 
   @Override
-  @NotNull
+  @Nonnull
   public String getComponentClassName() {
     return myRootContainer.getClassToBind();
   }

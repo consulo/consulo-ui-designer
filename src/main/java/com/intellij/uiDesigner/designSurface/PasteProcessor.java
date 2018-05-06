@@ -25,7 +25,7 @@ import com.intellij.uiDesigner.lw.IComponent;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import gnu.trove.TIntArrayList;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -195,7 +195,7 @@ public class PasteProcessor extends EventProcessor {
       return new Point(myDX [componentIndex], myDY [componentIndex]);
     }
 
-    @NotNull
+    @Nonnull
     public Dimension getInitialSize(final RadContainer targetContainer) {
       if (myComponentsToPaste.size() == 1) {
         return myComponentsToPaste.get(0).getSize();

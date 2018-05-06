@@ -22,8 +22,8 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.util.containers.HashSet;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nullable;
 import javax.imageio.ImageIO;
 import java.util.Arrays;
 import java.util.Set;

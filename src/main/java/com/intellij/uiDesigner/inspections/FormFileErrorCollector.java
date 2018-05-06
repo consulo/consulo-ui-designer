@@ -21,8 +21,8 @@ import com.intellij.psi.PsiFile;
 import com.intellij.uiDesigner.lw.IComponent;
 import com.intellij.uiDesigner.lw.IProperty;
 import com.intellij.uiDesigner.make.FormElementNavigatable;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +43,7 @@ public class FormFileErrorCollector extends FormErrorCollector {
   }
 
   public void addError(final String inspectionId, final IComponent component, @Nullable IProperty prop,
-                       @NotNull String errorMessage,
+                       @Nonnull String errorMessage,
                        EditorQuickFixProvider... editorQuickFixProviders) {
     final ProblemDescriptor problemDescriptor = myManager.createProblemDescriptor(myFile, JDOMUtil.escapeText(errorMessage),
                                                                                   (LocalQuickFix)null,

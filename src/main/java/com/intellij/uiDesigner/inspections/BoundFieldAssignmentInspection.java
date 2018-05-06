@@ -16,6 +16,8 @@
 
 package com.intellij.uiDesigner.inspections;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.codeInspection.BaseJavaLocalInspectionTool;
 import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemsHolder;
@@ -26,23 +28,22 @@ import com.intellij.uiDesigner.binding.FieldFormReference;
 import com.intellij.uiDesigner.binding.FormReferenceProvider;
 import com.intellij.uiDesigner.compiler.AsmCodeGenerator;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author yole
  */
 public class BoundFieldAssignmentInspection extends BaseJavaLocalInspectionTool {
-  @NotNull
+  @Nonnull
   public String getGroupDisplayName() {
     return UIDesignerBundle.message("form.inspections.group");
   }
 
-  @NotNull
+  @Nonnull
   public String getDisplayName() {
     return UIDesignerBundle.message("inspection.bound.field.title");
   }
 
-  @NotNull
+  @Nonnull
   @NonNls
   public String getShortName() {
     return "BoundFieldAssignment";
@@ -53,8 +54,8 @@ public class BoundFieldAssignmentInspection extends BaseJavaLocalInspectionTool 
     return true;
   }
 
-  @NotNull
-  public PsiElementVisitor buildVisitor(@NotNull final ProblemsHolder holder, boolean isOnTheFly) {
+  @Nonnull
+  public PsiElementVisitor buildVisitor(@Nonnull final ProblemsHolder holder, boolean isOnTheFly) {
     return new JavaElementVisitor() {
       @Override
       public void visitAssignmentExpression(PsiAssignmentExpression expression) {

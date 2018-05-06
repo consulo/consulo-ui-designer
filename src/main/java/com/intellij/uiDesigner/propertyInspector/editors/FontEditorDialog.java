@@ -23,7 +23,7 @@ import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.lw.FontDescriptor;
 import com.intellij.uiDesigner.propertyInspector.properties.IntroFontProperty;
 import com.intellij.util.ui.UIUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -160,7 +160,7 @@ public class FontEditorDialog extends DialogWrapper {
     return myValue;
   }
 
-  public void setValue(@NotNull final FontDescriptor value) {
+  public void setValue(@Nonnull final FontDescriptor value) {
     myValue = value;
     if (value.getSwingFont() != null) {
       myTabbedPane.setSelectedIndex(1);

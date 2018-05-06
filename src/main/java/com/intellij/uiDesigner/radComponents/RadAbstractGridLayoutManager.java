@@ -24,8 +24,8 @@ import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.designSurface.*;
 import com.intellij.util.IncorrectOperationException;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
@@ -245,7 +245,7 @@ public abstract class RadAbstractGridLayoutManager extends RadLayoutManager {
   }
 
 
-  @Override @NotNull
+  @Override @Nonnull
   public ComponentDropLocation getDropLocation(RadContainer container, @Nullable final Point location) {
     if (container.getGridRowCount() == 1 && container.getGridColumnCount() == 1 &&
         getComponentAtGrid(container, 0, 0) == null) {

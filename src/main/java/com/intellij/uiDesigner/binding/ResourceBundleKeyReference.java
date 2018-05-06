@@ -27,7 +27,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiPlainTextFile;
 import com.intellij.util.IncorrectOperationException;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author Eugene Zhuravlev
@@ -60,7 +60,7 @@ public final class ResourceBundleKeyReference extends ReferenceInForm {
     return property == null ? null : property.getPsiElement();
   }
 
-  public PsiElement bindToElement(@NotNull final PsiElement element) throws IncorrectOperationException {
+  public PsiElement bindToElement(@Nonnull final PsiElement element) throws IncorrectOperationException {
     if (!(element instanceof IProperty)) {
       throw new IncorrectOperationException();
     }

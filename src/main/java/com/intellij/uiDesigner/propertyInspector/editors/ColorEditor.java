@@ -27,9 +27,9 @@ import com.intellij.uiDesigner.propertyInspector.InplaceContext;
 import com.intellij.uiDesigner.propertyInspector.PropertyEditor;
 import com.intellij.uiDesigner.propertyInspector.renderers.ColorRenderer;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.ListSelectionEvent;
@@ -192,7 +192,7 @@ public class ColorEditor extends PropertyEditor<ColorDescriptor> {
       return result;
     }
 
-    public void setSelectedValue(@NotNull final ColorDescriptor value) {
+    public void setSelectedValue(@Nonnull final ColorDescriptor value) {
       myColorChooser.setColor(new ColorDescriptorWrapper(value));
       selectTabForColor(value);
     }

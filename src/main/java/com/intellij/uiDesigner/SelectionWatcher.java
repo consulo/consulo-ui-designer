@@ -19,7 +19,7 @@ import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -57,7 +57,7 @@ public abstract class SelectionWatcher {
     myEditor.removeHierarchyChangeListener(myHierarchyChangeListener);
   }
 
-  private void install(@NotNull final RadComponent component){
+  private void install(@Nonnull final RadComponent component){
     component.addPropertyChangeListener(myChangeListener);
     if(component instanceof RadContainer){
       final RadContainer container = (RadContainer)component;
@@ -67,7 +67,7 @@ public abstract class SelectionWatcher {
     }
   }
 
-  private void deinstall(@NotNull final RadComponent component){
+  private void deinstall(@Nonnull final RadComponent component){
     component.removePropertyChangeListener(myChangeListener);
     if(component instanceof RadContainer){
       final RadContainer container = (RadContainer)component;

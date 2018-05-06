@@ -16,6 +16,7 @@
 
 package com.intellij.uiDesigner.actions;
 
+import javax.annotation.Nonnull;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -26,7 +27,6 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 import com.intellij.ide.actions.TemplateKindCombo;
 import com.intellij.ide.fileTemplates.FileTemplate;
 import com.intellij.ide.fileTemplates.FileTemplateManager;
@@ -76,7 +76,7 @@ public class CreateFormAction extends AbstractCreateFormAction {
     });
   }
 
-  @NotNull
+  @Nonnull
   protected PsiElement[] invokeDialog(Project project, PsiDirectory directory) {
     final MyInputValidator validator = new MyInputValidator(project, directory);
 
@@ -86,7 +86,7 @@ public class CreateFormAction extends AbstractCreateFormAction {
     return validator.getCreatedElements();
   }
 
-  @NotNull
+  @Nonnull
   protected PsiElement[] create(String newName, PsiDirectory directory) throws Exception {
     PsiElement createdFile;
     PsiClass newClass = null;

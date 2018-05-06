@@ -24,9 +24,9 @@ import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import icons.UIDesignerIcons;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -50,7 +50,7 @@ public class ChooseLocaleAction extends ComboBoxAction {
     return super.createCustomComponent(presentation);
   }
 
-  @NotNull
+  @Nonnull
   protected DefaultActionGroup createPopupActionGroup(JComponent button) {
     DefaultActionGroup group = new DefaultActionGroup();
     GuiEditor editor = myLastEditor;
@@ -73,7 +73,8 @@ public class ChooseLocaleAction extends ComboBoxAction {
     return group;
   }
 
-  @Nullable private GuiEditor getEditor(final AnActionEvent e) {
+  @Nullable
+  private GuiEditor getEditor(final AnActionEvent e) {
     myLastEditor = FormEditingUtil.getActiveEditor(e.getDataContext());
     return myLastEditor;
   }

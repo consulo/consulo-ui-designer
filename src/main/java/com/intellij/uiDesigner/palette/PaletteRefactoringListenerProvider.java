@@ -21,7 +21,7 @@ import com.intellij.refactoring.listeners.RefactoringElementListener;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.util.ClassUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author yole
@@ -56,7 +56,7 @@ public class PaletteRefactoringListenerProvider implements RefactoringElementLis
       myItem = item;
     }
 
-    public void elementRenamedOrMoved(@NotNull PsiElement newElement) {
+    public void elementRenamedOrMoved(@Nonnull PsiElement newElement) {
       PsiClass psiClass = (PsiClass) newElement;
       final String qName = ClassUtil.getJVMClassName(psiClass);
       if (qName != null) {
@@ -66,7 +66,7 @@ public class PaletteRefactoringListenerProvider implements RefactoringElementLis
     }
 
     @Override
-    public void undoElementMovedOrRenamed(@NotNull PsiElement newElement, @NotNull String oldQualifiedName) {
+    public void undoElementMovedOrRenamed(@Nonnull PsiElement newElement, @Nonnull String oldQualifiedName) {
       myItem.setClassName(oldQualifiedName);
       myUiDesignerPaletteProvider.fireGroupsChanged();
     }

@@ -16,7 +16,7 @@
 package com.intellij.uiDesigner;
 
 import com.intellij.openapi.diagnostic.Logger;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;

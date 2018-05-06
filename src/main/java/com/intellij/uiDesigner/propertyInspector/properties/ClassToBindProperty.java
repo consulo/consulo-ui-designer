@@ -21,7 +21,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.ide.highlighter.JavaFileType;
 import com.intellij.ide.util.ClassFilter;
 import com.intellij.ide.util.TreeClassChooser;
@@ -71,7 +71,7 @@ public final class ClassToBindProperty extends Property<RadRootContainer, String
     return myEditor;
   }
 
-  @NotNull
+  @Nonnull
   public PropertyRenderer<String> getRenderer(){
     return myRenderer;
   }

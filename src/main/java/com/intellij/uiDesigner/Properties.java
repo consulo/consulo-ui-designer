@@ -22,8 +22,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
@@ -64,7 +64,7 @@ public final class Properties implements PersistentStateComponent<Element>
 	/**
 	 * @return it is possible that properties do not exist in class; returned values are ones specified in config. Never null
 	 */
-	public boolean isExpertProperty(final Module module, @NotNull final Class aClass, final String propertyName)
+	public boolean isExpertProperty(final Module module, @Nonnull final Class aClass, final String propertyName)
 	{
 		for(Class c = aClass; c != null; c = c.getSuperclass())
 		{
@@ -134,7 +134,7 @@ public final class Properties implements PersistentStateComponent<Element>
 	}
 
 	@Override
-	public void loadState(@NotNull Element element)
+	public void loadState(@Nonnull Element element)
 	{
 		for(final Element classElement : element.getChildren("class"))
 		{

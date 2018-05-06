@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.quickFixes;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -30,7 +30,7 @@ import java.awt.event.FocusEvent;
 final class FocusListenerImpl extends FocusAdapter{
   private final QuickFixManager myManager;
 
-  public FocusListenerImpl(@NotNull final QuickFixManager manager) {
+  public FocusListenerImpl(@Nonnull final QuickFixManager manager) {
     myManager = manager;
   }
 

@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
+import javax.annotation.Nonnull;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
@@ -41,8 +42,8 @@ import javax.swing.JLabel;
 import javax.swing.UIManager;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.lexer.JavaLexer;
 import com.intellij.openapi.application.ApplicationNamesInfo;
 import com.intellij.openapi.diagnostic.Logger;
@@ -140,7 +141,7 @@ public final class FormSourceCodeGenerator
 		ourTitleJustificationMap.put(5, "javax.swing.border.TitledBorder.TRAILING");
 	}
 
-	public FormSourceCodeGenerator(@NotNull final Project project)
+	public FormSourceCodeGenerator(@Nonnull final Project project)
 	{
 		myProject = project;
 		myErrors = new ArrayList<FormErrorInfo>();

@@ -15,8 +15,9 @@
  */
 package com.intellij.uiDesigner.inspections;
 
-import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.uiDesigner.lw.IProperty;
 import com.intellij.uiDesigner.lw.IComponent;
 
@@ -25,6 +26,6 @@ import com.intellij.uiDesigner.lw.IComponent;
  */
 public abstract class FormErrorCollector {
   public abstract void addError(final String inspectionId, final IComponent component, @Nullable IProperty prop,
-                                @NotNull String errorMessage,
+                                @Nonnull String errorMessage,
                                 EditorQuickFixProvider... editorQuickFixProvider);
 }

@@ -35,7 +35,7 @@ import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import com.intellij.uiDesigner.shared.BorderType;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.awt.*;
 
@@ -50,11 +50,11 @@ public final class BorderProperty extends Property<RadContainer, BorderType> {
   private final Property[] myChildren;
 
   private final NotNullLazyValue<PropertyRenderer<BorderType>> myRenderer = new NotNullLazyValue<PropertyRenderer<BorderType>>() {
-    @NotNull
+    @Nonnull
     @Override
     protected PropertyRenderer<BorderType> compute() {
       return new LabelPropertyRenderer<BorderType>() {
-        protected void customize(@NotNull final BorderType value) {
+        protected void customize(@Nonnull final BorderType value) {
           setText(value.getName());
         }
       };
@@ -75,7 +75,7 @@ public final class BorderProperty extends Property<RadContainer, BorderType> {
   protected void setValueImpl(final RadContainer component, final BorderType value) throws Exception {
   }
 
-  @NotNull
+  @Nonnull
   public Property[] getChildren(final RadComponent component) {
     if (!(component instanceof RadContainer)) return Property.EMPTY_ARRAY;
     BorderType borderType = ((RadContainer)component).getBorderType();
@@ -92,7 +92,7 @@ public final class BorderProperty extends Property<RadContainer, BorderType> {
     return myChildren;
   }
 
-  @NotNull
+  @Nonnull
   public PropertyRenderer<BorderType> getRenderer() {
     return myRenderer.getValue();
   }
@@ -130,7 +130,7 @@ public final class BorderProperty extends Property<RadContainer, BorderType> {
       component.setBorderType(value);
     }
 
-    @NotNull
+    @Nonnull
     public PropertyRenderer<BorderType> getRenderer() {
       return myRenderer.getValue();
     }
@@ -186,7 +186,7 @@ public final class BorderProperty extends Property<RadContainer, BorderType> {
       component.setBorderTitle(title);
     }
 
-    @NotNull
+    @Nonnull
     public PropertyRenderer<StringDescriptor> getRenderer() {
       if (myRenderer == null) {
         myRenderer = new StringRenderer();
@@ -252,7 +252,7 @@ public final class BorderProperty extends Property<RadContainer, BorderType> {
       }
     }
 
-    @NotNull
+    @Nonnull
     public PropertyRenderer<Integer> getRenderer() {
       if (myRenderer == null) {
         myRenderer = new IntEnumRenderer(myJustification ? ourJustificationPairs : ourPositionPairs);
@@ -294,7 +294,7 @@ public final class BorderProperty extends Property<RadContainer, BorderType> {
       component.setBorderTitleFont(value);
     }
 
-    @NotNull
+    @Nonnull
     public PropertyRenderer<FontDescriptor> getRenderer() {
       if (myRenderer == null) {
         myRenderer = new FontRenderer();
@@ -343,7 +343,7 @@ public final class BorderProperty extends Property<RadContainer, BorderType> {
       }
     }
 
-    @NotNull
+    @Nonnull
     public PropertyRenderer<ColorDescriptor> getRenderer() {
       if (myRenderer == null) {
         myRenderer = new ColorRenderer();

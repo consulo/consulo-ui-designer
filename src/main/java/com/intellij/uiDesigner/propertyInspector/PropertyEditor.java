@@ -16,9 +16,9 @@
 package com.intellij.uiDesigner.propertyInspector;
 
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import javax.swing.event.EventListenerList;
 
@@ -74,7 +74,7 @@ public abstract class PropertyEditor<V> {
    *
    * @param component cannot be null
    */
-  public JComponent getPreferredFocusedComponent(@NotNull final JComponent component){
+  public JComponent getPreferredFocusedComponent(@Nonnull final JComponent component){
     return null;
   }
 

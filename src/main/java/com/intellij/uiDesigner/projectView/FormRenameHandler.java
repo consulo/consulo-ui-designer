@@ -22,7 +22,7 @@
  */
 package com.intellij.uiDesigner.projectView;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
@@ -48,7 +48,7 @@ public class FormRenameHandler implements RenameHandler
 	}
 
 	@Override
-	public void invoke(@NotNull Project project, Editor editor, PsiFile file, DataContext dataContext)
+	public void invoke(@Nonnull Project project, Editor editor, PsiFile file, DataContext dataContext)
 	{
 		Form[] forms = dataContext.getData(Form.DATA_KEY);
 		if(forms == null || forms.length != 1)
@@ -60,7 +60,7 @@ public class FormRenameHandler implements RenameHandler
 	}
 
 	@Override
-	public void invoke(@NotNull Project project, @NotNull PsiElement[] elements, DataContext dataContext)
+	public void invoke(@Nonnull Project project, @Nonnull PsiElement[] elements, DataContext dataContext)
 	{
 		invoke(project, null, null, dataContext);
 	}

@@ -16,6 +16,8 @@
 
 package com.intellij.uiDesigner.propertyInspector.properties;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.propertyInspector.Property;
 import com.intellij.uiDesigner.propertyInspector.PropertyRenderer;
@@ -26,7 +28,6 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.uiDesigner.palette.ComponentItem;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author yole
@@ -109,7 +110,7 @@ public abstract class AlignProperty extends Property<RadComponent, Integer> {
     }
   }
 
-  @NotNull
+  @Nonnull
   public PropertyRenderer<Integer> getRenderer() {
     if (myRenderer == null) {
       myRenderer = new IntEnumRenderer(getPairs());

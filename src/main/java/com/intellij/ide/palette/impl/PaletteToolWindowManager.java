@@ -15,8 +15,9 @@
  */
 package com.intellij.ide.palette.impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.designer.DesignerEditorPanelFacade;
 import com.intellij.designer.LightToolWindow;
 import com.intellij.icons.AllIcons;
@@ -99,7 +100,7 @@ public class PaletteToolWindowManager extends AbstractToolWindowManager
 	}
 
 	@Override
-	protected LightToolWindow createContent(@NotNull DesignerEditorPanelFacade designer)
+	protected LightToolWindow createContent(@Nonnull DesignerEditorPanelFacade designer)
 	{
 		PaletteWindow palettePanel = new PaletteWindow(myProject);
 		palettePanel.refreshPaletteIfChanged((GuiEditor) designer);
@@ -117,7 +118,7 @@ public class PaletteToolWindowManager extends AbstractToolWindowManager
 		}
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getComponentName()
 	{

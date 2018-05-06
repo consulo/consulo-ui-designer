@@ -38,8 +38,8 @@ import com.intellij.uiDesigner.lw.IRootContainer;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.util.Processor;
 import icons.UIDesignerIcons;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

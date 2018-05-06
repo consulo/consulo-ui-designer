@@ -15,11 +15,12 @@
  */
 package com.intellij.uiDesigner;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.uiDesigner.quickFixes.QuickFix;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.lw.IComponent;
 import com.intellij.codeHighlighting.HighlightDisplayLevel;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.NonNls;
 
 /**
@@ -36,8 +37,8 @@ public final class ErrorInfo {
   private final HighlightDisplayLevel myHighlightDisplayLevel;
   private String myInspectionId;
 
-  public ErrorInfo(IComponent component, @NonNls final String propertyName, @NotNull final String description,
-                   @NotNull HighlightDisplayLevel highlightDisplayLevel, @NotNull final QuickFix[] fixes) {
+  public ErrorInfo(IComponent component, @NonNls final String propertyName, @Nonnull final String description,
+                   @Nonnull HighlightDisplayLevel highlightDisplayLevel, @Nonnull final QuickFix[] fixes) {
     myComponent = component instanceof RadComponent ? (RadComponent) component : null;
     myHighlightDisplayLevel = highlightDisplayLevel;
     myPropertyName = propertyName;

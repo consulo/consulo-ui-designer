@@ -15,8 +15,9 @@
  */
 package com.intellij.uiDesigner.propertyInspector;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.designer.DesignerEditorPanelFacade;
 import com.intellij.designer.LightToolWindow;
 import com.intellij.openapi.application.ApplicationManager;
@@ -111,7 +112,7 @@ public class DesignerToolWindowManager extends AbstractToolWindowManager
 	}
 
 	@Override
-	protected LightToolWindow createContent(@NotNull DesignerEditorPanelFacade designer)
+	protected LightToolWindow createContent(@Nonnull DesignerEditorPanelFacade designer)
 	{
 		DesignerToolWindow toolWindowContent = new DesignerToolWindow(myProject);
 		toolWindowContent.update((GuiEditor) designer);
@@ -129,7 +130,7 @@ public class DesignerToolWindowManager extends AbstractToolWindowManager
 		}
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getComponentName()
 	{

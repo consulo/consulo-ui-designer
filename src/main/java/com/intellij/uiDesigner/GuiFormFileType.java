@@ -17,10 +17,10 @@ package com.intellij.uiDesigner;
 
 import java.nio.charset.Charset;
 
+import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 import com.intellij.icons.AllIcons;
 import com.intellij.ide.IdeBundle;
 import com.intellij.openapi.util.Pair;
@@ -38,21 +38,21 @@ public class GuiFormFileType implements FileTypeWithPredefinedCharset
 	public static final String DOT_DEFAULT_EXTENSION = "." + DEFAULT_EXTENSION;
 
 	@Override
-	@NotNull
+	@Nonnull
 	public String getId()
 	{
 		return "GUI_DESIGNER_FORM";
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	public String getDescription()
 	{
 		return IdeBundle.message("filetype.description.gui.designer.form");
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	public String getDefaultExtension()
 	{
 		return DEFAULT_EXTENSION;
@@ -77,14 +77,14 @@ public class GuiFormFileType implements FileTypeWithPredefinedCharset
 	}
 
 	@Override
-	public String getCharset(@NotNull VirtualFile file, final byte[] content)
+	public String getCharset(@Nonnull VirtualFile file, final byte[] content)
 	{
 		return CharsetToolkit.UTF8;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public Pair<Charset, String> getPredefinedCharset(@NotNull VirtualFile virtualFile)
+	public Pair<Charset, String> getPredefinedCharset(@Nonnull VirtualFile virtualFile)
 	{
 		return new Pair<Charset, String>(CharsetToolkit.UTF8_CHARSET, "Consulo GUI Designer form");
 	}

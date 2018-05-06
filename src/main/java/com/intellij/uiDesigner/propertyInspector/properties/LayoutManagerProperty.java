@@ -28,7 +28,7 @@ import com.intellij.uiDesigner.radComponents.LayoutManagerRegistry;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import com.intellij.uiDesigner.radComponents.RadLayoutManager;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 
@@ -38,7 +38,7 @@ import javax.swing.*;
 public class LayoutManagerProperty extends Property<RadContainer, String> {
   private final PropertyRenderer<String> myRenderer = new LabelPropertyRenderer<String>() {
     @Override
-    protected void customize(@NotNull final String value) {
+    protected void customize(@Nonnull final String value) {
       setText(LayoutManagerRegistry.getLayoutManagerDisplayName(value));
     }
   };
@@ -93,7 +93,8 @@ public class LayoutManagerProperty extends Property<RadContainer, String> {
     newLayoutManager.changeContainerLayout(component);
   }
 
-  @NotNull public PropertyRenderer<String> getRenderer() {
+  @Nonnull
+  public PropertyRenderer<String> getRenderer() {
     return myRenderer;
   }
 

@@ -24,8 +24,8 @@ import com.intellij.uiDesigner.designSurface.*;
 import com.intellij.uiDesigner.lw.LwSplitPane;
 import com.intellij.uiDesigner.palette.Palette;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,7 +51,7 @@ public final class RadSplitPane extends RadContainer {
     super(module, componentClass, id);
   }
 
-  public RadSplitPane(Class componentClass, @NotNull final String id, final Palette palette) {
+  public RadSplitPane(Class componentClass, @Nonnull final String id, final Palette palette) {
     super(componentClass, id, palette);
   }
 
@@ -175,7 +175,7 @@ public final class RadSplitPane extends RadContainer {
       }
     }
 
-    @Override @NotNull
+    @Override @Nonnull
     public ComponentDropLocation getDropLocation(RadContainer container, @Nullable final Point location) {
       if (location == null) {
         return new MyDropLocation(isEmptySplitComponent(getSplitPane().getLeftComponent()));

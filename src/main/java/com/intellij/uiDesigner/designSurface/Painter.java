@@ -25,7 +25,7 @@ import com.intellij.uiDesigner.radComponents.*;
 import com.intellij.uiDesigner.shared.BorderType;
 import com.intellij.util.ui.PlatformColors;
 import org.intellij.lang.annotations.JdkConstants;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -132,7 +132,7 @@ public final class Painter {
    * Method does nothing if the <code>component</code> is not an instance
    * of <code>RadContainer</code>.
    */
-  private static void paintComponentBoundsImpl(final GuiEditor editor, @NotNull final RadComponent component, final Graphics g) {
+  private static void paintComponentBoundsImpl(final GuiEditor editor, @Nonnull final RadComponent component, final Graphics g) {
     if (!(component instanceof RadContainer) && !(component instanceof RadNestedForm) && !component.isDragBorder()) {
       return;
     }
@@ -192,7 +192,7 @@ public final class Painter {
   /**
    * This method paints grid bounds for "grid" containers
    */
-  public static void paintGridOutline(final GuiEditor editor, @NotNull final RadComponent component, final Graphics g) {
+  public static void paintGridOutline(final GuiEditor editor, @Nonnull final RadComponent component, final Graphics g) {
     if (!editor.isShowGrid()) {
       return;
     }
@@ -235,7 +235,7 @@ public final class Painter {
   /**
    * Paints selection for the specified <code>component</code>.
    */
-  public static void paintSelectionDecoration(@NotNull RadComponent component, Graphics g,
+  public static void paintSelectionDecoration(@Nonnull RadComponent component, Graphics g,
                                               boolean focused) {
     if (component.isSelected()) {
       if (focused) {
@@ -271,7 +271,7 @@ public final class Painter {
    * @param x in component's coord system
    * @param y in component's coord system
    */
-  public static int getResizeMask(@NotNull final RadComponent component, final int x, final int y) {
+  public static int getResizeMask(@Nonnull final RadComponent component, final int x, final int y) {
     if (component.getParent() == null || !component.isSelected()) {
       return 0;
     }

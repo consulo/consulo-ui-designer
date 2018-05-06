@@ -15,7 +15,8 @@
  */
 package com.intellij.uiDesigner.binding;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.editor.Editor;
@@ -56,21 +57,21 @@ public class ChangeFormComponentTypeFix implements IntentionAction {
     }
   }
 
-  @NotNull
+  @Nonnull
   public String getText() {
     return JavaQuickFixBundle.message("uidesigner.change.gui.component.type");
   }
 
-  @NotNull
+  @Nonnull
   public String getFamilyName() {
     return getText();
   }
 
-  public boolean isAvailable(@NotNull Project project, Editor editor, PsiFile file) {
+  public boolean isAvailable(@Nonnull Project project, Editor editor, PsiFile file) {
     return true;
   }
 
-  public void invoke(@NotNull Project project, Editor editor, PsiFile file) throws IncorrectOperationException {
+  public void invoke(@Nonnull Project project, Editor editor, PsiFile file) throws IncorrectOperationException {
     CommandProcessor.getInstance().executeCommand(file.getProject(), new Runnable() {
       public void run() {
         final ReadonlyStatusHandler readOnlyHandler = ReadonlyStatusHandler.getInstance(myFormFile.getProject());

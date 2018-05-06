@@ -17,7 +17,7 @@ package com.intellij.uiDesigner.editor;
 
 import com.intellij.openapi.fileEditor.FileEditorState;
 import com.intellij.openapi.fileEditor.FileEditorStateLevel;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.Arrays;
 
@@ -25,7 +25,7 @@ final class MyEditorState implements FileEditorState{
   private final transient long myDocumentModificationStamp; // should not be serialized
   private final String[] mySelectedComponentIds;
 
-  public MyEditorState(final long modificationStamp, @NotNull final String[] selectedComponents){
+  public MyEditorState(final long modificationStamp, @Nonnull final String[] selectedComponents){
     myDocumentModificationStamp = modificationStamp;
     mySelectedComponentIds = selectedComponents;
   }

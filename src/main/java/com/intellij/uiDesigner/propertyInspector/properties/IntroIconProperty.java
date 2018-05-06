@@ -29,8 +29,8 @@ import com.intellij.uiDesigner.propertyInspector.editors.IconEditor;
 import com.intellij.uiDesigner.propertyInspector.renderers.LabelPropertyRenderer;
 import com.intellij.uiDesigner.propertyInspector.renderers.IconRenderer;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.lang.reflect.Method;
@@ -48,11 +48,12 @@ public class IntroIconProperty extends IntrospectedProperty<IconDescriptor> {
     super(name, readMethod, writeMethod, storeAsClient);
   }
 
-  public void write(@NotNull IconDescriptor value, XmlWriter writer) {
+  public void write(@Nonnull IconDescriptor value, XmlWriter writer) {
     writer.addAttribute(UIFormXmlConstants.ATTRIBUTE_VALUE, value.getIconPath());
   }
 
-  @NotNull public PropertyRenderer<IconDescriptor> getRenderer() {
+  @Nonnull
+  public PropertyRenderer<IconDescriptor> getRenderer() {
     return myRenderer;
   }
 

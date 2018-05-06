@@ -23,6 +23,7 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -30,8 +31,8 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.ide.CopyProvider;
 import com.intellij.ide.CutProvider;
 import com.intellij.ide.PasteProvider;
@@ -71,19 +72,19 @@ public final class CutCopyPasteSupport implements CopyProvider, CutProvider, Pas
 	}
 
 	@Override
-	public boolean isCopyEnabled(@NotNull final DataContext dataContext)
+	public boolean isCopyEnabled(@Nonnull final DataContext dataContext)
 	{
 		return FormEditingUtil.getSelectedComponents(myEditor).size() > 0 && !myEditor.getInplaceEditingLayer().isEditing();
 	}
 
 	@Override
-	public boolean isCopyVisible(@NotNull DataContext dataContext)
+	public boolean isCopyVisible(@Nonnull DataContext dataContext)
 	{
 		return true;
 	}
 
 	@Override
-	public void performCopy(@NotNull final DataContext dataContext)
+	public void performCopy(@Nonnull final DataContext dataContext)
 	{
 		doCopy();
 	}
@@ -106,19 +107,19 @@ public final class CutCopyPasteSupport implements CopyProvider, CutProvider, Pas
 	}
 
 	@Override
-	public boolean isCutEnabled(@NotNull final DataContext dataContext)
+	public boolean isCutEnabled(@Nonnull final DataContext dataContext)
 	{
 		return isCopyEnabled(dataContext) && FormEditingUtil.canDeleteSelection(myEditor);
 	}
 
 	@Override
-	public boolean isCutVisible(@NotNull DataContext dataContext)
+	public boolean isCutVisible(@Nonnull DataContext dataContext)
 	{
 		return true;
 	}
 
 	@Override
-	public void performCut(@NotNull final DataContext dataContext)
+	public void performCut(@Nonnull final DataContext dataContext)
 	{
 		if(doCopy() && myEditor.ensureEditable())
 		{
@@ -134,19 +135,19 @@ public final class CutCopyPasteSupport implements CopyProvider, CutProvider, Pas
 	}
 
 	@Override
-	public boolean isPastePossible(@NotNull final DataContext dataContext)
+	public boolean isPastePossible(@Nonnull final DataContext dataContext)
 	{
 		return isPasteEnabled(dataContext);
 	}
 
 	@Override
-	public boolean isPasteEnabled(@NotNull final DataContext dataContext)
+	public boolean isPasteEnabled(@Nonnull final DataContext dataContext)
 	{
 		return getSerializedComponents() != null && !myEditor.getInplaceEditingLayer().isEditing();
 	}
 
 	@Override
-	public void performPaste(@NotNull final DataContext dataContext)
+	public void performPaste(@Nonnull final DataContext dataContext)
 	{
 		final String serializedComponents = getSerializedComponents();
 		if(serializedComponents == null)

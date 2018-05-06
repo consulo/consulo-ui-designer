@@ -23,7 +23,7 @@ import com.intellij.uiDesigner.radComponents.RadRootContainer;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.propertyInspector.properties.IdentifierValidator;
 import com.intellij.uiDesigner.UIDesignerBundle;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class GroupButtonsAction extends AbstractGuiEditorAction {
     editor.refreshAndSave(true);
   }
 
-  protected void update(@NotNull GuiEditor editor, final ArrayList<RadComponent> selection, final AnActionEvent e) {
+  protected void update(@Nonnull GuiEditor editor, final ArrayList<RadComponent> selection, final AnActionEvent e) {
     e.getPresentation().setVisible(allButtons(selection));
     e.getPresentation().setEnabled(allButtons(selection) && selection.size() >= 2 &&
                                    !UngroupButtonsAction.isSameGroup(editor, selection));

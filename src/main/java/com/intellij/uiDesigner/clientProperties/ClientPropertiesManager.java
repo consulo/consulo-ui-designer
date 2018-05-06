@@ -21,10 +21,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.annotation.Nonnull;
+
 import org.jdom.Element;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
@@ -53,14 +55,14 @@ public class ClientPropertiesManager implements PersistentStateComponent<Element
 	@NonNls
 	private static final String COMPONENT_NAME = "ClientPropertiesManager";
 
-	public static ClientPropertiesManager getInstance(@NotNull Project project)
+	public static ClientPropertiesManager getInstance(@Nonnull Project project)
 	{
 		return ServiceManager.getService(project, ClientPropertiesManager.class);
 	}
 
 	private static final NotNullLazyValue<ClientPropertiesManager> ourDefaultManager = new AtomicNotNullLazyValue<ClientPropertiesManager>()
 	{
-		@NotNull
+		@Nonnull
 		@Override
 		protected ClientPropertiesManager compute()
 		{
@@ -236,7 +238,7 @@ public class ClientPropertiesManager implements PersistentStateComponent<Element
 		}
 	}
 
-	public List<Class> getConfiguredClasses(@NotNull Project project)
+	public List<Class> getConfiguredClasses(@Nonnull Project project)
 	{
 		List<Class> result = new ArrayList<>();
 		for(String className : myPropertyMap.keySet())
@@ -276,7 +278,7 @@ public class ClientPropertiesManager implements PersistentStateComponent<Element
 		return new ArrayList<>(list);
 	}
 
-	@NotNull
+	@Nonnull
 	public List<ClientProperty> getClientProperties(Class componentClass)
 	{
 		List<ClientProperty> result = new ArrayList<>();

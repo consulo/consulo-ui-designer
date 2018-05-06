@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.wizard;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author Anton Katilin
@@ -28,7 +28,7 @@ public final class FormProperty2BeanProperty {
    */
   public BeanProperty myBeanProperty;
 
-  public FormProperty2BeanProperty(@NotNull final FormProperty formProperty) {
+  public FormProperty2BeanProperty(@Nonnull final FormProperty formProperty) {
     myFormProperty = formProperty;
   }
 }

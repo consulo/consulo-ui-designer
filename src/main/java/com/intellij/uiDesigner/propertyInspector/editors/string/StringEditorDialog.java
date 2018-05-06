@@ -37,8 +37,8 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.CommonBundle;
 import com.intellij.ide.util.TreeClassChooserFactory;
 import com.intellij.ide.util.TreeFileChooser;
@@ -477,7 +477,7 @@ public final class StringEditorDialog extends DialogWrapper{
       myNoI18nCheckbox.setSelected(descriptor != null && descriptor.isNoI18n());
     }
 
-    public void showResourceBundleDescriptor(@NotNull final StringDescriptor descriptor) {
+    public void showResourceBundleDescriptor(@Nonnull final StringDescriptor descriptor) {
       final String key = descriptor.getKey();
       LOG.assertTrue(key != null);
       myTfBundleName.setText(descriptor.getBundleName());

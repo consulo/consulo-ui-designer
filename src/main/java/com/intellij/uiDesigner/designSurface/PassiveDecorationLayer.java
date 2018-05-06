@@ -21,11 +21,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
 import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
-import org.jetbrains.annotations.NotNull;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.componentTree.ComponentTree;
 import com.intellij.uiDesigner.propertyInspector.DesignerToolWindowManager;
@@ -46,10 +46,10 @@ import icons.UIDesignerIcons;
  */
 class PassiveDecorationLayer extends JComponent
 {
-	@NotNull
+	@Nonnull
 	private final GuiEditor myEditor;
 
-	public PassiveDecorationLayer(@NotNull final GuiEditor editor)
+	public PassiveDecorationLayer(@Nonnull final GuiEditor editor)
 	{
 		myEditor = editor;
 	}

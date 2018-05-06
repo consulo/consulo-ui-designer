@@ -29,8 +29,8 @@ import com.intellij.uiDesigner.propertyInspector.properties.IntroComponentProper
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import gnu.trove.TIntHashSet;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.*;
 
@@ -134,7 +134,7 @@ public class DuplicateComponentsAction extends AbstractGuiEditorAction {
     return true;
   }
 
-  protected void update(@NotNull GuiEditor editor, final ArrayList<RadComponent> selection, final AnActionEvent e) {
+  protected void update(@Nonnull GuiEditor editor, final ArrayList<RadComponent> selection, final AnActionEvent e) {
     FormEditingUtil.remapToActionTargets(selection);
     final RadContainer parent = FormEditingUtil.getSelectionParent(selection);
     e.getPresentation().setEnabled(parent != null && (parent.getLayoutManager().isGrid() || parent.getLayoutManager().isIndexed()));

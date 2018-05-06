@@ -25,7 +25,7 @@ import com.intellij.uiDesigner.propertyInspector.PropertyEditor;
 import com.intellij.uiDesigner.propertyInspector.PropertyRenderer;
 import com.intellij.uiDesigner.propertyInspector.editors.IntRegexEditor;
 import com.intellij.uiDesigner.propertyInspector.renderers.DimensionRenderer;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.Dimension;
@@ -51,17 +51,17 @@ public final class IntroDimensionProperty extends IntrospectedProperty<Dimension
   }
 
   @Override
-  public void write(@NotNull final Dimension value, final XmlWriter writer) {
+  public void write(@Nonnull final Dimension value, final XmlWriter writer) {
     writer.addAttribute("width", value.width);
     writer.addAttribute("height", value.height);
   }
 
-  @NotNull
+  @Nonnull
   public Property[] getChildren(final RadComponent component) {
     return myChildren;
   }
 
-  @NotNull
+  @Nonnull
   public PropertyRenderer<Dimension> getRenderer() {
     return myRenderer;
   }

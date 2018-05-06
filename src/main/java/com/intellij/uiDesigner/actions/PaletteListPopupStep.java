@@ -25,7 +25,7 @@ import com.intellij.uiDesigner.palette.ComponentItem;
 import com.intellij.uiDesigner.palette.GroupItem;
 import com.intellij.uiDesigner.palette.Palette;
 import com.intellij.util.Processor;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ class PaletteListPopupStep implements ListPopupStep<ComponentItem>, SpeedSearchF
     myTitle = title;
   }
 
-  @NotNull
+  @Nonnull
   public List<ComponentItem> getValues() {
     return myItems;
   }
@@ -66,7 +66,7 @@ class PaletteListPopupStep implements ListPopupStep<ComponentItem>, SpeedSearchF
     return aValue.getSmallIcon();
   }
 
-  @NotNull
+  @Nonnull
   public String getTextFor(final ComponentItem value) {
     if (value.isAnyComponent()) {
       return UIDesignerBundle.message("palette.non.palette.component");

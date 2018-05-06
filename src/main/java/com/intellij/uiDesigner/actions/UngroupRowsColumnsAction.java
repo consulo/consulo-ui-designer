@@ -19,7 +19,7 @@ package com.intellij.uiDesigner.actions;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.uiDesigner.CaptionSelection;
 import com.intellij.uiDesigner.UIDesignerBundle;
@@ -38,7 +38,7 @@ public class UngroupRowsColumnsAction extends RowColumnAction
 
 	@RequiredDispatchThread
 	@Override
-	public void update(@NotNull final AnActionEvent e)
+	public void update(@Nonnull final AnActionEvent e)
 	{
 		super.update(e);
 		CaptionSelection selection = e.getData(CaptionSelection.DATA_KEY);

@@ -15,17 +15,18 @@
  */
 package com.intellij.uiDesigner.quickFixes;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.openapi.ui.popup.PopupStep;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * @author yole
  */
 public abstract class PopupQuickFix<T> extends QuickFix {
-  public PopupQuickFix(@NotNull final GuiEditor editor, @NotNull final String name, @Nullable RadComponent component) {
+  public PopupQuickFix(@Nonnull final GuiEditor editor, @Nonnull final String name, @Nullable RadComponent component) {
     super(editor, name, component);
   }
 

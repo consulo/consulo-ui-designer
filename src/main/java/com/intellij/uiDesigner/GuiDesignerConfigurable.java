@@ -15,6 +15,8 @@
  */
 package com.intellij.uiDesigner;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -23,8 +25,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.codeInsight.CodeInsightUtil;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
@@ -70,7 +70,7 @@ public final class GuiDesignerConfigurable implements SearchableConfigurable, Co
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	public String getHelpTopic()
 	{
 		return "project.propGUI";
@@ -297,7 +297,7 @@ public final class GuiDesignerConfigurable implements SearchableConfigurable, Co
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	public String getId()
 	{
 		return getHelpTopic();

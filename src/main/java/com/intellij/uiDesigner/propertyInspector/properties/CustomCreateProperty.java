@@ -42,7 +42,7 @@ import com.intellij.uiDesigner.propertyInspector.editors.BooleanEditor;
 import com.intellij.uiDesigner.propertyInspector.renderers.BooleanRenderer;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.util.IncorrectOperationException;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.util.List;
@@ -83,7 +83,7 @@ public class CustomCreateProperty extends Property<RadComponent, Boolean> {
     return component.isCustomCreate();
   }
 
-  @NotNull
+  @Nonnull
   public PropertyRenderer<Boolean> getRenderer() {
    return myRenderer;
   }

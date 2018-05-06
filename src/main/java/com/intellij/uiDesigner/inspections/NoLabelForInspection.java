@@ -32,7 +32,7 @@ import com.intellij.uiDesigner.propertyInspector.IntrospectedProperty;
 import com.intellij.uiDesigner.propertyInspector.properties.IntroComponentProperty;
 import com.intellij.uiDesigner.quickFixes.QuickFix;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ public class NoLabelForInspection extends BaseFormInspection {
     super("NoLabelFor");
   }
 
-  @NotNull
+  @Nonnull
   @Override public String getDisplayName() {
     return UIDesignerBundle.message("inspection.no.label.for");
   }

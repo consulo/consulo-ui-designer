@@ -20,7 +20,7 @@ import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,7 +37,8 @@ public class GridInsertProcessor {
     myEditor = editor;
   }
 
-  @NotNull public static ComponentDropLocation getDropLocation(RadRootContainer rootContainer, Point aPoint) {
+  @Nonnull
+  public static ComponentDropLocation getDropLocation(RadRootContainer rootContainer, Point aPoint) {
     RadContainer container = getDropTargetContainer(rootContainer, aPoint);
 
     if (container == null) {

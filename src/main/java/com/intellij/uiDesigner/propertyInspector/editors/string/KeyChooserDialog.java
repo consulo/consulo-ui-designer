@@ -40,8 +40,8 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.ide.DataManager;
 import com.intellij.lang.properties.IProperty;
 import com.intellij.lang.properties.psi.PropertiesFile;
@@ -88,8 +88,8 @@ public final class KeyChooserDialog extends DialogWrapper{
    */
   public KeyChooserDialog(
     final Component parent,
-    @NotNull final PropertiesFile bundle,
-    @NotNull final String bundleName,
+    @Nonnull final PropertiesFile bundle,
+    @Nonnull final String bundleName,
     final String keyToPreselect,
     final GuiEditor editor
   ) {
@@ -186,7 +186,7 @@ public final class KeyChooserDialog extends DialogWrapper{
     }
   }
 
-  @NotNull
+  @Nonnull
   @Override protected Action[] createLeftSideActions() {
     return new Action[] { new NewKeyValueAction() };
   }
@@ -196,7 +196,7 @@ public final class KeyChooserDialog extends DialogWrapper{
     myTable.scrollRectToVisible(myTable.getCellRect(index, 0, true));
   }
 
-  @NotNull
+  @Nonnull
   protected String getDimensionServiceKey() {
     return getClass().getName();
   }

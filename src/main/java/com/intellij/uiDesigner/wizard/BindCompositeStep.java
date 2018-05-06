@@ -18,7 +18,7 @@ package com.intellij.uiDesigner.wizard;
 import com.intellij.ide.wizard.CommitStepException;
 import com.intellij.ide.wizard.StepAdapter;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,7 +40,7 @@ final class BindCompositeStep extends StepAdapter{
   @NonNls
   private static final String CARD_EXISTING_BEAN = "existingBean";
 
-  BindCompositeStep(@NotNull final WizardData data) {
+  BindCompositeStep(@Nonnull final WizardData data) {
     myData = data;
 
     myBindToNewBeanStep = new BindToNewBeanStep(data);

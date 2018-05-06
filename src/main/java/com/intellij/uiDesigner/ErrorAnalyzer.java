@@ -36,8 +36,8 @@ import com.intellij.uiDesigner.radComponents.RadRootContainer;
 import com.intellij.util.IncorrectOperationException;
 import com.intellij.util.containers.HashSet;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -75,10 +75,10 @@ public final class ErrorAnalyzer {
   /**
    * @param editor if null, no quick fixes are created. This is used in form to source compiler.
    */
-  public static void analyzeErrors(@NotNull final Module module,
-                                   @NotNull final VirtualFile formFile,
+  public static void analyzeErrors(@Nonnull final Module module,
+                                   @Nonnull final VirtualFile formFile,
                                    @Nullable final GuiEditor editor,
-                                   @NotNull final IRootContainer rootContainer,
+                                   @Nonnull final IRootContainer rootContainer,
                                    @Nullable final ProgressIndicator progress) {
     if (module.isDisposed()) {
       return;
@@ -338,7 +338,7 @@ public final class ErrorAnalyzer {
    * any error then the method returns <code>null</code>.
    */
   @Nullable
-  public static ErrorInfo getErrorForComponent(@NotNull final IComponent component){
+  public static ErrorInfo getErrorForComponent(@Nonnull final IComponent component){
     // Check bind to class errors
     {
       final ErrorInfo errorInfo = (ErrorInfo)component.getClientProperty(CLIENT_PROP_CLASS_TO_BIND_ERROR);
@@ -366,7 +366,8 @@ public final class ErrorAnalyzer {
     return null;
   }
 
-  @NotNull public static ErrorInfo[] getAllErrorsForComponent(@NotNull IComponent component) {
+  @Nonnull
+  public static ErrorInfo[] getAllErrorsForComponent(@Nonnull IComponent component) {
     List<ErrorInfo> result = new ArrayList<ErrorInfo>();
     ErrorInfo errorInfo = (ErrorInfo)component.getClientProperty(CLIENT_PROP_CLASS_TO_BIND_ERROR);
     if (errorInfo != null) {
@@ -389,7 +390,7 @@ public final class ErrorAnalyzer {
   }
 
   @Nullable
-  public static HighlightDisplayLevel getHighlightDisplayLevel(final Project project, @NotNull final RadComponent component) {
+  public static HighlightDisplayLevel getHighlightDisplayLevel(final Project project, @Nonnull final RadComponent component) {
     HighlightDisplayLevel displayLevel = null;
     for(ErrorInfo errInfo: getAllErrorsForComponent(component)) {
       if (displayLevel == null || SeverityRegistrar.getSeverityRegistrar(project).compare(errInfo.getHighlightDisplayLevel().getSeverity(), displayLevel.getSeverity()) > 0) {

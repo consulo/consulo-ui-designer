@@ -30,9 +30,9 @@ import com.intellij.uiDesigner.shared.BorderType;
 import com.intellij.uiDesigner.shared.XYLayoutManager;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
@@ -67,12 +67,14 @@ public class RadContainer extends RadComponent implements IContainer {
   /**
    * Describes border's type.
    */
-  @NotNull private BorderType myBorderType;
+  @Nonnull
+  private BorderType myBorderType;
   /**
    * Border's title. If border doesn't have any title then
    * this member is <code>null</code>.
    */
-  @Nullable private StringDescriptor myBorderTitle;
+  @Nullable
+  private StringDescriptor myBorderTitle;
   private int myBorderTitleJustification;
   private int myBorderTitlePosition;
   private FontDescriptor myBorderTitleFont;
@@ -104,7 +106,7 @@ public class RadContainer extends RadComponent implements IContainer {
     }
   }
 
-  public RadContainer(@NotNull final Class aClass, @NotNull final String id, final Palette palette) {
+  public RadContainer(@Nonnull final Class aClass, @Nonnull final String id, final Palette palette) {
     this(null, aClass, id);
     setPalette(palette);
   }
@@ -206,7 +208,7 @@ public class RadContainer extends RadComponent implements IContainer {
    *          if <code>component</code> already exist in the
    *          container
    */
-  public final void addComponent(@NotNull final RadComponent component, int index) {
+  public final void addComponent(@Nonnull final RadComponent component, int index) {
     if (myComponents.contains(component)) {
       //noinspection HardCodedStringLiteral
       throw new IllegalArgumentException("component is already added: " + component);
@@ -229,7 +231,7 @@ public class RadContainer extends RadComponent implements IContainer {
     firePropertyChanged(PROP_CHILDREN, oldChildren, newChildren);
   }
 
-  public final void addComponent(@NotNull final RadComponent component) {
+  public final void addComponent(@Nonnull final RadComponent component) {
     addComponent(component, myComponents.size());
   }
 
@@ -247,7 +249,7 @@ public class RadContainer extends RadComponent implements IContainer {
    *          if <code>component</code>
    *          doesn't exist in the container
    */
-  public final void removeComponent(@NotNull final RadComponent component) {
+  public final void removeComponent(@Nonnull final RadComponent component) {
     if (!myComponents.contains(component)) {
       //noinspection HardCodedStringLiteral
       throw new IllegalArgumentException("component is not added: " + component);
@@ -283,7 +285,7 @@ public class RadContainer extends RadComponent implements IContainer {
     return myComponents.toArray(new RadComponent[myComponents.size()]);
   }
 
-  @NotNull
+  @Nonnull
   public ComponentDropLocation getDropLocation(@Nullable Point location) {
     return getLayoutManager().getDropLocation(this, location);
   }
@@ -334,7 +336,7 @@ public class RadContainer extends RadComponent implements IContainer {
    * @return border's type.
    * @see com.intellij.uiDesigner.shared.BorderType
    */
-  @NotNull
+  @Nonnull
   public final BorderType getBorderType() {
     return myBorderType;
   }
@@ -345,7 +347,7 @@ public class RadContainer extends RadComponent implements IContainer {
    *          is <code>null</code>
    * @see com.intellij.uiDesigner.shared.BorderType
    */
-  public final void setBorderType(@NotNull final BorderType type) {
+  public final void setBorderType(@Nonnull final BorderType type) {
     if (myBorderType == type) {
       return;
     }
@@ -715,7 +717,7 @@ public class RadContainer extends RadComponent implements IContainer {
       setBorderTitle(value);
     }
 
-    @NotNull
+    @Nonnull
     public PropertyRenderer<StringDescriptor> getRenderer() {
       return null;
     }

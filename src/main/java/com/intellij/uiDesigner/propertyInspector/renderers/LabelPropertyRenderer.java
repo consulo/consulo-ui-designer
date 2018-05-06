@@ -18,7 +18,7 @@ package com.intellij.uiDesigner.propertyInspector.renderers;
 import com.intellij.uiDesigner.propertyInspector.PropertyRenderer;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
 import com.intellij.util.ui.UIUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 
@@ -69,7 +69,7 @@ public class LabelPropertyRenderer<V> extends JLabel implements PropertyRenderer
    * attributes. Note, that background and foreground colors are already
    * set.
    */
-  protected void customize(@NotNull V value) {
+  protected void customize(@Nonnull V value) {
     setText(myStaticText != null ? myStaticText : value.toString());
   }
 }

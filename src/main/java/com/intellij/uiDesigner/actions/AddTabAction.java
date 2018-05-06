@@ -24,7 +24,7 @@ import com.intellij.uiDesigner.designSurface.ComponentItemDragObject;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadTabbedPane;
 import com.intellij.uiDesigner.palette.Palette;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public class AddTabAction extends AbstractGuiEditorAction {
                              new ComponentItemDragObject(palette.getPanelItem()));
   }
 
-  @Override protected void update(@NotNull GuiEditor editor, final ArrayList<RadComponent> selection, final AnActionEvent e) {
+  @Override protected void update(@Nonnull GuiEditor editor, final ArrayList<RadComponent> selection, final AnActionEvent e) {
     e.getPresentation().setVisible(selection.size() == 1 && selection.get(0) instanceof RadTabbedPane);
   }
 }

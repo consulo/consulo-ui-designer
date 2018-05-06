@@ -36,8 +36,8 @@ import com.intellij.uiDesigner.propertyInspector.properties.IntroStringProperty;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
 import com.intellij.util.ArrayUtil;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.awt.Dimension;
@@ -85,7 +85,8 @@ public abstract class RadComponent implements IComponent {
   /**
    * Component id is unique per RadRootContainer.
    */
-  @NotNull private final String myId;
+  @Nonnull
+  private final String myId;
   /**
    * @see #getBinding()
    */
@@ -95,12 +96,14 @@ public abstract class RadComponent implements IComponent {
 
   private final ModuleProvider myModule;
 
-  @NotNull private final Class myClass;
+  @Nonnull
+  private final Class myClass;
   /**
    * Delegee is the JComponent which really represents the
    * component in UI.
    */
-  @NotNull private final JComponent myDelegee;
+  @Nonnull
+  private final JComponent myDelegee;
   /**
    * Parent RadContainer. This field is always not <code>null</code>
    * is the component is in hierarchy. But the root of hierarchy
@@ -112,7 +115,8 @@ public abstract class RadComponent implements IComponent {
    */
   private boolean mySelected;
 
-  @NotNull private final GridConstraints myConstraints;
+  @Nonnull
+  private final GridConstraints myConstraints;
 
   private Object myCustomLayoutConstraints;
 
@@ -136,7 +140,7 @@ public abstract class RadComponent implements IComponent {
    * @param id     id of the compoent inside the form. <code>id</code>
    *               should be a unique atring inside the form.
    */
-  public RadComponent(final ModuleProvider module, @NotNull final Class aClass, @NotNull final String id) {
+  public RadComponent(final ModuleProvider module, @Nonnull final Class aClass, @Nonnull final String id) {
     myModule = module;
     myClass = aClass;
     myId = id;
@@ -170,7 +174,7 @@ public abstract class RadComponent implements IComponent {
     myDelegee.putClientProperty(CLIENT_PROP_RAD_COMPONENT, this);
   }
 
-  public RadComponent(final ModuleProvider module, @NotNull final Class aClass, @NotNull final String id, final Palette palette) {
+  public RadComponent(final ModuleProvider module, @Nonnull final Class aClass, @Nonnull final String id, final Palette palette) {
     this(module, aClass, id);
     myPalette = palette;
   }
@@ -205,11 +209,11 @@ public abstract class RadComponent implements IComponent {
    * Initializes introspected properties into default values and
    * sets default component's constraints.
    */
-  public void init(final GuiEditor editor, @NotNull final ComponentItem item) {
+  public void init(final GuiEditor editor, @Nonnull final ComponentItem item) {
     initDefaultProperties(item);
   }
 
-  public void initDefaultProperties(@NotNull final ComponentItem item) {
+  public void initDefaultProperties(@Nonnull final ComponentItem item) {
     final IntrospectedProperty[] properties = getPalette().getIntrospectedProperties(this);
     for (final IntrospectedProperty property : properties) {
       final Object initialValue = item.getInitialValue(property);
@@ -230,7 +234,7 @@ public abstract class RadComponent implements IComponent {
   /**
    * @return the component's id. It is unique within the form.
    */
-  @NotNull
+  @Nonnull
   public final String getId() {
     return myId;
   }
@@ -260,7 +264,7 @@ public abstract class RadComponent implements IComponent {
    * @return Swing delegee component. The <code>RadComponent</code> has the same
    *         delegee during all its life.
    */
-  @NotNull
+  @Nonnull
   public final JComponent getDelegee() {
     return myDelegee;
   }
@@ -301,16 +305,16 @@ public abstract class RadComponent implements IComponent {
    *         designer.  Designer can use or not this rectangle.
    */
   @Nullable
-  public Rectangle getInplaceEditorBounds(@NotNull final Property property, final int x, final int y) {
+  public Rectangle getInplaceEditorBounds(@Nonnull final Property property, final int x, final int y) {
     return null;
   }
 
-  @NotNull
+  @Nonnull
   public final Class getComponentClass() {
     return myClass;
   }
 
-  @NotNull
+  @Nonnull
   public String getComponentClassName() {
     return myClass.getName();
   }
@@ -394,7 +398,7 @@ public abstract class RadComponent implements IComponent {
   }
 
   protected final void firePropertyChanged(
-    @NotNull final String propertyName,
+    @Nonnull final String propertyName,
     final Object oldValue,
     final Object newValue
   ) {
@@ -404,7 +408,7 @@ public abstract class RadComponent implements IComponent {
   /**
    * @return component's constarints.
    */
-  @NotNull
+  @Nonnull
   public final GridConstraints getConstraints() {
     return myConstraints;
   }
@@ -432,14 +436,14 @@ public abstract class RadComponent implements IComponent {
   /**
    * @see JComponent#getClientProperty(Object)
    */
-  public final Object getClientProperty(@NotNull final Object key) {
+  public final Object getClientProperty(@Nonnull final Object key) {
     return myDelegee.getClientProperty(key);
   }
 
   /**
    * @see JComponent#putClientProperty(Object, Object)
    */
-  public final void putClientProperty(@NotNull final Object key, final Object value) {
+  public final void putClientProperty(@Nonnull final Object key, final Object value) {
     myDelegee.putClientProperty(key, value);
   }
 

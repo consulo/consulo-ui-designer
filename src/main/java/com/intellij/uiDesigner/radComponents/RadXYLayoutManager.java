@@ -29,8 +29,8 @@ import com.intellij.uiDesigner.propertyInspector.properties.HGapProperty;
 import com.intellij.uiDesigner.propertyInspector.properties.VGapProperty;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.awt.Insets;
 import java.awt.LayoutManager;
@@ -82,7 +82,8 @@ public class RadXYLayoutManager extends RadLayoutManager {
     }
   }
 
-  @NotNull @Override
+  @Nonnull
+  @Override
   public ComponentDropLocation getDropLocation(RadContainer container, @Nullable final Point location) {
     return new MyDropLocation(container, location != null ? location : new Point(5, 5));
   }
@@ -95,7 +96,7 @@ public class RadXYLayoutManager extends RadLayoutManager {
     private final RadContainer myContainer;
     private final Point myLocation;
 
-    public MyDropLocation(final RadContainer container, @NotNull final Point location) {
+    public MyDropLocation(final RadContainer container, @Nonnull final Point location) {
       myContainer = container;
       myLocation = location;
     }

@@ -29,7 +29,7 @@ import com.intellij.uiDesigner.propertyInspector.editors.IntEnumEditor;
 import com.intellij.uiDesigner.propertyInspector.properties.HGapProperty;
 import com.intellij.uiDesigner.propertyInspector.properties.VGapProperty;
 import com.intellij.uiDesigner.propertyInspector.renderers.IntEnumRenderer;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.FlowLayout;
@@ -57,7 +57,8 @@ public class RadFlowLayoutManager extends RadAbstractIndexedLayoutManager {
     writer.addAttribute(UIFormXmlConstants.ATTRIBUTE_FLOW_ALIGN, layout.getAlignment());
   }
 
-  @NotNull @Override
+  @Nonnull
+  @Override
   public ComponentDropLocation getDropLocation(RadContainer container, final Point location) {
     FlowLayout flowLayout = (FlowLayout) container.getLayout();
     return new FlowDropLocation(container, location, flowLayout.getAlignment(),
@@ -113,7 +114,8 @@ public class RadFlowLayoutManager extends RadAbstractIndexedLayoutManager {
       flowLayout.setAlignment(value.intValue());
     }
 
-    @NotNull public PropertyRenderer<Integer> getRenderer() {
+    @Nonnull
+	public PropertyRenderer<Integer> getRenderer() {
       if (myRenderer == null) {
         initPairs();
         myRenderer = new IntEnumRenderer(myPairs);
@@ -121,7 +123,8 @@ public class RadFlowLayoutManager extends RadAbstractIndexedLayoutManager {
       return myRenderer;
     }
 
-    @NotNull public PropertyEditor<Integer> getEditor() {
+    @Nonnull
+	public PropertyEditor<Integer> getEditor() {
       if (myEditor == null) {
         initPairs();
         myEditor = new IntEnumEditor(myPairs);

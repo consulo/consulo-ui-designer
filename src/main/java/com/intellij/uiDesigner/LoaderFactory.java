@@ -26,7 +26,7 @@ import java.util.StringTokenizer;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.ProjectTopics;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.components.ServiceManager;
@@ -80,7 +80,8 @@ public final class LoaderFactory {
     });
   }
 
-  @NotNull public ClassLoader getLoader(final VirtualFile formFile) {
+  @Nonnull
+  public ClassLoader getLoader(final VirtualFile formFile) {
     final Module module = ModuleUtil.findModuleForFile(formFile, myProject);
     if (module == null) {
       return getClass().getClassLoader();
@@ -104,7 +105,8 @@ public final class LoaderFactory {
     return classLoader;
   }
 
-  @NotNull public ClassLoader getProjectClassLoader() {
+  @Nonnull
+  public ClassLoader getProjectClassLoader() {
     if (myProjectClassLoader == null) {
       final String runClasspath = OrderEnumerator.orderEntries(myProject).withoutSdk().getPathsList().getPathsString();
       myProjectClassLoader = createClassLoader(runClasspath, "<project>");

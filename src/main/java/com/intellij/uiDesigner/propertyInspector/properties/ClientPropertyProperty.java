@@ -23,7 +23,7 @@ import com.intellij.uiDesigner.propertyInspector.editors.*;
 import com.intellij.uiDesigner.propertyInspector.renderers.BooleanRenderer;
 import com.intellij.uiDesigner.propertyInspector.renderers.LabelPropertyRenderer;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author yole
@@ -73,7 +73,7 @@ public class ClientPropertyProperty extends Property {
     component.getDelegee().putClientProperty(getName(), null);
   }
 
-  @NotNull
+  @Nonnull
   public PropertyRenderer getRenderer() {
     return myRenderer;
   }

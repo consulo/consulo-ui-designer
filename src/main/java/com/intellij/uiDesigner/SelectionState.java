@@ -20,7 +20,7 @@ import com.intellij.uiDesigner.componentTree.ComponentPtr;
 import com.intellij.uiDesigner.componentTree.ComponentSelectionListener;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -36,7 +36,7 @@ public final class SelectionState{
   /** We do not need to handle our own events */
   private boolean myInsideChange;
 
-  public SelectionState(@NotNull final GuiEditor editor) {
+  public SelectionState(@Nonnull final GuiEditor editor) {
     mySelectionHistory = new Stack<ComponentPtr[]>();
     editor.addComponentSelectionListener(new MyComponentSelectionListener());
   }
