@@ -38,6 +38,7 @@ import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.uiDesigner.GuiFormFileType;
+import consulo.awt.TargetAWT;
 
 public class FormNode extends ProjectViewNode<Form>{
   private final Collection<BasePsiNode<? extends PsiElement>> myChildren;
@@ -73,7 +74,7 @@ public class FormNode extends ProjectViewNode<Form>{
       setValue(null);
     } else {
       presentation.setPresentableText(getValue().getName());
-      presentation.setIcon(GuiFormFileType.INSTANCE.getIcon());
+      presentation.setIcon(TargetAWT.to(GuiFormFileType.INSTANCE.getIcon()));
     }
   }
 

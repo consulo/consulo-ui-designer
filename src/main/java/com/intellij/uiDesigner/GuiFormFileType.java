@@ -18,7 +18,6 @@ package com.intellij.uiDesigner;
 import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
-import javax.swing.Icon;
 
 import org.jetbrains.annotations.NonNls;
 import com.intellij.icons.AllIcons;
@@ -27,6 +26,7 @@ import com.intellij.openapi.util.Pair;
 import com.intellij.openapi.vfs.CharsetToolkit;
 import com.intellij.openapi.vfs.VirtualFile;
 import consulo.fileTypes.FileTypeWithPredefinedCharset;
+import consulo.ui.image.Image;
 
 public class GuiFormFileType implements FileTypeWithPredefinedCharset
 {
@@ -59,7 +59,7 @@ public class GuiFormFileType implements FileTypeWithPredefinedCharset
 	}
 
 	@Override
-	public Icon getIcon()
+	public Image getIcon()
 	{
 		return AllIcons.FileTypes.UiForm;
 	}

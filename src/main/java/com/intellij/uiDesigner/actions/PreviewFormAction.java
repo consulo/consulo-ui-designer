@@ -22,7 +22,6 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.swing.Icon;
 import javax.swing.SwingUtilities;
 
 import org.jetbrains.annotations.NonNls;
@@ -82,6 +81,7 @@ import com.intellij.uiDesigner.make.PreviewNestedFormLoader;
 import com.intellij.util.PathsList;
 import com.intellij.util.containers.HashSet;
 import consulo.java.execution.configurations.OwnJavaParameters;
+import consulo.ui.image.Image;
 
 /**
  * @author Anton Katilin
@@ -338,7 +338,7 @@ public final class PreviewFormAction extends AnAction{
       myStatusbarMessage = statusbarMessage;
     }
 
-    public Icon getIcon() {
+    public Image getIcon() {
       return null;
     }
 
