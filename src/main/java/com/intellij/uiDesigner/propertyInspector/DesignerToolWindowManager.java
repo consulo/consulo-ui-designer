@@ -30,6 +30,8 @@ import com.intellij.ui.content.ContentManager;
 import com.intellij.uiDesigner.AbstractToolWindowManager;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
+import consulo.awt.TargetAWT;
+import consulo.ui.RequiredUIAccess;
 import consulo.wm.impl.ToolWindowContentUI;
 import icons.UIDesignerIcons;
 
@@ -68,6 +70,7 @@ public class DesignerToolWindowManager extends AbstractToolWindowManager
 	}
 
 	@Override
+	@RequiredUIAccess
 	protected void initToolWindow()
 	{
 		myToolWindow = ToolWindowManager.getInstance(myProject).registerToolWindow(UIDesignerBundle.message("toolwindow.ui.designer.name"), false, getAnchor(), myProject, true);
@@ -117,7 +120,7 @@ public class DesignerToolWindowManager extends AbstractToolWindowManager
 		DesignerToolWindow toolWindowContent = new DesignerToolWindow(myProject);
 		toolWindowContent.update((GuiEditor) designer);
 
-		return createContent(designer, toolWindowContent, UIDesignerBundle.message("toolwindow.ui.designer.title"), UIDesignerIcons.ToolWindowUIDesigner, toolWindowContent.getToolWindowPanel(),
+		return createContent(designer, toolWindowContent, UIDesignerBundle.message("toolwindow.ui.designer.title"), TargetAWT.to(UIDesignerIcons.ToolWindowUIDesigner), toolWindowContent.getToolWindowPanel(),
 				toolWindowContent.getComponentTree(), 320, null);
 	}
 
