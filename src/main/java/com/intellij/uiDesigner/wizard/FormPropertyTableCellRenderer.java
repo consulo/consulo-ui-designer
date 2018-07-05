@@ -15,6 +15,11 @@
  */
 package com.intellij.uiDesigner.wizard;
 
+import java.awt.Color;
+
+import javax.annotation.Nonnull;
+import javax.swing.JTable;
+
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.ui.ColoredTableCellRenderer;
@@ -23,10 +28,6 @@ import com.intellij.uiDesigner.lw.LwComponent;
 import com.intellij.uiDesigner.palette.ComponentItem;
 import com.intellij.uiDesigner.palette.Palette;
 import icons.UIDesignerIcons;
-import javax.annotation.Nonnull;
-
-import javax.swing.*;
-import java.awt.*;
 
 /**
  * @author Anton Katilin
@@ -65,7 +66,7 @@ final class FormPropertyTableCellRenderer extends ColoredTableCellRenderer{
     final LwComponent component = property.getLwComponent();
 
     // Icon
-    final Icon icon;
+    final consulo.ui.image.Image icon;
     final String fqClassName = component.getComponentClassName();
     final ComponentItem item = myPalette.getItem(fqClassName);
     if (item != null) {

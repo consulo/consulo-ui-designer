@@ -16,8 +16,19 @@
 
 package com.intellij.uiDesigner.actions;
 
-import com.intellij.openapi.ui.popup.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.swing.Icon;
+
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.popup.ListPopupStep;
+import com.intellij.openapi.ui.popup.ListSeparator;
+import com.intellij.openapi.ui.popup.MnemonicNavigationFilter;
+import com.intellij.openapi.ui.popup.PopupStep;
+import com.intellij.openapi.ui.popup.SpeedSearchFilter;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.designSurface.InsertComponentProcessor;
@@ -25,12 +36,7 @@ import com.intellij.uiDesigner.palette.ComponentItem;
 import com.intellij.uiDesigner.palette.GroupItem;
 import com.intellij.uiDesigner.palette.Palette;
 import com.intellij.util.Processor;
-import javax.annotation.Nonnull;
-
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import consulo.awt.TargetAWT;
 
 /**
  * @author yole
@@ -63,7 +69,7 @@ class PaletteListPopupStep implements ListPopupStep<ComponentItem>, SpeedSearchF
   }
 
   public Icon getIconFor(final ComponentItem aValue) {
-    return aValue.getSmallIcon();
+    return TargetAWT.to(aValue.getSmallIcon());
   }
 
   @Nonnull

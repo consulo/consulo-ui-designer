@@ -110,8 +110,8 @@ public class UIDesignerIcons {
   
   @SuppressWarnings("unused")
   public static final Icon Tree = load("/com/intellij/uiDesigner/icons/tree.png"); // 16x16
-  public static final Icon Unknown_small = load("/com/intellij/uiDesigner/icons/unknown-small.png"); // 16x16
-  public static final Icon Unknown = load("/com/intellij/uiDesigner/icons/unknown.png"); // 18x18
+  public static final Image Unknown_small = load("/com/intellij/uiDesigner/icons/unknown-small.png"); // 16x16
+  public static final Image Unknown = load("/com/intellij/uiDesigner/icons/unknown.png"); // 18x18
   
   @SuppressWarnings("unused")
   public static final Icon Vspacer = load("/com/intellij/uiDesigner/icons/vspacer.png"); // 16x16

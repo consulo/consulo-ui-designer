@@ -108,6 +108,7 @@ import com.intellij.util.ArrayUtil;
 import com.intellij.util.ui.PlatformColors;
 import com.intellij.util.ui.UIUtil;
 import com.intellij.util.ui.tree.TreeUtil;
+import consulo.ui.image.Image;
 import icons.UIDesignerIcons;
 
 /**
@@ -441,13 +442,13 @@ public final class ComponentTree extends Tree implements DataProvider
 		myUnknownAttributes = new SimpleTextAttributes(SimpleTextAttributes.STYLE_WAVED, Color.RED);
 	}
 
-	public static Icon getComponentIcon(final RadComponent component)
+	public static Image getComponentIcon(final RadComponent component)
 	{
 		if(!(component instanceof RadErrorComponent))
 		{
 			final Palette palette = Palette.getInstance(component.getProject());
 			final ComponentItem item = palette.getItem(component.getComponentClassName());
-			final Icon icon;
+			final Image icon;
 			if(item != null)
 			{
 				icon = item.getSmallIcon();

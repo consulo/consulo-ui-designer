@@ -15,19 +15,13 @@
  */
 package com.intellij.uiDesigner.palette;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
 import org.jetbrains.annotations.NonNls;
@@ -41,6 +35,7 @@ import com.intellij.openapi.module.ResourceFileUtil;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.util.Key;
+import com.intellij.openapi.vfs.VfsUtilCore;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiFile;
@@ -61,418 +56,458 @@ import icons.UIDesignerIcons;
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
-public final class ComponentItem implements Cloneable, PaletteItem {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.palette.ComponentItem");
+public final class ComponentItem implements Cloneable, PaletteItem
+{
+	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.palette.ComponentItem");
 
-  public static final Key<ComponentItem> DATA_KEY = Key.create(ComponentItem.class.getName());
+	public static final Key<ComponentItem> DATA_KEY = Key.create(ComponentItem.class.getName());
 
-  @NonNls private String myClassName;
-  private final GridConstraints myDefaultConstraints;
-  /**
-   * Do not use this member directly. Use {@link #getIcon()} instead.
-   */
-  private Icon myIcon;
-  /**
-   * Do not use this member directly. Use {@link #getSmallIcon()} instead.
-   */
-  private Icon mySmallIcon;
-  /**
-   * @see #getIconPath()
-   * @see #setIconPath(java.lang.String)
-   */
-  private String myIconPath;
-  /**
-   * Do not access this field directly. Use {@link #getToolTipText()} instead.
-   */
-  final String myToolTipText;
-  private final HashMap<String, StringDescriptor> myPropertyName2initialValue;
-  /** Whether item is removable or not */
-  private final boolean myRemovable;
+	@NonNls
+	private String myClassName;
+	private final GridConstraints myDefaultConstraints;
+	/**
+	 * Do not use this member directly. Use {@link #getIcon()} instead.
+	 */
+	private consulo.ui.image.Image myIcon;
+	/**
+	 * Do not use this member directly. Use {@link #getSmallIcon()} instead.
+	 */
+	private consulo.ui.image.Image mySmallIcon;
+	/**
+	 * @see #getIconPath()
+	 * @see #setIconPath(java.lang.String)
+	 */
+	private String myIconPath;
+	/**
+	 * Do not access this field directly. Use {@link #getToolTipText()} instead.
+	 */
+	final String myToolTipText;
+	private final HashMap<String, StringDescriptor> myPropertyName2initialValue;
+	/**
+	 * Whether item is removable or not
+	 */
+	private final boolean myRemovable;
 
-  private boolean myAutoCreateBinding;
-  private boolean myCanAttachLabel;
-  private boolean myIsContainer;
-  private boolean myAnyComponent;
-  private Dimension myInitialSize;
+	private boolean myAutoCreateBinding;
+	private boolean myCanAttachLabel;
+	private boolean myIsContainer;
+	private boolean myAnyComponent;
+	private Dimension myInitialSize;
 
-  @Nonnull
-  private final Project myProject;
+	@Nonnull
+	private final Project myProject;
 
-  public ComponentItem(
-    @Nonnull Project project,
-    @Nonnull final String className,
-    @Nullable final String iconPath,
-    @Nullable final String toolTipText,
-    @Nonnull final GridConstraints defaultConstraints,
-    @Nonnull final HashMap<String, StringDescriptor> propertyName2initialValue,
-    final boolean removable,
-    final boolean autoCreateBinding,
-    final boolean canAttachLabel
-  ){
-    myAutoCreateBinding = autoCreateBinding;
-    myCanAttachLabel = canAttachLabel;
-    myProject = project;
-    setClassName(className);
-    setIconPath(iconPath);
+	public ComponentItem(@Nonnull Project project,
+			@Nonnull final String className,
+			@Nullable final String iconPath,
+			@Nullable final String toolTipText,
+			@Nonnull final GridConstraints defaultConstraints,
+			@Nonnull final HashMap<String, StringDescriptor> propertyName2initialValue,
+			final boolean removable,
+			final boolean autoCreateBinding,
+			final boolean canAttachLabel)
+	{
+		myAutoCreateBinding = autoCreateBinding;
+		myCanAttachLabel = canAttachLabel;
+		myProject = project;
+		setClassName(className);
+		setIconPath(iconPath);
 
-    myToolTipText = toolTipText;
-    myDefaultConstraints = defaultConstraints;
-    myPropertyName2initialValue = propertyName2initialValue;
+		myToolTipText = toolTipText;
+		myDefaultConstraints = defaultConstraints;
+		myPropertyName2initialValue = propertyName2initialValue;
 
-    myRemovable = removable;
-  }
+		myRemovable = removable;
+	}
 
-  /**
-   * @return whether the item is removable from palette or not.
-   */
-  public boolean isRemovable() {
-    return myRemovable;
-  }
+	/**
+	 * @return whether the item is removable from palette or not.
+	 */
+	public boolean isRemovable()
+	{
+		return myRemovable;
+	}
 
-  private static String calcToolTipText(@Nonnull final String className) {
-    final int lastDotIndex = className.lastIndexOf('.');
-    if (lastDotIndex != -1 && lastDotIndex != className.length() - 1/*not the last char in class name*/) {
-      return className.substring(lastDotIndex + 1) + " (" + className.substring(0, lastDotIndex) + ")";
-    }
-    else{
-      return className;
-    }
-  }
+	private static String calcToolTipText(@Nonnull final String className)
+	{
+		final int lastDotIndex = className.lastIndexOf('.');
+		if(lastDotIndex != -1 && lastDotIndex != className.length() - 1/*not the last char in class name*/)
+		{
+			return className.substring(lastDotIndex + 1) + " (" + className.substring(0, lastDotIndex) + ")";
+		}
+		else
+		{
+			return className;
+		}
+	}
 
-  /** Creates deep copy of the object. You can edit any properties of the returned object. */
-  public ComponentItem clone(){
-    final ComponentItem result = new ComponentItem(
-      myProject,
-      myClassName,
-      myIconPath,
-      myToolTipText,
-      (GridConstraints)myDefaultConstraints.clone(),
-      (HashMap<String, StringDescriptor>)myPropertyName2initialValue.clone(),
-      myRemovable,
-      myAutoCreateBinding,
-      myCanAttachLabel
-    );
-    result.setIsContainer(myIsContainer);
-    return result;
-  }
+	/**
+	 * Creates deep copy of the object. You can edit any properties of the returned object.
+	 */
+	public ComponentItem clone()
+	{
+		final ComponentItem result = new ComponentItem(myProject, myClassName, myIconPath, myToolTipText, (GridConstraints) myDefaultConstraints.clone(), (HashMap<String, StringDescriptor>)
+				myPropertyName2initialValue.clone(), myRemovable, myAutoCreateBinding, myCanAttachLabel);
+		result.setIsContainer(myIsContainer);
+		return result;
+	}
 
-  /**
-   * @return string that represents path in the JAR file system that was used to load
-   * icon returned by {@link #getIcon()} method. This method can returns <code>null</code>.
-   * It means that palette item has some "unknown" item.
-   */
-  @Nullable
-  String getIconPath() {
-    return myIconPath;
-  }
+	/**
+	 * @return string that represents path in the JAR file system that was used to load
+	 * icon returned by {@link #getIcon()} method. This method can returns <code>null</code>.
+	 * It means that palette item has some "unknown" item.
+	 */
+	@Nullable
+	String getIconPath()
+	{
+		return myIconPath;
+	}
 
-  /**
-   * @param iconPath new path inside JAR file system. <code>null</code> means that
-   * <code>iconPath</code> is not specified and some "unknown" icon should be used
-   * to represent the {@link ComponentItem} in UI.
-   */
-  void setIconPath(@Nullable final String iconPath){
-    myIcon = null; // reset cached icon
-    mySmallIcon = null; // reset cached icon
+	/**
+	 * @param iconPath new path inside JAR file system. <code>null</code> means that
+	 *                 <code>iconPath</code> is not specified and some "unknown" icon should be used
+	 *                 to represent the {@link ComponentItem} in UI.
+	 */
+	void setIconPath(@Nullable final String iconPath)
+	{
+		myIcon = null; // reset cached icon
+		mySmallIcon = null; // reset cached icon
 
-    myIconPath = iconPath;
-  }
+		myIconPath = iconPath;
+	}
 
-  /**
-   * @return item's icon. This icon is used to represent item at the toolbar.
-   * Note, that the method never returns <code>null</code>. It returns some
-   * default "unknown" icon for the items that has no specified icon in the XML.
-   */
-  @Nonnull
-  public Icon getIcon() {
-    // Check cached value first
-    if(myIcon != null){
-      return myIcon;
-    }
+	/**
+	 * @return item's icon. This icon is used to represent item at the toolbar.
+	 * Note, that the method never returns <code>null</code>. It returns some
+	 * default "unknown" icon for the items that has no specified icon in the XML.
+	 */
+	@Nonnull
+	public consulo.ui.image.Image getIcon()
+	{
+		// Check cached value first
+		if(myIcon != null)
+		{
+			return myIcon;
+		}
 
-    // Create new icon
-    if(myIconPath != null && myIconPath.length() > 0) {
-      final VirtualFile iconFile = ResourceFileUtil.findResourceFileInScope(myIconPath, myProject, GlobalSearchScope.allScope(myProject));
-      if (iconFile != null) {
-        try {
-          myIcon = new ImageIcon(iconFile.contentsToByteArray());
-        }
-        catch (IOException e) {
-          myIcon = null;
-        }
-      }
-      else {
-        myIcon = IconLoader.findIcon(myIconPath);
-      }
-    }
-    if(myIcon == null){
-      myIcon = UIDesignerIcons.Unknown;
-     }
-    LOG.assertTrue(myIcon != null);
-    return myIcon;
-  }
+		// Create new icon
+		if(myIconPath != null && myIconPath.length() > 0)
+		{
+			final VirtualFile iconFile = ResourceFileUtil.findResourceFileInScope(myIconPath, myProject, GlobalSearchScope.allScope(myProject));
+			if(iconFile != null)
+			{
+				try
+				{
+					myIcon = consulo.ui.image.Image.create(VfsUtilCore.virtualToIoFile(iconFile).toURL());
+				}
+				catch(Exception e)
+				{
+					myIcon = null;
+				}
+			}
+			else
+			{
+				myIcon = IconLoader.findIcon(myIconPath);
+			}
+		}
+		if(myIcon == null)
+		{
+			myIcon = UIDesignerIcons.Unknown;
+		}
+		LOG.assertTrue(myIcon != null);
+		return myIcon;
+	}
 
-  /**
-   * @return small item's icon. This icon represents component in the
-   * component tree. The method never returns <code>null</code>. It returns some
-   * default "unknown" icon for the items that has no specified icon in the XML.
-   */
-  @Nonnull
-  public Icon getSmallIcon() {
-    // Check cached value first
-    if(mySmallIcon != null){
-      return myIcon;
-    }
+	/**
+	 * @return small item's icon. This icon represents component in the
+	 * component tree. The method never returns <code>null</code>. It returns some
+	 * default "unknown" icon for the items that has no specified icon in the XML.
+	 */
+	@Nonnull
+	public consulo.ui.image.Image getSmallIcon()
+	{
+		// Check cached value first
+		if(mySmallIcon != null)
+		{
+			return myIcon;
+		}
 
-    // [vova] It's safe to cast to ImageIcon here because all icons loaded by IconLoader
-    // are ImageIcon(s).
-    final Icon icon = getIcon();
-    if (icon instanceof ImageIcon) {
-      final ImageIcon imageIcon = (ImageIcon)icon;
-      mySmallIcon = new MySmallIcon(imageIcon.getImage());
-    }
-    else {
-      mySmallIcon = icon;
-    }
+		// [vova] It's safe to cast to ImageIcon here because all icons loaded by IconLoader
+		// are ImageIcon(s).
+		final consulo.ui.image.Image icon = getIcon();
+		mySmallIcon = icon;
+		return mySmallIcon;
+	}
 
-    return mySmallIcon;
-  }
+	/**
+	 * @return name of component's class which is represented by the item.
+	 */
+	@Nonnull
+	public String getClassName()
+	{
+		return myClassName;
+	}
 
-  /**
-   * @return name of component's class which is represented by the item.
-   */
-  @Nonnull
-  public String getClassName() {
-    return myClassName;
-  }
+	public String getClassShortName()
+	{
+		final int lastDotIndex = myClassName.lastIndexOf('.');
+		if(lastDotIndex != -1 && lastDotIndex != myClassName.length() - 1/*not the last char in class name*/)
+		{
+			return myClassName.substring(lastDotIndex + 1).replace('$', '.');
+		}
+		else
+		{
+			return myClassName.replace('$', '.');
+		}
+	}
 
-  public String getClassShortName() {
-    final int lastDotIndex = myClassName.lastIndexOf('.');
-    if (lastDotIndex != -1 && lastDotIndex != myClassName.length() - 1/*not the last char in class name*/) {
-      return myClassName.substring(lastDotIndex + 1).replace('$', '.');
-    }
-    else{
-      return myClassName.replace('$', '.');
-    }
-  }
+	/**
+	 * @param className name of the class that will be instanteated when user drop
+	 *                  item on the form. Cannot be <code>null</code>. If the class does not exist or
+	 *                  could not be instanteated (for example, class has no default constructor,
+	 *                  it's not a subclass of JComponent, etc) then placeholder component will be
+	 *                  added to the form.
+	 */
+	public void setClassName(@Nonnull final String className)
+	{
+		myClassName = className;
+	}
 
-  /**
-   * @param className name of the class that will be instanteated when user drop
-   * item on the form. Cannot be <code>null</code>. If the class does not exist or
-   * could not be instanteated (for example, class has no default constructor,
-   * it's not a subclass of JComponent, etc) then placeholder component will be
-   * added to the form.
-   */
-  public void setClassName(@Nonnull final String className){
-    myClassName = className;
-  }
+	public String getToolTipText()
+	{
+		return myToolTipText != null ? myToolTipText : calcToolTipText(myClassName);
+	}
 
-  public String getToolTipText() {
-    return myToolTipText != null ? myToolTipText : calcToolTipText(myClassName);
-  }
+	@Nonnull
+	public GridConstraints getDefaultConstraints()
+	{
+		return myDefaultConstraints;
+	}
 
-  @Nonnull
-  public GridConstraints getDefaultConstraints() {
-    return myDefaultConstraints;
-  }
+	/**
+	 * The method returns initial value of the property. Term
+	 * "initial" means that just after creation of RadComponent
+	 * all its properties are set into initial values.
+	 * The method returns <code>null</code> if the
+	 * initial property is not defined. Unfortunately we cannot
+	 * put this method into the constuctor of <code>RadComponent</code>.
+	 * The problem is that <code>RadComponent</code> is used in the
+	 * code genaration and code generation doesn't depend on any
+	 * <code>ComponentItem</code>, so we need to initialize <code>RadComponent</code>
+	 * in all places where it's needed explicitly.
+	 */
+	public Object getInitialValue(final IntrospectedProperty property)
+	{
+		return myPropertyName2initialValue.get(property.getName());
+	}
 
-  /**
-   * The method returns initial value of the property. Term
-   * "initial" means that just after creation of RadComponent
-   * all its properties are set into initial values.
-   * The method returns <code>null</code> if the
-   * initial property is not defined. Unfortunately we cannot
-   * put this method into the constuctor of <code>RadComponent</code>.
-   * The problem is that <code>RadComponent</code> is used in the
-   * code genaration and code generation doesn't depend on any
-   * <code>ComponentItem</code>, so we need to initialize <code>RadComponent</code>
-   * in all places where it's needed explicitly.
-   */
-  public Object getInitialValue(final IntrospectedProperty property){
-    return myPropertyName2initialValue.get(property.getName());
-  }
+	/**
+	 * Internal method. It should be used only to externalize initial item's values.
+	 * This method never returns <code>null</code>.
+	 */
+	HashMap<String, StringDescriptor> getInitialValues()
+	{
+		return myPropertyName2initialValue;
+	}
 
-  /**
-   * Internal method. It should be used only to externalize initial item's values.
-   * This method never returns <code>null</code>.
-   */
-  HashMap<String, StringDescriptor> getInitialValues(){
-    return myPropertyName2initialValue;
-  }
+	public boolean isAutoCreateBinding()
+	{
+		return myAutoCreateBinding;
+	}
 
-  public boolean isAutoCreateBinding() {
-    return myAutoCreateBinding;
-  }
+	public void setAutoCreateBinding(final boolean autoCreateBinding)
+	{
+		myAutoCreateBinding = autoCreateBinding;
+	}
 
-  public void setAutoCreateBinding(final boolean autoCreateBinding) {
-    myAutoCreateBinding = autoCreateBinding;
-  }
+	public boolean isCanAttachLabel()
+	{
+		return myCanAttachLabel;
+	}
 
-  public boolean isCanAttachLabel() {
-    return myCanAttachLabel;
-  }
+	public void setCanAttachLabel(final boolean canAttachLabel)
+	{
+		myCanAttachLabel = canAttachLabel;
+	}
 
-  public void setCanAttachLabel(final boolean canAttachLabel) {
-    myCanAttachLabel = canAttachLabel;
-  }
+	public boolean isContainer()
+	{
+		return myIsContainer;
+	}
 
-  public boolean isContainer() {
-    return myIsContainer;
-  }
+	public void setIsContainer(final boolean isContainer)
+	{
+		myIsContainer = isContainer;
+	}
 
-  public void setIsContainer(final boolean isContainer) {
-    myIsContainer = isContainer;
-  }
+	public boolean equals(final Object o)
+	{
+		if(this == o)
+		{
+			return true;
+		}
+		if(!(o instanceof ComponentItem))
+		{
+			return false;
+		}
 
-  public boolean equals(final Object o) {
-    if (this == o) return true;
-    if (!(o instanceof ComponentItem)) return false;
+		final ComponentItem componentItem = (ComponentItem) o;
 
-    final ComponentItem componentItem = (ComponentItem)o;
+		if(myClassName != null ? !myClassName.equals(componentItem.myClassName) : componentItem.myClassName != null)
+		{
+			return false;
+		}
+		if(myDefaultConstraints != null ? !myDefaultConstraints.equals(componentItem.myDefaultConstraints) : componentItem.myDefaultConstraints != null)
+		{
+			return false;
+		}
+		if(myIconPath != null ? !myIconPath.equals(componentItem.myIconPath) : componentItem.myIconPath != null)
+		{
+			return false;
+		}
+		if(myPropertyName2initialValue != null ? !myPropertyName2initialValue.equals(componentItem.myPropertyName2initialValue) : componentItem.myPropertyName2initialValue != null)
+		{
+			return false;
+		}
+		if(myToolTipText != null ? !myToolTipText.equals(componentItem.myToolTipText) : componentItem.myToolTipText != null)
+		{
+			return false;
+		}
 
-    if (myClassName != null ? !myClassName.equals(componentItem.myClassName) : componentItem.myClassName != null) return false;
-    if (myDefaultConstraints != null
-        ? !myDefaultConstraints.equals(componentItem.myDefaultConstraints)
-        : componentItem.myDefaultConstraints != null) {
-      return false;
-    }
-    if (myIconPath != null ? !myIconPath.equals(componentItem.myIconPath) : componentItem.myIconPath != null) return false;
-    if (myPropertyName2initialValue != null
-        ? !myPropertyName2initialValue.equals(componentItem.myPropertyName2initialValue)
-        : componentItem.myPropertyName2initialValue != null) {
-      return false;
-    }
-    if (myToolTipText != null ? !myToolTipText.equals(componentItem.myToolTipText) : componentItem.myToolTipText != null) return false;
+		return true;
+	}
 
-    return true;
-  }
+	public int hashCode()
+	{
+		int result;
+		result = (myClassName != null ? myClassName.hashCode() : 0);
+		result = 29 * result + (myDefaultConstraints != null ? myDefaultConstraints.hashCode() : 0);
+		result = 29 * result + (myIconPath != null ? myIconPath.hashCode() : 0);
+		result = 29 * result + (myToolTipText != null ? myToolTipText.hashCode() : 0);
+		result = 29 * result + (myPropertyName2initialValue != null ? myPropertyName2initialValue.hashCode() : 0);
+		return result;
+	}
 
-  public int hashCode() {
-    int result;
-    result = (myClassName != null ? myClassName.hashCode() : 0);
-    result = 29 * result + (myDefaultConstraints != null ? myDefaultConstraints.hashCode() : 0);
-    result = 29 * result + (myIconPath != null ? myIconPath.hashCode() : 0);
-    result = 29 * result + (myToolTipText != null ? myToolTipText.hashCode() : 0);
-    result = 29 * result + (myPropertyName2initialValue != null ? myPropertyName2initialValue.hashCode() : 0);
-    return result;
-  }
+	public void customizeCellRenderer(ColoredListCellRenderer cellRenderer, boolean selected, boolean hasFocus)
+	{
+		cellRenderer.setIcon(getSmallIcon());
+		if(myAnyComponent)
+		{
+			cellRenderer.append(UIDesignerBundle.message("palette.non.palette.component"), SimpleTextAttributes.REGULAR_ATTRIBUTES);
+			cellRenderer.setToolTipText(UIDesignerBundle.message("palette.non.palette.component.tooltip"));
+		}
+		else
+		{
+			cellRenderer.append(getClassShortName(), SimpleTextAttributes.REGULAR_ATTRIBUTES);
+			cellRenderer.setToolTipText(getToolTipText());
+		}
+	}
 
-  public void customizeCellRenderer(ColoredListCellRenderer cellRenderer, boolean selected, boolean hasFocus) {
-    cellRenderer.setIcon(getSmallIcon());
-    if (myAnyComponent) {
-      cellRenderer.append(UIDesignerBundle.message("palette.non.palette.component"), SimpleTextAttributes.REGULAR_ATTRIBUTES);
-      cellRenderer.setToolTipText(UIDesignerBundle.message("palette.non.palette.component.tooltip"));
-    }
-    else {
-      cellRenderer.append(getClassShortName(), SimpleTextAttributes.REGULAR_ATTRIBUTES);
-      cellRenderer.setToolTipText(getToolTipText());
-    }
-  }
+	@Nullable
+	public DnDDragStartBean startDragging()
+	{
+		if(isAnyComponent())
+		{
+			return null;
+		}
+		return new DnDDragStartBean(this);
+	}
 
-  @Nullable
-  public DnDDragStartBean startDragging() {
-    if (isAnyComponent()) return null;
-    return new DnDDragStartBean(this);
-  }
+	@Nullable
+	public ActionGroup getPopupActionGroup()
+	{
+		return (ActionGroup) ActionManager.getInstance().getAction("GuiDesigner.PaletteComponentPopupMenu");
+	}
 
-  @Nullable
-  public ActionGroup getPopupActionGroup() {
-    return (ActionGroup) ActionManager.getInstance().getAction("GuiDesigner.PaletteComponentPopupMenu");
-  }
+	@Nullable
+	public Object getData(Project project, Key<?> dataId)
+	{
+		if(LangDataKeys.PSI_ELEMENT == dataId)
+		{
+			return JavaPsiFacade.getInstance(project).findClass(myClassName, GlobalSearchScope.allScope(project));
+		}
+		if(DATA_KEY == dataId)
+		{
+			return this;
+		}
+		if(GroupItem.DATA_KEY == dataId)
+		{
+			return Palette.getInstance(project).findGroup(this);
+		}
+		return null;
+	}
 
-  @Nullable
-  public Object getData(Project project, Key<?> dataId) {
-    if (LangDataKeys.PSI_ELEMENT == dataId) {
-      return JavaPsiFacade.getInstance(project).findClass(myClassName, GlobalSearchScope.allScope(project));
-    }
-    if (DATA_KEY == dataId) {
-      return this;
-    }
-    if (GroupItem.DATA_KEY == dataId) {
-      return Palette.getInstance(project).findGroup(this);
-    }
-    return null;
-  }
+	@Nullable
+	public PsiFile getBoundForm()
+	{
+		if(myClassName.length() == 0 || myClassName.startsWith("javax.swing"))
+		{
+			return null;
+		}
+		List<PsiFile> boundForms = FormClassIndex.findFormsBoundToClass(myProject, myClassName.replace('$', '.'));
+		if(boundForms.size() > 0)
+		{
+			return boundForms.get(0);
+		}
+		return null;
+	}
 
-  @Nullable
-  public PsiFile getBoundForm() {
-    if (myClassName.length() == 0 || myClassName.startsWith("javax.swing")) {
-      return null;
-    }
-    List<PsiFile> boundForms = FormClassIndex.findFormsBoundToClass(myProject, myClassName.replace('$', '.'));
-    if (boundForms.size() > 0) {
-      return boundForms.get(0);
-    }
-    return null;
-  }
+	@Nonnull
+	public Dimension getInitialSize(final JComponent parent, final ClassLoader loader)
+	{
+		if(myInitialSize != null)
+		{
+			return myInitialSize;
+		}
+		myInitialSize = new Dimension(myDefaultConstraints.myPreferredSize);
+		if(myInitialSize.width <= 0 || myInitialSize.height <= 0)
+		{
+			try
+			{
+				Class aClass = Class.forName(getClassName(), true, loader);
+				RadAtomicComponent component = new RadAtomicComponent(aClass, "", Palette.getInstance(myProject));
+				component.initDefaultProperties(this);
+				final JComponent delegee = component.getDelegee();
+				if(parent != null)
+				{
+					final Font font = parent.getFont();
+					delegee.setFont(font);
+				}
+				Dimension prefSize = delegee.getPreferredSize();
+				Dimension minSize = delegee.getMinimumSize();
+				if(myInitialSize.width <= 0)
+				{
+					myInitialSize.width = prefSize.width;
+				}
+				if(myInitialSize.height <= 0)
+				{
+					myInitialSize.height = prefSize.height;
+				}
+				myInitialSize.width = Math.max(myInitialSize.width, minSize.width);
+				myInitialSize.height = Math.max(myInitialSize.height, minSize.height);
+			}
+			catch(Exception e)
+			{
+				LOG.debug(e);
+			}
+		}
+		return myInitialSize;
+	}
 
-  @Nonnull
-  public Dimension getInitialSize(final JComponent parent, final ClassLoader loader) {
-    if (myInitialSize != null) {
-      return myInitialSize;
-    }
-    myInitialSize = new Dimension(myDefaultConstraints.myPreferredSize);
-    if (myInitialSize.width <= 0 || myInitialSize.height <= 0) {
-      try {
-        Class aClass = Class.forName(getClassName(), true, loader);
-        RadAtomicComponent component = new RadAtomicComponent(aClass, "", Palette.getInstance(myProject));
-        component.initDefaultProperties(this);
-        final JComponent delegee = component.getDelegee();
-        if (parent != null) {
-          final Font font = parent.getFont();
-          delegee.setFont(font);
-        }
-        Dimension prefSize = delegee.getPreferredSize();
-        Dimension minSize = delegee.getMinimumSize();
-        if (myInitialSize.width <= 0) {
-          myInitialSize.width = prefSize.width;
-        }
-        if (myInitialSize.height <= 0) {
-          myInitialSize.height = prefSize.height;
-        }
-        myInitialSize.width = Math.max(myInitialSize.width, minSize.width);
-        myInitialSize.height = Math.max(myInitialSize.height, minSize.height);
-      }
-      catch (Exception e) {
-        LOG.debug(e);
-      }
-    }
-    return myInitialSize;
-  }
+	public static ComponentItem createAnyComponentItem(final Project project)
+	{
+		ComponentItem result = new ComponentItem(project, "", null, null, new GridConstraints(), new HashMap<String, StringDescriptor>(), false, false, false);
+		result.myAnyComponent = true;
+		return result;
+	}
 
-  public static ComponentItem createAnyComponentItem(final Project project) {
-    ComponentItem result = new ComponentItem(project, "", null, null,
-                                             new GridConstraints(), new HashMap<String, StringDescriptor>(),
-                                             false, false, false);
-    result.myAnyComponent = true;
-    return result;
-  }
+	public boolean isAnyComponent()
+	{
+		return myAnyComponent;
+	}
 
-  public boolean isAnyComponent() {
-    return myAnyComponent;
-  }
-
-  public boolean isSpacer() {
-    return myClassName.equals(HSpacer.class.getName()) || myClassName.equals(VSpacer.class.getName());
-  }
-
-  private static final class MySmallIcon implements Icon{
-    private final Image myImage;
-
-    public MySmallIcon(@Nonnull final Image delegate) {
-      myImage = delegate;
-    }
-
-    public int getIconHeight() {
-      return 18;
-    }
-
-    public int getIconWidth() {
-      return 18;
-    }
-
-    public void paintIcon(final Component c, final Graphics g, final int x, final int y) {
-      g.drawImage(myImage, 2, 2, 14, 14, c);
-    }
-  }
+	public boolean isSpacer()
+	{
+		return myClassName.equals(HSpacer.class.getName()) || myClassName.equals(VSpacer.class.getName());
+	}
 }

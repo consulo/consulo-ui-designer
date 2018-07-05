@@ -15,6 +15,15 @@
  */
 package com.intellij.uiDesigner.binding;
 
+import java.util.Collections;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.Icon;
+
+import org.jetbrains.annotations.NonNls;
+import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.editor.markup.GutterIconRenderer;
@@ -22,19 +31,17 @@ import com.intellij.openapi.fileEditor.FileEditor;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiClassType;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiField;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiType;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.editor.UIFormEditor;
 import com.intellij.uiDesigner.palette.ComponentItem;
 import com.intellij.uiDesigner.palette.Palette;
-import com.intellij.util.PlatformIcons;
-import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
-
-import javax.annotation.Nullable;
-import javax.swing.*;
-import java.util.Collections;
-import java.util.List;
+import consulo.ui.image.Image;
 
 /**
  * @author yole
@@ -42,7 +49,7 @@ import java.util.List;
 public class BoundIconRenderer extends GutterIconRenderer {
   @Nonnull
   private final PsiElement myElement;
-  private Icon myIcon;
+  private Image myIcon;
   private final String myQName;
 
   public BoundIconRenderer(@Nonnull final PsiElement element) {
@@ -70,11 +77,11 @@ public class BoundIconRenderer extends GutterIconRenderer {
   }
 
   @Nonnull
-  public Icon getIcon() {
+  public Image getIcon() {
     if (myIcon != null) {
       return myIcon;
     }
-    return PlatformIcons.UI_FORM_ICON;
+    return AllIcons.FileTypes.UiForm;
   }
 
   public boolean isNavigateAction() {
