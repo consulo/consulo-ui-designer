@@ -16,9 +16,11 @@
 
 package com.intellij.uiDesigner.designSurface;
 
-import com.intellij.util.ui.PlatformColors;
+import java.awt.BasicStroke;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
-import java.awt.*;
+import com.intellij.ui.JBColor;
 
 /**
  * @author yole
@@ -27,7 +29,7 @@ public class VertInsertFeedbackPainter implements FeedbackPainter {
   public static VertInsertFeedbackPainter INSTANCE = new VertInsertFeedbackPainter();
 
   public void paintFeedback(Graphics2D g2d, Rectangle rc) {
-    g2d.setColor(PlatformColors.BLUE);
+    g2d.setColor(JBColor.BLUE);
     g2d.setStroke(new BasicStroke(1.5f));
     int right = rc.x + rc.width - 1;
     int bottom = rc.y + rc.height - 1;

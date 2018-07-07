@@ -27,6 +27,7 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -35,7 +36,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import javax.annotation.Nullable;
 import com.intellij.ide.DeleteProvider;
 import com.intellij.ide.dnd.DnDAction;
 import com.intellij.ide.dnd.DnDDragStartBean;
@@ -69,7 +69,6 @@ import com.intellij.uiDesigner.radComponents.RadRootContainer;
 import com.intellij.util.Alarm;
 import com.intellij.util.ArrayUtil;
 import com.intellij.util.NotNullProducer;
-import com.intellij.util.ui.PlatformColors;
 import com.intellij.util.ui.UIUtil;
 
 /**
@@ -256,7 +255,7 @@ public class GridCaptionPanel extends JPanel implements ComponentSelectionListen
 			}
 			Stroke oldStroke = g2d.getStroke();
 			g2d.setStroke(new BasicStroke(2.0f));
-			g.setColor(PlatformColors.BLUE);
+			g.setColor(JBColor.BLUE);
 			if(myIsRow)
 			{
 				g.drawLine(bounds.x + 1, coord, bounds.x + bounds.width - 1, coord);

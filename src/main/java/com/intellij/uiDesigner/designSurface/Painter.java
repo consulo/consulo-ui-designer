@@ -15,23 +15,28 @@
  */
 package com.intellij.uiDesigner.designSurface;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.swing.SwingUtilities;
+
+import org.intellij.lang.annotations.JdkConstants;
+import com.intellij.ui.JBColor;
 import com.intellij.ui.LightColors;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.SwingProperties;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.lw.IProperty;
 import com.intellij.uiDesigner.lw.StringDescriptor;
-import com.intellij.uiDesigner.radComponents.*;
+import com.intellij.uiDesigner.radComponents.RadButtonGroup;
+import com.intellij.uiDesigner.radComponents.RadComponent;
+import com.intellij.uiDesigner.radComponents.RadContainer;
+import com.intellij.uiDesigner.radComponents.RadNestedForm;
+import com.intellij.uiDesigner.radComponents.RadRootContainer;
 import com.intellij.uiDesigner.shared.BorderType;
-import com.intellij.util.ui.PlatformColors;
-import org.intellij.lang.annotations.JdkConstants;
-import javax.annotation.Nonnull;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Anton Katilin
@@ -239,7 +244,7 @@ public final class Painter {
                                               boolean focused) {
     if (component.isSelected()) {
       if (focused) {
-        g.setColor(PlatformColors.BLUE);
+        g.setColor(JBColor.BLUE);
       }
       else {
         g.setColor(Color.GRAY);
@@ -455,7 +460,7 @@ public final class Painter {
       }
       final Rectangle2D stringBounds = g.getFontMetrics().getStringBounds(tagBuilder.toString(), g);
       Graphics2D g2d = (Graphics2D)g;
-      g2d.setColor(PlatformColors.BLUE);
+      g2d.setColor(JBColor.BLUE);
       g2d.fillRect(0, 0, (int)stringBounds.getWidth(), (int)stringBounds.getHeight());
       g2d.setColor(Color.WHITE);
       g.drawString(tagBuilder.toString(), 0, g.getFontMetrics().getAscent());

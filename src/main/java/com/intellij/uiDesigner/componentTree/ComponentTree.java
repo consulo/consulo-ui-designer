@@ -33,8 +33,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.BorderFactory;
-import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.JTree;
 import javax.swing.JViewport;
@@ -47,8 +47,6 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
 import org.jetbrains.annotations.NonNls;
-
-import javax.annotation.Nullable;
 import com.intellij.codeHighlighting.HighlightDisplayLevel;
 import com.intellij.codeInsight.daemon.impl.SeverityRegistrar;
 import com.intellij.icons.AllIcons;
@@ -77,6 +75,7 @@ import com.intellij.openapi.util.Key;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiField;
 import com.intellij.ui.ColoredTreeCellRenderer;
+import com.intellij.ui.JBColor;
 import com.intellij.ui.PopupHandler;
 import com.intellij.ui.SimpleTextAttributes;
 import com.intellij.ui.treeStructure.Tree;
@@ -105,7 +104,6 @@ import com.intellij.uiDesigner.radComponents.RadHSpacer;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
 import com.intellij.uiDesigner.radComponents.RadVSpacer;
 import com.intellij.util.ArrayUtil;
-import com.intellij.util.ui.PlatformColors;
 import com.intellij.util.ui.UIUtil;
 import com.intellij.util.ui.tree.TreeUtil;
 import consulo.ui.image.Image;
@@ -586,7 +584,7 @@ public final class ComponentTree extends Tree implements DataProvider
 
 				if(component == myDropTargetComponent)
 				{
-					setBorder(BorderFactory.createLineBorder(PlatformColors.BLUE, 1));
+					setBorder(BorderFactory.createLineBorder(JBColor.BLUE, 1));
 				}
 				else
 				{

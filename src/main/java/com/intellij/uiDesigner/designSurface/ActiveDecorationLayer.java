@@ -15,18 +15,30 @@
  */
 package com.intellij.uiDesigner.designSurface;
 
-import com.intellij.openapi.actionSystem.DefaultActionGroup;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.uiDesigner.SelectionWatcher;
-import com.intellij.uiDesigner.radComponents.RadComponent;
-import com.intellij.util.ui.PlatformColors;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Stroke;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.JToolTip;
+import javax.swing.SwingUtilities;
+
+import com.intellij.openapi.actionSystem.DefaultActionGroup;
+import com.intellij.openapi.diagnostic.Logger;
+import com.intellij.ui.JBColor;
+import com.intellij.uiDesigner.SelectionWatcher;
+import com.intellij.uiDesigner.radComponents.RadComponent;
 
 /**
  * Decoration layer is over COMPONENT_LAYER (layer where all components are located).
@@ -132,7 +144,7 @@ final class ActiveDecorationLayer extends JComponent implements FeedbackLayer {
   private static class RectangleFeedbackPainter implements FeedbackPainter {
 
     public void paintFeedback(Graphics2D g2d, Rectangle rc) {
-      g2d.setColor(PlatformColors.BLUE);
+      g2d.setColor(JBColor.BLUE);
       g2d.setStroke(new BasicStroke(2.5f));
       // give space for stroke to be painted
       g2d.drawRect(rc.x+1, rc.y+1, rc.x+rc.width-2, rc.y+rc.height-2);

@@ -16,19 +16,49 @@
 
 package com.intellij.uiDesigner.radComponents;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics2D;
+import java.awt.Insets;
+import java.awt.LayoutManager;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.JComponent;
+
+import org.jetbrains.annotations.NonNls;
 import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.io.BufferExposingByteArrayOutputStream;
+import com.intellij.ui.JBColor;
 import com.intellij.uiDesigner.GridChangeUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.UIFormXmlConstants;
 import com.intellij.uiDesigner.XmlWriter;
-import com.intellij.uiDesigner.actions.*;
+import com.intellij.uiDesigner.actions.DeleteAction;
+import com.intellij.uiDesigner.actions.GroupRowsColumnsAction;
+import com.intellij.uiDesigner.actions.InsertAfterAction;
+import com.intellij.uiDesigner.actions.InsertBeforeAction;
+import com.intellij.uiDesigner.actions.SplitAction;
+import com.intellij.uiDesigner.actions.UngroupRowsColumnsAction;
 import com.intellij.uiDesigner.compiler.FormLayoutUtils;
 import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.uiDesigner.designSurface.*;
+import com.intellij.uiDesigner.designSurface.ComponentDropLocation;
+import com.intellij.uiDesigner.designSurface.FormFirstComponentInsertLocation;
+import com.intellij.uiDesigner.designSurface.GridInsertLocation;
+import com.intellij.uiDesigner.designSurface.GridInsertMode;
+import com.intellij.uiDesigner.designSurface.NoDropLocation;
 import com.intellij.uiDesigner.lw.FormLayoutSerializer;
 import com.intellij.uiDesigner.propertyInspector.Property;
 import com.intellij.uiDesigner.propertyInspector.properties.AbstractInsetsProperty;
@@ -37,21 +67,7 @@ import com.intellij.uiDesigner.propertyInspector.properties.HorzAlignProperty;
 import com.intellij.uiDesigner.propertyInspector.properties.VertAlignProperty;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
 import com.intellij.util.ArrayUtil;
-import com.intellij.util.ui.PlatformColors;
 import com.jgoodies.forms.layout.*;
-import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import javax.swing.*;
-import java.awt.*;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author yole
@@ -382,7 +398,7 @@ public class RadFormLayoutManager extends RadAbstractGridLayoutManager implement
       }
     }
 
-    g2d.setColor(PlatformColors.BLUE);
+    g2d.setColor(JBColor.BLUE);
     drawGroupLine(rc, isRow, g2d, true, haveTopLeft, haveTopRight, haveTopLine);
     drawGroupLine(rc, isRow, g2d, false, haveBottomLeft, haveBottomRight, haveBottomLine);
   }

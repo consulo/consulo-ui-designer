@@ -49,9 +49,9 @@ import com.intellij.openapi.actionSystem.ActionPopupMenu;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Pair;
 import com.intellij.ui.ColoredListCellRenderer;
+import com.intellij.ui.JBColor;
 import com.intellij.ui.PopupHandler;
 import com.intellij.ui.components.JBList;
-import com.intellij.util.ui.PlatformColors;
 import com.intellij.util.ui.UIUtil;
 
 /**
@@ -298,7 +298,7 @@ public class PaletteComponentList extends JBList
 				dropLineY = rc.y;
 			}
 			Graphics2D g2d = (Graphics2D) g;
-			g2d.setColor(PlatformColors.BLUE);
+			g2d.setColor(JBColor.BLUE);
 			g2d.setStroke(new BasicStroke(2.0f));
 			g2d.drawLine(rc.x, dropLineY, rc.x + rc.width, dropLineY);
 			g2d.drawLine(rc.x, dropLineY - 2, rc.x, dropLineY + 2);
