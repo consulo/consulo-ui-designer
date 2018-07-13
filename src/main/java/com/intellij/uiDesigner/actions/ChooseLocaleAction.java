@@ -51,7 +51,7 @@ public class ChooseLocaleAction extends ComboBoxAction {
   }
 
   @Nonnull
-  protected DefaultActionGroup createPopupActionGroup(JComponent button) {
+  public DefaultActionGroup createPopupActionGroup(JComponent button) {
     DefaultActionGroup group = new DefaultActionGroup();
     GuiEditor editor = myLastEditor;
     if (editor != null) {
