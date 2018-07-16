@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.jetbrains.org.objectweb.asm.ClassWriter;
+import consulo.internal.org.objectweb.asm.ClassWriter;
 import com.intellij.compiler.impl.CompilerUtil;
 import com.intellij.compiler.impl.ModuleChunk;
 import com.intellij.compiler.instrumentation.InstrumentationClassFinder;

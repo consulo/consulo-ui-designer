@@ -44,7 +44,7 @@ import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import org.jetbrains.org.objectweb.asm.ClassWriter;
+import consulo.internal.org.objectweb.asm.ClassWriter;
 import com.intellij.compiler.instrumentation.InstrumentationClassFinder;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.PathManager;

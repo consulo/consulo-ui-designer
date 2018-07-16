@@ -23,9 +23,9 @@ import java.io.IOException;
 import java.util.Set;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.org.objectweb.asm.ClassWriter;
-import org.jetbrains.org.objectweb.asm.MethodVisitor;
-import org.jetbrains.org.objectweb.asm.Opcodes;
+import consulo.internal.org.objectweb.asm.ClassWriter;
+import consulo.internal.org.objectweb.asm.MethodVisitor;
+import consulo.internal.org.objectweb.asm.Opcodes;
 import com.intellij.compiler.PsiClassWriter;
 import com.intellij.compiler.instrumentation.InstrumentationClassFinder;
 import com.intellij.openapi.module.Module;
