@@ -22,7 +22,7 @@ public class UIDesignerIcons {
   
   @SuppressWarnings("unused")
   public static final Icon CheckBox = load("/com/intellij/uiDesigner/icons/checkBox.png"); // 16x16
-  public static final Icon ChooseLocale = load("/com/intellij/uiDesigner/icons/chooseLocale.png"); // 16x16
+  public static final Image ChooseLocale = load("/com/intellij/uiDesigner/icons/chooseLocale.png"); // 16x16
   public static final Icon CollapseNode = load("/com/intellij/uiDesigner/icons/collapseNode.png"); // 9x9
   
   @SuppressWarnings("unused")
