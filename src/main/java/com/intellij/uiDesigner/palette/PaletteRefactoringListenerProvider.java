@@ -18,6 +18,8 @@ package com.intellij.uiDesigner.palette;
 import javax.annotation.Nonnull;
 
 import com.intellij.ide.palette.PaletteItemProvider;
+import com.intellij.openapi.extensions.Extensions;
+import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.ClassUtil;
@@ -32,8 +34,8 @@ public class PaletteRefactoringListenerProvider implements RefactoringElementLis
   private final UIDesignerPaletteProvider myUiDesignerPaletteProvider;
   private final Palette myPalette;
 
-  public PaletteRefactoringListenerProvider(Palette palette) {
-    myUiDesignerPaletteProvider = PaletteItemProvider.EP_NAME.findExtension(UIDesignerPaletteProvider.class);
+  public PaletteRefactoringListenerProvider(Project project, Palette palette) {
+    myUiDesignerPaletteProvider = Extensions.findExtension(PaletteItemProvider.EP_NAME, project, UIDesignerPaletteProvider.class);
     myPalette = palette;
   }
 
