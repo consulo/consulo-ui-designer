@@ -22,10 +22,13 @@ import com.intellij.openapi.components.ServiceManager;
 
 import java.awt.*;
 
+import javax.inject.Singleton;
+
 /**
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
+@Singleton
 public final class MaximumSizeProperty extends AbstractDimensionProperty<RadComponent> {
   public static MaximumSizeProperty getInstance(Project project) {
     return ServiceManager.getService(project, MaximumSizeProperty.class);

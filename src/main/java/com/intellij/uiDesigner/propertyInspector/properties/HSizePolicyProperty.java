@@ -15,6 +15,8 @@
  */
 package com.intellij.uiDesigner.propertyInspector.properties;
 
+import javax.inject.Singleton;
+
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadVSpacer;
@@ -25,6 +27,7 @@ import com.intellij.openapi.components.ServiceManager;
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
+@Singleton
 public final class HSizePolicyProperty extends SizePolicyProperty {
   public static HSizePolicyProperty getInstance(Project project) {
     return ServiceManager.getService(project, HSizePolicyProperty.class);

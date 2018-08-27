@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.inject.Singleton;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
@@ -43,6 +44,7 @@ import com.intellij.uiDesigner.radComponents.RadComponent;
 /**
  * @author yole
  */
+@Singleton
 public class ClientPropertiesProperty extends ReadOnlyProperty {
   private final Project myProject;
 

@@ -15,6 +15,8 @@
  */
 package com.intellij.uiDesigner;
 
+import javax.inject.Singleton;
+
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
@@ -27,6 +29,7 @@ import com.intellij.util.xmlb.XmlSerializerUtil;
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
+@Singleton
 @State(name = "uidesigner-configuration", storages = @Storage("uiDesigner.xml"))
 public final class GuiDesignerConfiguration implements PersistentStateComponent<GuiDesignerConfiguration>
 {

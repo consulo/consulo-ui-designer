@@ -22,11 +22,14 @@ import com.intellij.openapi.components.ServiceManager;
 
 import java.awt.*;
 
+import javax.inject.Singleton;
+
 /**
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  * @author yole
  */
+@Singleton
 public final class HGapProperty extends AbstractIntProperty<RadContainer> {
   public static HGapProperty getInstance(Project project) {
     return ServiceManager.getService(project, HGapProperty.class);

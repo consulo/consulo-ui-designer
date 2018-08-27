@@ -44,12 +44,14 @@ import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.util.IncorrectOperationException;
 import javax.annotation.Nonnull;
 
+import javax.inject.Singleton;
 import javax.swing.*;
 import java.util.List;
 
 /**
  * @author yole
  */
+@Singleton
 public class CustomCreateProperty extends Property<RadComponent, Boolean> {
   private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.propertyInspector.properties.CustomCreateProperty");
 

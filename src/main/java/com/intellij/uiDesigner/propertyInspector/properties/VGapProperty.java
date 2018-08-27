@@ -24,11 +24,14 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.CardLayout;
 
+import javax.inject.Singleton;
+
 /**
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  * @author yole
  */
+@Singleton
 public final class VGapProperty extends AbstractIntProperty<RadContainer> {
   public static VGapProperty getInstance(Project project) {
     return ServiceManager.getService(project, VGapProperty.class);

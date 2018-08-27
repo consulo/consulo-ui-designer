@@ -24,6 +24,8 @@ import java.util.Set;
 import org.jdom.Element;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.inject.Singleton;
+
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
@@ -40,6 +42,7 @@ import com.intellij.uiDesigner.propertyInspector.editors.IntEnumEditor;
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
+@Singleton
 @State(name = "gui-designer-properties", storages = @Storage(value = "other.xml"))
 public final class Properties implements PersistentStateComponent<Element>
 {

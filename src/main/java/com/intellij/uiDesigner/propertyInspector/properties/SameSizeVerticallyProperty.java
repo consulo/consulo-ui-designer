@@ -15,6 +15,8 @@
  */
 package com.intellij.uiDesigner.propertyInspector.properties;
 
+import javax.inject.Singleton;
+
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.components.ServiceManager;
@@ -23,6 +25,7 @@ import com.intellij.openapi.components.ServiceManager;
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
+@Singleton
 public final class SameSizeVerticallyProperty extends AbstractGridLayoutProperty {
   public static SameSizeVerticallyProperty getInstance(Project project) {
     return ServiceManager.getService(project, SameSizeVerticallyProperty.class);

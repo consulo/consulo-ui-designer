@@ -23,6 +23,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 
@@ -51,6 +53,7 @@ import consulo.vfs.util.ArchiveVfsUtil;
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
+@Singleton
 public final class LoaderFactory {
   private final Project myProject;
 
@@ -62,6 +65,7 @@ public final class LoaderFactory {
     return ServiceManager.getService(project, LoaderFactory.class);
   }
 
+  @Inject
   public LoaderFactory(final Project project) {
     myProject = project;
     myModule2ClassLoader = new ConcurrentWeakHashMap<Module, ClassLoader>();

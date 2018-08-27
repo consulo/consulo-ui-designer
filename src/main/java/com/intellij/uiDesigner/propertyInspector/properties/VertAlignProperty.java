@@ -16,12 +16,15 @@
 
 package com.intellij.uiDesigner.propertyInspector.properties;
 
+import javax.inject.Singleton;
+
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.components.ServiceManager;
 
 /**
  * @author yole
  */
+@Singleton
 public class VertAlignProperty extends AlignProperty {
   public static VertAlignProperty getInstance(Project project) {
     return ServiceManager.getService(project, VertAlignProperty.class);

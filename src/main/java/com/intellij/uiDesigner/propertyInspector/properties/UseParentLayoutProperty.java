@@ -16,6 +16,8 @@
 
 package com.intellij.uiDesigner.propertyInspector.properties;
 
+import javax.inject.Singleton;
+
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.uiDesigner.core.GridConstraints;
@@ -25,6 +27,7 @@ import com.intellij.uiDesigner.radComponents.RadContainer;
 /**
  * @author yole
  */
+@Singleton
 public class UseParentLayoutProperty extends AbstractBooleanProperty<RadComponent> {
   public static UseParentLayoutProperty getInstance(Project project) {
     return ServiceManager.getService(project, UseParentLayoutProperty.class);

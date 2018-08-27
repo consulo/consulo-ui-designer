@@ -20,6 +20,7 @@ import com.intellij.uiDesigner.radComponents.RadContainer;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.components.ServiceManager;
 import javax.annotation.Nonnull;
+import javax.inject.Singleton;
 
 import java.awt.*;
 
@@ -33,6 +34,7 @@ import java.awt.*;
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
+@Singleton
 public final class MarginProperty extends AbstractInsetsProperty<RadContainer> {
   private static final Insets DEFAULT_INSETS = new Insets(0, 0, 0, 0);
 

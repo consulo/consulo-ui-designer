@@ -27,6 +27,9 @@ import org.jdom.Element;
 import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nullable;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
@@ -39,6 +42,7 @@ import com.intellij.openapi.util.JDOMUtil;
 import com.intellij.openapi.util.NotNullLazyValue;
 import com.intellij.uiDesigner.LoaderFactory;
 
+@Singleton
 @State(name = "ClientPropertiesManager", storages = @Storage(StoragePathMacros.WORKSPACE_FILE))
 public class ClientPropertiesManager implements PersistentStateComponent<Element>
 {
@@ -81,6 +85,7 @@ public class ClientPropertiesManager implements PersistentStateComponent<Element
 
 	private final Map<String, List<ClientProperty>> myPropertyMap = new TreeMap<>();
 
+	@Inject
 	public ClientPropertiesManager()
 	{
 	}
