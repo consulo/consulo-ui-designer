@@ -74,7 +74,7 @@ public class FormNode extends ProjectViewNode<Form>{
       setValue(null);
     } else {
       presentation.setPresentableText(getValue().getName());
-      presentation.setIcon(TargetAWT.to(GuiFormFileType.INSTANCE.getIcon()));
+      presentation.setIcon(GuiFormFileType.INSTANCE.getIcon());
     }
   }
 
