@@ -15,7 +15,6 @@
  */
 package com.intellij.uiDesigner.editor;
 
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 import javax.annotation.Nonnull;
@@ -44,6 +43,7 @@ import com.intellij.uiDesigner.GuiFormFileType;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.radComponents.RadComponent;
+import kava.beans.PropertyChangeListener;
 
 /**
  * @author Anton Katilin
