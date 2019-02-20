@@ -16,6 +16,8 @@
 
 package com.intellij.uiDesigner.palette;
 
+import java.awt.Window;
+
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
@@ -23,8 +25,7 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.WindowManager;
 import com.intellij.uiDesigner.UIDesignerBundle;
-
-import java.awt.*;
+import consulo.awt.TargetAWT;
 
 /**
  * @author yole
@@ -40,7 +41,7 @@ public class EditComponentAction extends AnAction {
     }
 
     final ComponentItem itemToBeEdited = selectedItem.clone(); /*"Cancel" should work, so we need edit copy*/
-    Window parentWindow = WindowManager.getInstance().suggestParentWindow(project);
+    Window parentWindow = TargetAWT.to(WindowManager.getInstance().suggestParentWindow(project));
     final ComponentItemDialog dialog = new ComponentItemDialog(project, parentWindow, itemToBeEdited, false);
     dialog.setTitle(UIDesignerBundle.message("title.edit.component"));
     dialog.show();

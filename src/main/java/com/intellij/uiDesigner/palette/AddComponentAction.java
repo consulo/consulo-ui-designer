@@ -40,6 +40,7 @@ import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.lw.StringDescriptor;
+import consulo.awt.TargetAWT;
 
 /**
  * @author yole
@@ -77,7 +78,7 @@ public class AddComponentAction extends AnAction {
       false,
       false
     );
-    Window parentWindow = WindowManager.getInstance().suggestParentWindow(project);
+    Window parentWindow = TargetAWT.to(WindowManager.getInstance().suggestParentWindow(project));
     final ComponentItemDialog dialog = new ComponentItemDialog(project, parentWindow, itemToBeAdded, false);
     dialog.setTitle(UIDesignerBundle.message("title.add.component"));
     dialog.showGroupChooser(groupItem);
