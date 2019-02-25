@@ -37,7 +37,6 @@ import com.intellij.openapi.actionSystem.DataProvider;
 import com.intellij.openapi.application.PathManager;
 import com.intellij.openapi.components.BaseComponent;
 import com.intellij.openapi.components.ProjectComponent;
-import com.intellij.openapi.extensions.AreaInstance;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.WriteExternalException;
@@ -89,7 +88,6 @@ public class SnapShooterConfigurationExtension extends RunConfigurationExtension
       paths.add(PathUtil.getJarPathForClass(DataProvider.class));        // action-system-openapi
       paths.add(PathUtil.getJarPathForClass(XmlStringUtil.class));       // idea
       paths.add(PathUtil.getJarPathForClass(Navigatable.class));         // pom
-      paths.add(PathUtil.getJarPathForClass(AreaInstance.class));        // extensions
       paths.add(PathUtil.getJarPathForClass(FormLayout.class));          // jgoodies
       paths.addAll(PathManager.getUtilClassPath());
       for(String path: paths) {
