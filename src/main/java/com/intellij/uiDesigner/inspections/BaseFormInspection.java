@@ -23,7 +23,6 @@ import org.jetbrains.annotations.NonNls;
 import javax.annotation.Nullable;
 import com.intellij.codeInsight.daemon.HighlightDisplayKey;
 import com.intellij.codeInspection.BaseJavaLocalInspectionTool;
-import com.intellij.codeInspection.FileCheckingInspection;
 import com.intellij.codeInspection.InspectionManager;
 import com.intellij.codeInspection.InspectionProfile;
 import com.intellij.codeInspection.ProblemDescriptor;
@@ -48,7 +47,7 @@ import com.intellij.uiDesigner.radComponents.RadComponent;
 /**
  * @author yole
  */
-public abstract class BaseFormInspection extends BaseJavaLocalInspectionTool implements FileCheckingInspection, FormInspectionTool {
+public abstract class BaseFormInspection extends BaseJavaLocalInspectionTool implements FormInspectionTool {
   private final String myInspectionKey;
 
   public BaseFormInspection(@NonNls @Nonnull String inspectionKey) {
