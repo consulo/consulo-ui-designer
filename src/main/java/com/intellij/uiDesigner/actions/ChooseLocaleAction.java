@@ -15,17 +15,8 @@
  */
 package com.intellij.uiDesigner.actions;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Locale;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.swing.JComponent;
-
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.actionSystem.Presentation;
 import com.intellij.openapi.actionSystem.ex.ComboBoxAction;
@@ -33,6 +24,13 @@ import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import icons.UIDesignerIcons;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Locale;
 
 /**
  * @author yole
@@ -54,7 +52,7 @@ public class ChooseLocaleAction extends ComboBoxAction {
   }
 
   @Nonnull
-  public DefaultActionGroup createPopupActionGroup(DataContext context) {
+  public DefaultActionGroup createPopupActionGroup(JComponent button) {
     DefaultActionGroup group = new DefaultActionGroup();
     GuiEditor editor = myLastEditor;
     if (editor != null) {

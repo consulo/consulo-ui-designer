@@ -15,20 +15,6 @@
  */
 package com.intellij.uiDesigner;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.StringTokenizer;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import javax.swing.UIDefaults;
-import javax.swing.UIManager;
-
-import javax.annotation.Nonnull;
 import com.intellij.ProjectTopics;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.components.ServiceManager;
@@ -44,10 +30,19 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.uiDesigner.core.Spacer;
 import com.intellij.util.PathUtil;
-import com.intellij.util.containers.ConcurrentWeakHashMap;
+import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.lang.UrlClassLoader;
 import com.intellij.util.messages.MessageBusConnection;
 import consulo.vfs.util.ArchiveVfsUtil;
+
+import javax.annotation.Nonnull;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import javax.swing.*;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.*;
 
 /**
  * @author Anton Katilin
@@ -57,7 +52,7 @@ import consulo.vfs.util.ArchiveVfsUtil;
 public final class LoaderFactory {
   private final Project myProject;
 
-  private final ConcurrentWeakHashMap<Module, ClassLoader> myModule2ClassLoader;
+  private final Map<Module, ClassLoader> myModule2ClassLoader;
   private ClassLoader myProjectClassLoader = null;
   private final MessageBusConnection myConnection;
 
@@ -68,7 +63,7 @@ public final class LoaderFactory {
   @Inject
   public LoaderFactory(final Project project) {
     myProject = project;
-    myModule2ClassLoader = new ConcurrentWeakHashMap<Module, ClassLoader>();
+    myModule2ClassLoader = ContainerUtil.createWeakMap();
     myConnection = myProject.getMessageBus().connect();
     myConnection.subscribe(ProjectTopics.PROJECT_ROOTS, new ModuleRootAdapter() {
       public void rootsChanged(final ModuleRootEvent event) {

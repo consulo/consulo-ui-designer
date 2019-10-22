@@ -1,4 +1,4 @@
-<idea-plugin>
+<consulo-plugin>
 	<name>UI Designer</name>
 	<id>com.intellij.uiDesigner</id>
 	<version>SNAPSHOT</version>
@@ -279,4 +279,4 @@
 			<add-to-group anchor="after" group-id="NewGroup" relative-to-action="NewFromTemplate"/>
 		</group>
 	</actions>
-</idea-plugin>
+</consulo-plugin>
