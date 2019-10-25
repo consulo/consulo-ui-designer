@@ -1,8 +1,5 @@
 package com.intellij.uiDesigner.binding;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
 import com.intellij.lang.properties.IProperty;
 import com.intellij.lang.properties.psi.PropertiesFile;
 import com.intellij.lang.properties.psi.Property;
@@ -16,23 +13,11 @@ import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.util.Computable;
 import com.intellij.openapi.util.NullableComputable;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiEnumConstant;
-import com.intellij.psi.PsiField;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiJavaPackage;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.PsiReference;
+import com.intellij.psi.*;
 import com.intellij.psi.impl.PsiManagerImpl;
 import com.intellij.psi.impl.cache.CacheManager;
 import com.intellij.psi.impl.search.PsiSearchHelperImpl;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.search.LocalSearchScope;
-import com.intellij.psi.search.PsiSearchHelper;
-import com.intellij.psi.search.SearchScope;
-import com.intellij.psi.search.UsageSearchContext;
+import com.intellij.psi.search.*;
 import com.intellij.psi.search.searches.ReferencesSearch;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.uiDesigner.GuiFormFileType;
@@ -41,12 +26,15 @@ import com.intellij.util.Processor;
 import com.intellij.util.QueryExecutor;
 import com.intellij.util.text.CharArrayUtil;
 
+import javax.annotation.Nonnull;
+import java.util.List;
+
 /**
  * @author max
  */
 public class FormReferencesSearcher implements QueryExecutor<PsiReference, ReferencesSearch.SearchParameters>
 {
-	public boolean execute(@Nonnull final ReferencesSearch.SearchParameters p, @Nonnull final Processor<PsiReference> consumer)
+	public boolean execute(@Nonnull final ReferencesSearch.SearchParameters p, @Nonnull final Processor<? super PsiReference> consumer)
 	{
 		if(!scopeCanContainForms(p.getScope()))
 		{
@@ -160,7 +148,7 @@ public class FormReferencesSearcher implements QueryExecutor<PsiReference, Refer
 		return false;
 	}
 
-	private static boolean processReferencesInUIForms(Processor<PsiReference> processor, final PsiClass aClass, GlobalSearchScope scope, final LocalSearchScope filterScope)
+	private static boolean processReferencesInUIForms(Processor<? super PsiReference> processor, final PsiClass aClass, GlobalSearchScope scope, final LocalSearchScope filterScope)
 	{
 		PsiManagerImpl manager = (PsiManagerImpl) aClass.getManager();
 		String className = getQualifiedName(aClass);
@@ -182,7 +170,7 @@ public class FormReferencesSearcher implements QueryExecutor<PsiReference, Refer
 		});
 	}
 
-	private static boolean processReferencesInUIForms(Processor<PsiReference> processor, final PsiEnumConstant enumConstant, GlobalSearchScope scope, final LocalSearchScope filterScope)
+	private static boolean processReferencesInUIForms(Processor<? super PsiReference> processor, final PsiEnumConstant enumConstant, GlobalSearchScope scope, final LocalSearchScope filterScope)
 	{
 		PsiManagerImpl manager = (PsiManagerImpl) enumConstant.getManager();
 		String className = ApplicationManager.getApplication().runReadAction(new Computable<String>()
@@ -199,7 +187,7 @@ public class FormReferencesSearcher implements QueryExecutor<PsiReference, Refer
 
 	private static boolean processReferencesInUIFormsInner(String name,
 			PsiElement element,
-			Processor<PsiReference> processor,
+			Processor<? super PsiReference> processor,
 			GlobalSearchScope scope1,
 			PsiManagerImpl manager,
 			final LocalSearchScope filterScope)
@@ -233,7 +221,7 @@ public class FormReferencesSearcher implements QueryExecutor<PsiReference, Refer
 		return true;
 	}
 
-	private static boolean processReferencesInUIForms(Processor<PsiReference> processor, PsiField field, GlobalSearchScope scope1, LocalSearchScope filterScope)
+	private static boolean processReferencesInUIForms(Processor<? super PsiReference> processor, PsiField field, GlobalSearchScope scope1, LocalSearchScope filterScope)
 	{
 		GlobalSearchScope scope = GlobalSearchScope.projectScope(field.getProject()).intersectWith(scope1);
 		PsiManagerImpl manager = (PsiManagerImpl) field.getManager();
@@ -283,7 +271,7 @@ public class FormReferencesSearcher implements QueryExecutor<PsiReference, Refer
 		return true;
 	}
 
-	private static boolean processReferences(final Processor<PsiReference> processor, final PsiFile file, String name, final PsiElement element, final LocalSearchScope filterScope)
+	private static boolean processReferences(final Processor<? super PsiReference> processor, final PsiFile file, String name, final PsiElement element, final LocalSearchScope filterScope)
 	{
 		CharSequence chars = ApplicationManager.getApplication().runReadAction(new NullableComputable<CharSequence>()
 		{
@@ -345,7 +333,7 @@ public class FormReferencesSearcher implements QueryExecutor<PsiReference, Refer
 		return true;
 	}
 
-	private static boolean processReferencesInUIForms(final Processor<PsiReference> processor, final Property property, final GlobalSearchScope globalSearchScope, final LocalSearchScope filterScope)
+	private static boolean processReferencesInUIForms(final Processor<? super PsiReference> processor, final Property property, final GlobalSearchScope globalSearchScope, final LocalSearchScope filterScope)
 	{
 
 		final Project project = property.getProject();
@@ -404,7 +392,7 @@ public class FormReferencesSearcher implements QueryExecutor<PsiReference, Refer
 		return true;
 	}
 
-	private static boolean processReferencesInUIForms(final Processor<PsiReference> processor,
+	private static boolean processReferencesInUIForms(final Processor<? super PsiReference> processor,
 			final PropertiesFile propFile,
 			final GlobalSearchScope globalSearchScope,
 			final LocalSearchScope filterScope)

@@ -15,9 +15,6 @@
  */
 package com.intellij.uiDesigner.inspections;
 
-import java.util.Collections;
-
-import org.jetbrains.annotations.NonNls;
 import com.intellij.codeInspection.InspectionsBundle;
 import com.intellij.codeInspection.java15api.Java15APIUsageInspection;
 import com.intellij.openapi.module.EffectiveLanguageLevelUtil;
@@ -37,6 +34,9 @@ import com.intellij.uiDesigner.lw.IProperty;
 import com.intellij.uiDesigner.propertyInspector.Property;
 import com.intellij.uiDesigner.quickFixes.QuickFix;
 import com.intellij.uiDesigner.radComponents.RadComponent;
+import org.jetbrains.annotations.NonNls;
+
+import java.util.Collections;
 
 /**
  * @author yole
@@ -67,7 +67,7 @@ public class Java15FormInspection extends BaseFormInspection
 				continue;
 			}
 			final LanguageLevel languageLevel = EffectiveLanguageLevelUtil.getEffectiveLanguageLevel(module);
-			if(Java15APIUsageInspection.isForbiddenApiUsage(getter, languageLevel))
+			if(Java15APIUsageInspection.getLastIncompatibleLanguageLevel(getter, languageLevel) != null)
 			{
 				registerError(component, collector, prop, "@since " + Java15APIUsageInspection.getShortName(languageLevel));
 			}
@@ -79,13 +79,13 @@ public class Java15FormInspection extends BaseFormInspection
 	{
 		collector.addError(getID(), component, prop, InspectionsBundle.message("inspection.1.5.problem.descriptor", api),
 				new EditorQuickFixProvider()
-		{
-			@Override
-			public QuickFix createQuickFix(GuiEditor editor, RadComponent component)
-			{
-				return new RemovePropertyFix(editor, component, (Property) prop);
-			}
-		});
+				{
+					@Override
+					public QuickFix createQuickFix(GuiEditor editor, RadComponent component)
+					{
+						return new RemovePropertyFix(editor, component, (Property) prop);
+					}
+				});
 	}
 
 	private static class RemovePropertyFix extends QuickFix
