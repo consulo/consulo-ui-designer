@@ -16,31 +16,12 @@
 
 package com.intellij.uiDesigner.actions;
 
-import javax.annotation.Nonnull;
-import javax.swing.JCheckBox;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-
-import org.jetbrains.annotations.NonNls;
+import com.intellij.icons.AllIcons;
 import com.intellij.ide.actions.TemplateKindCombo;
-import com.intellij.ide.fileTemplates.FileTemplate;
-import com.intellij.ide.fileTemplates.FileTemplateManager;
-import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
-import com.intellij.psi.JavaDirectoryService;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiFileFactory;
-import com.intellij.psi.PsiJavaPackage;
+import com.intellij.psi.*;
 import com.intellij.ui.DocumentAdapter;
 import com.intellij.uiDesigner.GuiDesignerConfiguration;
 import com.intellij.uiDesigner.GuiFormFileType;
@@ -48,168 +29,196 @@ import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.radComponents.LayoutManagerRegistry;
 import com.intellij.util.IncorrectOperationException;
 import com.intellij.util.PlatformIcons;
+import consulo.ui.RequiredUIAccess;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import java.util.function.Consumer;
 
 /**
  * @author yole
  */
-public class CreateFormAction extends AbstractCreateFormAction {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.actions.CreateFormAction");
+public class CreateFormAction extends AbstractCreateFormAction
+{
+	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.actions.CreateFormAction");
 
-  private String myLastClassName = null;
-  private String myLastLayoutManager = null;
+	private String myLastClassName = null;
+	private String myLastLayoutManager = null;
 
-  public CreateFormAction() {
-    super(UIDesignerBundle.message("action.gui.form.text"),
-          UIDesignerBundle.message("action.gui.form.description"), PlatformIcons.UI_FORM_ICON);
+	public CreateFormAction()
+	{
+		super(UIDesignerBundle.message("action.gui.form.text"), UIDesignerBundle.message("action.gui.form.description"), AllIcons.FileTypes.UiForm);
+	}
 
-    // delete obsolete template
-    ApplicationManager.getApplication().executeOnPooledThread(new Runnable() {
-      public void run() {
-        // to prevent deadlocks, this code must run while not holding the ActionManager lock
-        FileTemplateManager manager = FileTemplateManager.getInstance();
-        final FileTemplate template = manager.getTemplate("GUI Form");
-        //noinspection HardCodedStringLiteral
-        if (template != null && template.getExtension().equals("form")) {
-          manager.removeTemplate(template);
-        }
-      }
-    });
-  }
+	@Override
+	@RequiredUIAccess
+	protected void invokeDialog(Project project, PsiDirectory directory, @Nonnull Consumer<PsiElement[]> consumer)
+	{
+		final MyInputValidator validator = new MyInputValidator(project, directory);
 
-  @Nonnull
-  protected PsiElement[] invokeDialog(Project project, PsiDirectory directory) {
-    final MyInputValidator validator = new MyInputValidator(project, directory);
+		final DialogWrapper dialog = new MyDialog(project, validator);
 
-    final DialogWrapper dialog = new MyDialog(project, validator);
+		dialog.showAsync().doWhenDone(() -> consumer.accept(validator.getCreatedElements()));
+	}
 
-    dialog.show();
-    return validator.getCreatedElements();
-  }
+	@RequiredUIAccess
+	@Nonnull
+	protected PsiElement[] create(String newName, PsiDirectory directory) throws Exception
+	{
+		PsiElement createdFile;
+		PsiClass newClass = null;
+		try
+		{
+			final PsiJavaPackage aPackage = JavaDirectoryService.getInstance().getPackage(directory);
+			assert aPackage != null;
+			final String packageName = aPackage.getQualifiedName();
+			String fqClassName = null;
+			if(myLastClassName != null)
+			{
+				fqClassName = packageName.length() == 0 ? myLastClassName : packageName + "." + myLastClassName;
+			}
 
-  @Nonnull
-  protected PsiElement[] create(String newName, PsiDirectory directory) throws Exception {
-    PsiElement createdFile;
-    PsiClass newClass = null;
-    try {
-      final PsiJavaPackage aPackage = JavaDirectoryService.getInstance().getPackage(directory);
-      assert aPackage != null;
-      final String packageName = aPackage.getQualifiedName();
-      String fqClassName = null;
-      if (myLastClassName != null) {
-        fqClassName = packageName.length() == 0 ? myLastClassName : packageName + "." + myLastClassName;
-      }
+			final String formBody = createFormBody(fqClassName, "/com/intellij/uiDesigner/NewForm.xml",
+					myLastLayoutManager);
+			@NonNls final String fileName = newName + ".form";
+			final PsiFile formFile = PsiFileFactory.getInstance(directory.getProject())
+					.createFileFromText(fileName, GuiFormFileType.INSTANCE, formBody);
+			createdFile = directory.add(formFile);
 
-      final String formBody = createFormBody(fqClassName, "/com/intellij/uiDesigner/NewForm.xml",
-                                             myLastLayoutManager);
-      @NonNls final String fileName = newName + ".form";
-      final PsiFile formFile = PsiFileFactory.getInstance(directory.getProject())
-        .createFileFromText(fileName, GuiFormFileType.INSTANCE, formBody);
-      createdFile = directory.add(formFile);
+			if(myLastClassName != null)
+			{
+				newClass = JavaDirectoryService.getInstance().createClass(directory, myLastClassName);
+			}
+		}
+		catch(IncorrectOperationException e)
+		{
+			throw e;
+		}
+		catch(Exception e)
+		{
+			LOG.error(e);
+			return PsiElement.EMPTY_ARRAY;
+		}
 
-      if (myLastClassName != null) {
-        newClass = JavaDirectoryService.getInstance().createClass(directory, myLastClassName);
-      }
-    }
-    catch(IncorrectOperationException e) {
-      throw e;
-    }
-    catch (Exception e) {
-      LOG.error(e);
-      return PsiElement.EMPTY_ARRAY;
-    }
+		if(newClass != null)
+		{
+			return new PsiElement[]{
+					newClass.getContainingFile(),
+					createdFile
+			};
+		}
+		return new PsiElement[]{createdFile};
+	}
 
-    if (newClass != null) {
-      return new PsiElement[] { newClass.getContainingFile(), createdFile };
-    }
-    return new PsiElement[] { createdFile };
-  }
+	protected String getErrorTitle()
+	{
+		return UIDesignerBundle.message("error.cannot.create.form");
+	}
 
-  protected String getErrorTitle() {
-    return UIDesignerBundle.message("error.cannot.create.form");
-  }
+	protected String getCommandName()
+	{
+		return UIDesignerBundle.message("command.create.form");
+	}
 
-  protected String getCommandName() {
-    return UIDesignerBundle.message("command.create.form");
-  }
+	private class MyDialog extends DialogWrapper
+	{
+		private JPanel myTopPanel;
+		private JTextField myFormNameTextField;
+		private JCheckBox myCreateBoundClassCheckbox;
+		private JTextField myClassNameTextField;
+		private TemplateKindCombo myBaseLayoutManagerCombo;
+		private JLabel myUpDownHintForm;
+		private boolean myAdjusting = false;
+		private boolean myNeedAdjust = true;
 
-  private class MyDialog extends DialogWrapper {
-    private JPanel myTopPanel;
-    private JTextField myFormNameTextField;
-    private JCheckBox myCreateBoundClassCheckbox;
-    private JTextField myClassNameTextField;
-    private TemplateKindCombo myBaseLayoutManagerCombo;
-    private JLabel myUpDownHintForm;
-    private boolean myAdjusting = false;
-    private boolean myNeedAdjust = true;
+		private final Project myProject;
+		private final MyInputValidator myValidator;
 
-    private final Project myProject;
-    private final MyInputValidator myValidator;
+		public MyDialog(final Project project,
+						final MyInputValidator validator)
+		{
+			super(project, true);
+			myProject = project;
+			myValidator = validator;
+			myBaseLayoutManagerCombo.registerUpDownHint(myFormNameTextField);
+			myUpDownHintForm.setIcon(PlatformIcons.UP_DOWN_ARROWS);
+			init();
+			setTitle(UIDesignerBundle.message("title.new.gui.form"));
+			setOKActionEnabled(false);
 
-    public MyDialog(final Project project,
-                    final MyInputValidator validator) {
-      super(project, true);
-      myProject = project;
-      myValidator = validator;
-      myBaseLayoutManagerCombo.registerUpDownHint(myFormNameTextField);
-      myUpDownHintForm.setIcon(PlatformIcons.UP_DOWN_ARROWS);
-      init();
-      setTitle(UIDesignerBundle.message("title.new.gui.form"));
-      setOKActionEnabled(false);
+			myCreateBoundClassCheckbox.addChangeListener(new ChangeListener()
+			{
+				public void stateChanged(ChangeEvent e)
+				{
+					myClassNameTextField.setEnabled(myCreateBoundClassCheckbox.isSelected());
+				}
+			});
 
-      myCreateBoundClassCheckbox.addChangeListener(new ChangeListener() {
-        public void stateChanged(ChangeEvent e) {
-          myClassNameTextField.setEnabled(myCreateBoundClassCheckbox.isSelected());
-        }
-      });
+			myFormNameTextField.getDocument().addDocumentListener(new DocumentAdapter()
+			{
+				protected void textChanged(DocumentEvent e)
+				{
+					setOKActionEnabled(myFormNameTextField.getText().length() > 0);
+					if(myNeedAdjust)
+					{
+						myAdjusting = true;
+						myClassNameTextField.setText(myFormNameTextField.getText());
+						myAdjusting = false;
+					}
+				}
+			});
 
-      myFormNameTextField.getDocument().addDocumentListener(new DocumentAdapter() {
-        protected void textChanged(DocumentEvent e) {
-          setOKActionEnabled(myFormNameTextField.getText().length() > 0);
-          if (myNeedAdjust) {
-            myAdjusting = true;
-            myClassNameTextField.setText(myFormNameTextField.getText());
-            myAdjusting = false;
-          }
-        }
-      });
+			myClassNameTextField.getDocument().addDocumentListener(new DocumentAdapter()
+			{
+				protected void textChanged(DocumentEvent e)
+				{
+					if(!myAdjusting)
+					{
+						myNeedAdjust = false;
+					}
+				}
+			});
 
-      myClassNameTextField.getDocument().addDocumentListener(new DocumentAdapter() {
-        protected void textChanged(DocumentEvent e) {
-          if (!myAdjusting) {
-            myNeedAdjust = false;
-          }
-        }
-      });
+			for(String layoutName : LayoutManagerRegistry.getNonDeprecatedLayoutManagerNames())
+			{
+				String displayName = LayoutManagerRegistry.getLayoutManagerDisplayName(layoutName);
+				myBaseLayoutManagerCombo.addItem(displayName, null, layoutName);
+			}
+			myBaseLayoutManagerCombo.setSelectedName(GuiDesignerConfiguration.getInstance(project).DEFAULT_LAYOUT_MANAGER);
+		}
 
-      for (String layoutName: LayoutManagerRegistry.getNonDeprecatedLayoutManagerNames()) {
-        String displayName = LayoutManagerRegistry.getLayoutManagerDisplayName(layoutName);
-        myBaseLayoutManagerCombo.addItem(displayName, null, layoutName);
-      }
-      myBaseLayoutManagerCombo.setSelectedName(GuiDesignerConfiguration.getInstance(project).DEFAULT_LAYOUT_MANAGER);
-    }
+		protected JComponent createCenterPanel()
+		{
+			return myTopPanel;
+		}
 
-    protected JComponent createCenterPanel() {
-      return myTopPanel;
-    }
+		protected void doOKAction()
+		{
+			if(myCreateBoundClassCheckbox.isSelected())
+			{
+				myLastClassName = myClassNameTextField.getText();
+			}
+			else
+			{
+				myLastClassName = null;
+			}
+			myLastLayoutManager = myBaseLayoutManagerCombo.getSelectedName();
+			GuiDesignerConfiguration.getInstance(myProject).DEFAULT_LAYOUT_MANAGER = myLastLayoutManager;
+			final String inputString = myFormNameTextField.getText().trim();
+			if(myValidator.checkInput(inputString) && myValidator.canClose(inputString))
+			{
+				close(OK_EXIT_CODE);
+			}
+			close(OK_EXIT_CODE);
+		}
 
-    protected void doOKAction() {
-      if (myCreateBoundClassCheckbox.isSelected()) {
-        myLastClassName = myClassNameTextField.getText();
-      }
-      else {
-        myLastClassName = null;
-      }
-      myLastLayoutManager = myBaseLayoutManagerCombo.getSelectedName();
-      GuiDesignerConfiguration.getInstance(myProject).DEFAULT_LAYOUT_MANAGER = myLastLayoutManager;
-      final String inputString = myFormNameTextField.getText().trim();
-      if (myValidator.checkInput(inputString) && myValidator.canClose(inputString)) {
-        close(OK_EXIT_CODE);
-      }
-      close(OK_EXIT_CODE);
-    }
-
-    public JComponent getPreferredFocusedComponent() {
-      return myFormNameTextField;
-    }
-  }
+		public JComponent getPreferredFocusedComponent()
+		{
+			return myFormNameTextField;
+		}
+	}
 }
