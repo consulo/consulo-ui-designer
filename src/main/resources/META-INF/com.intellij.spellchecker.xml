@@ -1,5 +1,5 @@
-<idea-plugin>
+<consulo-plugin>
 	<extensions defaultExtensionNs="com.intellij.uiDesigner">
 		<formInspectionTool implementation="com.intellij.uiDesigner.inspections.FormSpellCheckingInspection"/>
 	</extensions>
-</idea-plugin>
+</consulo-plugin>
