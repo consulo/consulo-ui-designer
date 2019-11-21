@@ -104,7 +104,7 @@
 		<dependency>
 			<groupId>consulo.internal</groupId>
 			<artifactId>forms-compiler</artifactId>
-			<version>2.0-SNAPSHOT</version>
+			<version>2.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.jgoodies</groupId>
