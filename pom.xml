@@ -102,6 +102,12 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>consulo</groupId>
+			<artifactId>consulo-util-rt</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>consulo.internal</groupId>
 			<artifactId>forms-compiler</artifactId>
 			<version>2.1-SNAPSHOT</version>

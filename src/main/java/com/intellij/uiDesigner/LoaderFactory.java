@@ -31,8 +31,8 @@ import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.uiDesigner.core.Spacer;
 import com.intellij.util.PathUtil;
 import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.lang.UrlClassLoader;
 import com.intellij.util.messages.MessageBusConnection;
+import consulo.util.nodep.classloader.UrlClassLoader;
 import consulo.vfs.util.ArchiveVfsUtil;
 
 import javax.annotation.Nonnull;
@@ -162,7 +162,8 @@ public final class LoaderFactory {
     myProjectClassLoader = null;
   }
 
-  private static class DesignTimeClassLoader extends UrlClassLoader {
+  private static class DesignTimeClassLoader extends UrlClassLoader
+  {
     private final String myModuleName;
 
     public DesignTimeClassLoader(final List<URL> urls, final ClassLoader parent, final String moduleName) {
