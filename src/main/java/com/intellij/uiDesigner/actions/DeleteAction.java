@@ -16,8 +16,6 @@
 
 package com.intellij.uiDesigner.actions;
 
-import javax.annotation.Nonnull;
-
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.Presentation;
@@ -25,8 +23,10 @@ import com.intellij.uiDesigner.CaptionSelection;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
-import consulo.annotations.RequiredDispatchThread;
+import consulo.ui.annotation.RequiredUIAccess;
 import icons.UIDesignerIcons;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author yole
@@ -38,7 +38,7 @@ public final class DeleteAction extends AnAction
 		getTemplatePresentation().setIcon(UIDesignerIcons.DeleteCell);
 	}
 
-	@RequiredDispatchThread
+	@RequiredUIAccess
 	@Override
 	public void actionPerformed(@Nonnull final AnActionEvent e)
 	{
@@ -52,7 +52,7 @@ public final class DeleteAction extends AnAction
 		selection.getContainer().revalidate();
 	}
 
-	@RequiredDispatchThread
+	@RequiredUIAccess
 	@Override
 	public void update(@Nonnull final AnActionEvent e)
 	{

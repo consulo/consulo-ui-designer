@@ -15,9 +15,6 @@
  */
 package com.intellij.uiDesigner.propertyInspector;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.intellij.designer.DesignerEditorPanelFacade;
 import com.intellij.designer.LightToolWindow;
 import com.intellij.openapi.application.ApplicationManager;
@@ -31,9 +28,12 @@ import com.intellij.uiDesigner.AbstractToolWindowManager;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import consulo.awt.TargetAWT;
-import consulo.ui.RequiredUIAccess;
+import consulo.ui.annotation.RequiredUIAccess;
 import consulo.wm.impl.ToolWindowContentUI;
 import icons.UIDesignerIcons;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Alexander Lobas

@@ -16,15 +16,15 @@
 
 package com.intellij.uiDesigner.actions;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.uiDesigner.CaptionSelection;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.jgoodies.forms.layout.FormLayout;
-import consulo.annotations.RequiredDispatchThread;
+import consulo.ui.annotation.RequiredUIAccess;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author yole
@@ -36,7 +36,7 @@ public class UngroupRowsColumnsAction extends RowColumnAction
 		super(UIDesignerBundle.message("action.ungroup.columns"), null, UIDesignerBundle.message("action.ungroup.rows"), null);
 	}
 
-	@RequiredDispatchThread
+	@RequiredUIAccess
 	@Override
 	public void update(@Nonnull final AnActionEvent e)
 	{

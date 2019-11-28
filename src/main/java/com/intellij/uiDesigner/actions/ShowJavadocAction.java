@@ -15,10 +15,6 @@
  */
 package com.intellij.uiDesigner.actions;
 
-import java.awt.Point;
-
-import javax.annotation.Nonnull;
-
 import com.intellij.codeInsight.documentation.DocumentationComponent;
 import com.intellij.codeInsight.documentation.DocumentationManager;
 import com.intellij.openapi.Disposable;
@@ -36,7 +32,10 @@ import com.intellij.ui.awt.RelativePoint;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.propertyInspector.IntrospectedProperty;
 import com.intellij.uiDesigner.propertyInspector.PropertyInspectorTable;
-import consulo.annotations.RequiredDispatchThread;
+import consulo.ui.annotation.RequiredUIAccess;
+
+import javax.annotation.Nonnull;
+import java.awt.*;
 
 /**
  * @author Anton Katilin
@@ -46,7 +45,7 @@ public final class ShowJavadocAction extends AnAction
 {
 	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.actions.ShowJavadocAction");
 
-	@RequiredDispatchThread
+	@RequiredUIAccess
 	@Override
 	public void actionPerformed(@Nonnull final AnActionEvent e)
 	{
@@ -91,7 +90,7 @@ public final class ShowJavadocAction extends AnAction
 		});
 	}
 
-	@RequiredDispatchThread
+	@RequiredUIAccess
 	@Override
 	public void update(@Nonnull final AnActionEvent e)
 	{

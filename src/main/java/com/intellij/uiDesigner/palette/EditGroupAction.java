@@ -16,23 +16,23 @@
 
 package com.intellij.uiDesigner.palette;
 
-import java.util.ArrayList;
-
-import javax.annotation.Nonnull;
 import com.intellij.CommonBundle;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.uiDesigner.UIDesignerBundle;
-import consulo.annotations.RequiredDispatchThread;
+import consulo.ui.annotation.RequiredUIAccess;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
 
 /**
  * @author yole
  */
 public class EditGroupAction extends AnAction
 {
-	@RequiredDispatchThread
+	@RequiredUIAccess
 	@Override
 	public void actionPerformed(@Nonnull AnActionEvent e)
 	{
@@ -66,7 +66,7 @@ public class EditGroupAction extends AnAction
 		palette.fireGroupsChanged();
 	}
 
-	@RequiredDispatchThread
+	@RequiredUIAccess
 	@Override
 	public void update(@Nonnull AnActionEvent e)
 	{
