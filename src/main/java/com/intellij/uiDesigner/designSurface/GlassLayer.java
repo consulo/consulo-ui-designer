@@ -15,42 +15,24 @@
  */
 package com.intellij.uiDesigner.designSurface;
 
-import java.awt.AWTEvent;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-
-import javax.annotation.Nonnull;
-import javax.swing.JComponent;
-import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
-
-import org.jetbrains.annotations.NonNls;
-
-import javax.annotation.Nullable;
-import com.intellij.openapi.actionSystem.ActionManager;
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.actionSystem.CustomShortcutSet;
-import com.intellij.openapi.actionSystem.DataProvider;
-import com.intellij.openapi.actionSystem.IdeActions;
-import com.intellij.openapi.actionSystem.PlatformDataKeys;
+import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.util.Key;
 import com.intellij.ui.popup.PopupOwner;
 import com.intellij.uiDesigner.FormEditingUtil;
-import com.intellij.uiDesigner.actions.MoveComponentAction;
-import com.intellij.uiDesigner.actions.MoveSelectionToDownAction;
-import com.intellij.uiDesigner.actions.MoveSelectionToLeftAction;
-import com.intellij.uiDesigner.actions.MoveSelectionToRightAction;
-import com.intellij.uiDesigner.actions.MoveSelectionToUpAction;
-import com.intellij.uiDesigner.actions.SelectAllComponentsAction;
-import com.intellij.uiDesigner.actions.StartInplaceEditingAction;
+import com.intellij.uiDesigner.actions.*;
 import com.intellij.uiDesigner.componentTree.ComponentTree;
 import com.intellij.uiDesigner.propertyInspector.DesignerToolWindowManager;
 import com.intellij.uiDesigner.radComponents.RadComponent;
+import consulo.util.dataholder.Key;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 /**
  * @author Anton Katilin

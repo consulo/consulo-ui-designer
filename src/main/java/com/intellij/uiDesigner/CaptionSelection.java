@@ -16,8 +16,8 @@
 
 package com.intellij.uiDesigner;
 
-import com.intellij.openapi.util.Key;
 import com.intellij.uiDesigner.radComponents.RadContainer;
+import consulo.util.dataholder.Key;
 
 /**
  * @author yole

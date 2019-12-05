@@ -15,15 +15,6 @@
  */
 package com.intellij.uiDesigner.projectView;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
 import com.intellij.ide.DeleteProvider;
 import com.intellij.ide.projectView.ProjectViewNode;
 import com.intellij.ide.projectView.TreeStructureProvider;
@@ -36,7 +27,6 @@ import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.progress.ProcessCanceledException;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Key;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiClassOwner;
 import com.intellij.psi.PsiElement;
@@ -45,6 +35,10 @@ import com.intellij.psi.util.PsiUtilBase;
 import com.intellij.uiDesigner.GuiFormFileType;
 import com.intellij.uiDesigner.binding.FormClassIndex;
 import com.intellij.util.containers.ContainerUtil;
+import consulo.util.dataholder.Key;
+
+import javax.annotation.Nonnull;
+import java.util.*;
 
 public class FormMergerTreeStructureProvider implements TreeStructureProvider
 {

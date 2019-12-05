@@ -16,12 +16,13 @@
 
 package com.intellij.ide.palette;
 
-import javax.annotation.Nullable;
 import com.intellij.ide.dnd.DnDDragStartBean;
 import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Key;
 import com.intellij.ui.ColoredListCellRenderer;
+import consulo.util.dataholder.Key;
+
+import javax.annotation.Nullable;
 
 /**
  * @author yole
