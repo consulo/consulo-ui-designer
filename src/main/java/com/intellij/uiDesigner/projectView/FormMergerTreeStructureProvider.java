@@ -98,15 +98,10 @@ public class FormMergerTreeStructureProvider implements TreeStructureProvider
 			{
 				continue;
 			}
-			String qName = psiClass.getQualifiedName();
-			if(qName == null)
-			{
-				continue;
-			}
 			List<PsiFile> forms;
 			try
 			{
-				forms = FormClassIndex.findFormsBoundToClass(myProject, qName);
+				forms = FormClassIndex.findFormsBoundToClass(myProject, psiClass);
 			}
 			catch(ProcessCanceledException e)
 			{
