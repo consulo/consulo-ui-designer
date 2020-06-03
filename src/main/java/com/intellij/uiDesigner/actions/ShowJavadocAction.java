@@ -15,15 +15,17 @@
  */
 package com.intellij.uiDesigner.actions;
 
+import java.awt.*;
+
+import javax.annotation.Nonnull;
+
 import com.intellij.codeInsight.documentation.DocumentationComponent;
 import com.intellij.codeInsight.documentation.DocumentationManager;
-import com.intellij.openapi.Disposable;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.ui.popup.JBPopup;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
-import com.intellij.openapi.util.Disposer;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.util.PropertyUtil;
@@ -32,10 +34,9 @@ import com.intellij.ui.awt.RelativePoint;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.propertyInspector.IntrospectedProperty;
 import com.intellij.uiDesigner.propertyInspector.PropertyInspectorTable;
+import consulo.disposer.Disposable;
+import consulo.disposer.Disposer;
 import consulo.ui.annotation.RequiredUIAccess;
-
-import javax.annotation.Nonnull;
-import java.awt.*;
 
 /**
  * @author Anton Katilin
@@ -64,7 +65,7 @@ public final class ShowJavadocAction extends AnAction
 		final DocumentationComponent component1 = new DocumentationComponent(documentationManager);
 		final DocumentationComponent component2 = new DocumentationComponent(documentationManager);
 
-		final Disposable disposable = Disposer.newDisposable();
+		final Disposable disposable = Disposable.newDisposable();
 		final TabbedPaneWrapper tabbedPane = new TabbedPaneWrapper(disposable);
 
 		tabbedPane.addTab(UIDesignerBundle.message("tab.getter"), component1);
