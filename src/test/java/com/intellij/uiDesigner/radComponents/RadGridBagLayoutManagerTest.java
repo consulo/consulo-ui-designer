@@ -27,7 +27,7 @@ import junit.framework.TestCase;
 import javax.swing.*;
 import java.awt.*;
 
-public class RadGridBagLayoutManagerTest extends TestCase {
+public abstract class RadGridBagLayoutManagerTest extends TestCase {
   private RadGridBagLayoutManager myManager;
   private RadContainer myContainer;
 

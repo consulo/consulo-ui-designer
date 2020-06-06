@@ -16,8 +16,6 @@
 
 package com.intellij.uiDesigner.make;
 
-import java.io.IOException;
-
 import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.VfsUtil;
@@ -29,10 +27,12 @@ import com.intellij.testFramework.IdeaTestUtil;
 import com.intellij.testFramework.PsiTestCase;
 import com.intellij.testFramework.PsiTestUtil;
 
+import java.io.IOException;
+
 /**
  * @author yole
  */
-public class FormSourceCodeGeneratorTest extends PsiTestCase {
+public abstract class FormSourceCodeGeneratorTest extends PsiTestCase {
   private VirtualFile myTestProjectRoot;
   private FormSourceCodeGenerator myGenerator;
 

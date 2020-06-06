@@ -8,7 +8,7 @@ import com.intellij.psi.PsiFile;
 import com.intellij.refactoring.MultiFileTestCase;
 import com.intellij.refactoring.move.moveFilesOrDirectories.MoveFilesOrDirectoriesProcessor;
 
-public class MoveFileTest extends MultiFileTestCase {
+public abstract class MoveFileTest extends MultiFileTestCase {
   @Override
   protected String getTestDataPath() {
     return "/testData";

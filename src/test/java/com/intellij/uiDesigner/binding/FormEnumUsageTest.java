@@ -34,7 +34,7 @@ import com.intellij.testFramework.PsiTestCase;
 import com.intellij.testFramework.PsiTestUtil;
 import com.intellij.util.IncorrectOperationException;
 
-public class FormEnumUsageTest extends PsiTestCase {
+public abstract class FormEnumUsageTest extends PsiTestCase {
   private VirtualFile myTestProjectRoot;
 
   @Override

@@ -27,7 +27,7 @@ import junit.framework.TestCase;
 /**
  * @author yole
  */
-public class GridInsertLocationTest extends TestCase {
+public abstract class GridInsertLocationTest extends TestCase {
   private RadGridLayoutManager myManager;
   private RadContainer myContainer;
   private RadComponent myDropComponent;

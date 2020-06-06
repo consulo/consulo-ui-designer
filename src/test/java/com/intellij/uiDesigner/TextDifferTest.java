@@ -22,7 +22,7 @@ import com.intellij.uiDesigner.designSurface.GuiEditor;
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
-public final class TextDifferTest extends TestCase{
+public abstract class TextDifferTest extends TestCase{
 
   public void test1() {
     test("","",-1,-1,null);

@@ -16,10 +16,6 @@
 
 package com.intellij.uiDesigner.binding;
 
-import java.util.Collection;
-
-import javax.swing.JButton;
-
 import com.intellij.lang.properties.psi.PropertiesFile;
 import com.intellij.lang.properties.psi.Property;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -33,10 +29,13 @@ import com.intellij.testFramework.PsiTestCase;
 import com.intellij.testFramework.PsiTestUtil;
 import com.intellij.util.Query;
 
+import javax.swing.*;
+import java.util.Collection;
+
 /**
  * @author yole
  */
-public class FormPropertyUsageTest extends PsiTestCase {
+public abstract class FormPropertyUsageTest extends PsiTestCase {
   private VirtualFile myTestProjectRoot;
 
   @Override

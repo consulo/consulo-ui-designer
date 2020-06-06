@@ -24,7 +24,7 @@ import junit.framework.TestCase;
 import java.awt.Insets;
 import java.awt.LayoutManager;
 
-public final class GridChangeUtilTest extends TestCase {
+public abstract class GridChangeUtilTest extends TestCase {
 
   public void test_margins_and_gaps() {
     final Insets margin = new Insets(11,12,13,14);

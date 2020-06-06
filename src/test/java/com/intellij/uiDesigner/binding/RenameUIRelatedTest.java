@@ -29,7 +29,7 @@ import junit.framework.Assert;
 /**
  * @author ven
  */
-public class RenameUIRelatedTest extends MultiFileTestCase {
+public abstract class RenameUIRelatedTest extends MultiFileTestCase {
   @Override
   protected String getTestRoot() {
     return "/renameUIRelated/";

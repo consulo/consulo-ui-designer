@@ -15,40 +15,6 @@
  */
 package com.intellij.uiDesigner.core;
 
-import gnu.trove.TIntObjectHashMap;
-
-import java.awt.*;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.swing.*;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
-import javax.tools.Diagnostic;
-import javax.tools.DiagnosticListener;
-import javax.tools.JavaCompiler;
-import javax.tools.JavaFileObject;
-import javax.tools.StandardJavaFileManager;
-import javax.tools.StandardLocation;
-import javax.tools.ToolProvider;
-
 import com.intellij.compiler.instrumentation.InstrumentationClassFinder;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.PathManager;
@@ -64,12 +30,28 @@ import com.intellij.uiDesigner.lw.LwRootContainer;
 import com.intellij.util.PathUtil;
 import com.intellij.util.ui.UIUtil;
 import consulo.internal.org.objectweb.asm.ClassWriter;
+import gnu.trove.TIntObjectHashMap;
 import junit.framework.TestCase;
+
+import javax.swing.*;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+import javax.tools.*;
+import java.awt.*;
+import java.io.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 /**
  * @author yole
  */
-public class AsmCodeGeneratorTest extends TestCase
+public abstract class AsmCodeGeneratorTest extends TestCase
 {
 	private MyNestedFormLoader myNestedFormLoader;
 	private MyClassFinder myClassFinder;
