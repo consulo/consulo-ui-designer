@@ -15,6 +15,22 @@
  */
 package com.intellij.uiDesigner.make;
 
+import gnu.trove.TIntObjectHashMap;
+import gnu.trove.TObjectIntHashMap;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.*;
+
+import org.jetbrains.annotations.NonNls;
 import com.intellij.lang.java.lexer.JavaLexer;
 import com.intellij.openapi.application.ApplicationNamesInfo;
 import com.intellij.openapi.diagnostic.Logger;
@@ -37,22 +53,24 @@ import com.intellij.psi.impl.source.tree.JavaDocElementType;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.InheritanceUtil;
-import com.intellij.uiDesigner.*;
-import com.intellij.uiDesigner.compiler.*;
+import com.intellij.uiDesigner.ErrorAnalyzer;
+import com.intellij.uiDesigner.ErrorInfo;
+import com.intellij.uiDesigner.FormEditingUtil;
+import com.intellij.uiDesigner.GuiDesignerConfiguration;
+import com.intellij.uiDesigner.PsiPropertiesProvider;
+import com.intellij.uiDesigner.UIDesignerBundle;
+import com.intellij.uiDesigner.UIFormXmlConstants;
+import com.intellij.uiDesigner.compiler.AlienFormFileException;
+import com.intellij.uiDesigner.compiler.AsmCodeGenerator;
+import com.intellij.uiDesigner.compiler.ClassToBindNotFoundException;
+import com.intellij.uiDesigner.compiler.CodeGenerationException;
+import com.intellij.uiDesigner.compiler.FormErrorInfo;
+import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.uiDesigner.core.SupportCode;
 import com.intellij.uiDesigner.lw.*;
 import com.intellij.uiDesigner.shared.BorderType;
 import com.intellij.util.IncorrectOperationException;
 import com.intellij.util.ui.JBUI;
-import gnu.trove.TIntObjectHashMap;
-import gnu.trove.TObjectIntHashMap;
-import org.jetbrains.annotations.NonNls;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.swing.*;
-import java.awt.*;
-import java.util.*;
 
 public final class FormSourceCodeGenerator
 {
@@ -614,7 +632,7 @@ public final class FormSourceCodeGenerator
 			final PsiClass aClass) throws CodeGenerationException
 	{
 		id2component.put(component.getId(), component);
-		GlobalSearchScope globalSearchScope = module.getModuleWithDependenciesAndLibrariesScope(false);
+		GlobalSearchScope globalSearchScope = GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(module, false);
 
 		final LwContainer parent = component.getParent();
 
@@ -893,8 +911,7 @@ public final class FormSourceCodeGenerator
 
 	private boolean haveSetDisplayedMnemonic(final Class controlClass, final Module module)
 	{
-		PsiClass aClass = JavaPsiFacade.getInstance(myProject).findClass(controlClass.getName(),
-				module.getModuleWithLibrariesScope());
+		PsiClass aClass = JavaPsiFacade.getInstance(myProject).findClass(controlClass.getName(), GlobalSearchScope.moduleWithLibrariesScope(module));
 		return aClass != null && aClass.findMethodsByName("setDisplayedMnemonicIndex", true).length > 0;
 	}
 

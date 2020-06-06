@@ -15,6 +15,11 @@
  */
 package com.intellij.uiDesigner.propertyInspector.editors;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+
 import com.intellij.ide.util.TreeClassChooserFactory;
 import com.intellij.ide.util.TreeFileChooser;
 import com.intellij.openapi.module.Module;
@@ -23,6 +28,7 @@ import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
+import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.ImageFileFilter;
 import com.intellij.uiDesigner.UIDesignerBundle;
@@ -31,10 +37,6 @@ import com.intellij.uiDesigner.propertyInspector.InplaceContext;
 import com.intellij.uiDesigner.propertyInspector.PropertyEditor;
 import com.intellij.uiDesigner.propertyInspector.properties.IntroIconProperty;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * @author yole
@@ -52,8 +54,7 @@ public class IconEditor extends PropertyEditor<IconDescriptor> {
         PsiFile iconFile = null;
         if (myValue != null) {
           VirtualFile iconVFile = ResourceFileUtil.findResourceFileInScope(myValue.getIconPath(), getModule().getProject(),
-                                                                           getModule()
-                                                                             .getModuleWithDependenciesAndLibrariesScope(true));
+                                                                           GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(getModule(), true));
           if (iconVFile != null) {
             iconFile = PsiManager.getInstance(getModule().getProject()).findFile(iconVFile);
           }

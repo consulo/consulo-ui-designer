@@ -15,6 +15,14 @@
  */
 package com.intellij.uiDesigner.binding;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.NonNls;
 import com.intellij.ide.highlighter.XmlFileType;
 import com.intellij.lang.properties.psi.PropertiesFile;
 import com.intellij.openapi.application.ApplicationManager;
@@ -28,7 +36,11 @@ import com.intellij.psi.*;
 import com.intellij.psi.impl.source.resolve.reference.impl.providers.JavaClassReferenceProvider;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.search.PsiReferenceProcessor;
-import com.intellij.psi.util.*;
+import com.intellij.psi.util.CachedValue;
+import com.intellij.psi.util.CachedValueProvider;
+import com.intellij.psi.util.CachedValuesManager;
+import com.intellij.psi.util.InheritanceUtil;
+import com.intellij.psi.util.PropertyUtil;
 import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.psi.xml.XmlAttributeValue;
 import com.intellij.psi.xml.XmlFile;
@@ -38,13 +50,6 @@ import com.intellij.uiDesigner.UIFormXmlConstants;
 import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.util.ProcessingContext;
 import consulo.util.dataholder.Key;
-import org.jetbrains.annotations.NonNls;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author yole
@@ -285,7 +290,7 @@ public class FormReferenceProvider extends PsiReferenceProvider {
           final JavaPsiFacade psiFacade = JavaPsiFacade.getInstance(file.getProject());
           final Module module = ModuleUtil.findModuleForPsiElement(file);
           if (module == null) return null;
-          final GlobalSearchScope scope = module.getModuleWithDependenciesAndLibrariesScope(false);
+          final GlobalSearchScope scope = GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(module, false);
           PsiClass psiClass = psiFacade.findClass(className, scope);
           if (psiClass != null) {
             PsiMethod getter = PropertyUtil.findPropertyGetter(psiClass, tag.getName(), false, true);

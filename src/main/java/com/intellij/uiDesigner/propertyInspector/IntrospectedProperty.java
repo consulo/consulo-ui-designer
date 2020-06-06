@@ -15,8 +15,20 @@
  */
 package com.intellij.uiDesigner.propertyInspector;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import javax.annotation.Nonnull;
+import javax.swing.*;
+
+import org.jetbrains.annotations.NonNls;
 import com.intellij.openapi.util.Comparing;
-import com.intellij.psi.*;
+import com.intellij.psi.JavaPsiFacade;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiManager;
+import com.intellij.psi.PsiMethod;
+import com.intellij.psi.PsiModifier;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.uiDesigner.SwingProperties;
 import com.intellij.uiDesigner.UIFormXmlConstants;
@@ -26,13 +38,6 @@ import com.intellij.uiDesigner.radComponents.RadContainer;
 import com.intellij.uiDesigner.radComponents.RadGridLayoutManager;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
 import com.intellij.util.ArrayUtil;
-import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
-
-import javax.swing.*;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /**
  * @author Anton Katilin
@@ -166,7 +171,7 @@ public abstract class IntrospectedProperty<V> extends Property<RadComponent, V> 
 
     // check if property is available in the JDK used by the module containing the component
     final PsiManager psiManager = PsiManager.getInstance(component.getProject());
-    final GlobalSearchScope scope = component.getModule().getModuleWithDependenciesAndLibrariesScope(true);
+    final GlobalSearchScope scope = GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(component.getModule(), true);
     PsiClass componentClass = JavaPsiFacade.getInstance(psiManager.getProject()).findClass(component.getComponentClassName(), scope);
     if (componentClass == null) return true;
     final PsiMethod[] psiMethods = componentClass.findMethodsByName(myReadMethod.getName(), true);

@@ -15,10 +15,17 @@
  */
 package com.intellij.uiDesigner.propertyInspector.properties;
 
+import java.lang.reflect.Method;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.*;
+
+import org.jetbrains.annotations.NonNls;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ResourceFileUtil;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.uiDesigner.radComponents.RadComponent;
+import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.uiDesigner.UIFormXmlConstants;
 import com.intellij.uiDesigner.XmlWriter;
 import com.intellij.uiDesigner.lw.IconDescriptor;
@@ -26,14 +33,9 @@ import com.intellij.uiDesigner.propertyInspector.IntrospectedProperty;
 import com.intellij.uiDesigner.propertyInspector.PropertyEditor;
 import com.intellij.uiDesigner.propertyInspector.PropertyRenderer;
 import com.intellij.uiDesigner.propertyInspector.editors.IconEditor;
-import com.intellij.uiDesigner.propertyInspector.renderers.LabelPropertyRenderer;
 import com.intellij.uiDesigner.propertyInspector.renderers.IconRenderer;
-import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import javax.swing.*;
-import java.lang.reflect.Method;
+import com.intellij.uiDesigner.propertyInspector.renderers.LabelPropertyRenderer;
+import com.intellij.uiDesigner.radComponents.RadComponent;
 
 /**
  * @author yole
@@ -81,8 +83,7 @@ public class IntroIconProperty extends IntrospectedProperty<IconDescriptor> {
 
   public static void ensureIconLoaded(final Module module, final IconDescriptor value) {
     if (value.getIcon() == null) {
-      VirtualFile iconFile = ResourceFileUtil.findResourceFileInScope(value.getIconPath(), module.getProject(),
-                                                                module.getModuleWithDependenciesAndLibrariesScope(true));
+      VirtualFile iconFile = ResourceFileUtil.findResourceFileInScope(value.getIconPath(), module.getProject(), GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(module, true));
       if (iconFile != null) {
         loadIconFromFile(iconFile, value);
       }

@@ -16,17 +16,18 @@
 
 package com.intellij.uiDesigner;
 
+import java.util.Arrays;
+import java.util.Set;
+
+import javax.annotation.Nullable;
+import javax.imageio.ImageIO;
+
 import com.intellij.ide.util.TreeFileChooser;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.util.containers.HashSet;
-
-import javax.annotation.Nullable;
-import javax.imageio.ImageIO;
-import java.util.Arrays;
-import java.util.Set;
 
 /**
  * @author yole
@@ -42,7 +43,7 @@ public class ImageFileFilter implements TreeFileChooser.PsiFileFilter {
     }
     myExtensions = new HashSet<String>(Arrays.asList(formatNames));
     if (module != null) {
-      myModuleScope = module.getModuleWithDependenciesAndLibrariesScope(true);
+      myModuleScope = GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(module, true);
     }
   }
 

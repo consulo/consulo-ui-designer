@@ -21,11 +21,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.jdom.Element;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Singleton;
 
+import org.jdom.Element;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
@@ -34,6 +34,7 @@ import com.intellij.openapi.module.Module;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiMethod;
+import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PropertyUtil;
 import com.intellij.uiDesigner.lw.LwXmlReader;
 import com.intellij.uiDesigner.propertyInspector.editors.IntEnumEditor;
@@ -87,7 +88,7 @@ public final class Properties implements PersistentStateComponent<Element>
 		if(deprecated == null)
 		{
 			deprecated = new HashSet<>();
-			PsiClass componentClass = JavaPsiFacade.getInstance(module.getProject()).findClass(aClass.getName(), module.getModuleWithDependenciesAndLibrariesScope(true));
+			PsiClass componentClass = JavaPsiFacade.getInstance(module.getProject()).findClass(aClass.getName(), GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(module, true));
 			if(componentClass != null)
 			{
 				PsiMethod[] methods = componentClass.getAllMethods();

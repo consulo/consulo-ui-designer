@@ -16,19 +16,20 @@
 
 package com.intellij.uiDesigner.make;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ResourceFileUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiClass;
+import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.ClassUtil;
 import com.intellij.uiDesigner.PsiPropertiesProvider;
 import com.intellij.uiDesigner.compiler.NestedFormLoader;
 import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.uiDesigner.lw.LwRootContainer;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author yole
@@ -56,7 +57,7 @@ public class PsiNestedFormLoader implements NestedFormLoader {
 
   public String getClassToBindName(LwRootContainer container) {
     PsiClass psiClass =
-      JavaPsiFacade.getInstance(myModule.getProject()).findClass(container.getClassToBind(), myModule.getModuleWithDependenciesScope());
+      JavaPsiFacade.getInstance(myModule.getProject()).findClass(container.getClassToBind(), GlobalSearchScope.moduleWithDependenciesScope(myModule));
     if (psiClass != null) {
       return ClassUtil.getJVMClassName(psiClass);
     }

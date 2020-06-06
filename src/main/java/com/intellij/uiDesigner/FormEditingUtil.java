@@ -53,6 +53,7 @@ import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiElementFactory;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiMethod;
+import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.ui.awt.RelativePoint;
 import com.intellij.uiDesigner.compiler.AsmCodeGenerator;
 import com.intellij.uiDesigner.componentTree.ComponentTreeBuilder;
@@ -1131,7 +1132,7 @@ public final class FormEditingUtil
 	@Nullable
 	public static PsiClass findClassToBind(@Nonnull final Module module, @Nonnull final String classToBindName)
 	{
-		return JavaPsiFacade.getInstance(module.getProject()).findClass(classToBindName.replace('$', '.'), module.getModuleWithDependenciesScope());
+		return JavaPsiFacade.getInstance(module.getProject()).findClass(classToBindName.replace('$', '.'), GlobalSearchScope.moduleWithDependenciesScope(module));
 	}
 
 	public interface ComponentVisitor<Type extends IComponent>
