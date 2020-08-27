@@ -23,10 +23,10 @@ import com.intellij.uiDesigner.CaptionSelection;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import consulo.ui.annotation.RequiredUIAccess;
+import consulo.ui.image.Image;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.swing.*;
 
 /**
  * @author yole
@@ -34,11 +34,11 @@ import javax.swing.*;
 public abstract class RowColumnAction extends AnAction
 {
 	private final String myColumnText;
-	private final Icon myColumnIcon;
+	private final Image myColumnIcon;
 	private final String myRowText;
-	private final Icon myRowIcon;
+	private final Image myRowIcon;
 
-	public RowColumnAction(final String columnText, @Nullable final Icon columnIcon, final String rowText, @Nullable final Icon rowIcon)
+	public RowColumnAction(final String columnText, @Nullable final Image columnIcon, final String rowText, @Nullable final Image rowIcon)
 	{
 		myColumnText = columnText;
 		myColumnIcon = columnIcon;
