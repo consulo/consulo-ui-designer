@@ -37,6 +37,7 @@ import com.intellij.uiDesigner.palette.GroupItem;
 import com.intellij.uiDesigner.palette.Palette;
 import com.intellij.util.Processor;
 import consulo.awt.TargetAWT;
+import consulo.ui.image.Image;
 
 /**
  * @author yole
@@ -68,8 +69,8 @@ class PaletteListPopupStep implements ListPopupStep<ComponentItem>, SpeedSearchF
     return true;
   }
 
-  public Icon getIconFor(final ComponentItem aValue) {
-    return TargetAWT.to(aValue.getSmallIcon());
+  public Image getIconFor(final ComponentItem aValue) {
+    return aValue.getSmallIcon();
   }
 
   @Nonnull
