@@ -16,13 +16,6 @@
 
 package com.intellij.uiDesigner.actions;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.annotation.Nullable;
-import javax.swing.Icon;
-
-import org.jetbrains.annotations.NonNls;
 import com.intellij.ide.IdeView;
 import com.intellij.ide.actions.CreateElementActionBase;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -41,12 +34,18 @@ import com.intellij.psi.PsiDirectory;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.util.IncorrectOperationException;
 import consulo.java.module.extension.JavaModuleExtension;
+import consulo.ui.image.Image;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nullable;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author yole
  */
 public abstract class AbstractCreateFormAction extends CreateElementActionBase implements DumbAware {
-  public AbstractCreateFormAction(String text, String description, Icon icon) {
+  public AbstractCreateFormAction(String text, String description, Image icon) {
     super(text, description, icon);
   }
 
