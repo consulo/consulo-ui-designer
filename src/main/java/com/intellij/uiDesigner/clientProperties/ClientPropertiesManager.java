@@ -15,35 +15,24 @@
  */
 package com.intellij.uiDesigner.clientProperties;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
-import javax.annotation.Nonnull;
-
-import org.jdom.Element;
-import org.jetbrains.annotations.NonNls;
-
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
-import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.components.State;
-import com.intellij.openapi.components.Storage;
-import com.intellij.openapi.components.StoragePathMacros;
+import com.intellij.openapi.components.*;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.AtomicNotNullLazyValue;
 import com.intellij.openapi.util.JDOMUtil;
 import com.intellij.openapi.util.NotNullLazyValue;
 import com.intellij.uiDesigner.LoaderFactory;
+import org.jdom.Element;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.util.*;
 
 @Singleton
-@State(name = "ClientPropertiesManager", storages = @Storage(StoragePathMacros.WORKSPACE_FILE))
+@State(name = "ClientPropertiesManager", storages = @Storage(StoragePathMacros.WORKSPACE_FILE), defaultStateFilePath = "defaultState/ClientPropertiesManager.xml")
 public class ClientPropertiesManager implements PersistentStateComponent<Element>
 {
 	private static final Logger LOG = Logger.getInstance(ClientPropertiesManager.class);

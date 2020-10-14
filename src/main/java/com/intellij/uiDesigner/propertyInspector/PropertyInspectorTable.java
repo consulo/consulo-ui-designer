@@ -16,7 +16,6 @@
 package com.intellij.uiDesigner.propertyInspector;
 
 import com.intellij.codeInsight.daemon.impl.SeverityRegistrar;
-import com.intellij.icons.AllIcons;
 import com.intellij.ide.ui.LafManager;
 import com.intellij.ide.ui.LafManagerListener;
 import com.intellij.lang.annotation.HighlightSeverity;
@@ -49,10 +48,10 @@ import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.palette.Palette;
 import com.intellij.uiDesigner.propertyInspector.properties.*;
 import com.intellij.uiDesigner.radComponents.*;
-import com.intellij.util.ui.EmptyIcon;
-import com.intellij.util.ui.IndentedIcon;
 import com.intellij.util.ui.Table;
 import com.intellij.util.ui.UIUtil;
+import consulo.ui.image.Image;
+import consulo.ui.image.ImageEffects;
 import consulo.util.dataholder.Key;
 import icons.UIDesignerIcons;
 import org.jetbrains.annotations.NonNls;
@@ -1200,11 +1199,11 @@ public final class PropertyInspectorTable extends Table implements DataProvider
 		 */
 		private final ColoredTableCellRenderer myPropertyNameRenderer;
 		private final ColoredTableCellRenderer myErrorRenderer;
-		private final Icon myExpandIcon;
-		private final Icon myCollapseIcon;
-		private final Icon myIndentedExpandIcon;
-		private final Icon myIndentedCollapseIcon;
-		private final Icon[] myIndentIcons = new Icon[3];
+		private final Image myExpandIcon;
+		private final Image myCollapseIcon;
+		private final Image myIndentedExpandIcon;
+		private final Image myIndentedCollapseIcon;
+		private final Image[] myIndentIcons = new Image[3];
 
 		public MyCompositeTableCellRenderer()
 		{
@@ -1229,14 +1228,14 @@ public final class PropertyInspectorTable extends Table implements DataProvider
 				}
 			};
 
-			myExpandIcon = UIUtil.isUnderDarcula() ? AllIcons.Mac.Tree_white_right_arrow : UIDesignerIcons.ExpandNode;
-			myCollapseIcon = UIUtil.isUnderDarcula() ? AllIcons.Mac.Tree_white_down_arrow : UIDesignerIcons.CollapseNode;
+			myExpandIcon = UIDesignerIcons.ExpandNode;
+			myCollapseIcon = UIDesignerIcons.CollapseNode;
 			for(int i = 0; i < myIndentIcons.length; i++)
 			{
-				myIndentIcons[i] = new EmptyIcon(myExpandIcon.getIconWidth() + 11 * i, myExpandIcon.getIconHeight());
+				myIndentIcons[i] = Image.empty(myExpandIcon.getWidth() + 11 * i, myExpandIcon.getHeight());
 			}
-			myIndentedExpandIcon = new IndentedIcon(myExpandIcon, 11);
-			myIndentedCollapseIcon = new IndentedIcon(myCollapseIcon, 11);
+			myIndentedExpandIcon = ImageEffects.appendRight(Image.empty(11), myExpandIcon);
+			myIndentedCollapseIcon = ImageEffects.appendRight(Image.empty(11), myCollapseIcon);
 		}
 
 		@Override

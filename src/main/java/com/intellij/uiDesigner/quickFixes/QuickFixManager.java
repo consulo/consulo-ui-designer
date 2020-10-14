@@ -162,7 +162,7 @@ public abstract class QuickFixManager <T extends JComponent>{
     final LightBulbComponentImpl lightBulbComponent = new LightBulbComponentImpl(this, AllIcons.Actions.IntentionBulb);
     myHint = new LightweightHint(lightBulbComponent);
     myLastHintBounds = bounds;
-    myHint.show(myComponent, bounds.x - AllIcons.Actions.IntentionBulb.getIconWidth() - 4, bounds.y, myComponent, new HintHint(myComponent, bounds.getLocation()));
+    myHint.show(myComponent, bounds.x - AllIcons.Actions.IntentionBulb.getWidth() - 4, bounds.y, myComponent, new HintHint(myComponent, bounds.getLocation()));
   }
 
   private void updateIntentionHintPosition(final JViewport viewPort) {
@@ -170,9 +170,9 @@ public abstract class QuickFixManager <T extends JComponent>{
       Rectangle rc = getErrorBounds();
       if (rc != null) {
         myLastHintBounds = rc;
-        Rectangle hintRect = new Rectangle(rc.x - AllIcons.Actions.IntentionBulb.getIconWidth() - 4, rc.y, AllIcons.Actions.IntentionBulb
-                                                                                                             .getIconWidth() + 4, AllIcons.Actions.IntentionBulb
-                                                                                                                                    .getIconHeight() + 4);
+        Rectangle hintRect = new Rectangle(rc.x - AllIcons.Actions.IntentionBulb.getWidth() - 4, rc.y, AllIcons.Actions.IntentionBulb
+                                                                                                             .getWidth() + 4, AllIcons.Actions.IntentionBulb
+                                                                                                                                    .getHeight() + 4);
         LOG.debug("hintRect=" + hintRect);
         if (getHintClipRect(viewPort).contains(hintRect)) {
           myHint.pack();

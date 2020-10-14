@@ -15,47 +15,11 @@
  */
 package com.intellij.uiDesigner.palette;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Insets;
-import java.awt.Rectangle;
-import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-import javax.swing.AbstractButton;
-import javax.swing.Icon;
-import javax.swing.JLabel;
-import javax.swing.JMenuBar;
-import javax.swing.JPopupMenu;
-import javax.swing.JSplitPane;
-import javax.swing.JTabbedPane;
-import javax.swing.ListModel;
-
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.input.SAXBuilder;
-import org.jetbrains.annotations.NonNls;
-
-import javax.annotation.Nullable;
 import com.intellij.ide.ui.LafManager;
 import com.intellij.ide.ui.LafManagerListener;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ApplicationNamesInfo;
-import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ProjectComponent;
-import com.intellij.openapi.components.State;
-import com.intellij.openapi.components.Storage;
-import com.intellij.openapi.components.StoragePathMacros;
+import com.intellij.openapi.components.*;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
@@ -75,14 +39,32 @@ import com.intellij.uiDesigner.propertyInspector.properties.*;
 import com.intellij.uiDesigner.propertyInspector.renderers.IntEnumRenderer;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.util.containers.ContainerUtil;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.input.SAXBuilder;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.*;
+import java.awt.*;
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
-@State(name = "Palette2", storages = @Storage(file = StoragePathMacros.PROJECT_CONFIG_DIR + "/uiDesigner.xml"))
-public final class Palette implements ProjectComponent, PersistentStateComponent<Element> {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.palette.Palette");
+@State(name = "Palette2", storages = @Storage("uiDesigner.xml"), defaultStateFilePath = "defaultState/Palette2.xml")
+public final class Palette implements PersistentStateComponent<Element> {
+  private static final Logger LOG = Logger.getInstance(Palette.class);
 
   private final MyLafManagerListener myLafManagerListener;
   private final Map<Class, IntrospectedProperty[]> myClass2Properties;
@@ -250,10 +232,6 @@ public final class Palette implements ProjectComponent, PersistentStateComponent
     writeGroups(element);
     //element.setAttribute(ATTRIBUTE_VERSION, "2");
   }
-
-  public void initComponent() {}
-
-  public void disposeComponent() {}
 
   /**
    * @return a predefined palette item which corresponds to the JPanel.

@@ -18,15 +18,14 @@ package com.intellij.uiDesigner.wizard;
 import com.intellij.ide.wizard.StepAdapter;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.ui.ComboBox;
-import com.intellij.openapi.util.IconLoader;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiType;
 import com.intellij.psi.util.PropertyUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.util.ArrayUtil;
 import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
 
+import javax.annotation.Nonnull;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellEditor;
@@ -107,10 +106,6 @@ final class BindToExistingBeanStep extends StepAdapter{
     myData.myGenerateIsModified = myChkIsModified.isSelected();
 
     // TODO[vova] check that at least one binding field exists
-  }
-
-  public Icon getIcon() {
-    return IconLoader.getIcon("/com/intellij/uiDesigner/icons/dataBinding.png");
   }
 
   private final class MyTableModel extends AbstractTableModel{

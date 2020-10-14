@@ -25,12 +25,11 @@ import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.openapi.util.Comparing;
-import com.intellij.openapi.util.IconLoader;
 import com.intellij.psi.*;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.uiDesigner.UIDesignerBundle;
-import javax.annotation.Nonnull;
 
+import javax.annotation.Nonnull;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -207,9 +206,5 @@ final class BeanStep extends StepAdapter{
 
   public JComponent getComponent() {
     return myComponent;
-  }
-
-  public Icon getIcon() {
-    return IconLoader.getIcon("/com/intellij/uiDesigner/icons/dataBinding.png");
   }
 }

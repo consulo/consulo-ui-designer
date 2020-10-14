@@ -29,7 +29,7 @@ import java.awt.*;
  * @author yole
  */
 public class GridInsertProcessor {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.designSurface.GridInsertProcessor");
+  private static final Logger LOG = Logger.getInstance(GridInsertProcessor.class);
 
   private final GuiEditor myEditor;
 
@@ -69,7 +69,7 @@ public class GridInsertProcessor {
 
   public ComponentDropLocation processDragEvent(Point pnt, ComponentDragObject dragObject) {
     final ComponentDropLocation dropLocation = getDropLocation(myEditor.getRootContainer(), pnt);
-    LOG.info("GridInsertProcessor.processDragEvent(): dropLocation " + dropLocation.toString());
+    LOG.debug("GridInsertProcessor.processDragEvent(): dropLocation " + dropLocation.toString());
     if (dropLocation.canDrop(dragObject)) {
       dropLocation.placeFeedback(myEditor.getActiveDecorationLayer(), dragObject);
     }

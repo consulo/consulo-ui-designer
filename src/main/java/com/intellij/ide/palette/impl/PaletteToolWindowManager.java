@@ -15,9 +15,6 @@
  */
 package com.intellij.ide.palette.impl;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.intellij.designer.DesignerEditorPanelFacade;
 import com.intellij.designer.LightToolWindow;
 import com.intellij.icons.AllIcons;
@@ -31,6 +28,10 @@ import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentManager;
 import com.intellij.uiDesigner.AbstractToolWindowManager;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
+import consulo.awt.TargetAWT;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Alexander Lobas
@@ -105,7 +106,7 @@ public class PaletteToolWindowManager extends AbstractToolWindowManager
 		PaletteWindow palettePanel = new PaletteWindow(myProject);
 		palettePanel.refreshPaletteIfChanged((GuiEditor) designer);
 
-		return createContent(designer, palettePanel, IdeBundle.message("toolwindow.palette"), AllIcons.Toolwindows.ToolWindowPalette, palettePanel,
+		return createContent(designer, palettePanel, IdeBundle.message("toolwindow.palette"), TargetAWT.to(AllIcons.Toolwindows.ToolWindowPalette), palettePanel,
 				palettePanel, 180, null);
 	}
 

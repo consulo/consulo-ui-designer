@@ -20,6 +20,9 @@ import com.intellij.openapi.actionSystem.IdeActions;
 import com.intellij.openapi.keymap.KeymapUtil;
 import com.intellij.ui.ClickListener;
 import com.intellij.uiDesigner.UIDesignerBundle;
+import consulo.awt.TargetAWT;
+import consulo.ui.image.Image;
+
 import javax.annotation.Nonnull;
 
 import javax.swing.*;
@@ -35,13 +38,13 @@ import java.awt.event.MouseEvent;
  */
 final class LightBulbComponentImpl extends JComponent{
   private final QuickFixManager myManager;
-  private final Icon myIcon;
+  private final Image myIcon;
 
-  public LightBulbComponentImpl(@Nonnull final QuickFixManager manager, @Nonnull final Icon icon) {
+  public LightBulbComponentImpl(@Nonnull final QuickFixManager manager, @Nonnull final Image icon) {
     myManager = manager;
     myIcon = icon;
 
-    setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
+    setPreferredSize(new Dimension(icon.getWidth(), icon.getHeight()));
     final String acceleratorsText = KeymapUtil.getFirstKeyboardShortcutText(
       ActionManager.getInstance().getAction(IdeActions.ACTION_SHOW_INTENTION_ACTIONS));
     if (acceleratorsText.length() > 0) {
@@ -58,6 +61,6 @@ final class LightBulbComponentImpl extends JComponent{
   }
 
   protected void paintComponent(final Graphics g) {
-    myIcon.paintIcon(this, g, 0, 0);
+    TargetAWT.to(myIcon).paintIcon(this, g, 0, 0);
   }
 }

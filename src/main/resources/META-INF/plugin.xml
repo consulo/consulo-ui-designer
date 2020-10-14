@@ -141,12 +141,11 @@
 
 		<lang.foldingBuilder language="JAVA" implementationClass="com.intellij.uiDesigner.binding.GeneratedCodeFoldingBuilder"/>
 		<gotoRelatedProvider implementation="com.intellij.uiDesigner.binding.FormRelatedFilesProvider"/>
+
+		<projectService serviceImplementation="com.intellij.uiDesigner.palette.Palette" />
 	</extensions>
 
 	<project-components>
-		<component>
-			<implementation-class>com.intellij.uiDesigner.palette.Palette</implementation-class>
-		</component>
 		<component>
 			<implementation-class>com.intellij.uiDesigner.propertyInspector.DesignerToolWindowManager</implementation-class>
 			<headless-implementation-class></headless-implementation-class>

@@ -23,7 +23,7 @@ import com.intellij.openapi.actionSystem.LangDataKeys;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.module.ResourceFileUtil;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.IconLoader;
+import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.VfsUtilCore;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.JavaPsiFacade;
@@ -39,6 +39,8 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.lw.StringDescriptor;
 import com.intellij.uiDesigner.propertyInspector.IntrospectedProperty;
 import com.intellij.uiDesigner.radComponents.RadAtomicComponent;
+import consulo.ui.image.Image;
+import consulo.ui.image.ImageKey;
 import consulo.util.dataholder.Key;
 import icons.UIDesignerIcons;
 import org.jetbrains.annotations.NonNls;
@@ -56,7 +58,7 @@ import java.util.List;
  */
 public final class ComponentItem implements Cloneable, PaletteItem
 {
-	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.palette.ComponentItem");
+	private static final Logger LOG = Logger.getInstance(ComponentItem.class);
 
 	public static final Key<ComponentItem> DATA_KEY = Key.create(ComponentItem.class.getName());
 
@@ -196,7 +198,7 @@ public final class ComponentItem implements Cloneable, PaletteItem
 			{
 				try
 				{
-					myIcon = consulo.ui.image.Image.create(VfsUtilCore.virtualToIoFile(iconFile).toURL());
+					myIcon = consulo.ui.image.Image.fromBytes(VfsUtilCore.loadBytes(iconFile), Image.DEFAULT_ICON_SIZE, Image.DEFAULT_ICON_SIZE);
 				}
 				catch(Exception e)
 				{
@@ -205,7 +207,14 @@ public final class ComponentItem implements Cloneable, PaletteItem
 			}
 			else
 			{
-				myIcon = IconLoader.findIcon(myIconPath);
+				myIconPath = myIconPath.replace("/com/intellij/uiDesigner/icons/", "consulo.uidesigner.UIDesignerIconGroup@");
+				myIconPath = StringUtil.trimEnd(myIconPath, ".png");
+				
+				ImageKey imageKey = ImageKey.fromString(myIconPath, Image.DEFAULT_ICON_SIZE, Image.DEFAULT_ICON_SIZE);
+				if(imageKey != null)
+				{
+					myIcon = imageKey;
+				}
 			}
 		}
 		if(myIcon == null)

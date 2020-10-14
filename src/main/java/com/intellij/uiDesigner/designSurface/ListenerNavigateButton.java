@@ -37,6 +37,7 @@ import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.lw.IRootContainer;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.util.Processor;
+import consulo.awt.TargetAWT;
 import icons.UIDesignerIcons;
 
 import javax.annotation.Nullable;
@@ -59,7 +60,7 @@ public class ListenerNavigateButton extends JButton implements ActionListener {
 
   public ListenerNavigateButton(RadComponent component) {
     myComponent = component;
-    setIcon(UIDesignerIcons.Listener);
+    setIcon(TargetAWT.to(UIDesignerIcons.Listener));
     setOpaque(false);
     setFocusable(false);
     setBorderPainted(false);
