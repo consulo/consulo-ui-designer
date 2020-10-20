@@ -44,7 +44,7 @@ import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.util.IncorrectOperationException;
 import javax.annotation.Nonnull;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 import javax.swing.*;
 import java.util.List;
 

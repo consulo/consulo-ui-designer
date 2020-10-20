@@ -34,10 +34,12 @@ import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.messages.MessageBusConnection;
 import consulo.util.nodep.classloader.UrlClassLoader;
 import consulo.vfs.util.ArchiveVfsUtil;
+import jakarta.inject.Inject;
 
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
-import javax.inject.Singleton;
+
+import jakarta.inject.Singleton;
+
 import javax.swing.*;
 import java.io.File;
 import java.net.MalformedURLException;

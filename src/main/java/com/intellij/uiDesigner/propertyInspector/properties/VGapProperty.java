@@ -19,12 +19,11 @@ import com.intellij.uiDesigner.core.AbstractLayout;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.components.ServiceManager;
+import jakarta.inject.Singleton;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.CardLayout;
-
-import javax.inject.Singleton;
 
 /**
  * @author Anton Katilin

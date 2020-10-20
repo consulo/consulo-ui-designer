@@ -22,7 +22,7 @@ import com.intellij.openapi.components.ServiceManager;
 
 import java.awt.*;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 /**
  * @author Anton Katilin

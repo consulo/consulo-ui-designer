@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.propertyInspector.properties;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.radComponents.RadComponent;

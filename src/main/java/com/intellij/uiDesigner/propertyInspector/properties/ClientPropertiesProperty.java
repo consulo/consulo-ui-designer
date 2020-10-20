@@ -21,7 +21,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.annotation.Nonnull;
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
