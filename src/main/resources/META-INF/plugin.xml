@@ -112,7 +112,7 @@
 
 		<projectService serviceInterface="com.intellij.uiDesigner.LoaderFactory"
 						serviceImplementation="com.intellij.uiDesigner.LoaderFactory"/>
-		<projectService serviceImplementation="com.intellij.uiDesigner.clientProperties.ClientPropertiesManager" />
+		<projectService serviceImplementation="com.intellij.uiDesigner.clientProperties.ClientPropertiesManager"/>
 
 		<projectService serviceInterface="com.intellij.uiDesigner.GuiDesignerConfiguration"
 						serviceImplementation="com.intellij.uiDesigner.GuiDesignerConfiguration"/>
@@ -142,29 +142,24 @@
 		<lang.foldingBuilder language="JAVA" implementationClass="com.intellij.uiDesigner.binding.GeneratedCodeFoldingBuilder"/>
 		<gotoRelatedProvider implementation="com.intellij.uiDesigner.binding.FormRelatedFilesProvider"/>
 
-		<projectService serviceImplementation="com.intellij.uiDesigner.palette.Palette" />
-	</extensions>
+		<projectService serviceImplementation="com.intellij.uiDesigner.palette.Palette"/>
 
-	<project-components>
-		<component>
-			<implementation-class>com.intellij.uiDesigner.propertyInspector.DesignerToolWindowManager</implementation-class>
-			<headless-implementation-class></headless-implementation-class>
-			<skipForDefaultProject/>
-		</component>
-		<component>
-			<implementation-class>com.intellij.ide.palette.impl.PaletteToolWindowManager</implementation-class>
-		</component>
-	</project-components>
+		<projectService serviceImplementation="com.intellij.ide.palette.impl.PaletteToolWindowManager"/>
+
+		<projectService serviceImplementation="com.intellij.uiDesigner.propertyInspector.DesignerToolWindowManager"/>
+
+		<postStartupActivity implementation="consulo.uiDesigner.UIDesignerPostStartupActivity"/>
+	</extensions>
 
 	<actions>
 		<group id="GuiDesigner.MainToolbarActions">
 			<separator/>
 			<action id="GuiDesigner.PreviewForm" class="com.intellij.uiDesigner.actions.PreviewFormAction"
-					icon="AllIcons.Actions.Preview"/>
+					icon="consulo.platform.base.PlatformIconGroup@actions.preview"/>
 			<action id="GuiDesigner.DataBindingWizard" class="com.intellij.uiDesigner.actions.DataBindingWizardAction"
-					icon="UIDesignerIcons.DataBindingWizard"/>
+					icon="consulo.uiDesigner.UIDesignerIconGroup@databindingwizard"/>
 			<action id="GuiDesigner.ReloadCustomComponents" class="com.intellij.uiDesigner.actions.ReloadCustomComponentsAction"
-					icon="AllIcons.Actions.Refresh"/>
+					icon="consulo.platform.base.PlatformIconGroup@actions.refresh"/>
 			<action id="GuiDesigner.ChooseLocale" class="com.intellij.uiDesigner.actions.ChooseLocaleAction"/>
 			<separator/>
 

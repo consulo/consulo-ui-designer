@@ -29,6 +29,8 @@ import com.intellij.ui.content.ContentManager;
 import com.intellij.uiDesigner.AbstractToolWindowManager;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import consulo.awt.TargetAWT;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -36,14 +38,16 @@ import javax.annotation.Nullable;
 /**
  * @author Alexander Lobas
  */
+@Singleton
 public class PaletteToolWindowManager extends AbstractToolWindowManager
 {
 	private final PaletteWindow myToolWindowPanel;
 
+	@Inject
 	public PaletteToolWindowManager(Project project, FileEditorManager fileEditorManager)
 	{
 		super(project, fileEditorManager);
-		myToolWindowPanel = ApplicationManager.getApplication().isHeadlessEnvironment() ? null : new PaletteWindow(project);
+		myToolWindowPanel = new PaletteWindow(project);
 	}
 
 	public static PaletteWindow getInstance(GuiEditor designer)

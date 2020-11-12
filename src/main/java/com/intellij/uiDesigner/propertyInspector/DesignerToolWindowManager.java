@@ -31,6 +31,8 @@ import consulo.awt.TargetAWT;
 import consulo.ui.annotation.RequiredUIAccess;
 import consulo.wm.impl.ToolWindowContentUI;
 import icons.UIDesignerIcons;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,14 +40,16 @@ import javax.annotation.Nullable;
 /**
  * @author Alexander Lobas
  */
+@Singleton
 public class DesignerToolWindowManager extends AbstractToolWindowManager
 {
 	private final DesignerToolWindow myToolWindowPanel;
 
+	@Inject
 	public DesignerToolWindowManager(Project project, FileEditorManager fileEditorManager)
 	{
 		super(project, fileEditorManager);
-		myToolWindowPanel = ApplicationManager.getApplication().isHeadlessEnvironment() ? null : new DesignerToolWindow(project);
+		myToolWindowPanel = new DesignerToolWindow(project);
 	}
 
 	public static DesignerToolWindow getInstance(GuiEditor designer)

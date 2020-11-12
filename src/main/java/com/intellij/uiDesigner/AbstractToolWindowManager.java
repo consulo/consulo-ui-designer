@@ -28,11 +28,12 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindowAnchor;
 import com.intellij.uiDesigner.editor.UIFormEditor;
 import com.intellij.uiDesigner.propertyInspector.DesignerToolWindowManager;
+import com.sun.media.jfxmediaimpl.MediaDisposer;
 
 /**
  * @author Alexander Lobas
  */
-public abstract class AbstractToolWindowManager extends LightToolWindowManager
+public abstract class AbstractToolWindowManager extends LightToolWindowManager implements MediaDisposer.Disposable
 {
 	public AbstractToolWindowManager(Project project, FileEditorManager fileEditorManager)
 	{
@@ -40,12 +41,9 @@ public abstract class AbstractToolWindowManager extends LightToolWindowManager
 	}
 
 	@Override
-	public void projectOpened()
+	public void dispose()
 	{
-		if(!ApplicationManager.getApplication().isHeadlessEnvironment())
-		{
-			super.projectOpened();
-		}
+		projectClosed();
 	}
 
 	@Nullable

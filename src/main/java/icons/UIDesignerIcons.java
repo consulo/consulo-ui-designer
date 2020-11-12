@@ -1,7 +1,7 @@
 package icons;
 
 import consulo.ui.image.Image;
-import consulo.uidesigner.icon.UIDesignerIconGroup;
+import consulo.uiDesigner.icon.UIDesignerIconGroup;
 
 public class UIDesignerIcons {
   @SuppressWarnings("unused")
