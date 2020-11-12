@@ -21,19 +21,18 @@ import com.intellij.designer.DesignerEditorPanelFacade;
 import com.intellij.designer.LightToolWindowManager;
 import com.intellij.designer.ToggleEditorModeAction;
 import com.intellij.ide.palette.impl.PaletteToolWindowManager;
-import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.fileEditor.FileEditor;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindowAnchor;
 import com.intellij.uiDesigner.editor.UIFormEditor;
 import com.intellij.uiDesigner.propertyInspector.DesignerToolWindowManager;
-import com.sun.media.jfxmediaimpl.MediaDisposer;
+import consulo.disposer.Disposable;
 
 /**
  * @author Alexander Lobas
  */
-public abstract class AbstractToolWindowManager extends LightToolWindowManager implements MediaDisposer.Disposable
+public abstract class AbstractToolWindowManager extends LightToolWindowManager implements Disposable
 {
 	public AbstractToolWindowManager(Project project, FileEditorManager fileEditorManager)
 	{
