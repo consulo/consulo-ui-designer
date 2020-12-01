@@ -51,6 +51,7 @@ import com.intellij.uiDesigner.radComponents.*;
 import com.intellij.util.ArrayUtil;
 import com.intellij.util.ui.UIUtil;
 import com.intellij.util.ui.tree.TreeUtil;
+import consulo.awt.TargetAWT;
 import consulo.ui.image.Image;
 import consulo.util.dataholder.Key;
 import icons.UIDesignerIcons;
@@ -398,7 +399,7 @@ public final class ComponentTree extends Tree implements DataProvider
 		myBindingAttributes = new SimpleTextAttributes(SimpleTextAttributes.STYLE_BOLD, UIUtil.getTreeForeground());
 		myClassAttributes = new SimpleTextAttributes(SimpleTextAttributes.STYLE_PLAIN, UIUtil.getTreeForeground());
 		myPackageAttributes = new SimpleTextAttributes(SimpleTextAttributes.STYLE_PLAIN, Color.GRAY);
-		myTitleAttributes = new SimpleTextAttributes(SimpleTextAttributes.STYLE_PLAIN, attributes.getForegroundColor());
+		myTitleAttributes = new SimpleTextAttributes(SimpleTextAttributes.STYLE_PLAIN, TargetAWT.to(attributes.getForegroundColor()));
 		myUnknownAttributes = new SimpleTextAttributes(SimpleTextAttributes.STYLE_WAVED, Color.RED);
 	}
 

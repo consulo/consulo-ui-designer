@@ -55,6 +55,7 @@ import com.intellij.uiDesigner.radComponents.LayoutManagerRegistry;
 import com.intellij.uiDesigner.radComponents.RadComponentFactory;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import com.intellij.util.IncorrectOperationException;
+import consulo.awt.TargetAWT;
 import icons.UIDesignerIcons;
 import org.jetbrains.annotations.NonNls;
 import javax.annotation.Nonnull;
@@ -346,7 +347,7 @@ public class CreateSnapShotAction extends AnAction {
       final EditorColorsScheme globalScheme = EditorColorsManager.getInstance().getGlobalScheme();
       final TextAttributes attributes = globalScheme.getAttributes(JavaHighlightingColors.STRING);
       final SimpleTextAttributes titleAttributes =
-        new SimpleTextAttributes(SimpleTextAttributes.STYLE_PLAIN, attributes.getForegroundColor());
+        new SimpleTextAttributes(SimpleTextAttributes.STYLE_PLAIN, TargetAWT.to(attributes.getForegroundColor()));
 
       myComponentTree.setCellRenderer(new ColoredTreeCellRenderer() {
         public void customizeCellRenderer(JTree tree, Object value, boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {

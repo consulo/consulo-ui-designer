@@ -38,6 +38,8 @@ import com.intellij.util.Alarm;
 import com.intellij.util.ArrayUtil;
 import com.intellij.util.NotNullProducer;
 import com.intellij.util.ui.UIUtil;
+import consulo.awt.TargetAWT;
+import consulo.ui.color.ColorValue;
 import consulo.util.dataholder.Key;
 
 import javax.annotation.Nonnull;
@@ -123,8 +125,8 @@ public class GridCaptionPanel extends JPanel implements ComponentSelectionListen
 			@Override
 			public Color produce()
 			{
-				Color color = EditorColorsManager.getInstance().getGlobalScheme().getColor(EditorColors.GUTTER_BACKGROUND);
-				return color == null ? UIUtil.getPanelBackground() : color;
+				ColorValue color = EditorColorsManager.getInstance().getGlobalScheme().getColor(EditorColors.GUTTER_BACKGROUND);
+				return color == null ? UIUtil.getPanelBackground() : TargetAWT.to(color);
 			}
 		});
 	}

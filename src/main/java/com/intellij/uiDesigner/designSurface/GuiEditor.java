@@ -42,6 +42,7 @@ import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogBuilder;
 import com.intellij.openapi.ui.ThreeComponentsSplitter;
+import consulo.awt.TargetAWT;
 import consulo.disposer.Disposer;
 import com.intellij.openapi.util.Ref;
 import com.intellij.openapi.util.registry.Registry;
@@ -364,7 +365,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 			@Override
 			public Color produce()
 			{
-				return EditorColorsManager.getInstance().getGlobalScheme().getDefaultBackground();
+				return TargetAWT.to(EditorColorsManager.getInstance().getGlobalScheme().getDefaultBackground());
 			}
 		}));
 		panel.add(myScrollPane, gbc);
