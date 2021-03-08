@@ -15,24 +15,6 @@
  */
 package com.intellij.uiDesigner;
 
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-import javax.swing.JComponent;
-import javax.swing.SwingUtilities;
-
-import javax.annotation.Nullable;
 import com.intellij.lang.properties.PropertiesReferenceManager;
 import com.intellij.lang.properties.psi.PropertiesFile;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
@@ -46,13 +28,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.ui.popup.JBPopup;
 import com.intellij.openapi.util.Ref;
-import com.intellij.psi.JavaDirectoryService;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiElementFactory;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiMethod;
+import com.intellij.psi.*;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.ui.awt.RelativePoint;
 import com.intellij.uiDesigner.compiler.AsmCodeGenerator;
@@ -63,13 +39,7 @@ import com.intellij.uiDesigner.designSurface.DraggedComponentList;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.designSurface.Painter;
 import com.intellij.uiDesigner.editor.UIFormEditor;
-import com.intellij.uiDesigner.lw.IButtonGroup;
-import com.intellij.uiDesigner.lw.IComponent;
-import com.intellij.uiDesigner.lw.IContainer;
-import com.intellij.uiDesigner.lw.IProperty;
-import com.intellij.uiDesigner.lw.IRootContainer;
-import com.intellij.uiDesigner.lw.ITabbedPane;
-import com.intellij.uiDesigner.lw.StringDescriptor;
+import com.intellij.uiDesigner.lw.*;
 import com.intellij.uiDesigner.palette.ComponentItem;
 import com.intellij.uiDesigner.palette.Palette;
 import com.intellij.uiDesigner.propertyInspector.DesignerToolWindowManager;
@@ -81,8 +51,15 @@ import com.intellij.uiDesigner.radComponents.RadContainer;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
 import com.intellij.util.ArrayUtil;
 import com.intellij.util.IncorrectOperationException;
-import com.intellij.util.containers.HashSet;
 import consulo.psi.PsiPackage;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.*;
 
 /**
  * @author Anton Katilin

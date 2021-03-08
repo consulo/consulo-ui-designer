@@ -16,16 +16,6 @@
 
 package com.intellij.uiDesigner.make;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Set;
-
-import org.jetbrains.annotations.NonNls;
-import consulo.internal.org.objectweb.asm.ClassWriter;
-import consulo.internal.org.objectweb.asm.MethodVisitor;
-import consulo.internal.org.objectweb.asm.Opcodes;
 import com.intellij.compiler.PsiClassWriter;
 import com.intellij.compiler.instrumentation.InstrumentationClassFinder;
 import com.intellij.openapi.module.Module;
@@ -35,7 +25,17 @@ import com.intellij.uiDesigner.compiler.CodeGenerationException;
 import com.intellij.uiDesigner.compiler.FormErrorInfo;
 import com.intellij.uiDesigner.lw.LwRootContainer;
 import com.intellij.util.ArrayUtil;
-import com.intellij.util.containers.HashSet;
+import consulo.internal.org.objectweb.asm.ClassWriter;
+import consulo.internal.org.objectweb.asm.MethodVisitor;
+import consulo.internal.org.objectweb.asm.Opcodes;
+import org.jetbrains.annotations.NonNls;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author yole

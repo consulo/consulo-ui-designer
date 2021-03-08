@@ -34,15 +34,15 @@ import com.intellij.uiDesigner.propertyInspector.renderers.IconRenderer;
 import com.intellij.uiDesigner.propertyInspector.renderers.LabelPropertyRenderer;
 import com.intellij.uiDesigner.propertyInspector.renderers.StringRenderer;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
-import com.intellij.util.containers.HashMap;
 import org.jetbrains.annotations.NonNls;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import javax.swing.*;
 import javax.swing.plaf.TabbedPaneUI;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
 
 /**
  * @author Anton Katilin

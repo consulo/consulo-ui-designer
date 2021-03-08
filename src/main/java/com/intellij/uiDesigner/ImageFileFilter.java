@@ -27,7 +27,7 @@ import com.intellij.openapi.module.Module;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.util.containers.HashSet;
+import java.util.HashSet;
 
 /**
  * @author yole

@@ -60,7 +60,7 @@ import com.intellij.uiDesigner.make.CopyResourcesUtil;
 import com.intellij.uiDesigner.make.Form2ByteCodeCompiler;
 import com.intellij.uiDesigner.make.PreviewNestedFormLoader;
 import com.intellij.util.PathsList;
-import com.intellij.util.containers.HashSet;
+import java.util.HashSet;
 import consulo.container.boot.ContainerPathManager;
 import consulo.java.execution.configurations.OwnJavaParameters;
 import consulo.ui.image.Image;
