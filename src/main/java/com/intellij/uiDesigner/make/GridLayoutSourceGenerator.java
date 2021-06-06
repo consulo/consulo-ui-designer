@@ -15,11 +15,12 @@
  */
 package com.intellij.uiDesigner.make;
 
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.lw.LwComponent;
 import com.intellij.uiDesigner.lw.LwContainer;
-import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.core.GridConstraints;
-import gnu.trove.TIntObjectHashMap;
+import consulo.util.collection.primitive.ints.IntMaps;
+import consulo.util.collection.primitive.ints.IntObjectMap;
 import org.jetbrains.annotations.NonNls;
 
 import java.lang.reflect.Field;
@@ -29,8 +30,8 @@ import java.lang.reflect.Modifier;
  * @author yole
  */
 public class GridLayoutSourceGenerator extends LayoutSourceGenerator {
-  private static final TIntObjectHashMap<String> myAnchors = fillMap(GridConstraints.class, "ANCHOR_");
-  private static final TIntObjectHashMap<String> myFills = fillMap(GridConstraints.class, "FILL_");
+  private static final IntObjectMap<String> myAnchors = fillMap(GridConstraints.class, "ANCHOR_");
+  private static final IntObjectMap<String> myFills = fillMap(GridConstraints.class, "FILL_");
 
   public static final GridLayoutSourceGenerator INSTANCE = new GridLayoutSourceGenerator();
 
@@ -148,8 +149,8 @@ public class GridLayoutSourceGenerator extends LayoutSourceGenerator {
     generator.pushVar(presentation);
   }
 
-  private static TIntObjectHashMap<String> fillMap(final Class<GridConstraints> aClass, @NonNls final String prefix) {
-    final TIntObjectHashMap<String> map = new TIntObjectHashMap<String>();
+  private static IntObjectMap<String> fillMap(final Class<GridConstraints> aClass, @NonNls final String prefix) {
+    final IntObjectMap<String> map = IntMaps.newIntObjectHashMap();
 
     final Field[] fields = aClass.getFields();
     for (final Field field : fields) {

@@ -18,16 +18,16 @@ package com.intellij.uiDesigner.make;
 
 import com.intellij.uiDesigner.lw.LwComponent;
 import com.intellij.uiDesigner.lw.LwContainer;
-import gnu.trove.TIntObjectHashMap;
-import org.jetbrains.annotations.NonNls;
+import consulo.util.collection.primitive.ints.IntMaps;
+import consulo.util.collection.primitive.ints.IntObjectMap;
 
-import java.awt.FlowLayout;
+import java.awt.*;
 
 /**
  * @author yole
  */
 public class FlowLayoutSourceGenerator extends LayoutSourceGenerator {
-  @NonNls private static final TIntObjectHashMap<String> myAlignMap = new TIntObjectHashMap<String>();
+  private static final IntObjectMap<String> myAlignMap = IntMaps.newIntObjectHashMap();
 
   static {
     myAlignMap.put(FlowLayout.CENTER, "FlowLayout.CENTER");

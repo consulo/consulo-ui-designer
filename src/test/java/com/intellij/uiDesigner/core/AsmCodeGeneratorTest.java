@@ -30,7 +30,7 @@ import com.intellij.uiDesigner.lw.LwRootContainer;
 import com.intellij.util.PathUtil;
 import com.intellij.util.ui.UIUtil;
 import consulo.internal.org.objectweb.asm.ClassWriter;
-import gnu.trove.TIntObjectHashMap;
+import consulo.util.collection.primitive.ints.IntObjectMap;
 import junit.framework.TestCase;
 
 import javax.swing.*;
@@ -66,7 +66,7 @@ public abstract class AsmCodeGeneratorTest extends TestCase
 
 		java.util.List<URL> cp = new ArrayList<URL>();
 		appendPath(cp, JBTabbedPane.class);
-		appendPath(cp, TIntObjectHashMap.class);
+		appendPath(cp, IntObjectMap.class);
 		appendPath(cp, UIUtil.class);
 		appendPath(cp, SystemInfoRt.class);
 		appendPath(cp, ApplicationManager.class);

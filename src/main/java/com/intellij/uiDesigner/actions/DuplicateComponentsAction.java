@@ -28,17 +28,18 @@ import com.intellij.uiDesigner.propertyInspector.properties.BindingProperty;
 import com.intellij.uiDesigner.propertyInspector.properties.IntroComponentProperty;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
-import gnu.trove.TIntHashSet;
+import consulo.util.collection.primitive.ints.IntSet;
+import consulo.util.collection.primitive.ints.IntSets;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.util.*;
 
 /**
  * @author yole
  */
 public class DuplicateComponentsAction extends AbstractGuiEditorAction {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.actions.DuplicateComponentsAction");
+  private static final Logger LOG = Logger.getInstance(DuplicateComponentsAction.class);
 
   public DuplicateComponentsAction() {
     super(true);
@@ -50,7 +51,7 @@ public class DuplicateComponentsAction extends AbstractGuiEditorAction {
     assert parent != null;
     List<RadComponent> duplicates = new ArrayList<RadComponent>();
     Map<RadComponent, RadComponent> duplicateMap = new HashMap<RadComponent, RadComponent>();
-    TIntHashSet insertedRows = new TIntHashSet();
+    IntSet insertedRows = IntSets.newHashSet();
     boolean incrementRow = true;
     if (selection.size() > 1 && canDuplicate(selection, false) && FormEditingUtil.getSelectionBounds(selection).width == 1) {
       incrementRow = false;

@@ -15,22 +15,6 @@
  */
 package com.intellij.uiDesigner.make;
 
-import gnu.trove.TIntObjectHashMap;
-import gnu.trove.TObjectIntHashMap;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.swing.*;
-
-import org.jetbrains.annotations.NonNls;
 import com.intellij.lang.java.lexer.JavaLexer;
 import com.intellij.openapi.application.ApplicationNamesInfo;
 import com.intellij.openapi.diagnostic.Logger;
@@ -53,28 +37,28 @@ import com.intellij.psi.impl.source.tree.JavaDocElementType;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.InheritanceUtil;
-import com.intellij.uiDesigner.ErrorAnalyzer;
-import com.intellij.uiDesigner.ErrorInfo;
-import com.intellij.uiDesigner.FormEditingUtil;
-import com.intellij.uiDesigner.GuiDesignerConfiguration;
-import com.intellij.uiDesigner.PsiPropertiesProvider;
-import com.intellij.uiDesigner.UIDesignerBundle;
-import com.intellij.uiDesigner.UIFormXmlConstants;
-import com.intellij.uiDesigner.compiler.AlienFormFileException;
-import com.intellij.uiDesigner.compiler.AsmCodeGenerator;
-import com.intellij.uiDesigner.compiler.ClassToBindNotFoundException;
-import com.intellij.uiDesigner.compiler.CodeGenerationException;
-import com.intellij.uiDesigner.compiler.FormErrorInfo;
-import com.intellij.uiDesigner.compiler.Utils;
+import com.intellij.uiDesigner.*;
+import com.intellij.uiDesigner.compiler.*;
 import com.intellij.uiDesigner.core.SupportCode;
 import com.intellij.uiDesigner.lw.*;
 import com.intellij.uiDesigner.shared.BorderType;
 import com.intellij.util.IncorrectOperationException;
 import com.intellij.util.ui.JBUI;
+import consulo.util.collection.primitive.ints.IntMaps;
+import consulo.util.collection.primitive.ints.IntObjectMap;
+import consulo.util.collection.primitive.objects.ObjectIntMap;
+import consulo.util.collection.primitive.objects.ObjectMaps;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.*;
+import java.awt.*;
+import java.util.*;
 
 public final class FormSourceCodeGenerator
 {
-	private static final Logger LOG = Logger.getInstance("com.intellij.uiDesigner.make.FormSourceCodeGenerator");
+	private static final Logger LOG = Logger.getInstance(FormSourceCodeGenerator.class);
 
 	@NonNls
 	private StringBuffer myBuffer;
@@ -85,16 +69,11 @@ public final class FormSourceCodeGenerator
 	private boolean myNeedLoadLabelText;
 	private boolean myNeedLoadButtonText;
 
-	private static final Map<Class, LayoutSourceGenerator> ourComponentLayoutCodeGenerators = new HashMap<Class,
-			LayoutSourceGenerator>();
-	private static final Map<String, LayoutSourceGenerator> ourContainerLayoutCodeGenerators = new HashMap<String,
-			LayoutSourceGenerator>();
-	@NonNls
-	private static final TIntObjectHashMap<String> ourFontStyleMap = new TIntObjectHashMap<String>();
-	@NonNls
-	private static final TIntObjectHashMap<String> ourTitleJustificationMap = new TIntObjectHashMap<String>();
-	@NonNls
-	private static final TIntObjectHashMap<String> ourTitlePositionMap = new TIntObjectHashMap<String>();
+	private static final Map<Class, LayoutSourceGenerator> ourComponentLayoutCodeGenerators = new HashMap<>();
+	private static final Map<String, LayoutSourceGenerator> ourContainerLayoutCodeGenerators = new HashMap<>();
+	private static final IntObjectMap<String> ourFontStyleMap = IntMaps.newIntObjectHashMap();
+	private static final IntObjectMap<String> ourTitleJustificationMap = IntMaps.newIntObjectHashMap();
+	private static final IntObjectMap<String> ourTitlePositionMap = IntMaps.newIntObjectHashMap();
 
 	private static final ElementPattern ourSuperCallPattern = PsiJavaPatterns.psiExpressionStatement().withFirstChild
 			(PlatformPatterns.psiElement(PsiMethodCallExpression.class).withFirstChild(PlatformPatterns.psiElement()
@@ -131,7 +110,7 @@ public final class FormSourceCodeGenerator
 	public FormSourceCodeGenerator(@Nonnull final Project project)
 	{
 		myProject = project;
-		myErrors = new ArrayList<FormErrorInfo>();
+		myErrors = new ArrayList<>();
 		myConfiguration = GuiDesignerConfiguration.getInstance(project);
 	}
 
@@ -237,11 +216,11 @@ public final class FormSourceCodeGenerator
 			final Module module) throws CodeGenerationException, IncorrectOperationException
 	{
 		myBuffer = new StringBuffer();
-		myIsFirstParameterStack = new Stack<Boolean>();
+		myIsFirstParameterStack = new Stack<>();
 
-		final HashMap<LwComponent, String> component2variable = new HashMap<LwComponent, String>();
-		final TObjectIntHashMap<String> class2variableIndex = new TObjectIntHashMap<String>();
-		final HashMap<String, LwComponent> id2component = new HashMap<String, LwComponent>();
+		final HashMap<LwComponent, String> component2variable = new HashMap<>();
+		final ObjectIntMap<String> class2variableIndex = ObjectMaps.newObjectIntHashMap();
+		final HashMap<String, LwComponent> id2component = new HashMap<>();
 
 		if(rootContainer.getComponentCount() != 1)
 		{
@@ -378,7 +357,7 @@ public final class FormSourceCodeGenerator
 		final PsiClass classToBind = constructor.getContainingClass();
 		final PsiStatement[] statements = psiCodeBlock.getStatements();
 		PsiElement anchor = psiCodeBlock.getRBrace();
-		Ref<Boolean> callsThisConstructor = new Ref<Boolean>(Boolean.FALSE);
+		Ref<Boolean> callsThisConstructor = new Ref<>(Boolean.FALSE);
 		for(PsiStatement statement : statements)
 		{
 			if(containsMethodIdentifier(statement, setupUIMethod))
@@ -413,7 +392,7 @@ public final class FormSourceCodeGenerator
 			final LwRootContainer rootContainer,
 			@Nullable final Ref<Boolean> callsThisConstructor)
 	{
-		final Ref<Boolean> result = new Ref<Boolean>(Boolean.FALSE);
+		final Ref<Boolean> result = new Ref<>(Boolean.FALSE);
 		element.accept(new JavaRecursiveElementWalkingVisitor()
 		{
 			@Override
@@ -626,7 +605,7 @@ public final class FormSourceCodeGenerator
 
 	private void generateSetupCodeForComponent(final LwComponent component,
 			final HashMap<LwComponent, String> component2TempVariable,
-			final TObjectIntHashMap<String> class2variableIndex,
+			final ObjectIntMap<String> class2variableIndex,
 			final HashMap<String, LwComponent> id2component,
 			final Module module,
 			final PsiClass aClass) throws CodeGenerationException
@@ -679,7 +658,7 @@ public final class FormSourceCodeGenerator
 		final LwIntrospectedProperty[] introspectedProperties = component.getAssignedIntrospectedProperties();
 
 		// see SCR #35990
-		Arrays.sort(introspectedProperties, new Comparator<LwIntrospectedProperty>()
+		Arrays.sort(introspectedProperties, new Comparator<>()
 		{
 			public int compare(LwIntrospectedProperty p1, LwIntrospectedProperty p2)
 			{
@@ -916,7 +895,7 @@ public final class FormSourceCodeGenerator
 	}
 
 	private void generateListModelProperty(final LwIntrospectedProperty property,
-			final TObjectIntHashMap<String> class2variableIndex,
+			final ObjectIntMap<String> class2variableIndex,
 			final PsiClass aClass,
 			final Object value,
 			final String variable)
@@ -1092,7 +1071,7 @@ public final class FormSourceCodeGenerator
 
 	private void generateComponentReferenceProperties(final LwComponent component,
 			final HashMap<LwComponent, String> component2variable,
-			final TObjectIntHashMap<String> class2variableIndex,
+			final ObjectIntMap<String> class2variableIndex,
 			final HashMap<String, LwComponent> id2component,
 			final PsiClass aClass)
 	{
@@ -1130,7 +1109,7 @@ public final class FormSourceCodeGenerator
 
 	private void generateButtonGroups(final LwRootContainer rootContainer,
 			final HashMap<LwComponent, String> component2variable,
-			final TObjectIntHashMap<String> class2variableIndex,
+			final ObjectIntMap<String> class2variableIndex,
 			final HashMap<String, LwComponent> id2component,
 			final PsiClass aClass)
 	{
@@ -1306,7 +1285,7 @@ public final class FormSourceCodeGenerator
 	 */
 	private static String getVariable(final LwComponent component,
 			final HashMap<LwComponent, String> component2variable,
-			final TObjectIntHashMap<String> class2variableIndex,
+			final ObjectIntMap<String> class2variableIndex,
 			final PsiClass aClass)
 	{
 		if(component2variable.containsKey(component))
@@ -1329,7 +1308,7 @@ public final class FormSourceCodeGenerator
 	}
 
 	private static String generateUniqueVariableName(@NonNls final String className,
-			final TObjectIntHashMap<String> class2variableIndex,
+			final ObjectIntMap<String> class2variableIndex,
 			final PsiClass aClass)
 	{
 		final String shortName;
@@ -1352,13 +1331,13 @@ public final class FormSourceCodeGenerator
 
 		if(!class2variableIndex.containsKey(className))
 		{
-			class2variableIndex.put(className, 0);
+			class2variableIndex.putInt(className, 0);
 		}
 		String result;
 		do
 		{
-			class2variableIndex.increment(className);
-			int newIndex = class2variableIndex.get(className);
+			class2variableIndex.putInt(className, class2variableIndex.getInt(className) + 1);
+			int newIndex = class2variableIndex.getInt(className);
 
 			result = Character.toLowerCase(shortName.charAt(0)) + shortName.substring(1) + newIndex;
 		}
@@ -1511,7 +1490,7 @@ public final class FormSourceCodeGenerator
 		myBuffer.append(value);
 	}
 
-	void push(final int value, final TIntObjectHashMap map)
+	void push(final int value, final IntObjectMap<?> map)
 	{
 		final String stringRepresentation = (String) map.get(value);
 		if(stringRepresentation != null)

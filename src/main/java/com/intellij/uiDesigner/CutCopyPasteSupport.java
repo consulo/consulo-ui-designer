@@ -15,24 +15,6 @@
  */
 package com.intellij.uiDesigner;
 
-import gnu.trove.TIntArrayList;
-
-import java.awt.Point;
-import java.awt.datatransfer.DataFlavor;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.input.SAXBuilder;
-import org.jetbrains.annotations.NonNls;
-
-import javax.annotation.Nullable;
 import com.intellij.ide.CopyProvider;
 import com.intellij.ide.CutProvider;
 import com.intellij.ide.PasteProvider;
@@ -46,6 +28,21 @@ import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.lw.LwComponent;
 import com.intellij.uiDesigner.lw.LwContainer;
 import com.intellij.uiDesigner.radComponents.RadComponent;
+import consulo.util.collection.primitive.ints.IntList;
+import consulo.util.collection.primitive.ints.IntLists;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.input.SAXBuilder;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Anton Katilin
@@ -156,8 +153,8 @@ public final class CutCopyPasteSupport implements CopyProvider, CutProvider, Pas
 		}
 
 		final ArrayList<RadComponent> componentsToPaste = new ArrayList<RadComponent>();
-		final TIntArrayList xs = new TIntArrayList();
-		final TIntArrayList ys = new TIntArrayList();
+		final IntList xs = IntLists.newArrayList();
+		final IntList ys = IntLists.newArrayList();
 		loadComponentsToPaste(myEditor, serializedComponents, xs, ys, componentsToPaste);
 
 		myEditor.getMainProcessor().startPasteProcessor(componentsToPaste, xs, ys);
@@ -167,8 +164,8 @@ public final class CutCopyPasteSupport implements CopyProvider, CutProvider, Pas
 	private static ArrayList<RadComponent> deserializeComponents(final GuiEditor editor, final String serializedComponents)
 	{
 		ArrayList<RadComponent> components = new ArrayList<RadComponent>();
-		TIntArrayList xs = new TIntArrayList();
-		TIntArrayList ys = new TIntArrayList();
+		IntList xs = IntLists.newArrayList();
+		IntList ys = IntLists.newArrayList();
 		if(!loadComponentsToPaste(editor, serializedComponents, xs, ys, components))
 		{
 			return null;
@@ -179,8 +176,8 @@ public final class CutCopyPasteSupport implements CopyProvider, CutProvider, Pas
 	private static boolean loadComponentsToPaste(
 			final GuiEditor editor,
 			final String serializedComponents,
-			final TIntArrayList xs,
-			final TIntArrayList ys,
+			final IntList xs,
+			final IntList ys,
 			final ArrayList<RadComponent> componentsToPaste)
 	{
 		final PsiPropertiesProvider provider = new PsiPropertiesProvider(editor.getModule());

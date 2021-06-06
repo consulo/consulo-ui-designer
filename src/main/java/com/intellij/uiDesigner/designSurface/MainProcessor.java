@@ -15,26 +15,8 @@
  */
 package com.intellij.uiDesigner.designSurface;
 
-import gnu.trove.TIntArrayList;
-
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.Point;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-
-import javax.swing.JComponent;
-import javax.swing.SwingUtilities;
-
-import javax.annotation.Nonnull;
 import com.intellij.ide.palette.impl.PaletteToolWindowManager;
-import com.intellij.openapi.actionSystem.ActionGroup;
-import com.intellij.openapi.actionSystem.ActionManager;
-import com.intellij.openapi.actionSystem.ActionPlaces;
-import com.intellij.openapi.actionSystem.ActionPopupMenu;
-import com.intellij.openapi.actionSystem.IdeActions;
+import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.palette.ComponentItem;
@@ -42,6 +24,15 @@ import com.intellij.uiDesigner.propertyInspector.InplaceContext;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
 import com.intellij.util.ui.UIUtil;
+import consulo.util.collection.primitive.ints.IntList;
+
+import javax.annotation.Nonnull;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 /**
  * @author Anton Katilin
@@ -416,7 +407,7 @@ public final class MainProcessor extends EventProcessor
 		myInsertFeedbackEnabled = enabled;
 	}
 
-	public void startPasteProcessor(final ArrayList<RadComponent> componentsToPaste, final TIntArrayList xs, final TIntArrayList ys)
+	public void startPasteProcessor(final ArrayList<RadComponent> componentsToPaste, final IntList xs, final IntList ys)
 	{
 		removeDragger();
 		myEditor.hideIntentionHint();

@@ -15,33 +15,6 @@
  */
 package com.intellij.uiDesigner.propertyInspector.editors.string;
 
-import gnu.trove.TObjectIntHashMap;
-
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FontMetrics;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JComponent;
-import javax.swing.JTable;
-import javax.swing.KeyStroke;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
-
-import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import com.intellij.ide.DataManager;
 import com.intellij.lang.properties.IProperty;
 import com.intellij.lang.properties.psi.PropertiesFile;
@@ -58,6 +31,25 @@ import com.intellij.ui.table.JBTable;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.lw.StringDescriptor;
+import consulo.util.collection.primitive.objects.ObjectIntMap;
+import consulo.util.collection.primitive.objects.ObjectMaps;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * @author Anton Katilin
@@ -283,7 +275,7 @@ public final class KeyChooserDialog extends DialogWrapper{
   }
 
   private class MySpeedSearch extends SpeedSearchBase<JTable> {
-    private TObjectIntHashMap<Object> myElements;
+    private ObjectIntMap<Object> myElements;
     private Object[] myElementsArray;
 
     public MySpeedSearch(final JTable component) {
@@ -301,11 +293,11 @@ public final class KeyChooserDialog extends DialogWrapper{
 
     public Object[] getAllElements() {
       if (myElements == null) {
-        myElements = new TObjectIntHashMap<Object>();
+        myElements = ObjectMaps.newObjectIntHashMap();
         myElementsArray = myPairs.toArray();
         for (int idx = 0; idx < myElementsArray.length; idx++) {
           Object element = myElementsArray[idx];
-          myElements.put(element, idx);
+          myElements.putInt(element, idx);
         }
       }
       return myElementsArray;
@@ -317,7 +309,7 @@ public final class KeyChooserDialog extends DialogWrapper{
     }
 
     public void selectElement(final Object element, final String selectedText) {
-      final int index = myElements.get(element);
+      final int index = myElements.getInt(element);
       selectElementAt(getComponent().convertRowIndexToView(index));
     }
   }

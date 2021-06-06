@@ -19,7 +19,8 @@ import com.intellij.uiDesigner.compiler.GridBagConverter;
 import com.intellij.uiDesigner.core.Spacer;
 import com.intellij.uiDesigner.lw.LwComponent;
 import com.intellij.uiDesigner.lw.LwContainer;
-import gnu.trove.TIntObjectHashMap;
+import consulo.util.collection.primitive.ints.IntMaps;
+import consulo.util.collection.primitive.ints.IntObjectMap;
 import org.jetbrains.annotations.NonNls;
 
 import javax.swing.*;
@@ -30,8 +31,8 @@ import java.awt.*;
  */
 public class GridBagLayoutSourceGenerator extends LayoutSourceGenerator {
   private boolean myHaveGbc = false;
-  @NonNls private static final TIntObjectHashMap<String> myFillMap = new TIntObjectHashMap<String>();
-  @NonNls private static final TIntObjectHashMap<String> myAnchorMap = new TIntObjectHashMap<String>();
+  @NonNls private static final IntObjectMap<String> myFillMap = IntMaps.newIntObjectHashMap();
+  @NonNls private static final IntObjectMap<String> myAnchorMap = IntMaps.newIntObjectHashMap();
 
   static {
     myFillMap.put(GridBagConstraints.HORIZONTAL, "java.awt.GridBagConstraints.HORIZONTAL");
@@ -149,7 +150,7 @@ public class GridBagLayoutSourceGenerator extends LayoutSourceGenerator {
   }
 
   private static void setIntField(final FormSourceCodeGenerator generator, @NonNls final String fieldName, final int value,
-                                  final TIntObjectHashMap<String> map) {
+                                  final IntObjectMap<String> map) {
     generator.append("gbc.");
     generator.append(fieldName);
     generator.append("=");

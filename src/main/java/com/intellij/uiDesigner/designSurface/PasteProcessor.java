@@ -24,9 +24,9 @@ import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.lw.IComponent;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
-import gnu.trove.TIntArrayList;
-import javax.annotation.Nonnull;
+import consulo.util.collection.primitive.ints.IntList;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -46,8 +46,7 @@ public class PasteProcessor extends EventProcessor {
   private final int myMinRow;
   private final int myMinCol;
 
-  public PasteProcessor(GuiEditor editor, final ArrayList<RadComponent> componentsToPaste,
-                        final TIntArrayList xs, final TIntArrayList ys) {
+  public PasteProcessor(GuiEditor editor, final ArrayList<RadComponent> componentsToPaste, final IntList xs, final IntList ys) {
     myEditor = editor;
     myComponentsToPaste = componentsToPaste;
     myGridInsertProcessor = new GridInsertProcessor(editor);
