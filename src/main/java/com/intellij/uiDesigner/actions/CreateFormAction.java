@@ -18,6 +18,7 @@ package com.intellij.uiDesigner.actions;
 
 import com.intellij.icons.AllIcons;
 import com.intellij.ide.actions.TemplateKindCombo;
+import com.intellij.openapi.application.WriteAction;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
@@ -30,7 +31,6 @@ import com.intellij.uiDesigner.radComponents.LayoutManagerRegistry;
 import com.intellij.util.IncorrectOperationException;
 import com.intellij.util.PlatformIcons;
 import consulo.ui.annotation.RequiredUIAccess;
-import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nonnull;
 import javax.swing.*;
@@ -84,10 +84,10 @@ public class CreateFormAction extends AbstractCreateFormAction
 
 			final String formBody = createFormBody(fqClassName, "/com/intellij/uiDesigner/NewForm.xml",
 					myLastLayoutManager);
-			@NonNls final String fileName = newName + ".form";
+			final String fileName = newName + ".form";
 			final PsiFile formFile = PsiFileFactory.getInstance(directory.getProject())
 					.createFileFromText(fileName, GuiFormFileType.INSTANCE, formBody);
-			createdFile = directory.add(formFile);
+			createdFile = WriteAction.compute(() -> directory.add(formFile));
 
 			if(myLastClassName != null)
 			{

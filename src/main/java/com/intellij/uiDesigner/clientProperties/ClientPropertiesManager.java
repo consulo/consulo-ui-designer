@@ -22,13 +22,12 @@ import com.intellij.openapi.util.AtomicNotNullLazyValue;
 import com.intellij.openapi.util.JDOMUtil;
 import com.intellij.openapi.util.NotNullLazyValue;
 import com.intellij.uiDesigner.LoaderFactory;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import org.jdom.Element;
-import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
 import java.util.*;
 
 @Singleton
@@ -37,23 +36,17 @@ public class ClientPropertiesManager implements PersistentStateComponent<Element
 {
 	private static final Logger LOG = Logger.getInstance(ClientPropertiesManager.class);
 
-	@NonNls
 	private static final String ELEMENT_PROPERTIES = "properties";
-	@NonNls
 	private static final String ELEMENT_PROPERTY = "property";
-	@NonNls
 	private static final String ATTRIBUTE_CLASS = "class";
-	@NonNls
 	private static final String ATTRIBUTE_NAME = "name";
-	@NonNls
-	private static final String COMPONENT_NAME = "ClientPropertiesManager";
 
 	public static ClientPropertiesManager getInstance(@Nonnull Project project)
 	{
 		return ServiceManager.getService(project, ClientPropertiesManager.class);
 	}
 
-	private static final NotNullLazyValue<ClientPropertiesManager> ourDefaultManager = new AtomicNotNullLazyValue<ClientPropertiesManager>()
+	private static final NotNullLazyValue<ClientPropertiesManager> ourDefaultManager = new AtomicNotNullLazyValue<>()
 	{
 		@Nonnull
 		@Override
@@ -62,7 +55,7 @@ public class ClientPropertiesManager implements PersistentStateComponent<Element
 			ClientPropertiesManager result = new ClientPropertiesManager();
 			try
 			{
-				result.loadState(JDOMUtil.load(ClientPropertiesManager.class.getResourceAsStream("/" + COMPONENT_NAME + ".xml")));
+				result.loadState(JDOMUtil.load(ClientPropertiesManager.class.getResourceAsStream("/defaultState/ClientPropertiesManager.xml")));
 			}
 			catch(Exception e)
 			{
