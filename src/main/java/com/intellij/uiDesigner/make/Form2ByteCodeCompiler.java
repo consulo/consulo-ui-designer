@@ -15,33 +15,12 @@
  */
 package com.intellij.uiDesigner.make;
 
-import java.io.DataInput;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
-import java.util.StringTokenizer;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import consulo.internal.org.objectweb.asm.ClassWriter;
 import com.intellij.compiler.impl.CompilerUtil;
 import com.intellij.compiler.impl.ModuleChunk;
 import com.intellij.compiler.instrumentation.InstrumentationClassFinder;
 import com.intellij.compiler.instrumentation.InstrumenterClassWriter;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.compiler.ClassInstrumentingCompiler;
-import com.intellij.openapi.compiler.CompileContext;
-import com.intellij.openapi.compiler.CompileScope;
-import com.intellij.openapi.compiler.CompilerManager;
-import com.intellij.openapi.compiler.CompilerMessageCategory;
-import com.intellij.openapi.compiler.TimestampValidityState;
-import com.intellij.openapi.compiler.ValidityState;
+import com.intellij.openapi.compiler.*;
 import com.intellij.openapi.compiler.ex.CompileContextEx;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.Document;
@@ -52,6 +31,7 @@ import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.projectRoots.JavaSdk;
 import com.intellij.openapi.projectRoots.JavaSdkVersion;
+import com.intellij.openapi.projectRoots.JavaSdkVersionUtil;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.roots.impl.DirectoryIndex;
 import com.intellij.openapi.util.Computable;
@@ -73,10 +53,21 @@ import com.intellij.uiDesigner.lw.LwRootContainer;
 import com.intellij.util.Chunk;
 import com.intellij.util.ExceptionUtil;
 import consulo.compiler.roots.CompilerPathsImpl;
+import consulo.internal.org.objectweb.asm.ClassWriter;
 import consulo.java.compiler.JavaCompilerUtil;
 import consulo.java.module.extension.JavaModuleExtension;
 import consulo.roots.impl.ProductionContentFolderTypeProvider;
 import consulo.roots.impl.TestContentFolderTypeProvider;
+import consulo.util.collection.ArrayUtil;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.io.DataInput;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.*;
 
 public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 {
@@ -123,7 +114,20 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 		Set<VirtualFile> compilationBootClasspath = JavaCompilerUtil.getCompilationBootClasspath(context, moduleChunk);
 		Set<VirtualFile> compilationClasspath = JavaCompilerUtil.getCompilationClasspath(context, moduleChunk);
 
-		return new InstrumentationClassFinder(toUrls(compilationBootClasspath), toUrls(compilationClasspath));
+		URL[] platformUrls = toUrls(compilationBootClasspath);
+
+		Sdk sdk = ModuleUtilCore.getSdk(module, JavaModuleExtension.class);
+		if(sdk != null && JavaSdkVersionUtil.getJavaSdkVersion(sdk).isAtLeast(JavaSdkVersion.JDK_1_9))
+		{
+			try
+			{
+				platformUrls = ArrayUtil.append(platformUrls, InstrumentationClassFinder.createJDKPlatformUrl(sdk.getHomePath()));
+			}
+			catch (MalformedURLException ignored)
+			{
+			}
+		}
+		return new InstrumentationClassFinder(platformUrls, toUrls(compilationClasspath));
 	}
 
 	@Nonnull
