@@ -29,7 +29,7 @@ import com.intellij.ide.highlighter.JavaHighlightingColors;
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.editor.colors.EditorColorsManager;
 import com.intellij.openapi.editor.colors.EditorColorsScheme;
 import com.intellij.openapi.editor.markup.TextAttributes;
@@ -77,7 +77,7 @@ import java.util.TreeSet;
  * @author yole
  */
 public class CreateSnapShotAction extends AnAction {
-  private static final Logger LOG = Logger.getInstance("com.intellij.uiDesigner.snapShooter.CreateSnapShotAction");
+  private static final Logger LOG = Logger.getInstance(CreateSnapShotAction.class);
 
   @Override
   public void update(AnActionEvent e) {

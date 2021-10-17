@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.radComponents;
 
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.uiDesigner.ModuleProvider;
 import com.intellij.uiDesigner.XmlWriter;
 import org.jdom.Element;

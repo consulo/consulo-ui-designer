@@ -17,7 +17,6 @@ package com.intellij.uiDesigner.actions;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.util.Ref;
 import com.intellij.uiDesigner.FormEditingUtil;
@@ -25,6 +24,8 @@ import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.radComponents.RadAtomicComponent;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
+import consulo.logging.Logger;
+
 import javax.annotation.Nonnull;
 
 import javax.swing.*;
@@ -36,7 +37,7 @@ import java.util.ArrayList;
  * @author Vladimir Kondratyev
  */
 abstract class AbstractMoveSelectionAction extends AnAction implements DumbAware {
-  private static final Logger LOG=Logger.getInstance("#com.intellij.uiDesigner.actions.MoveSelectionToRightAction");
+  private static final Logger LOG= Logger.getInstance("#com.intellij.uiDesigner.actions.MoveSelectionToRightAction");
 
   private final GuiEditor myEditor;
   private final boolean myExtend;

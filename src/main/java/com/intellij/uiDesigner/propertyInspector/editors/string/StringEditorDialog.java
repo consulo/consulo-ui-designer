@@ -51,7 +51,7 @@ import com.intellij.lang.properties.psi.Property;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.command.undo.UndoUtil;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.project.Project;
@@ -84,7 +84,7 @@ import com.intellij.util.Processor;
  * @author Vladimir Kondratyev
  */
 public final class StringEditorDialog extends DialogWrapper{
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.propertyInspector.editors.string.StringEditorDialog");
+  private static final Logger LOG = Logger.getInstance(StringEditorDialog.class);
 
   @NonNls private static final String CARD_STRING = "string";
   @NonNls private static final String CARD_BUNDLE = "bundle";

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.propertyInspector.DesignerToolWindowManager;
 import com.intellij.uiDesigner.propertyInspector.Property;
@@ -32,7 +32,7 @@ import com.intellij.uiDesigner.radComponents.RadComponent;
  */
 public class ResetValueAction extends AbstractGuiEditorAction
 {
-	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.actions.ResetValueAction");
+	private static final Logger LOG = Logger.getInstance(ResetValueAction.class);
 
 	@Override
 	protected void actionPerformed(final GuiEditor editor, final List<RadComponent> selection, final AnActionEvent e)

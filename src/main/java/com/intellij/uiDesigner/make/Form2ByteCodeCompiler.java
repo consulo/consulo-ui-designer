@@ -22,7 +22,7 @@ import com.intellij.compiler.instrumentation.InstrumenterClassWriter;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.compiler.*;
 import com.intellij.openapi.compiler.ex.CompileContextEx;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.module.Module;
@@ -72,7 +72,7 @@ import java.util.*;
 public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 {
 	private static final String CLASS_SUFFIX = ".class";
-	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.make.Form2ByteCodeCompiler");
+	private static final Logger LOG = Logger.getInstance(Form2ByteCodeCompiler.class);
 
 	@Override
 	@Nonnull

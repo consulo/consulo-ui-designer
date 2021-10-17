@@ -17,7 +17,7 @@ package com.intellij.uiDesigner.designSurface;
 
 import com.intellij.ide.palette.impl.PaletteToolWindowManager;
 import com.intellij.openapi.actionSystem.*;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.palette.ComponentItem;
 import com.intellij.uiDesigner.propertyInspector.InplaceContext;

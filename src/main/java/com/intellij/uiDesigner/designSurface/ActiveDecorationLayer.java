@@ -15,30 +15,18 @@
  */
 package com.intellij.uiDesigner.designSurface;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.Stroke;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.JToolTip;
-import javax.swing.SwingUtilities;
-
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.ui.JBColor;
 import com.intellij.uiDesigner.SelectionWatcher;
 import com.intellij.uiDesigner.radComponents.RadComponent;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.*;
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Decoration layer is over COMPONENT_LAYER (layer where all components are located).
@@ -49,7 +37,7 @@ import com.intellij.uiDesigner.radComponents.RadComponent;
  * @author Vladimir Kondratyev
  */
 final class ActiveDecorationLayer extends JComponent implements FeedbackLayer {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.designSurface.ActiveDecorationLayer");
+  private static final Logger LOG = Logger.getInstance(ActiveDecorationLayer.class);
 
   private final GuiEditor myEditor;
   private final JToolTip myToolTip;

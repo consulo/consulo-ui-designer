@@ -25,7 +25,7 @@ import com.intellij.ide.util.treeView.NodeDescriptor;
 import com.intellij.lang.annotation.HighlightSeverity;
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.editor.colors.EditorColorsManager;
 import com.intellij.openapi.editor.colors.EditorColorsScheme;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
@@ -78,7 +78,7 @@ import java.util.*;
  */
 public final class ComponentTree extends Tree implements DataProvider
 {
-	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.componentTree.ComponentTree");
+	private static final Logger LOG = Logger.getInstance(ComponentTree.class);
 
 	public static final Key<LwInspectionSuppression[]> LW_INSPECTION_SUPPRESSION_ARRAY_DATA_KEY = Key.create(LwInspectionSuppression.class.getName());
 

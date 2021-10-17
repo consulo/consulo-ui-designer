@@ -16,13 +16,13 @@
 package com.intellij.uiDesigner.wizard;
 
 import com.intellij.ide.wizard.StepAdapter;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiType;
 import com.intellij.psi.util.PropertyUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.util.ArrayUtil;
+import consulo.logging.Logger;
 import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nonnull;
@@ -39,7 +39,7 @@ import java.util.Collections;
  * @author Vladimir Kondratyev
  */
 final class BindToExistingBeanStep extends StepAdapter{
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.wizard.BindToExistingBeanStep");
+  private static final Logger LOG = Logger.getInstance(BindToExistingBeanStep.class);
 
   private JScrollPane myScrollPane;
   private JTable myTable;

@@ -19,9 +19,9 @@ import com.intellij.ide.palette.PaletteGroup;
 import com.intellij.ide.palette.PaletteItem;
 import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.actionSystem.ActionManager;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.uiDesigner.UIDesignerBundle;
+import consulo.logging.Logger;
 import consulo.util.dataholder.Key;
 
 import javax.annotation.Nonnull;
@@ -32,7 +32,7 @@ import java.util.ArrayList;
  * @author Vladimir Kondratyev
  */
 public final class GroupItem implements Cloneable, PaletteGroup {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.palette.GroupItem");
+  private static final Logger LOG = Logger.getInstance(GroupItem.class);
 
   public static final Key<GroupItem> DATA_KEY = Key.create(GroupItem.class.getName());
 

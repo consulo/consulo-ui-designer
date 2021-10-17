@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 import com.intellij.CommonBundle;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.psi.*;
@@ -41,7 +41,7 @@ import javax.annotation.Nullable;
  * @author Vladimir Kondratyev
  */
 public final class CreateFieldFix extends QuickFix{
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.quickFixes.CreateFieldFix");
+  private static final Logger LOG = Logger.getInstance(CreateFieldFix.class);
 
   private final PsiClass myClass;
   private final String myFieldClassName;

@@ -15,7 +15,6 @@
  */
 package com.intellij.uiDesigner;
 
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.ui.JBColor;
 import com.intellij.uiDesigner.compiler.RecursiveFormNestingException;
 import com.intellij.uiDesigner.compiler.Utils;
@@ -26,6 +25,8 @@ import com.intellij.uiDesigner.propertyInspector.IntrospectedProperty;
 import com.intellij.uiDesigner.radComponents.*;
 import com.intellij.uiDesigner.shared.XYLayoutManager;
 import com.intellij.util.ui.UIUtil;
+import consulo.logging.Logger;
+
 import javax.annotation.Nonnull;
 
 import javax.swing.*;
@@ -40,7 +41,7 @@ import java.util.Map;
  * @author Vladimir Kondratyev
  */
 public final class XmlReader {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.XmlReader");
+  private static final Logger LOG = Logger.getInstance(XmlReader.class);
 
   private XmlReader() {
   }

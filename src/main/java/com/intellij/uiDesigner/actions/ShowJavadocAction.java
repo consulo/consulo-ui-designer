@@ -23,7 +23,7 @@ import com.intellij.codeInsight.documentation.DocumentationComponent;
 import com.intellij.codeInsight.documentation.DocumentationManager;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.ui.popup.JBPopup;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.psi.PsiClass;
@@ -44,7 +44,7 @@ import consulo.ui.annotation.RequiredUIAccess;
  */
 public final class ShowJavadocAction extends AnAction
 {
-	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.actions.ShowJavadocAction");
+	private static final Logger LOG = Logger.getInstance(ShowJavadocAction.class);
 
 	@RequiredUIAccess
 	@Override

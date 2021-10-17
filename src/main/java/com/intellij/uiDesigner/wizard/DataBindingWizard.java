@@ -19,7 +19,7 @@ import com.intellij.CommonBundle;
 import com.intellij.ide.wizard.AbstractWizard;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -33,7 +33,7 @@ import javax.swing.*;
  * @author Vladimir Kondratyev
  */
 public final class DataBindingWizard extends AbstractWizard{
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.wizard.DataBindingWizard");
+  private static final Logger LOG = Logger.getInstance(DataBindingWizard.class);
   private final WizardData myData;
   private final Project myProject;
   private final BeanStep myBeanStep;

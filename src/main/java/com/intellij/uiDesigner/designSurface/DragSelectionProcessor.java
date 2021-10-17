@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.designSurface;
 
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.util.ui.UIUtil;
@@ -34,7 +34,7 @@ import java.util.ArrayList;
  * @author Vladimir Kondratyev
  */
 public final class DragSelectionProcessor extends EventProcessor {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.designSurface.DragSelectionProcessor");
+  private static final Logger LOG = Logger.getInstance(DragSelectionProcessor.class);
 
   /**
    * We have not start drag/cancel drop if mouse pointer trembles in small area

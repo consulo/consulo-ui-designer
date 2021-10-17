@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner;
 
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import javax.annotation.Nullable;
 
 import java.awt.datatransfer.DataFlavor;
@@ -28,7 +28,7 @@ import java.io.IOException;
  * @author yole
  */
 public final class SimpleTransferable<T> implements Transferable {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.SimpleTransferable");
+  private static final Logger LOG = Logger.getInstance(SimpleTransferable.class);
   private static final Map<String, DataFlavor> ourDataFlavorMap = new HashMap<String, DataFlavor>();
 
   private final T myDataProxy;

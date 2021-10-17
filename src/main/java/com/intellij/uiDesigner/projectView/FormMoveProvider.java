@@ -21,7 +21,6 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
@@ -29,13 +28,14 @@ import com.intellij.psi.PsiFile;
 import com.intellij.refactoring.move.MoveHandlerDelegate;
 import com.intellij.refactoring.move.moveFilesOrDirectories.MoveFilesOrDirectoriesHandler;
 import com.intellij.uiDesigner.GuiFormFileType;
+import consulo.logging.Logger;
 
 /**
  * @author yole
  */
 public class FormMoveProvider extends MoveHandlerDelegate
 {
-	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.projectView.FormMoveProvider");
+	private static final Logger LOG = Logger.getInstance(FormMoveProvider.class);
 
 	@Override
 	public boolean canMove(DataContext dataContext)

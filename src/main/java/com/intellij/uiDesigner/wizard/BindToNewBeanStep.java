@@ -17,7 +17,7 @@ package com.intellij.uiDesigner.wizard;
 
 import com.intellij.ide.wizard.CommitStepException;
 import com.intellij.ide.wizard.StepAdapter;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiNameHelper;
 import com.intellij.uiDesigner.UIDesignerBundle;
@@ -33,7 +33,7 @@ import javax.swing.table.TableColumn;
  * @author Vladimir Kondratyev
  */
 final class BindToNewBeanStep extends StepAdapter{
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.wizard.BindToNewBeanStep");
+  private static final Logger LOG = Logger.getInstance(BindToNewBeanStep.class);
 
   private JScrollPane myScrollPane;
   private JTable myTable;

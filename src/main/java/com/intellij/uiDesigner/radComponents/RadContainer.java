@@ -15,7 +15,6 @@
  */
 package com.intellij.uiDesigner.radComponents;
 
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.util.Comparing;
 import com.intellij.uiDesigner.*;
 import com.intellij.uiDesigner.core.AbstractLayout;
@@ -29,6 +28,7 @@ import com.intellij.uiDesigner.propertyInspector.editors.string.StringEditor;
 import com.intellij.uiDesigner.shared.BorderType;
 import com.intellij.uiDesigner.shared.XYLayoutManager;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
+import consulo.logging.Logger;
 import org.jetbrains.annotations.NonNls;
 import javax.annotation.Nonnull;
 
@@ -43,7 +43,7 @@ import java.util.ArrayList;
  * @author Vladimir Kondratyev
  */
 public class RadContainer extends RadComponent implements IContainer {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.radComponents.RadContainer");
+  private static final Logger LOG = Logger.getInstance(RadContainer.class);
 
   public static class Factory extends RadComponentFactory {
     public RadComponent newInstance(ModuleProvider module, Class aClass, String id) {

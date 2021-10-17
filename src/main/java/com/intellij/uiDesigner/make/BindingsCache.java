@@ -30,7 +30,7 @@ import java.io.Serializable;
 import org.jetbrains.annotations.NonNls;
 import com.intellij.compiler.impl.StateCache;
 import com.intellij.openapi.compiler.CompilerPaths;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.project.Project;
@@ -42,7 +42,7 @@ import com.intellij.uiDesigner.lw.LwRootContainer;
 
 final class BindingsCache
 {
-	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.make.BindingsCache");
+	private static final Logger LOG = Logger.getInstance(BindingsCache.class);
 	@NonNls
 	private static final String BINDINGS_FILE_NAME = "formbinding.dat";
 	private StateCache<MyState> myCache;

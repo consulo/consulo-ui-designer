@@ -18,7 +18,6 @@ package com.intellij.uiDesigner.quickFixes;
 import com.intellij.codeInsight.daemon.DaemonCodeAnalyzer;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.ui.popup.ListPopup;
 import com.intellij.openapi.ui.popup.PopupStep;
@@ -32,6 +31,8 @@ import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.util.Alarm;
 import com.intellij.util.IJSwingUtilities;
+import consulo.logging.Logger;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -46,7 +47,7 @@ import java.util.ArrayList;
  * @author Vladimir Kondratyev
  */
 public abstract class QuickFixManager <T extends JComponent>{
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.quickFixes.QuickFixManager");
+  private static final Logger LOG = Logger.getInstance(QuickFixManager.class);
 
   private GuiEditor myEditor;
   /** Component on which hint will be shown */

@@ -21,7 +21,7 @@ import java.awt.Window;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.WindowManager;
 import com.intellij.uiDesigner.UIDesignerBundle;
@@ -31,7 +31,7 @@ import consulo.awt.TargetAWT;
  * @author yole
  */
 public class EditComponentAction extends AnAction {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.palette.EditComponentAction");
+  private static final Logger LOG = Logger.getInstance(EditComponentAction.class);
 
   public void actionPerformed(AnActionEvent e) {
     Project project = e.getData(CommonDataKeys.PROJECT);

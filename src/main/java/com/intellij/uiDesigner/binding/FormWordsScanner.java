@@ -25,14 +25,14 @@ import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.uiDesigner.compiler.AlienFormFileException;
 import com.intellij.uiDesigner.compiler.UnexpectedFormElementException;
 import com.intellij.uiDesigner.FormEditingUtil;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import org.jdom.input.JDOMParseException;
 
 /**
  * @author yole
  */
 public class FormWordsScanner extends SimpleWordsScanner {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.binding.FormWordsScanner");
+  private static final Logger LOG = Logger.getInstance(FormWordsScanner.class);
 
   @Override
   public void processWords(CharSequence fileText, final Processor<WordOccurrence> processor) {

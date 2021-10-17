@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.wizard;
 
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.fileEditor.FileEditorManager;
@@ -56,7 +56,7 @@ import java.util.HashMap;
  * @author Vladimir Kondratyev
  */
 public final class Generator {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.wizard.Generator");
+  private static final Logger LOG = Logger.getInstance(Generator.class);
 
   private Generator() {
   }

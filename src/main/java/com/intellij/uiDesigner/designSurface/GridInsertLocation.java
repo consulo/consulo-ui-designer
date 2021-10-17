@@ -16,7 +16,6 @@
 
 package com.intellij.uiDesigner.designSurface;
 
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.GridChangeUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
@@ -24,6 +23,7 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.radComponents.RadAbstractGridLayoutManager;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
+import consulo.logging.Logger;
 import org.jetbrains.annotations.NonNls;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,7 +34,7 @@ import java.awt.*;
  * @author yole
  */
 public class GridInsertLocation extends GridDropLocation {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.designSurface.GridInsertLocation");
+  private static final Logger LOG = Logger.getInstance(GridInsertLocation.class);
 
   public static final int INSERT_ARROW_SIZE = 3;
   public static final int INSERT_RECT_MIN_SIZE = 15;  // should be larger than the insets increase on Shift

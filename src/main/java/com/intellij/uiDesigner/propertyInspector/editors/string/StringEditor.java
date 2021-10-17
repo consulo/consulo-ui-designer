@@ -19,7 +19,7 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonShortcuts;
 import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.ui.DocumentAdapter;
@@ -46,7 +46,7 @@ import java.awt.event.ActionListener;
  * @author Vladimir Kondratyev
  */
 public final class StringEditor extends PropertyEditor<StringDescriptor> {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.propertyInspector.editors.string.StringEditor");
+  private static final Logger LOG = Logger.getInstance(StringEditor.class);
 
   @Nullable private IntroStringProperty myProperty;
   private final TextFieldWithBrowseButton myTfWithButton;

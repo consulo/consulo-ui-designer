@@ -17,7 +17,7 @@ package com.intellij.uiDesigner.make;
 
 import com.intellij.lang.java.lexer.JavaLexer;
 import com.intellij.openapi.application.ApplicationNamesInfo;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.module.Module;

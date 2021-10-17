@@ -37,7 +37,7 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.compiler.CompileContext;
 import com.intellij.openapi.compiler.CompileStatusNotification;
 import com.intellij.openapi.compiler.CompilerManager;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.module.Module;
@@ -79,7 +79,7 @@ import java.util.Locale;
  * @author Vladimir Kondratyev
  */
 public final class PreviewFormAction extends AnAction{
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.actions.PreviewFormAction");
+  private static final Logger LOG = Logger.getInstance(PreviewFormAction.class);
 
   /**
    * The problem is that this class is in a default package so it's not

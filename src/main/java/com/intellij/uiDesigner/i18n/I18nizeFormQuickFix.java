@@ -22,7 +22,7 @@ import com.intellij.codeInspection.i18n.JavaI18nizeQuickFixDialog;
 import com.intellij.lang.properties.psi.PropertiesFile;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ProjectFileIndex;
@@ -42,7 +42,7 @@ import java.util.Collection;
  * @author yole
  */
 public abstract class I18nizeFormQuickFix extends QuickFix {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.i18n.I18nizeFormQuickFix");
+  private static final Logger LOG = Logger.getInstance(I18nizeFormQuickFix.class);
 
   public I18nizeFormQuickFix(final GuiEditor editor, final String name, final RadComponent component) {
     super(editor, name, component);

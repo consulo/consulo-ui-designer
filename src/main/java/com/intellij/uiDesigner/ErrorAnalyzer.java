@@ -17,7 +17,7 @@ package com.intellij.uiDesigner;
 
 import com.intellij.codeHighlighting.HighlightDisplayLevel;
 import com.intellij.codeInsight.daemon.impl.SeverityRegistrar;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.extensions.Extensions;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.progress.ProgressIndicator;
@@ -50,7 +50,7 @@ import java.util.Set;
  * @author Vladimir Kondratyev
  */
 public final class ErrorAnalyzer {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.ErrorAnalyzer");
+  private static final Logger LOG = Logger.getInstance(ErrorAnalyzer.class);
 
   /**
    * Value {@link ErrorInfo}

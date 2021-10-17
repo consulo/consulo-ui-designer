@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.radComponents;
 
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.uiDesigner.ModuleProvider;
 import com.intellij.uiDesigner.UIFormXmlConstants;
 import com.intellij.uiDesigner.XmlWriter;
@@ -38,7 +38,7 @@ import java.awt.*;
  */
 public final class RadScrollPane extends RadContainer {
   public static final Class COMPONENT_CLASS = JScrollPane.class;
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.radComponents.RadScrollPane");
+  private static final Logger LOG = Logger.getInstance(RadScrollPane.class);
 
   public static class Factory extends RadComponentFactory {
     public RadComponent newInstance(ModuleProvider module, Class aClass, String id) {

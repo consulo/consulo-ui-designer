@@ -19,7 +19,6 @@ import com.intellij.ide.DataManager;
 import com.intellij.lang.properties.IProperty;
 import com.intellij.lang.properties.psi.PropertiesFile;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.util.DimensionService;
@@ -31,6 +30,7 @@ import com.intellij.ui.table.JBTable;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.lw.StringDescriptor;
+import consulo.logging.Logger;
 import consulo.util.collection.primitive.objects.ObjectIntMap;
 import consulo.util.collection.primitive.objects.ObjectMaps;
 import org.jetbrains.annotations.NonNls;
@@ -56,7 +56,7 @@ import java.util.List;
  * @author Vladimir Kondratyev
  */
 public final class KeyChooserDialog extends DialogWrapper{
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.propertyInspector.editors.string.KeyChooserDialog");
+  private static final Logger LOG = Logger.getInstance(KeyChooserDialog.class);
 
   private final PropertiesFile myBundle;
   private final String myBundleName;

@@ -17,8 +17,8 @@ package com.intellij.uiDesigner.editor;
 
 import javax.annotation.Nonnull;
 
+import consulo.logging.Logger;
 import org.jdom.Element;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.fileEditor.FileEditor;
 import com.intellij.openapi.fileEditor.FileEditorPolicy;
 import com.intellij.openapi.fileEditor.FileEditorProvider;
@@ -34,7 +34,7 @@ import com.intellij.util.ArrayUtil;
 
 public final class UIFormEditorProvider implements FileEditorProvider, DumbAware
 {
-	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.editor.UIFormEditorProvider");
+	private static final Logger LOG = Logger.getInstance(UIFormEditorProvider.class);
 
 	@Override
 	public boolean accept(@Nonnull final Project project, @Nonnull final VirtualFile file)

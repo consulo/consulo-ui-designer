@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.designSurface;
 
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
@@ -32,7 +32,7 @@ import java.awt.LayoutManager;
  * @author yole
  */
 public class GridDropLocation implements ComponentDropLocation {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.designSurface.GridDropLocation");
+  private static final Logger LOG = Logger.getInstance(GridDropLocation.class);
 
   protected final RadContainer myContainer;
   protected int myRow;

@@ -18,7 +18,6 @@ package com.intellij.uiDesigner.quickFixes;
 import com.intellij.CommonBundle;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ProjectFileIndex;
@@ -35,6 +34,8 @@ import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.lw.IComponent;
 import com.intellij.util.IncorrectOperationException;
+import consulo.logging.Logger;
+
 import javax.annotation.Nonnull;
 
 /**
@@ -42,7 +43,7 @@ import javax.annotation.Nonnull;
  * @author Vladimir Kondratyev
  */
 public final class CreateClassToBindFix extends QuickFix{
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.quickFixes.CreateClassToBindFix");
+  private static final Logger LOG = Logger.getInstance(CreateClassToBindFix.class);
 
   private final String myClassName;
 

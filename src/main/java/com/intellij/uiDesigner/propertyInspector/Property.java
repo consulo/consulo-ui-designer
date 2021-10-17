@@ -17,7 +17,8 @@ package com.intellij.uiDesigner.propertyInspector;
 
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.lw.IProperty;
-import com.intellij.uiDesigner.lw.IComponent;import com.intellij.openapi.diagnostic.Logger;
+import com.intellij.uiDesigner.lw.IComponent;
+import consulo.logging.Logger;
 import org.jetbrains.annotations.NonNls;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,7 +32,7 @@ import java.util.List;
 public abstract class Property<T extends RadComponent, V> implements IProperty {
   public static final Property[] EMPTY_ARRAY=new Property[]{};
 
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.propertyInspector.Property");
+  private static final Logger LOG = Logger.getInstance(Property.class);
 
   /**
    * Parent property

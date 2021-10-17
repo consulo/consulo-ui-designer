@@ -18,7 +18,7 @@ package com.intellij.uiDesigner.actions;
 
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.ui.popup.ListPopup;
 import com.intellij.psi.JavaPsiFacade;
@@ -53,7 +53,7 @@ import java.util.List;
  * @author yole
  */
 public class MorphAction extends AbstractGuiEditorAction {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.actions.MorphAction");
+  private static final Logger LOG = Logger.getInstance(MorphAction.class);
 
   private final ComponentItem myLastMorphComponent = null;
 

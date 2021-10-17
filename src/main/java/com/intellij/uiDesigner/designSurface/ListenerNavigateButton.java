@@ -21,7 +21,7 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.ui.popup.ListPopup;
 import com.intellij.openapi.util.Comparing;
@@ -54,7 +54,7 @@ import java.beans.Introspector;
  * @author yole
  */
 public class ListenerNavigateButton extends JButton implements ActionListener {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.designSurface.ListenerNavigateButton");
+  private static final Logger LOG = Logger.getInstance(ListenerNavigateButton.class);
 
   private final RadComponent myComponent;
 

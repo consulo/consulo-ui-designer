@@ -16,7 +16,7 @@
 
 package com.intellij.uiDesigner.radComponents;
 
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.module.ResourceFileUtil;
@@ -36,7 +36,7 @@ import java.awt.*;
  * @author yole
  */
 public class RadNestedForm extends RadComponent {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.radComponents.RadNestedForm");
+  private static final Logger LOG = Logger.getInstance(RadNestedForm.class);
 
   private final String myFormFileName;
   private final RadRootContainer myRootContainer;

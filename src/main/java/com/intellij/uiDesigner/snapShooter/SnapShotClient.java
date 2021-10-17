@@ -16,7 +16,7 @@
 
 package com.intellij.uiDesigner.snapShooter;
 
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.vfs.CharsetToolkit;
 import org.jetbrains.annotations.NonNls;
 
@@ -33,7 +33,7 @@ import java.util.List;
  * @author yole
  */
 public class SnapShotClient {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.snapShooter.SnapShotClient");
+  private static final Logger LOG = Logger.getInstance(SnapShotClient.class);
 
   private Socket mySocket;
   @NonNls private BufferedReader myReader;

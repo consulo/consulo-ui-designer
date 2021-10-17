@@ -17,18 +17,18 @@ package com.intellij.uiDesigner.wizard;
 
 import javax.annotation.Nonnull;
 
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.*;
 import com.intellij.uiDesigner.lw.LwRootContainer;
+import consulo.logging.Logger;
 
 /**
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
 public final class WizardData {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.wizard.WizardData");
+  private static final Logger LOG = Logger.getInstance(WizardData.class);
 
   @Nonnull
   public final Project myProject;

@@ -21,7 +21,6 @@ import com.intellij.ide.ui.LafManagerListener;
 import com.intellij.lang.annotation.HighlightSeverity;
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.colors.EditorColorsManager;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.editor.markup.TextAttributes;
@@ -50,6 +49,7 @@ import com.intellij.uiDesigner.propertyInspector.properties.*;
 import com.intellij.uiDesigner.radComponents.*;
 import com.intellij.util.ui.Table;
 import com.intellij.util.ui.UIUtil;
+import consulo.logging.Logger;
 import consulo.ui.image.Image;
 import consulo.ui.image.ImageEffects;
 import consulo.util.dataholder.Key;
@@ -79,7 +79,7 @@ import java.util.*;
  */
 public final class PropertyInspectorTable extends Table implements DataProvider
 {
-	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.propertyInspector.PropertyInspectorTable");
+	private static final Logger LOG = Logger.getInstance(PropertyInspectorTable.class);
 
 	public static final Key<PropertyInspectorTable> DATA_KEY = Key.create(PropertyInspectorTable.class.getName());
 

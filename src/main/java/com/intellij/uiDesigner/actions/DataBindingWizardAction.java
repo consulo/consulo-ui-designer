@@ -18,7 +18,7 @@ package com.intellij.uiDesigner.actions;
 import com.intellij.CommonBundle;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.Project;
@@ -42,7 +42,7 @@ import java.text.MessageFormat;
  * @author Vladimir Kondratyev
  */
 public final class DataBindingWizardAction extends AnAction{
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.actions.DataBindingWizardAction");
+  private static final Logger LOG = Logger.getInstance(DataBindingWizardAction.class);
 
   public void actionPerformed(final AnActionEvent e) {
     final Project project;

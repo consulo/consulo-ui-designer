@@ -31,7 +31,7 @@ import javax.swing.SwingUtilities;
 import com.intellij.ide.palette.impl.PaletteToolWindowManager;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.uiDesigner.CutCopyPasteSupport;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.SimpleTransferable;
@@ -48,7 +48,7 @@ import com.intellij.uiDesigner.radComponents.RadContainer;
  */
 class DesignDropTargetListener implements DropTargetListener
 {
-	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.designSurface.DesignDropTargetListener");
+	private static final Logger LOG = Logger.getInstance(DesignDropTargetListener.class);
 
 	private DraggedComponentList myDraggedComponentList;
 	private ComponentDragObject myComponentDragObject;

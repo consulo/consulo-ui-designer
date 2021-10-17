@@ -21,13 +21,13 @@ import com.intellij.ide.PasteProvider;
 import com.intellij.ide.dnd.FileCopyPasteUtil;
 import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.ide.CopyPasteManager;
 import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.lw.LwComponent;
 import com.intellij.uiDesigner.lw.LwContainer;
 import com.intellij.uiDesigner.radComponents.RadComponent;
+import consulo.logging.Logger;
 import consulo.util.collection.primitive.ints.IntList;
 import consulo.util.collection.primitive.ints.IntLists;
 import org.jdom.Document;
@@ -50,7 +50,7 @@ import java.util.List;
  */
 public final class CutCopyPasteSupport implements CopyProvider, CutProvider, PasteProvider
 {
-	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.CutCopyPasteSupport");
+	private static final Logger LOG = Logger.getInstance(CutCopyPasteSupport.class);
 	private static final SAXBuilder SAX_BUILDER = new SAXBuilder();
 
 	private final GuiEditor myEditor;

@@ -19,7 +19,7 @@ package com.intellij.uiDesigner.designSurface;
 import com.intellij.ide.DeleteProvider;
 import com.intellij.ide.dnd.*;
 import com.intellij.openapi.actionSystem.*;
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.editor.colors.EditorColors;
 import com.intellij.openapi.editor.colors.EditorColorsManager;
 import com.intellij.openapi.util.Pair;
@@ -56,7 +56,7 @@ import java.util.ArrayList;
  */
 public class GridCaptionPanel extends JPanel implements ComponentSelectionListener, DataProvider
 {
-	private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.designSurface.GridCaptionPanel");
+	private static final Logger LOG = Logger.getInstance(GridCaptionPanel.class);
 
 	private final GuiEditor myEditor;
 	private final boolean myIsRow;

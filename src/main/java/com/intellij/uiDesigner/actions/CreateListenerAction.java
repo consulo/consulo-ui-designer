@@ -28,6 +28,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.swing.JComponent;
 
+import consulo.logging.Logger;
 import org.jetbrains.annotations.NonNls;
 import com.intellij.CommonBundle;
 import com.intellij.codeInsight.FileModificationService;
@@ -40,7 +41,6 @@ import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
@@ -64,7 +64,7 @@ import com.intellij.util.IncorrectOperationException;
  * @author yole
  */
 public class CreateListenerAction extends AbstractGuiEditorAction {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.actions.CreateListenerAction");
+  private static final Logger LOG = Logger.getInstance(CreateListenerAction.class);
 
   protected void actionPerformed(final GuiEditor editor, final List<RadComponent> selection, final AnActionEvent e) {
     final DefaultActionGroup actionGroup = prepareActionGroup(selection);

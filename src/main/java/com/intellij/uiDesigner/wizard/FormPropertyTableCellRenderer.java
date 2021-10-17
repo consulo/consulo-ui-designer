@@ -20,7 +20,7 @@ import java.awt.Color;
 import javax.annotation.Nonnull;
 import javax.swing.JTable;
 
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.ui.ColoredTableCellRenderer;
 import com.intellij.ui.SimpleTextAttributes;
@@ -34,7 +34,7 @@ import icons.UIDesignerIcons;
  * @author Vladimir Kondratyev
  */
 final class FormPropertyTableCellRenderer extends ColoredTableCellRenderer{
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.wizard.FormPropertyTableCellRenderer");
+  private static final Logger LOG = Logger.getInstance(FormPropertyTableCellRenderer.class);
 
   private final Palette myPalette;
   private final SimpleTextAttributes myAttrs1;

@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.inspections;
 
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.module.Module;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
@@ -41,7 +41,7 @@ import java.util.Comparator;
  * @author yole
  */
 public class NoButtonGroupInspection extends BaseFormInspection {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.inspections.NoButtonGroupInspection");
+  private static final Logger LOG = Logger.getInstance(NoButtonGroupInspection.class);
 
   public NoButtonGroupInspection() {
     super("NoButtonGroup");

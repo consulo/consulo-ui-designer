@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.componentTree;
 
-import com.intellij.openapi.diagnostic.Logger;
+import consulo.logging.Logger;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.uiDesigner.ErrorAnalyzer;
 import com.intellij.uiDesigner.ErrorInfo;
@@ -35,7 +35,7 @@ import java.awt.*;
  * @author Vladimir Kondratyev
  */
 public final class QuickFixManagerImpl extends QuickFixManager<ComponentTree>{
-  private static final Logger LOG = Logger.getInstance("#com.intellij.uiDesigner.componentTree.QuickFixManagerImpl");
+  private static final Logger LOG = Logger.getInstance(QuickFixManagerImpl.class);
 
   public QuickFixManagerImpl(final GuiEditor editor, @Nonnull final ComponentTree componentTree, final JViewport viewPort) {
     super(editor, componentTree, viewPort);
