@@ -38,7 +38,9 @@
 	<extensions defaultExtensionNs="com.intellij">
 		<fileTypeFactory implementation="com.intellij.uiDesigner.FormFileTypeFactory"/>
 
-		<projectConfigurable instance="com.intellij.uiDesigner.GuiDesignerConfigurable" id="project.propGUI" parentId="editor"
+		<projectConfigurable instance="com.intellij.uiDesigner.GuiDesignerConfigurable"
+							 id="project.propGUI"
+							 parentId="editor"
 							 key="title.gui.designer"
 							 bundle="messages.UIDesignerBundle"/>
 

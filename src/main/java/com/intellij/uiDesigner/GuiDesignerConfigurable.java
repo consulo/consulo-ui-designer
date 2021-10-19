@@ -15,20 +15,9 @@
  */
 package com.intellij.uiDesigner;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-
 import com.intellij.codeInsight.CodeInsightUtil;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
-import consulo.logging.Logger;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.SearchableConfigurable;
 import com.intellij.openapi.progress.ProgressManager;
@@ -42,11 +31,26 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.search.PsiShortNamesCache;
-import com.intellij.ui.ListCellRendererWrapper;
 import com.intellij.uiDesigner.compiler.AsmCodeGenerator;
 import com.intellij.uiDesigner.make.FormSourceCodeGenerator;
 import com.intellij.uiDesigner.radComponents.LayoutManagerRegistry;
 import com.intellij.util.IncorrectOperationException;
+import consulo.disposer.Disposable;
+import consulo.localize.LocalizeValue;
+import consulo.logging.Logger;
+import consulo.ui.*;
+import consulo.ui.annotation.RequiredUIAccess;
+import consulo.ui.layout.DockLayout;
+import consulo.ui.layout.HorizontalLayout;
+import consulo.ui.layout.VerticalLayout;
+import consulo.ui.util.LabeledBuilder;
+import consulo.uiDesigner.localize.UIDesignerLocalize;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.*;
 
 /**
  * @author Anton Katilin
@@ -55,12 +59,17 @@ import com.intellij.util.IncorrectOperationException;
 public final class GuiDesignerConfigurable implements SearchableConfigurable, Configurable.NoScroll
 {
 	private static final Logger LOG = Logger.getInstance(GuiDesignerConfigurable.class);
-	private final Project myProject;
-	private MyGeneralUI myGeneralUI;
 
-	public GuiDesignerConfigurable(final Project project)
+	private final Project myProject;
+	private final Provider<GuiDesignerConfiguration> myGuiDesignerConfigurationProvider;
+
+	private MyLayout myGeneralUI;
+
+	@Inject
+	public GuiDesignerConfigurable(final Project project, Provider<GuiDesignerConfiguration> guiDesignerConfigurationProvider)
 	{
 		myProject = project;
+		myGuiDesignerConfigurationProvider = guiDesignerConfigurationProvider;
 	}
 
 	@Override
@@ -76,77 +85,79 @@ public final class GuiDesignerConfigurable implements SearchableConfigurable, Co
 		return "project.propGUI";
 	}
 
+	@RequiredUIAccess
 	@Override
-	public JComponent createComponent()
+	public Component createUIComponent(@Nonnull Disposable uiDisposable)
 	{
 		if(myGeneralUI == null)
 		{
-			myGeneralUI = new MyGeneralUI();
+			myGeneralUI = new MyLayout();
 		}
 
 		return myGeneralUI.myPanel;
 	}
 
+	@RequiredUIAccess
 	@Override
 	public boolean isModified()
 	{
-		final GuiDesignerConfiguration configuration = GuiDesignerConfiguration.getInstance(myProject);
-
 		if(myGeneralUI == null)
 		{
 			return false;
 		}
 
-		if(myGeneralUI.myChkCopyFormsRuntime.isSelected() != configuration.COPY_FORMS_RUNTIME_TO_OUTPUT)
+		GuiDesignerConfiguration configuration = myGuiDesignerConfigurationProvider.get();
+
+		if(myGeneralUI.myChkCopyFormsRuntime.getValueOrError() != configuration.COPY_FORMS_RUNTIME_TO_OUTPUT)
 		{
 			return true;
 		}
 
-		if(myGeneralUI.myChkCopyForms.isSelected() != configuration.COPY_FORMS_TO_OUTPUT)
+		if(myGeneralUI.myChkCopyForms.getValueOrError() != configuration.COPY_FORMS_TO_OUTPUT)
 		{
 			return true;
 		}
 
-		if(!Comparing.equal(configuration.DEFAULT_LAYOUT_MANAGER, myGeneralUI.myLayoutManagerCombo.getSelectedItem()))
+		if(!Comparing.equal(configuration.DEFAULT_LAYOUT_MANAGER, myGeneralUI.myLayoutManagerCombo.getValueOrError()))
 		{
 			return true;
 		}
 
-		if(!Comparing.equal(configuration.DEFAULT_FIELD_ACCESSIBILITY, myGeneralUI.myDefaultFieldAccessibilityCombo
-				.getSelectedItem()))
+		if(!Comparing.equal(configuration.DEFAULT_FIELD_ACCESSIBILITY, myGeneralUI.myDefaultFieldAccessibilityCombo.getValueOrError()))
 		{
 			return true;
 		}
 
-		if(configuration.INSTRUMENT_CLASSES != myGeneralUI.myRbInstrumentClasses.isSelected())
+		if(configuration.INSTRUMENT_CLASSES != myGeneralUI.myRbInstrumentClasses.getValueOrError())
 		{
 			return true;
 		}
 
-		if(configuration.RESIZE_HEADERS != myGeneralUI.myResizeHeaders.isSelected())
+		if(configuration.RESIZE_HEADERS != myGeneralUI.myResizeHeaders.getValueOrError())
 		{
 			return true;
 		}
 
-		if(configuration.USE_JB_SCALING != myGeneralUI.myUseJBScalingCheckBox.isSelected())
+		if(configuration.USE_JB_SCALING != myGeneralUI.myUseJBScalingCheckBox.getValueOrError())
 		{
 			return true;
 		}
 		return false;
 	}
 
+	@RequiredUIAccess
 	@Override
 	public void apply()
 	{
-		final GuiDesignerConfiguration configuration = GuiDesignerConfiguration.getInstance(myProject);
-		configuration.COPY_FORMS_RUNTIME_TO_OUTPUT = myGeneralUI.myChkCopyFormsRuntime.isSelected();
-		configuration.COPY_FORMS_TO_OUTPUT = myGeneralUI.myChkCopyForms.isSelected();
-		configuration.DEFAULT_LAYOUT_MANAGER = (String) myGeneralUI.myLayoutManagerCombo.getSelectedItem();
-		configuration.INSTRUMENT_CLASSES = myGeneralUI.myRbInstrumentClasses.isSelected();
-		configuration.DEFAULT_FIELD_ACCESSIBILITY = (String) myGeneralUI.myDefaultFieldAccessibilityCombo
-				.getSelectedItem();
-		configuration.RESIZE_HEADERS = myGeneralUI.myResizeHeaders.isSelected();
-		configuration.USE_JB_SCALING = myGeneralUI.myUseJBScalingCheckBox.isSelected();
+		GuiDesignerConfiguration configuration = myGuiDesignerConfigurationProvider.get();
+
+		configuration.COPY_FORMS_RUNTIME_TO_OUTPUT = myGeneralUI.myChkCopyFormsRuntime.getValueOrError();
+		configuration.COPY_FORMS_TO_OUTPUT = myGeneralUI.myChkCopyForms.getValueOrError();
+		configuration.DEFAULT_LAYOUT_MANAGER = myGeneralUI.myLayoutManagerCombo.getValueOrError();
+		configuration.INSTRUMENT_CLASSES = myGeneralUI.myRbInstrumentClasses.getValueOrError();
+		configuration.DEFAULT_FIELD_ACCESSIBILITY = myGeneralUI.myDefaultFieldAccessibilityCombo.getValueOrError();
+		configuration.RESIZE_HEADERS = myGeneralUI.myResizeHeaders.getValueOrError();
+		configuration.USE_JB_SCALING = myGeneralUI.myUseJBScalingCheckBox.getValueOrError();
 
 		if(configuration.INSTRUMENT_CLASSES && !myProject.isDefault())
 		{
@@ -157,58 +168,91 @@ public final class GuiDesignerConfigurable implements SearchableConfigurable, Co
 		}
 	}
 
+	@RequiredUIAccess
 	@Override
 	public void reset()
 	{
-		final GuiDesignerConfiguration configuration = GuiDesignerConfiguration.getInstance(myProject);
+		if(myGeneralUI == null)
+		{
+			return;
+		}
 
-    /*general*/
+		GuiDesignerConfiguration configuration = myGuiDesignerConfigurationProvider.get();
+
 		if(configuration.INSTRUMENT_CLASSES)
 		{
-			myGeneralUI.myRbInstrumentClasses.setSelected(true);
+			myGeneralUI.myRbInstrumentClasses.setValue(true);
 		}
 		else
 		{
-			myGeneralUI.myRbInstrumentSources.setSelected(true);
+			myGeneralUI.myRbInstrumentSources.setValue(true);
 		}
-		myGeneralUI.myChkCopyFormsRuntime.setSelected(configuration.COPY_FORMS_RUNTIME_TO_OUTPUT);
-		myGeneralUI.myChkCopyForms.setSelected(configuration.COPY_FORMS_TO_OUTPUT);
+		myGeneralUI.myChkCopyFormsRuntime.setValue(configuration.COPY_FORMS_RUNTIME_TO_OUTPUT);
+		myGeneralUI.myChkCopyForms.setValue(configuration.COPY_FORMS_TO_OUTPUT);
 
-		myGeneralUI.myLayoutManagerCombo.setModel(new DefaultComboBoxModel(LayoutManagerRegistry
-				.getNonDeprecatedLayoutManagerNames()));
-		myGeneralUI.myLayoutManagerCombo.setRenderer(new ListCellRendererWrapper<String>()
-		{
-			@Override
-			public void customize(JList list, String value, int index, boolean selected, boolean hasFocus)
-			{
-				setText(LayoutManagerRegistry.getLayoutManagerDisplayName(value));
-			}
-		});
-		myGeneralUI.myLayoutManagerCombo.setSelectedItem(configuration.DEFAULT_LAYOUT_MANAGER);
+		myGeneralUI.myLayoutManagerCombo.setValue(configuration.DEFAULT_LAYOUT_MANAGER);
 
-		myGeneralUI.myDefaultFieldAccessibilityCombo.setSelectedItem(configuration.DEFAULT_FIELD_ACCESSIBILITY);
+		myGeneralUI.myDefaultFieldAccessibilityCombo.setValue(configuration.DEFAULT_FIELD_ACCESSIBILITY);
 
-		myGeneralUI.myResizeHeaders.setSelected(configuration.RESIZE_HEADERS);
-		myGeneralUI.myUseJBScalingCheckBox.setSelected(configuration.USE_JB_SCALING);
+		myGeneralUI.myResizeHeaders.setValue(configuration.RESIZE_HEADERS);
+		myGeneralUI.myUseJBScalingCheckBox.setValue(configuration.USE_JB_SCALING);
 	}
 
+	@RequiredUIAccess
 	@Override
 	public void disposeUIResources()
 	{
 		myGeneralUI = null;
 	}
 
-	private static final class MyGeneralUI
+	private static class MyLayout
 	{
-		public JPanel myPanel;
-		public JRadioButton myRbInstrumentClasses;
-		public JRadioButton myRbInstrumentSources;
-		public JCheckBox myChkCopyFormsRuntime;
-		private JComboBox myLayoutManagerCombo;
-		private JComboBox myDefaultFieldAccessibilityCombo;
-		private JCheckBox myResizeHeaders;
-		private JCheckBox myChkCopyForms;
-		private JCheckBox myUseJBScalingCheckBox;
+		public VerticalLayout myPanel;
+		public RadioButton myRbInstrumentClasses;
+		public RadioButton myRbInstrumentSources;
+		public CheckBox myChkCopyFormsRuntime;
+		private ComboBox<String> myLayoutManagerCombo;
+		private ComboBox<String> myDefaultFieldAccessibilityCombo;
+		private CheckBox myResizeHeaders;
+		private CheckBox myChkCopyForms;
+		private CheckBox myUseJBScalingCheckBox;
+
+		@RequiredUIAccess
+		private MyLayout()
+		{
+			myPanel = VerticalLayout.create();
+
+			Label label = Label.create(UIDesignerLocalize.labelGenerateGuiInto());
+
+			ValueGroup<Boolean> group = ValueGroup.createBool();
+			myRbInstrumentClasses = RadioButton.create(UIDesignerLocalize.radioGenerateIntoClass()).toGroup(group);
+			myRbInstrumentSources = RadioButton.create(UIDesignerLocalize.radioGenerateIntoJava()).toGroup(group);
+
+			myPanel.add(HorizontalLayout.create().add(DockLayout.create().top(label)).add(VerticalLayout.create().add(myRbInstrumentClasses).add(myRbInstrumentSources)));
+
+			myUseJBScalingCheckBox = CheckBox.create(LocalizeValue.localizeTODO("Use scaling util class (com.intellij.util.ui.JBUI)"));
+			myPanel.add(myUseJBScalingCheckBox);
+
+			myChkCopyFormsRuntime = CheckBox.create(UIDesignerLocalize.chkCopyFormRuntime());
+			myPanel.add(myChkCopyFormsRuntime);
+
+			myChkCopyForms = CheckBox.create(UIDesignerLocalize.chkCopyForm());
+			myPanel.add(myChkCopyForms);
+
+			myLayoutManagerCombo = ComboBox.create(LayoutManagerRegistry.getNonDeprecatedLayoutManagerNames());
+			myLayoutManagerCombo.selectFirst();
+			myLayoutManagerCombo.setTextRender(value -> LocalizeValue.of(LayoutManagerRegistry.getLayoutManagerDisplayName(value)));
+
+			myPanel.add(LabeledBuilder.sided(UIDesignerLocalize.defaultLayoutManager(), myLayoutManagerCombo));
+			
+			myDefaultFieldAccessibilityCombo = ComboBox.create("private", "package local", "protected", "public");
+			myDefaultFieldAccessibilityCombo.selectFirst();
+
+			myPanel.add(LabeledBuilder.sided(UIDesignerLocalize.defaultFieldAccessibility(), myDefaultFieldAccessibilityCombo));
+
+			myResizeHeaders = CheckBox.create(LocalizeValue.localizeTODO("&Resize column and row headers with mouse"));
+			myPanel.add(myResizeHeaders);
+		}
 	}
 
 	private final class MyApplyRunnable implements Runnable
@@ -243,8 +287,7 @@ public final class GuiDesignerConfigurable implements SearchableConfigurable, Co
 						LOG.assertTrue(psiFile != null);
 						final VirtualFile vFile = psiFile.getVirtualFile();
 						LOG.assertTrue(vFile != null);
-						myProgressWindow.setText(UIDesignerBundle.message("progress.converting",
-								vFile.getPresentableUrl()));
+						myProgressWindow.setText(UIDesignerBundle.message("progress.converting", vFile.getPresentableUrl()));
 						myProgressWindow.setFraction(((double) i) / ((double) methods.length));
 						if(vFile.isWritable())
 						{
@@ -264,35 +307,16 @@ public final class GuiDesignerConfigurable implements SearchableConfigurable, Co
 		 */
 		private void applyImpl()
 		{
-			CommandProcessor.getInstance().executeCommand(myProject, new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					ApplicationManager.getApplication().runWriteAction(new Runnable()
-					{
-						@Override
-						public void run()
-						{
-							PsiDocumentManager.getInstance(myProject).commitAllDocuments();
-							vanishGeneratedSources();
-						}
-					});
-				}
-			}, "", null);
+			CommandProcessor.getInstance().executeCommand(myProject, () -> ApplicationManager.getApplication().runWriteAction(() -> {
+				PsiDocumentManager.getInstance(myProject).commitAllDocuments();
+				vanishGeneratedSources();
+			}), "", null);
 		}
 
 		@Override
 		public void run()
 		{
-			ProgressManager.getInstance().runProcess(new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					applyImpl();
-				}
-			}, myProgressWindow);
+			ProgressManager.getInstance().runProcess(() -> applyImpl(), myProgressWindow);
 		}
 	}
 
