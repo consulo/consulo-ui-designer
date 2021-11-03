@@ -8,6 +8,9 @@
 	<depends>com.intellij.xml</depends>
 	<depends>consulo.java</depends>
 	<depends config-file="com.intellij.spellchecker.xml" optional="true">com.intellij.spellchecker</depends>
+	<tags>
+		<tag>ui.framework</tag>
+	</tags>
 
 	<extensionPoints>
 		<extensionPoint name="formInspectionTool"
