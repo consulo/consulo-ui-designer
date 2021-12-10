@@ -15,18 +15,19 @@
  */
 package com.intellij.uiDesigner;
 
-import java.nio.charset.Charset;
-
-import javax.annotation.Nonnull;
-
-import org.jetbrains.annotations.NonNls;
 import com.intellij.icons.AllIcons;
-import com.intellij.ide.IdeBundle;
 import com.intellij.openapi.util.Pair;
 import com.intellij.openapi.vfs.CharsetToolkit;
 import com.intellij.openapi.vfs.VirtualFile;
 import consulo.fileTypes.FileTypeWithPredefinedCharset;
+import consulo.localize.LocalizeValue;
+import consulo.platform.base.localize.IdeLocalize;
 import consulo.ui.image.Image;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public class GuiFormFileType implements FileTypeWithPredefinedCharset
 {
@@ -46,9 +47,9 @@ public class GuiFormFileType implements FileTypeWithPredefinedCharset
 
 	@Override
 	@Nonnull
-	public String getDescription()
+	public LocalizeValue getDescription()
 	{
-		return IdeBundle.message("filetype.description.gui.designer.form");
+		return IdeLocalize.filetypeDescriptionGuiDesignerForm();
 	}
 
 	@Override
@@ -86,6 +87,6 @@ public class GuiFormFileType implements FileTypeWithPredefinedCharset
 	@Override
 	public Pair<Charset, String> getPredefinedCharset(@Nonnull VirtualFile virtualFile)
 	{
-		return new Pair<Charset, String>(CharsetToolkit.UTF8_CHARSET, "Consulo GUI Designer form");
+		return Pair.create(StandardCharsets.UTF_8, "Consulo GUI Designer form");
 	}
 }
