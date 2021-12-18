@@ -23,7 +23,7 @@ import com.intellij.openapi.actionSystem.ex.ComboBoxAction;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
-import icons.UIDesignerIcons;
+import consulo.platform.base.icon.PlatformIconGroup;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -42,7 +42,7 @@ public class ChooseLocaleAction extends ComboBoxAction {
   public ChooseLocaleAction() {
     getTemplatePresentation().setText("");
     getTemplatePresentation().setDescription(UIDesignerBundle.message("choose.locale.description"));
-    getTemplatePresentation().setIcon(UIDesignerIcons.ChooseLocale);
+    getTemplatePresentation().setIcon(PlatformIconGroup.nodesPpWeb());
   }
 
   @Nonnull

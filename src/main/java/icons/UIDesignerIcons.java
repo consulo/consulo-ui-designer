@@ -10,7 +10,6 @@ public class UIDesignerIcons {
   
   @SuppressWarnings("unused")
   public static final Image CheckBox = UIDesignerIconGroup.checkBox();
-  public static final Image ChooseLocale = UIDesignerIconGroup.chooseLocale();
   public static final Image CollapseNode = UIDesignerIconGroup.collapseNode();
   
   @SuppressWarnings("unused")
