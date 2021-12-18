@@ -416,7 +416,7 @@ public final class ComponentTree extends Tree implements DataProvider
 			}
 			else
 			{
-				icon = UIDesignerIcons.Unknown_small;
+				icon = UIDesignerIcons.Unknown;
 			}
 			return icon;
 		}

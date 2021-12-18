@@ -2,28 +2,28 @@
   <group name="Swing">
     <item
       class="com.intellij.uiDesigner.HSpacer" tooltip-text="Horizontal Spacer"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@hspacer" small-icon="consulo.uiDesigner.UIDesignerIconGroup@hspacer-small"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.hspacer"
       removable="false"
       >
       <default-constraints vsize-policy="1" hsize-policy="6" anchor="0" fill="1"/>
     </item>
     <item
       class="com.intellij.uiDesigner.VSpacer" tooltip-text="Vertical Spacer"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@vspacer" small-icon="consulo.uiDesigner.UIDesignerIconGroup@vspacer-small"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.vspacer"
       removable="false"
       >
       <default-constraints vsize-policy="6" hsize-policy="1" anchor="0" fill="2"/>
     </item>
     <item
       class="javax.swing.JPanel"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@panel"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.panel"
       removable="false"
       >
       <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3"/>
     </item>
     <item
       class="javax.swing.JScrollPane"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@scrollPane"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.scrollPane"
       removable="false"
       can-attach-label="true"
       >
@@ -31,7 +31,7 @@
     </item>
     <item
       class="javax.swing.JButton"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@button"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.button"
       removable="false"
       auto-create-binding="true"
       >
@@ -42,7 +42,7 @@
     </item>
     <item
       class="javax.swing.JRadioButton"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@radioButton"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.radioButton"
       removable="false"
       auto-create-binding="true"
       >
@@ -53,7 +53,7 @@
     </item>
     <item
       class="javax.swing.JCheckBox"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@checkBox"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.checkBox"
       removable="false"
       auto-create-binding="true"
       >
@@ -64,7 +64,7 @@
     </item>
     <item
       class="javax.swing.JLabel"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@label"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.label"
       removable="false"
       >
       <default-constraints vsize-policy="0" hsize-policy="0" anchor="8" fill="0"/>
@@ -74,7 +74,7 @@
     </item>
     <item
       class="javax.swing.JTextField"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@textField"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.textField"
       removable="false"
       auto-create-binding="true"
       can-attach-label="true"
@@ -85,7 +85,7 @@
     </item>
     <item
       class="javax.swing.JPasswordField"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@passwordField"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.passwordField"
       removable="false"
       auto-create-binding="true"
       can-attach-label="true"
@@ -96,7 +96,7 @@
     </item>
     <item
       class="javax.swing.JFormattedTextField"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@formattedTextField"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.formattedTextField"
       removable="false"
       auto-create-binding="true"
       can-attach-label="true"
@@ -107,7 +107,7 @@
     </item>
     <item
       class="javax.swing.JTextArea"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@textArea"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.textArea"
       removable="false"
       auto-create-binding="true"
       can-attach-label="true"
@@ -118,7 +118,7 @@
     </item>
     <item
       class="javax.swing.JTextPane"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@textPane"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.textPane"
       removable="false"
       auto-create-binding="true"
       can-attach-label="true"
@@ -129,7 +129,7 @@
     </item>
     <item
       class="javax.swing.JEditorPane"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@editorPane"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.editorPane"
       removable="false"
       auto-create-binding="true"
       can-attach-label="true"
@@ -140,7 +140,7 @@
     </item>
     <item
       class="javax.swing.JComboBox"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@comboBox"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.comboBox"
       removable="false"
       auto-create-binding="true"
       can-attach-label="true"
@@ -149,7 +149,7 @@
     </item>
     <item
       class="javax.swing.JTable"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@table"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.table"
       removable="false"
       auto-create-binding="true"
       >
@@ -159,7 +159,7 @@
     </item>
     <item
       class="javax.swing.JList"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@list"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.list"
       removable="false"
       auto-create-binding="true"
       >
@@ -168,7 +168,7 @@
       </default-constraints>
     </item>
     <item class="javax.swing.JTree"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@tree"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.tree"
       removable="false"
       auto-create-binding="true"
       >
@@ -178,7 +178,7 @@
     </item>
     <item
       class="javax.swing.JTabbedPane"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@tabbedPane"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.tabbedPane"
       removable="false"
       auto-create-binding="true"
       >
@@ -188,7 +188,7 @@
     </item>
     <item
       class="javax.swing.JSplitPane"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@splitPane"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.splitPane"
       removable="false"
       >
       <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3">
@@ -197,7 +197,7 @@
     </item>
     <item
       class="javax.swing.JSpinner"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@spinner"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.spinner"
       removable="false"
       auto-create-binding="true"
       can-attach-label="true"
@@ -208,7 +208,7 @@
     </item>
     <item
       class="javax.swing.JSlider"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@slider"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.slider"
       removable="false"
       auto-create-binding="true"
       >
@@ -218,7 +218,7 @@
     </item>
     <item
       class="javax.swing.JSeparator"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@separator"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.separator"
       removable="false"
       since-version="2"
       >
@@ -228,7 +228,7 @@
     </item>
     <item
       class="javax.swing.JProgressBar"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@progressbar"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.progressbar"
       removable="false"
       since-version="2"
       auto-create-binding="true"
@@ -239,7 +239,7 @@
     </item>
     <item
       class="javax.swing.JToolBar"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@toolbar"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.toolbar"
       removable="false"
       since-version="2"
       >
@@ -249,7 +249,7 @@
     </item>
     <item
       class="javax.swing.JToolBar$Separator"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@toolbarSeparator"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.toolbarSeparator"
       removable="false"
       since-version="2"
       >
@@ -259,7 +259,7 @@
     </item>
     <item
       class="javax.swing.JScrollBar"
-      icon="consulo.uiDesigner.UIDesignerIconGroup@scrollbar"
+      icon="consulo.platform.base.PlatformIconGroup@uiDesigner.scrollbar"
       removable="false"
       since-version="2"
       auto-create-binding="true"

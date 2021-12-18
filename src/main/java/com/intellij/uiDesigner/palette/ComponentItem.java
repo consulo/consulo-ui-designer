@@ -198,7 +198,7 @@ public final class ComponentItem implements Cloneable, PaletteItem
 			{
 				try
 				{
-					myIcon = consulo.ui.image.Image.fromBytes(VfsUtilCore.loadBytes(iconFile), Image.DEFAULT_ICON_SIZE, Image.DEFAULT_ICON_SIZE);
+					myIcon = consulo.ui.image.Image.fromBytes(Image.ImageType.PNG, VfsUtilCore.loadBytes(iconFile), Image.DEFAULT_ICON_SIZE, Image.DEFAULT_ICON_SIZE);
 				}
 				catch(Exception e)
 				{
@@ -207,7 +207,8 @@ public final class ComponentItem implements Cloneable, PaletteItem
 			}
 			else
 			{
-				myIconPath = myIconPath.replace("/com/intellij/uiDesigner/icons/", "consulo.uidesigner.UIDesignerIconGroup@");
+				myIconPath = myIconPath.replace("consulo.uiDesigner.UIDesignerIconGroup@", "consulo.platform.base.PlatformIconGroup@uiDesigner.");
+				myIconPath = myIconPath.replace("/com/intellij/uiDesigner/icons/", "consulo.platform.base.PlatformIconGroup@uiDesigner.");
 				myIconPath = StringUtil.trimEnd(myIconPath, ".png");
 				
 				ImageKey imageKey = ImageKey.fromString(myIconPath, Image.DEFAULT_ICON_SIZE, Image.DEFAULT_ICON_SIZE);
@@ -239,10 +240,7 @@ public final class ComponentItem implements Cloneable, PaletteItem
 			return myIcon;
 		}
 
-		// [vova] It's safe to cast to ImageIcon here because all icons loaded by IconLoader
-		// are ImageIcon(s).
-		final consulo.ui.image.Image icon = getIcon();
-		mySmallIcon = icon;
+		mySmallIcon = getIcon();
 		return mySmallIcon;
 	}
 
