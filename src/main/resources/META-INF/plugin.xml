@@ -1,5 +1,5 @@
-<consulo-plugin>
-	<name>UI Designer</name>
+<consulo-plugin url="https://github.com/consulo/consulo-ui-designer">
+	<name>Swing UI Designer</name>
 	<id>com.intellij.uiDesigner</id>
 	<version>SNAPSHOT</version>
 	<vendor>JetBrains</vendor>
