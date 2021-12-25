@@ -162,7 +162,7 @@
 			<action id="GuiDesigner.PreviewForm" class="com.intellij.uiDesigner.actions.PreviewFormAction"
 					icon="consulo.platform.base.PlatformIconGroup@actions.preview"/>
 			<action id="GuiDesigner.DataBindingWizard" class="com.intellij.uiDesigner.actions.DataBindingWizardAction"
-					icon="consulo.uiDesigner.UIDesignerIconGroup@databindingwizard"/>
+					icon="consulo.platform.base.PlatformIconGroup@actions.lightning"/>
 			<action id="GuiDesigner.ReloadCustomComponents" class="com.intellij.uiDesigner.actions.ReloadCustomComponentsAction"
 					icon="consulo.platform.base.PlatformIconGroup@actions.refresh"/>
 			<action id="GuiDesigner.ChooseLocale" class="com.intellij.uiDesigner.actions.ChooseLocaleAction"/>
