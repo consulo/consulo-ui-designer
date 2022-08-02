@@ -23,8 +23,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ModuleRootAdapter;
 import com.intellij.openapi.roots.ModuleRootEvent;
 import com.intellij.openapi.roots.OrderEnumerator;
-import consulo.disposer.Disposable;
-import consulo.disposer.Disposer;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileManager;
@@ -32,14 +30,15 @@ import com.intellij.uiDesigner.core.Spacer;
 import com.intellij.util.PathUtil;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.messages.MessageBusConnection;
+import consulo.disposer.Disposable;
+import consulo.disposer.Disposer;
+import consulo.util.lang.StringUtil;
 import consulo.util.nodep.classloader.UrlClassLoader;
 import consulo.vfs.util.ArchiveVfsUtil;
 import jakarta.inject.Inject;
-
-import javax.annotation.Nonnull;
-
 import jakarta.inject.Singleton;
 
+import javax.annotation.Nonnull;
 import javax.swing.*;
 import java.io.File;
 import java.net.MalformedURLException;
@@ -51,131 +50,165 @@ import java.util.*;
  * @author Vladimir Kondratyev
  */
 @Singleton
-public final class LoaderFactory {
-  private final Project myProject;
+public final class LoaderFactory
+{
+	private final Project myProject;
 
-  private final Map<Module, ClassLoader> myModule2ClassLoader;
-  private ClassLoader myProjectClassLoader = null;
-  private final MessageBusConnection myConnection;
+	private final Map<Module, ClassLoader> myModule2ClassLoader;
+	private ClassLoader myProjectClassLoader = null;
+	private final MessageBusConnection myConnection;
 
-  public static LoaderFactory getInstance(final Project project) {
-    return ServiceManager.getService(project, LoaderFactory.class);
-  }
+	public static LoaderFactory getInstance(final Project project)
+	{
+		return ServiceManager.getService(project, LoaderFactory.class);
+	}
 
-  @Inject
-  public LoaderFactory(final Project project) {
-    myProject = project;
-    myModule2ClassLoader = ContainerUtil.createWeakMap();
-    myConnection = myProject.getMessageBus().connect();
-    myConnection.subscribe(ProjectTopics.PROJECT_ROOTS, new ModuleRootAdapter() {
-      public void rootsChanged(final ModuleRootEvent event) {
-        clearClassLoaderCache();
-      }
-    });
+	@Inject
+	public LoaderFactory(final Project project)
+	{
+		myProject = project;
+		myModule2ClassLoader = ContainerUtil.createWeakMap();
+		myConnection = myProject.getMessageBus().connect();
+		myConnection.subscribe(ProjectTopics.PROJECT_ROOTS, new ModuleRootAdapter()
+		{
+			public void rootsChanged(final ModuleRootEvent event)
+			{
+				clearClassLoaderCache();
+			}
+		});
 
-    Disposer.register(project, new Disposable() {
-      public void dispose() {
-        myConnection.disconnect();
-        myModule2ClassLoader.clear();
-      }
-    });
-  }
+		Disposer.register(project, new Disposable()
+		{
+			public void dispose()
+			{
+				myConnection.disconnect();
+				myModule2ClassLoader.clear();
+			}
+		});
+	}
 
-  @Nonnull
-  public ClassLoader getLoader(final VirtualFile formFile) {
-    final Module module = ModuleUtil.findModuleForFile(formFile, myProject);
-    if (module == null) {
-      return getClass().getClassLoader();
-    }
+	@Nonnull
+	public ClassLoader getLoader(final VirtualFile formFile)
+	{
+		final Module module = ModuleUtil.findModuleForFile(formFile, myProject);
+		if(module == null)
+		{
+			return getClass().getClassLoader();
+		}
 
-    return getLoader(module);
-  }
+		return getLoader(module);
+	}
 
-  public ClassLoader getLoader(final Module module) {
-    final ClassLoader cachedLoader = myModule2ClassLoader.get(module);
-    if (cachedLoader != null) {
-      return cachedLoader;
-    }
+	public ClassLoader getLoader(final Module module)
+	{
+		final ClassLoader cachedLoader = myModule2ClassLoader.get(module);
+		if(cachedLoader != null)
+		{
+			return cachedLoader;
+		}
 
-    final String runClasspath = OrderEnumerator.orderEntries(module).recursively().getPathsList().getPathsString();
+		final String runClasspath = OrderEnumerator.orderEntries(module).recursively().getPathsList().getPathsString();
 
-    final ClassLoader classLoader = createClassLoader(runClasspath, module.getName());
+		final ClassLoader classLoader = createClassLoader(runClasspath, module.getName());
 
-    myModule2ClassLoader.put(module, classLoader);
+		myModule2ClassLoader.put(module, classLoader);
 
-    return classLoader;
-  }
+		return classLoader;
+	}
 
-  @Nonnull
-  public ClassLoader getProjectClassLoader() {
-    if (myProjectClassLoader == null) {
-      final String runClasspath = OrderEnumerator.orderEntries(myProject).withoutSdk().getPathsList().getPathsString();
-      myProjectClassLoader = createClassLoader(runClasspath, "<project>");
-    }
-    return myProjectClassLoader;
-  }
+	@Nonnull
+	public ClassLoader getProjectClassLoader()
+	{
+		if(myProjectClassLoader == null)
+		{
+			final String runClasspath = OrderEnumerator.orderEntries(myProject).withoutSdk().getPathsList().getPathsString();
+			myProjectClassLoader = createClassLoader(runClasspath, "<project>");
+		}
+		return myProjectClassLoader;
+	}
 
-  private static ClassLoader createClassLoader(final String runClasspath, final String moduleName) {
-    final ArrayList<URL> urls = new ArrayList<URL>();
-    final VirtualFileManager manager = VirtualFileManager.getInstance();
-    final StringTokenizer tokenizer = new StringTokenizer(runClasspath, File.pathSeparator);
-    while (tokenizer.hasMoreTokens()) {
-      final String s = tokenizer.nextToken();
-      try {
-        VirtualFile vFile = manager.findFileByUrl(VfsUtil.pathToUrl(s));
+	private static ClassLoader createClassLoader(final String runClasspath, final String moduleName)
+	{
+		final ArrayList<URL> urls = new ArrayList<URL>();
+		final VirtualFileManager manager = VirtualFileManager.getInstance();
+		final StringTokenizer tokenizer = new StringTokenizer(runClasspath, File.pathSeparator);
+		while(tokenizer.hasMoreTokens())
+		{
+			final String s = tokenizer.nextToken();
+			try
+			{
+				VirtualFile vFile = manager.findFileByUrl(VfsUtil.pathToUrl(s));
 
-        VirtualFile archiveFile = ArchiveVfsUtil.getVirtualFileForArchive(vFile);
-        if(archiveFile != null) {
-          urls.add(new File(archiveFile.getCanonicalPath()).toURI().toURL());
-        }
-        else {
-          urls.add(new File(s).toURI().toURL());
-        }
-      }
-      catch (Exception e) {
-        // ignore ?
-      }
-    }
+				VirtualFile archiveFile = ArchiveVfsUtil.getVirtualFileForArchive(vFile);
+				if(archiveFile != null)
+				{
+					urls.add(new File(archiveFile.getCanonicalPath()).toURI().toURL());
+				}
+				else
+				{
+					urls.add(new File(s).toURI().toURL());
+				}
+			}
+			catch(Exception e)
+			{
+				// ignore ?
+			}
+		}
 
-    try {
-      urls.add(new File(PathUtil.getJarPathForClass(Spacer.class)).toURI().toURL());
-    }
-    catch (MalformedURLException ignored) {
-      // ignore
-    }
+		try
+		{
+			urls.add(new File(PathUtil.getJarPathForClass(Spacer.class)).toURI().toURL());
+		}
+		catch(MalformedURLException ignored)
+		{
+		}
 
-    return new DesignTimeClassLoader(urls, LoaderFactory.class.getClassLoader(), moduleName);
-  }
+		try
+		{
+			urls.add(new File(PathUtil.getJarPathForClass(StringUtil.class)).toURI().toURL());
+		}
+		catch(MalformedURLException ignored)
+		{
+		}
 
-  public void clearClassLoaderCache() {
-    // clear classes with invalid classloader from UIManager cache
-    final UIDefaults uiDefaults = UIManager.getDefaults();
-    for (Iterator it = uiDefaults.keySet().iterator(); it.hasNext();) {
-      Object key = it.next();
-      Object value = uiDefaults.get(key);
-      if (value instanceof Class) {
-        ClassLoader loader = ((Class)value).getClassLoader();
-        if (loader instanceof DesignTimeClassLoader) {
-          it.remove();
-        }
-      }
-    }
-    myModule2ClassLoader.clear();
-    myProjectClassLoader = null;
-  }
+		return new DesignTimeClassLoader(urls, LoaderFactory.class.getClassLoader(), moduleName);
+	}
 
-  private static class DesignTimeClassLoader extends UrlClassLoader
-  {
-    private final String myModuleName;
+	public void clearClassLoaderCache()
+	{
+		// clear classes with invalid classloader from UIManager cache
+		final UIDefaults uiDefaults = UIManager.getDefaults();
+		for(Iterator it = uiDefaults.keySet().iterator(); it.hasNext(); )
+		{
+			Object key = it.next();
+			Object value = uiDefaults.get(key);
+			if(value instanceof Class)
+			{
+				ClassLoader loader = ((Class) value).getClassLoader();
+				if(loader instanceof DesignTimeClassLoader)
+				{
+					it.remove();
+				}
+			}
+		}
+		myModule2ClassLoader.clear();
+		myProjectClassLoader = null;
+	}
 
-    public DesignTimeClassLoader(final List<URL> urls, final ClassLoader parent, final String moduleName) {
-      super(build().urls(urls).parent(parent));
-      myModuleName = moduleName;
-    }
+	private static class DesignTimeClassLoader extends UrlClassLoader
+	{
+		private final String myModuleName;
 
-    @Override
-    public String toString() {
-      return "DesignTimeClassLoader:" + myModuleName;
-    }
-  }
+		public DesignTimeClassLoader(final List<URL> urls, final ClassLoader parent, final String moduleName)
+		{
+			super(build().urls(urls).parent(parent));
+			myModuleName = moduleName;
+		}
+
+		@Override
+		public String toString()
+		{
+			return "DesignTimeClassLoader:" + myModuleName;
+		}
+	}
 }
