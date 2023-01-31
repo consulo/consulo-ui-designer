@@ -17,12 +17,12 @@ package com.intellij.uiDesigner.fileTemplate;
 
 import java.io.CharArrayWriter;
 
+import consulo.language.codeStyle.CodeStyleSettingsManager;
 import org.jdom.Attribute;
 import org.jdom.Document;
-import com.intellij.ide.actions.SaveFileAsTemplateHandler;
-import com.intellij.openapi.util.JDOMUtil;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.codeStyle.CodeStyleSettingsManager;
+import consulo.ide.impl.idea.ide.actions.SaveFileAsTemplateHandler;
+import consulo.util.jdom.JDOMUtil;
+import consulo.language.psi.PsiFile;
 import com.intellij.uiDesigner.GuiFormFileType;
 import com.intellij.uiDesigner.UIFormXmlConstants;
 import com.intellij.uiDesigner.compiler.Utils;

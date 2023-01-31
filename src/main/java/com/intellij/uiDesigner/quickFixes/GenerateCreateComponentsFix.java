@@ -16,10 +16,11 @@
 
 package com.intellij.uiDesigner.quickFixes;
 
-import com.intellij.psi.PsiClass;
-import com.intellij.uiDesigner.designSurface.GuiEditor;
+import com.intellij.java.language.psi.PsiClass;
 import com.intellij.uiDesigner.UIDesignerBundle;
+import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.propertyInspector.properties.CustomCreateProperty;
+
 import javax.annotation.Nonnull;
 
 /**

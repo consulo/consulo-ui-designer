@@ -16,7 +16,6 @@
 
 package com.intellij.uiDesigner.actions;
 
-import com.intellij.openapi.actionSystem.AnActionEvent;
 import consulo.logging.Logger;
 import com.intellij.uiDesigner.CutCopyPasteSupport;
 import com.intellij.uiDesigner.FormEditingUtil;
@@ -28,6 +27,7 @@ import com.intellij.uiDesigner.propertyInspector.properties.BindingProperty;
 import com.intellij.uiDesigner.propertyInspector.properties.IntroComponentProperty;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
+import consulo.ui.ex.action.AnActionEvent;
 import consulo.util.collection.primitive.ints.IntSet;
 import consulo.util.collection.primitive.ints.IntSets;
 

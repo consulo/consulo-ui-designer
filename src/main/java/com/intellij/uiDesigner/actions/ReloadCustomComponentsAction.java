@@ -22,13 +22,13 @@
  */
 package com.intellij.uiDesigner.actions;
 
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.fileEditor.FileEditor;
-import com.intellij.openapi.fileEditor.FileEditorManager;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Ref;
+import consulo.fileEditor.FileEditorManager;
+import consulo.ui.ex.action.AnAction;
+import consulo.ui.ex.action.AnActionEvent;
+import consulo.language.editor.CommonDataKeys;
+import consulo.fileEditor.FileEditor;
+import consulo.project.Project;
+import consulo.util.lang.ref.Ref;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.LoaderFactory;
 import com.intellij.uiDesigner.designSurface.GuiEditor;

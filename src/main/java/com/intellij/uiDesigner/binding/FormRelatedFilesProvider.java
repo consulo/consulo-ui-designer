@@ -15,58 +15,68 @@
  */
 package com.intellij.uiDesigner.binding;
 
-import com.intellij.navigation.GotoRelatedItem;
-import com.intellij.navigation.GotoRelatedProvider;
-import com.intellij.openapi.project.Project;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.java.language.psi.JavaPsiFacade;
+import com.intellij.java.language.psi.PsiClass;
 import com.intellij.uiDesigner.GuiFormFileType;
 import com.intellij.uiDesigner.compiler.Utils;
-import javax.annotation.Nonnull;
+import consulo.language.navigation.GotoRelatedItem;
+import consulo.language.navigation.GotoRelatedProvider;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.project.Project;
 
+import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * @author Dmitry Avdeev
  */
-public class FormRelatedFilesProvider extends GotoRelatedProvider {
+public class FormRelatedFilesProvider extends GotoRelatedProvider
+{
+	@Nonnull
+	@Override
+	public List<? extends GotoRelatedItem> getItems(@Nonnull PsiElement context)
+	{
+		PsiClass psiClass = PsiTreeUtil.getParentOfType(context, PsiClass.class, false);
+		if(psiClass != null)
+		{
+			while(psiClass != null)
+			{
+				List<PsiFile> forms = FormClassIndex.findFormsBoundToClass(psiClass);
+				if(!forms.isEmpty())
+				{
+					return GotoRelatedItem.createItems(forms, "UI Forms");
+				}
+				psiClass = PsiTreeUtil.getParentOfType(psiClass, PsiClass.class);
+			}
+		}
+		else
+		{
+			PsiFile file = context.getContainingFile();
+			if(file.getFileType() == GuiFormFileType.INSTANCE)
+			{
+				try
+				{
+					String className = Utils.getBoundClassName(file.getText());
+					if(className != null)
+					{
+						Project project = file.getProject();
+						PsiClass aClass = JavaPsiFacade.getInstance(project).findClass(className, GlobalSearchScope.allScope(project));
+						if(aClass != null)
+						{
+							return Collections.singletonList(new GotoRelatedItem(aClass, "Java"));
+						}
+					}
+				}
+				catch(Exception ignore)
+				{
 
-  @Nonnull
-  @Override
-  public List<? extends GotoRelatedItem> getItems(@Nonnull PsiElement context) {
-    PsiClass psiClass = PsiTreeUtil.getParentOfType(context, PsiClass.class, false);
-    if (psiClass != null) {
-      while (psiClass != null) {
-        List<PsiFile> forms = FormClassIndex.findFormsBoundToClass(psiClass);
-        if (!forms.isEmpty()) {
-          return GotoRelatedItem.createItems(forms, "UI Forms");
-        }
-        psiClass = PsiTreeUtil.getParentOfType(psiClass, PsiClass.class);
-      }
-    }
-    else {
-      PsiFile file = context.getContainingFile();
-      if (file.getFileType() == GuiFormFileType.INSTANCE) {
-        try {
-          String className = Utils.getBoundClassName(file.getText());
-          if (className != null) {
-            Project project = file.getProject();
-            PsiClass aClass = JavaPsiFacade.getInstance(project).findClass(className, GlobalSearchScope.allScope(project));
-            if (aClass != null) {
-              return Collections.singletonList(new GotoRelatedItem(aClass, "Java"));
-            }
-          }
-        }
-        catch (Exception ignore) {
-
-        }
-      }
-    }
-    return Collections.emptyList();
-  }
+				}
+			}
+		}
+		return Collections.emptyList();
+	}
 }

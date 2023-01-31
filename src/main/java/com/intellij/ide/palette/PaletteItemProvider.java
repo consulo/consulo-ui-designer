@@ -16,10 +16,10 @@
 
 package com.intellij.ide.palette;
 
-import java.beans.PropertyChangeListener;
+import consulo.component.extension.ExtensionPointName;
+import consulo.virtualFileSystem.VirtualFile;
 
-import com.intellij.openapi.extensions.ExtensionPointName;
-import com.intellij.openapi.vfs.VirtualFile;
+import java.beans.PropertyChangeListener;
 
 /**
  * @author yole

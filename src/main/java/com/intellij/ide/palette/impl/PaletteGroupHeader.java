@@ -15,15 +15,20 @@
  */
 package com.intellij.ide.palette.impl;
 
-import com.intellij.ide.dnd.DnDEvent;
-import com.intellij.ide.dnd.DnDManager;
-import com.intellij.ide.dnd.DnDTarget;
+import consulo.dataContext.DataProvider;
+import consulo.language.editor.CommonDataKeys;
+import consulo.project.Project;
+import consulo.ui.ex.action.ActionGroup;
+import consulo.ui.ex.action.ActionManager;
+import consulo.ui.ex.action.ActionPlaces;
+import consulo.ui.ex.action.ActionPopupMenu;
+import consulo.ui.ex.awt.PopupHandler;
+import consulo.ui.ex.awt.dnd.DnDEvent;
+import consulo.ui.ex.awt.dnd.DnDManager;
+import consulo.ui.ex.awt.dnd.DnDTarget;
 import com.intellij.ide.palette.PaletteGroup;
 import com.intellij.ide.palette.PaletteItem;
-import com.intellij.openapi.actionSystem.*;
-import com.intellij.openapi.project.Project;
-import com.intellij.ui.PopupHandler;
-import com.intellij.util.ui.UIUtil;
+import consulo.ui.ex.awt.UIUtil;
 import consulo.util.dataholder.Key;
 import org.jetbrains.annotations.NonNls;
 
@@ -36,7 +41,8 @@ import java.awt.event.*;
 /**
  * @author yole
  */
-public class PaletteGroupHeader extends JCheckBox implements DataProvider {
+public class PaletteGroupHeader extends JCheckBox implements DataProvider
+{
   private final PaletteWindow myPaletteWindow;
   private PaletteComponentList myComponentList;
   private final PaletteGroup myGroup;

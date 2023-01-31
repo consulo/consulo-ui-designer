@@ -15,14 +15,14 @@
  */
 package com.intellij.uiDesigner.binding;
 
-import com.intellij.openapi.vfs.VirtualFile;
+import consulo.virtualFileSystem.VirtualFile;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiField;
-import com.intellij.psi.PsiFile;
+import consulo.language.psi.PsiFile;
 import com.intellij.psi.search.ProjectScope;
 import com.intellij.refactoring.MultiFileTestCase;
-import com.intellij.refactoring.rename.RenameProcessor;
+import consulo.language.editor.refactoring.rename.RenameProcessor;
 import consulo.psi.PsiPackage;
 import junit.framework.Assert;
 

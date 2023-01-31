@@ -16,12 +16,12 @@
 
 package com.intellij.uiDesigner.palette;
 
-import com.intellij.CommonBundle;
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.Messages;
+import consulo.ui.ex.action.AnAction;
+import consulo.ui.ex.action.AnActionEvent;
+import consulo.project.Project;
+import consulo.ui.ex.awt.Messages;
 import com.intellij.uiDesigner.UIDesignerBundle;
+import consulo.application.CommonBundle;
 import consulo.ui.annotation.RequiredUIAccess;
 
 import javax.annotation.Nonnull;

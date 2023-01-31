@@ -15,44 +15,27 @@
  */
 package com.intellij.ide.palette.impl;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-
-import javax.annotation.Nullable;
-import javax.swing.AbstractAction;
-import javax.swing.AbstractListModel;
-import javax.swing.Action;
-import javax.swing.ActionMap;
-import javax.swing.JList;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingUtilities;
-import javax.swing.plaf.basic.BasicListUI;
-
-import org.jetbrains.annotations.NonNls;
-import com.intellij.ide.dnd.DnDAction;
-import com.intellij.ide.dnd.DnDDragStartBean;
-import com.intellij.ide.dnd.DnDEvent;
-import com.intellij.ide.dnd.DnDManager;
-import com.intellij.ide.dnd.DnDSource;
-import com.intellij.ide.dnd.DnDTarget;
 import com.intellij.ide.palette.PaletteGroup;
 import com.intellij.ide.palette.PaletteItem;
-import com.intellij.openapi.actionSystem.ActionGroup;
-import com.intellij.openapi.actionSystem.ActionManager;
-import com.intellij.openapi.actionSystem.ActionPlaces;
-import com.intellij.openapi.actionSystem.ActionPopupMenu;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Pair;
-import com.intellij.ui.ColoredListCellRenderer;
-import com.intellij.ui.JBColor;
-import com.intellij.ui.PopupHandler;
-import com.intellij.ui.components.JBList;
-import com.intellij.util.ui.UIUtil;
+import consulo.project.Project;
+import consulo.ui.ex.JBColor;
+import consulo.ui.ex.action.ActionGroup;
+import consulo.ui.ex.action.ActionManager;
+import consulo.ui.ex.action.ActionPlaces;
+import consulo.ui.ex.action.ActionPopupMenu;
+import consulo.ui.ex.awt.ColoredListCellRenderer;
+import consulo.ui.ex.awt.JBList;
+import consulo.ui.ex.awt.PopupHandler;
+import consulo.ui.ex.awt.UIUtil;
+import consulo.ui.ex.awt.dnd.*;
+import consulo.util.lang.Pair;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nullable;
+import javax.swing.*;
+import javax.swing.plaf.basic.BasicListUI;
+import java.awt.*;
+import java.awt.event.*;
 
 /**
  * @author yole

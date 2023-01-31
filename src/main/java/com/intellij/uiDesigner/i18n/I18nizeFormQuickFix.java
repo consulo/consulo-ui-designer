@@ -15,114 +15,141 @@
  */
 package com.intellij.uiDesigner.i18n;
 
-import com.intellij.codeInsight.CodeInsightBundle;
-import com.intellij.codeInsight.FileModificationService;
-import com.intellij.codeInspection.i18n.JavaI18nUtil;
-import com.intellij.codeInspection.i18n.JavaI18nizeQuickFixDialog;
 import com.intellij.lang.properties.psi.PropertiesFile;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.command.CommandProcessor;
-import consulo.logging.Logger;
-import com.intellij.openapi.fileEditor.FileDocumentManager;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ProjectFileIndex;
-import com.intellij.openapi.roots.ProjectRootManager;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.psi.PsiDocumentManager;
-import com.intellij.psi.PsiFile;
+import com.intellij.lang.properties.references.I18nUtil;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.lw.StringDescriptor;
 import com.intellij.uiDesigner.quickFixes.QuickFix;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import com.intellij.util.IncorrectOperationException;
+import consulo.application.ApplicationManager;
+import consulo.document.FileDocumentManager;
+import consulo.java.properties.impl.i18n.JavaI18nizeQuickFixDialog;
+import consulo.language.editor.CodeInsightBundle;
+import consulo.language.editor.FileModificationService;
+import consulo.language.psi.PsiDocumentManager;
+import consulo.language.psi.PsiFile;
+import consulo.language.util.IncorrectOperationException;
+import consulo.logging.Logger;
+import consulo.module.content.ProjectFileIndex;
+import consulo.module.content.ProjectRootManager;
+import consulo.project.Project;
+import consulo.undoRedo.CommandProcessor;
+import consulo.util.lang.StringUtil;
 
 import java.util.Collection;
 
 /**
  * @author yole
  */
-public abstract class I18nizeFormQuickFix extends QuickFix {
-  private static final Logger LOG = Logger.getInstance(I18nizeFormQuickFix.class);
+public abstract class I18nizeFormQuickFix extends QuickFix
+{
+	private static final Logger LOG = Logger.getInstance(I18nizeFormQuickFix.class);
 
-  public I18nizeFormQuickFix(final GuiEditor editor, final String name, final RadComponent component) {
-    super(editor, name, component);
-  }
+	public I18nizeFormQuickFix(final GuiEditor editor, final String name, final RadComponent component)
+	{
+		super(editor, name, component);
+	}
 
-  public void run() {
-    final StringDescriptor descriptor = getStringDescriptorValue();
-    final Project project = myEditor.getProject();
+	public void run()
+	{
+		final StringDescriptor descriptor = getStringDescriptorValue();
+		final Project project = myEditor.getProject();
 
-    PsiFile psiFile = myEditor.getPsiFile();
+		PsiFile psiFile = myEditor.getPsiFile();
 
-    if (!JavaI18nizeQuickFixDialog.isAvailable(myEditor.getPsiFile())) {
-      return;
-    }
-    String initialValue = StringUtil.escapeStringCharacters(descriptor.getValue());
-    final JavaI18nizeQuickFixDialog dialog = new JavaI18nizeQuickFixDialog(project, psiFile, null, initialValue, null, false, false){
-      protected String getDimensionServiceKey() {
-        return "#com.intellij.codeInsight.i18n.I18nizeQuickFixDialog_Form";
-      }
-    };
-    dialog.show();
-    if (!dialog.isOK()) {
-      return;
-    }
+		if(!JavaI18nizeQuickFixDialog.isAvailable(myEditor.getPsiFile()))
+		{
+			return;
+		}
+		String initialValue = StringUtil.escapeStringCharacters(descriptor.getValue());
+		final JavaI18nizeQuickFixDialog dialog = new JavaI18nizeQuickFixDialog(project, psiFile, null, initialValue, null, false, false)
+		{
+			protected String getDimensionServiceKey()
+			{
+				return "#com.intellij.codeInsight.i18n.I18nizeQuickFixDialog_Form";
+			}
+		};
+		dialog.show();
+		if(!dialog.isOK())
+		{
+			return;
+		}
 
-    if (!myEditor.ensureEditable()) {
-      return;
-    }
-    final Collection<PropertiesFile> propertiesFiles = dialog.getAllPropertiesFiles();
-    PropertiesFile aPropertiesFile = null;
-    for (PropertiesFile file : propertiesFiles) {
-      if (!FileModificationService.getInstance().prepareFileForWrite(file.getContainingFile())) return;
-      if (aPropertiesFile == null) {
-        aPropertiesFile = file;
-      }
-    }
+		if(!myEditor.ensureEditable())
+		{
+			return;
+		}
+		final Collection<PropertiesFile> propertiesFiles = dialog.getAllPropertiesFiles();
+		PropertiesFile aPropertiesFile = null;
+		for(PropertiesFile file : propertiesFiles)
+		{
+			if(!FileModificationService.getInstance().prepareFileForWrite(file.getContainingFile()))
+			{
+				return;
+			}
+			if(aPropertiesFile == null)
+			{
+				aPropertiesFile = file;
+			}
+		}
 
-    CommandProcessor.getInstance().executeCommand(project, new Runnable(){
-      public void run() {
-        ApplicationManager.getApplication().runWriteAction(new Runnable(){
-          public void run() {
-            try {
-              JavaI18nUtil.createProperty(project, propertiesFiles, dialog.getKey(), dialog.getValue());
-            }
-            catch (IncorrectOperationException e) {
-              LOG.error(e);
-            }
-          }
-        });
-      }
-    }, CodeInsightBundle.message("quickfix.i18n.command.name"),project);
+		CommandProcessor.getInstance().executeCommand(project, new Runnable()
+		{
+			public void run()
+			{
+				ApplicationManager.getApplication().runWriteAction(new Runnable()
+				{
+					public void run()
+					{
+						try
+						{
+							I18nUtil.createProperty(project, propertiesFiles, dialog.getKey(), dialog.getValue());
+						}
+						catch(IncorrectOperationException e)
+						{
+							LOG.error(e);
+						}
+					}
+				});
+			}
+		}, CodeInsightBundle.message("quickfix.i18n.command.name"), project);
 
-    // saving files is necessary to ensure correct reload of properties files by UI Designer
-    for(PropertiesFile file: propertiesFiles) {
-      FileDocumentManager.getInstance().saveDocument(PsiDocumentManager.getInstance(project).getDocument(file.getContainingFile()));
-    }
+		// saving files is necessary to ensure correct reload of properties files by UI Designer
+		for(PropertiesFile file : propertiesFiles)
+		{
+			FileDocumentManager.getInstance().saveDocument(PsiDocumentManager.getInstance(project).getDocument(file.getContainingFile()));
+		}
 
-    if (aPropertiesFile != null) {
-      final ProjectFileIndex fileIndex = ProjectRootManager.getInstance(project).getFileIndex();
-      String packageName = fileIndex.getPackageNameByDirectory(aPropertiesFile.getVirtualFile().getParent());
-      if (packageName != null) {
-        String bundleName;
-        if (packageName.length() > 0) {
-          bundleName = packageName + "." + aPropertiesFile.getResourceBundle().getBaseName();
-        }
-        else {
-          bundleName = aPropertiesFile.getResourceBundle().getBaseName();
-        }
-        bundleName = bundleName.replace('.', '/');
-        try {
-          setStringDescriptorValue(new StringDescriptor(bundleName, dialog.getKey()));
-        }
-        catch (Exception e) {
-          LOG.error(e);
-        }
-        myEditor.refreshAndSave(true);
-      }
-    }
-  }
+		if(aPropertiesFile != null)
+		{
+			final ProjectFileIndex fileIndex = ProjectRootManager.getInstance(project).getFileIndex();
+			String packageName = fileIndex.getPackageNameByDirectory(aPropertiesFile.getVirtualFile().getParent());
+			if(packageName != null)
+			{
+				String bundleName;
+				if(packageName.length() > 0)
+				{
+					bundleName = packageName + "." + aPropertiesFile.getResourceBundle().getBaseName();
+				}
+				else
+				{
+					bundleName = aPropertiesFile.getResourceBundle().getBaseName();
+				}
+				bundleName = bundleName.replace('.', '/');
+				try
+				{
+					setStringDescriptorValue(new StringDescriptor(bundleName, dialog.getKey()));
+				}
+				catch(Exception e)
+				{
+					LOG.error(e);
+				}
+				myEditor.refreshAndSave(true);
+			}
+		}
+	}
 
-  protected abstract StringDescriptor getStringDescriptorValue();
-  protected abstract void setStringDescriptorValue(final StringDescriptor descriptor) throws Exception;
+	protected abstract StringDescriptor getStringDescriptorValue();
+
+	protected abstract void setStringDescriptorValue(final StringDescriptor descriptor) throws Exception;
 }

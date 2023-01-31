@@ -18,15 +18,16 @@ package com.intellij.uiDesigner.binding;
 import com.intellij.lang.properties.IProperty;
 import com.intellij.lang.properties.PropertiesUtil;
 import com.intellij.lang.properties.psi.PropertiesFile;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ProjectFileIndex;
-import com.intellij.openapi.roots.ProjectRootManager;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiPlainTextFile;
-import com.intellij.util.IncorrectOperationException;
+import consulo.language.plain.psi.PsiPlainTextFile;
+import consulo.module.Module;
+import consulo.module.content.ProjectFileIndex;
+import consulo.module.content.ProjectRootManager;
+import consulo.document.util.TextRange;
+import consulo.language.psi.PsiElement;
+import consulo.language.util.IncorrectOperationException;
+import consulo.project.Project;
+import consulo.virtualFileSystem.VirtualFile;
+
 import javax.annotation.Nonnull;
 
 /**
@@ -60,7 +61,8 @@ public final class ResourceBundleKeyReference extends ReferenceInForm {
     return property == null ? null : property.getPsiElement();
   }
 
-  public PsiElement bindToElement(@Nonnull final PsiElement element) throws IncorrectOperationException {
+  public PsiElement bindToElement(@Nonnull final PsiElement element) throws consulo.language.util.IncorrectOperationException
+  {
     if (!(element instanceof IProperty)) {
       throw new IncorrectOperationException();
     }

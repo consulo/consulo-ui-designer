@@ -16,11 +16,11 @@
 
 package com.intellij.uiDesigner.actions;
 
-import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.uiDesigner.CaptionSelection;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.jgoodies.forms.layout.FormLayout;
 import consulo.ui.annotation.RequiredUIAccess;
+import consulo.ui.ex.action.AnActionEvent;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;

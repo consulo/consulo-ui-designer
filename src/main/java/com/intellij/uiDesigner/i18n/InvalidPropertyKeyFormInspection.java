@@ -17,7 +17,7 @@ package com.intellij.uiDesigner.i18n;
 
 import com.intellij.lang.properties.PropertiesReferenceManager;
 import com.intellij.lang.properties.psi.PropertiesFile;
-import com.intellij.openapi.module.Module;
+import consulo.module.Module;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.inspections.FormErrorCollector;
 import com.intellij.uiDesigner.inspections.StringDescriptorInspection;
@@ -36,7 +36,7 @@ public class InvalidPropertyKeyFormInspection extends StringDescriptorInspection
     super("UnresolvedPropertyKey");
   }
 
-  protected void checkStringDescriptor(final Module module,
+  protected void checkStringDescriptor(final consulo.module.Module module,
                                        final IComponent component,
                                        final IProperty prop,
                                        final StringDescriptor descriptor,

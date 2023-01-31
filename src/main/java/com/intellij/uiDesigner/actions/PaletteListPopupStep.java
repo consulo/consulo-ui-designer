@@ -21,22 +21,20 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nonnull;
-import javax.swing.Icon;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.popup.ListPopupStep;
-import com.intellij.openapi.ui.popup.ListSeparator;
-import com.intellij.openapi.ui.popup.MnemonicNavigationFilter;
-import com.intellij.openapi.ui.popup.PopupStep;
-import com.intellij.openapi.ui.popup.SpeedSearchFilter;
+import consulo.application.util.function.Processor;
+import consulo.ui.ex.popup.*;
+import consulo.ui.ex.popup.PopupStep;
+import consulo.ui.ex.popup.SpeedSearchFilter;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.designSurface.InsertComponentProcessor;
 import com.intellij.uiDesigner.palette.ComponentItem;
 import com.intellij.uiDesigner.palette.GroupItem;
 import com.intellij.uiDesigner.palette.Palette;
-import com.intellij.util.Processor;
-import consulo.awt.TargetAWT;
+import consulo.project.Project;
+import consulo.ui.ex.popup.ListSeparator;
+import consulo.ui.ex.popup.MnemonicNavigationFilter;
 import consulo.ui.image.Image;
 
 /**

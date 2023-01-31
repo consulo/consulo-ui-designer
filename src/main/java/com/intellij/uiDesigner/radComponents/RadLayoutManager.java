@@ -16,7 +16,6 @@
 
 package com.intellij.uiDesigner.radComponents;
 
-import com.intellij.openapi.project.Project;
 import com.intellij.uiDesigner.XmlWriter;
 import com.intellij.uiDesigner.SwingProperties;
 import com.intellij.uiDesigner.inspections.FormInspectionUtil;
@@ -26,7 +25,9 @@ import com.intellij.uiDesigner.designSurface.NoDropLocation;
 import com.intellij.uiDesigner.lw.LwContainer;
 import com.intellij.uiDesigner.propertyInspector.Property;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
-import com.intellij.util.IncorrectOperationException;
+import consulo.language.util.IncorrectOperationException;
+import consulo.project.Project;
+
 import javax.annotation.Nonnull;
 
 import javax.annotation.Nullable;

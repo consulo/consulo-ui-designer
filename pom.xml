@@ -19,14 +19,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>consulo</groupId>
-		<artifactId>arch.ide-provided</artifactId>
-		<version>2-SNAPSHOT</version>
+		<artifactId>arch.ide-api-provided</artifactId>
+		<version>3-SNAPSHOT</version>
 		<relativePath/>
 	</parent>
 
 	<groupId>consulo.plugin</groupId>
 	<artifactId>com.intellij.uiDesigner</artifactId>
-	<version>2-SNAPSHOT</version>
+	<version>3-SNAPSHOT</version>
 	<packaging>consulo-plugin</packaging>
 
 	<repositories>
@@ -45,10 +45,8 @@
 			<plugin>
 				<groupId>consulo.maven</groupId>
 				<artifactId>maven-consulo-plugin</artifactId>
-				<version>2-SNAPSHOT</version>
 				<extensions>true</extensions>
 				<configuration>
-					<repositoryChannel>nightly</repositoryChannel>
 					<dependencies>
 						<dependency>consulo.java</dependency>
 						<dependency>com.intellij.xml</dependency>
@@ -83,6 +81,17 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>consulo</groupId>
+			<artifactId>consulo-ide-impl</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>consulo.internal</groupId>
+			<artifactId>forms_rt</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>consulo.java</artifactId>
 			<version>${project.version}</version>
@@ -97,12 +106,6 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>com.intellij.properties</artifactId>
-			<version>${project.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>consulo</groupId>
-			<artifactId>consulo-compiler-impl</artifactId>
 			<version>${project.version}</version>
 			<scope>provided</scope>
 		</dependency>
@@ -137,19 +140,6 @@
 			<groupId>com.jgoodies</groupId>
 			<artifactId>jgoodies-common</artifactId>
 			<version>1.8.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>consulo.java-java.impl.testing</artifactId>
-			<version>${project.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>${project.parent.groupId}</groupId>
-			<artifactId>consulo-lang-impl-testing</artifactId>
-			<version>${project.parent.version}</version>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

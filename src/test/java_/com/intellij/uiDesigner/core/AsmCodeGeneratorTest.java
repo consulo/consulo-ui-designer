@@ -16,11 +16,10 @@
 package com.intellij.uiDesigner.core;
 
 import com.intellij.compiler.instrumentation.InstrumentationClassFinder;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.application.PathManager;
-import com.intellij.openapi.util.SystemInfoRt;
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.ui.components.JBTabbedPane;
+import consulo.ide.impl.idea.openapi.application.PathManager;
+import consulo.ide.impl.idea.openapi.util.SystemInfoRt;
+import consulo.ide.impl.idea.openapi.util.io.FileUtil;
+import consulo.ui.ex.awt.JBTabbedPane;
 import com.intellij.uiDesigner.compiler.AsmCodeGenerator;
 import com.intellij.uiDesigner.compiler.FormErrorInfo;
 import com.intellij.uiDesigner.compiler.NestedFormLoader;
@@ -28,8 +27,9 @@ import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.uiDesigner.lw.CompiledClassPropertiesProvider;
 import com.intellij.uiDesigner.lw.LwRootContainer;
 import com.intellij.util.PathUtil;
-import com.intellij.util.ui.UIUtil;
+import consulo.application.ApplicationManager;
 import consulo.internal.org.objectweb.asm.ClassWriter;
+import consulo.ui.ex.awt.UIUtil;
 import consulo.util.collection.primitive.ints.IntObjectMap;
 import junit.framework.TestCase;
 
@@ -47,6 +47,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.List;
 
 /**
  * @author yole
@@ -64,7 +65,7 @@ public abstract class AsmCodeGeneratorTest extends TestCase
 
 		final String swingPath = PathUtil.getJarPathForClass(AbstractButton.class);
 
-		java.util.List<URL> cp = new ArrayList<URL>();
+		List<URL> cp = new ArrayList<URL>();
 		appendPath(cp, JBTabbedPane.class);
 		appendPath(cp, IntObjectMap.class);
 		appendPath(cp, UIUtil.class);

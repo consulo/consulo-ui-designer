@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.propertyInspector.editors;
 
-import com.intellij.openapi.util.Condition;
+import consulo.util.lang.function.Condition;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.lw.IComponent;
 import com.intellij.uiDesigner.propertyInspector.renderers.ComponentRenderer;

@@ -18,7 +18,7 @@ package com.intellij.uiDesigner.radComponents;
 import com.intellij.uiDesigner.XmlWriter;
 import com.intellij.uiDesigner.UIFormXmlConstants;
 import com.intellij.uiDesigner.lw.IButtonGroup;
-import com.intellij.util.ArrayUtil;
+import consulo.util.collection.ArrayUtil;
 
 import java.util.ArrayList;
 import java.util.List;

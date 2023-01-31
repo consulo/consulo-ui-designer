@@ -16,9 +16,7 @@
 package com.intellij.uiDesigner.radComponents;
 
 import consulo.logging.Logger;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Comparing;
-import com.intellij.openapi.util.text.StringUtil;
+import consulo.util.lang.StringUtil;
 import com.intellij.uiDesigner.*;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.designSurface.*;
@@ -34,6 +32,8 @@ import com.intellij.uiDesigner.propertyInspector.renderers.IconRenderer;
 import com.intellij.uiDesigner.propertyInspector.renderers.LabelPropertyRenderer;
 import com.intellij.uiDesigner.propertyInspector.renderers.StringRenderer;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
+import consulo.project.Project;
+import consulo.util.lang.Comparing;
 import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nonnull;

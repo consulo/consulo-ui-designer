@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.quickFixes;
 
-import com.intellij.openapi.wm.impl.VisibilityWatcher;
+import consulo.ide.impl.idea.openapi.wm.impl.VisibilityWatcher;
 
 import javax.swing.*;
 
@@ -26,7 +26,8 @@ import javax.swing.*;
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
-final class VisibilityWatcherImpl extends VisibilityWatcher{
+final class VisibilityWatcherImpl extends VisibilityWatcher
+{
   private final QuickFixManager myManager;
   private final JComponent myComponent;
 

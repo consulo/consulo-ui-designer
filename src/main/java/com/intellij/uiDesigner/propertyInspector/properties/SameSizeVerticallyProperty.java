@@ -18,8 +18,8 @@ package com.intellij.uiDesigner.propertyInspector.properties;
 import jakarta.inject.Singleton;
 
 import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.components.ServiceManager;
+import consulo.project.Project;
+import consulo.ide.ServiceManager;
 
 /**
  * @author Anton Katilin

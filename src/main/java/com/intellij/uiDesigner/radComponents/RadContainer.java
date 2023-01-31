@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.radComponents;
 
-import com.intellij.openapi.util.Comparing;
+import consulo.util.lang.Comparing;
 import com.intellij.uiDesigner.*;
 import com.intellij.uiDesigner.core.AbstractLayout;
 import com.intellij.uiDesigner.designSurface.ComponentDropLocation;
@@ -36,6 +36,7 @@ import javax.annotation.Nullable;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
+import java.lang.IllegalArgumentException;
 import java.util.ArrayList;
 
 /**
@@ -202,9 +203,9 @@ public class RadContainer extends RadComponent implements IContainer {
 
   /**
    * @param component component to be added.
-   * @throws java.lang.IllegalArgumentException
+   * @throws IllegalArgumentException
    *          if <code>component</code> is <code>null</code>
-   * @throws java.lang.IllegalArgumentException
+   * @throws IllegalArgumentException
    *          if <code>component</code> already exist in the
    *          container
    */
@@ -242,10 +243,10 @@ public class RadContainer extends RadComponent implements IContainer {
    * of invalid Swing hierarchy.
    *
    * @param component component to be removed.
-   * @throws java.lang.IllegalArgumentException
+   * @throws IllegalArgumentException
    *          if <code>component</code>
    *          is <code>null</code>
-   * @throws java.lang.IllegalArgumentException
+   * @throws IllegalArgumentException
    *          if <code>component</code>
    *          doesn't exist in the container
    */
@@ -334,7 +335,7 @@ public class RadContainer extends RadComponent implements IContainer {
 
   /**
    * @return border's type.
-   * @see com.intellij.uiDesigner.shared.BorderType
+   * @see BorderType
    */
   @Nonnull
   public final BorderType getBorderType() {
@@ -342,10 +343,10 @@ public class RadContainer extends RadComponent implements IContainer {
   }
 
   /**
-   * @throws java.lang.IllegalArgumentException
+   * @throws IllegalArgumentException
    *          if <code>type</code>
    *          is <code>null</code>
-   * @see com.intellij.uiDesigner.shared.BorderType
+   * @see BorderType
    */
   public final void setBorderType(@Nonnull final BorderType type) {
     if (myBorderType == type) {

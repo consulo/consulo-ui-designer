@@ -22,10 +22,10 @@
  */
 package com.intellij.uiDesigner.radComponents;
 
-import com.intellij.openapi.module.Module;
 import com.intellij.uiDesigner.LoaderFactory;
 import com.intellij.uiDesigner.ModuleProvider;
 import com.intellij.uiDesigner.palette.Palette;
+import consulo.module.Module;
 
 public abstract class RadComponentFactory {
   public RadComponent newInstance(ModuleProvider moduleProvider, String className, String id) throws ClassNotFoundException {

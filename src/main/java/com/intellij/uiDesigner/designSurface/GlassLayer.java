@@ -15,14 +15,20 @@
  */
 package com.intellij.uiDesigner.designSurface;
 
-import com.intellij.openapi.actionSystem.*;
-import consulo.logging.Logger;
-import com.intellij.ui.popup.PopupOwner;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.actions.*;
 import com.intellij.uiDesigner.componentTree.ComponentTree;
 import com.intellij.uiDesigner.propertyInspector.DesignerToolWindowManager;
 import com.intellij.uiDesigner.radComponents.RadComponent;
+import consulo.dataContext.DataProvider;
+import consulo.ide.impl.idea.ui.popup.PopupOwner;
+import consulo.language.editor.CommonDataKeys;
+import consulo.language.editor.PlatformDataKeys;
+import consulo.logging.Logger;
+import consulo.ui.ex.action.ActionManager;
+import consulo.ui.ex.action.AnAction;
+import consulo.ui.ex.action.CustomShortcutSet;
+import consulo.ui.ex.action.IdeActions;
 import consulo.util.dataholder.Key;
 import org.jetbrains.annotations.NonNls;
 

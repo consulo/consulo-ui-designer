@@ -16,10 +16,11 @@
 
 package com.intellij.uiDesigner.actions;
 
-import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.designSurface.ListenerNavigateButton;
 import com.intellij.uiDesigner.radComponents.RadComponent;
+import consulo.ui.ex.action.AnActionEvent;
+
 import javax.annotation.Nonnull;
 
 import java.util.ArrayList;

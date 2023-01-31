@@ -16,11 +16,11 @@
 
 package com.intellij.uiDesigner.designSurface;
 
+import consulo.ui.ex.JBColor;
+
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-
-import com.intellij.ui.JBColor;
 
 /**
  * @author yole

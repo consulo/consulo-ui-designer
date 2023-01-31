@@ -15,15 +15,15 @@
  */
 package com.intellij.uiDesigner.propertyInspector.renderers;
 
-import com.intellij.ui.ColoredListCellRenderer;
-import com.intellij.ui.SimpleTextAttributes;
+import consulo.ui.ex.awt.ColoredListCellRenderer;
+import consulo.ui.ex.SimpleTextAttributes;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.componentTree.ComponentTree;
 import com.intellij.uiDesigner.propertyInspector.PropertyRenderer;
-import com.intellij.util.ui.UIUtil;
+import consulo.ui.ex.awt.UIUtil;
 
 import javax.annotation.Nullable;
 import javax.swing.*;

@@ -15,9 +15,9 @@
  */
 package com.intellij.uiDesigner.make;
 
+import com.intellij.java.language.psi.PsiKeyword;
 import com.intellij.uiDesigner.lw.LwComponent;
 import com.intellij.uiDesigner.lw.LwTabbedPane;
-import com.intellij.psi.PsiKeyword;
 
 /**
  * @author yole

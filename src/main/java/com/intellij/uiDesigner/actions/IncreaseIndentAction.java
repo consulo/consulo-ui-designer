@@ -15,12 +15,13 @@
  */
 package com.intellij.uiDesigner.actions;
 
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.wm.IdeFocusManager;
+import consulo.application.ui.wm.IdeFocusManager;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.propertyInspector.properties.IndentProperty;
 import com.intellij.uiDesigner.radComponents.RadComponent;
+import consulo.ui.ex.action.AnActionEvent;
+
 import javax.annotation.Nonnull;
 
 import java.awt.*;

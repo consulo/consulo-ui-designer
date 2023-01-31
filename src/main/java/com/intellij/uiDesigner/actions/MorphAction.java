@@ -16,15 +16,10 @@
 
 package com.intellij.uiDesigner.actions;
 
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.command.CommandProcessor;
-import consulo.logging.Logger;
-import com.intellij.openapi.ui.popup.JBPopupFactory;
-import com.intellij.openapi.ui.popup.ListPopup;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiElementFactory;
-import com.intellij.psi.PsiField;
-import com.intellij.psi.PsiType;
+import com.intellij.java.language.psi.JavaPsiFacade;
+import com.intellij.java.language.psi.PsiElementFactory;
+import com.intellij.java.language.psi.PsiField;
+import com.intellij.java.language.psi.PsiType;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
@@ -41,10 +36,15 @@ import com.intellij.uiDesigner.quickFixes.ChangeFieldTypeFix;
 import com.intellij.uiDesigner.radComponents.RadAtomicComponent;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
-import com.intellij.util.IncorrectOperationException;
-import com.intellij.util.Processor;
-import javax.annotation.Nonnull;
+import consulo.application.util.function.Processor;
+import consulo.language.util.IncorrectOperationException;
+import consulo.logging.Logger;
+import consulo.ui.ex.action.AnActionEvent;
+import consulo.ui.ex.popup.JBPopupFactory;
+import consulo.ui.ex.popup.ListPopup;
+import consulo.undoRedo.CommandProcessor;
 
+import javax.annotation.Nonnull;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;

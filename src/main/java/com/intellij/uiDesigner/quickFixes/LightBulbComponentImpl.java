@@ -15,12 +15,12 @@
  */
 package com.intellij.uiDesigner.quickFixes;
 
-import com.intellij.openapi.actionSystem.ActionManager;
-import com.intellij.openapi.actionSystem.IdeActions;
-import com.intellij.openapi.keymap.KeymapUtil;
-import com.intellij.ui.ClickListener;
+import consulo.ui.ex.action.IdeActions;
+import consulo.ui.ex.keymap.util.KeymapUtil;
+import consulo.ui.ex.awt.ClickListener;
 import com.intellij.uiDesigner.UIDesignerBundle;
-import consulo.awt.TargetAWT;
+import consulo.ui.ex.awtUnsafe.TargetAWT;
+import consulo.ui.ex.action.ActionManager;
 import consulo.ui.image.Image;
 
 import javax.annotation.Nonnull;

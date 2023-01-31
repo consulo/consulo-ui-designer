@@ -15,21 +15,21 @@
  */
 package com.intellij.uiDesigner.propertyInspector;
 
-import com.intellij.designer.DesignerEditorPanelFacade;
-import com.intellij.designer.LightToolWindow;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.fileEditor.FileEditorManager;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.wm.ToolWindowAnchor;
-import com.intellij.openapi.wm.ToolWindowManager;
-import com.intellij.ui.content.Content;
-import com.intellij.ui.content.ContentManager;
 import com.intellij.uiDesigner.AbstractToolWindowManager;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
-import consulo.awt.TargetAWT;
+import consulo.application.ApplicationManager;
+import consulo.fileEditor.FileEditorManager;
+import consulo.ide.impl.idea.designer.DesignerEditorPanelFacade;
+import consulo.ide.impl.idea.designer.LightToolWindow;
+import consulo.ide.impl.wm.impl.ToolWindowContentUI;
+import consulo.project.Project;
+import consulo.project.ui.wm.ToolWindowManager;
 import consulo.ui.annotation.RequiredUIAccess;
-import consulo.wm.impl.ToolWindowContentUI;
+import consulo.ui.ex.awtUnsafe.TargetAWT;
+import consulo.ui.ex.content.Content;
+import consulo.ui.ex.content.ContentManager;
+import consulo.ui.ex.toolWindow.ToolWindowAnchor;
 import icons.UIDesignerIcons;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
@@ -124,7 +124,8 @@ public class DesignerToolWindowManager extends AbstractToolWindowManager
 		DesignerToolWindow toolWindowContent = new DesignerToolWindow(myProject);
 		toolWindowContent.update((GuiEditor) designer);
 
-		return createContent(designer, toolWindowContent, UIDesignerBundle.message("toolwindow.ui.designer.title"), TargetAWT.to(UIDesignerIcons.ToolWindowUIDesigner), toolWindowContent.getToolWindowPanel(),
+		return createContent(designer, toolWindowContent, UIDesignerBundle.message("toolwindow.ui.designer.title"), TargetAWT.to(UIDesignerIcons.ToolWindowUIDesigner), toolWindowContent
+						.getToolWindowPanel(),
 				toolWindowContent.getComponentTree(), 320, null);
 	}
 
@@ -135,12 +136,5 @@ public class DesignerToolWindowManager extends AbstractToolWindowManager
 		{
 			myToolWindowPanel.dispose();
 		}
-	}
-
-	@Nonnull
-	@Override
-	public String getComponentName()
-	{
-		return "UIDesignerToolWindowManager";
 	}
 }

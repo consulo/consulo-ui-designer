@@ -20,7 +20,7 @@ import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-import com.intellij.ui.JBColor;
+import consulo.ui.ex.JBColor;
 
 /**
  * @author yole

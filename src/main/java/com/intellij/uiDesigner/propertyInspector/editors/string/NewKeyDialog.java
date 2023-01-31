@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.propertyInspector.editors.string;
 
-import com.intellij.openapi.ui.DialogWrapper;
+import consulo.ui.ex.awt.DialogWrapper;
 import com.intellij.uiDesigner.UIDesignerBundle;
 
 import javax.swing.*;

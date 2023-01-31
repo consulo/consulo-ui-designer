@@ -15,34 +15,29 @@
  */
 package com.intellij.uiDesigner.inspections;
 
-import javax.annotation.Nonnull;
-
-import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NonNls;
-
-import javax.annotation.Nullable;
-import com.intellij.codeInsight.daemon.HighlightDisplayKey;
-import com.intellij.codeInspection.BaseJavaLocalInspectionTool;
-import com.intellij.codeInspection.InspectionManager;
-import com.intellij.codeInspection.InspectionProfile;
-import com.intellij.codeInspection.ProblemDescriptor;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtil;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.profile.codeInspection.InspectionProjectProfileManager;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.uiDesigner.ErrorInfo;
-import com.intellij.uiDesigner.FormEditingUtil;
-import com.intellij.uiDesigner.GuiFormFileType;
-import com.intellij.uiDesigner.PsiPropertiesProvider;
-import com.intellij.uiDesigner.UIDesignerBundle;
+import com.intellij.java.analysis.impl.codeInspection.BaseJavaLocalInspectionTool;
+import com.intellij.uiDesigner.*;
 import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.lw.IComponent;
 import com.intellij.uiDesigner.lw.IRootContainer;
 import com.intellij.uiDesigner.lw.LwRootContainer;
 import com.intellij.uiDesigner.radComponents.RadComponent;
+import consulo.ide.impl.idea.openapi.module.ModuleUtil;
+import consulo.language.editor.inspection.ProblemDescriptor;
+import consulo.language.editor.inspection.scheme.InspectionManager;
+import consulo.language.editor.inspection.scheme.InspectionProfile;
+import consulo.language.editor.inspection.scheme.InspectionProjectProfileManager;
+import consulo.language.editor.rawHighlight.HighlightDisplayKey;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.module.Module;
+import consulo.virtualFileSystem.VirtualFile;
+import org.jetbrains.annotations.Nls;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author yole
@@ -130,5 +125,5 @@ public abstract class BaseFormInspection extends BaseJavaLocalInspectionTool imp
     return collector.result();
   }
 
-  protected abstract void checkComponentProperties(Module module, IComponent component, FormErrorCollector collector);
+  protected abstract void checkComponentProperties(consulo.module.Module module, IComponent component, FormErrorCollector collector);
 }

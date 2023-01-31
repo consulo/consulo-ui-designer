@@ -16,14 +16,15 @@
 
 package com.intellij.uiDesigner.radComponents;
 
-import com.intellij.openapi.actionSystem.ActionGroup;
+import consulo.ui.ex.action.ActionGroup;
 import com.intellij.uiDesigner.GridChangeUtil;
 import com.intellij.uiDesigner.UIFormXmlConstants;
 import com.intellij.uiDesigner.XmlWriter;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.designSurface.*;
-import com.intellij.util.IncorrectOperationException;
+import consulo.language.util.IncorrectOperationException;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -385,7 +386,8 @@ public abstract class RadAbstractGridLayoutManager extends RadLayoutManager {
   }
 
   @Override
-  public void changeContainerLayout(RadContainer container) throws IncorrectOperationException {
+  public void changeContainerLayout(RadContainer container) throws IncorrectOperationException
+  {
     if (container.getLayoutManager().isGrid()) {
       RadAbstractGridLayoutManager grid = container.getGridLayoutManager();
       List<Boolean> canRowsGrow = collectCanCellsGrow(grid, container, true);
@@ -421,7 +423,7 @@ public abstract class RadAbstractGridLayoutManager extends RadLayoutManager {
       container.setLayoutManager(this);
     }
     else {
-      throw new IncorrectOperationException("Cannot change from " + container.getLayout() + " to grid layout");
+      throw new consulo.language.util.IncorrectOperationException("Cannot change from " + container.getLayout() + " to grid layout");
     }
   }
 

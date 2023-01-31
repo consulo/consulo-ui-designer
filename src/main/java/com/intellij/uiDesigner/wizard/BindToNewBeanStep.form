@@ -9,7 +9,7 @@
     <properties/>
     <border type="none"/>
     <children>
-      <scrollpane class="com.intellij.ui.components.JBScrollPane" id="ebea0" binding="myScrollPane">
+      <scrollpane class="consulo.ui.ex.awt.JBScrollPane" id="ebea0" binding="myScrollPane">
         <constraints>
           <xy x="0" y="0" width="258" height="207"/>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3"/>
@@ -17,7 +17,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="c4b63" class="com.intellij.util.ui.Table" binding="myTable">
+          <component id="c4b63" class="javax.swing.JTable" binding="myTable">
             <constraints/>
             <properties/>
           </component>

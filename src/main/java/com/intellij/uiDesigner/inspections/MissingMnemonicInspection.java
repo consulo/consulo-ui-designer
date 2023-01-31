@@ -15,8 +15,7 @@
  */
 package com.intellij.uiDesigner.inspections;
 
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.util.text.StringUtil;
+import consulo.util.lang.StringUtil;
 import com.intellij.uiDesigner.SwingProperties;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.core.SupportCode;
@@ -25,6 +24,8 @@ import com.intellij.uiDesigner.lw.IComponent;
 import com.intellij.uiDesigner.lw.IProperty;
 import com.intellij.uiDesigner.quickFixes.QuickFix;
 import com.intellij.uiDesigner.radComponents.RadComponent;
+import consulo.module.Module;
+
 import javax.annotation.Nonnull;
 
 import javax.swing.*;

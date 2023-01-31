@@ -17,7 +17,7 @@
 package com.intellij.uiDesigner.snapShooter;
 
 import consulo.logging.Logger;
-import com.intellij.openapi.vfs.CharsetToolkit;
+import consulo.util.io.CharsetToolkit;
 import org.jetbrains.annotations.NonNls;
 
 import java.io.BufferedReader;

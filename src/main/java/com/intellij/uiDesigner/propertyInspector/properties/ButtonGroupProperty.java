@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.propertyInspector.properties;
 
-import com.intellij.ui.ListCellRendererWrapper;
+import consulo.ui.ex.awt.ListCellRendererWrapper;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.propertyInspector.InplaceContext;
@@ -27,6 +27,8 @@ import com.intellij.uiDesigner.propertyInspector.renderers.LabelPropertyRenderer
 import com.intellij.uiDesigner.radComponents.RadButtonGroup;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
+import consulo.ui.ex.awt.ListCellRendererWrapper;
+
 import javax.annotation.Nonnull;
 
 import javax.swing.*;

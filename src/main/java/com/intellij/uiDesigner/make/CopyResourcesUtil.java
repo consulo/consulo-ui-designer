@@ -15,8 +15,8 @@
  */
 package com.intellij.uiDesigner.make;
 
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.openapi.util.io.FileUtilRt;
+import consulo.ide.impl.idea.openapi.util.io.FileUtil;
+import consulo.ide.impl.idea.openapi.util.io.FileUtilRt;
 import org.jetbrains.annotations.NonNls;
 
 import java.io.File;

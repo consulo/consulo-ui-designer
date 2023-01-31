@@ -16,7 +16,8 @@
 
 package com.intellij.uiDesigner.snapShooter;
 
-import com.intellij.execution.configurations.RunConfigurationBase;
+import consulo.execution.configuration.RunConfigurationBase;
+import consulo.execution.configuration.RunConfigurationBase;
 import consulo.util.dataholder.Key;
 
 /**

@@ -15,26 +15,22 @@
  */
 package com.intellij.uiDesigner.projectView;
 
-import com.intellij.ide.DeleteProvider;
-import com.intellij.ide.projectView.ProjectViewNode;
-import com.intellij.ide.projectView.TreeStructureProvider;
-import com.intellij.ide.projectView.ViewSettings;
-import com.intellij.ide.projectView.impl.nodes.BasePsiNode;
-import com.intellij.ide.util.DeleteHandler;
-import com.intellij.ide.util.treeView.AbstractTreeNode;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.actionSystem.PlatformDataKeys;
-import com.intellij.openapi.progress.ProcessCanceledException;
-import com.intellij.openapi.project.Project;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiClassOwner;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.util.PsiUtilBase;
+import com.intellij.java.language.psi.PsiClass;
+import com.intellij.java.language.psi.PsiClassOwner;
 import com.intellij.uiDesigner.GuiFormFileType;
 import com.intellij.uiDesigner.binding.FormClassIndex;
-import com.intellij.util.containers.ContainerUtil;
+import consulo.component.ProcessCanceledException;
+import consulo.dataContext.DataContext;
+import consulo.ide.impl.idea.ide.util.DeleteHandler;
+import consulo.language.editor.CommonDataKeys;
+import consulo.language.editor.PlatformDataKeys;
+import consulo.language.editor.util.PsiUtilBase;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.project.Project;
+import consulo.project.ui.view.tree.*;
+import consulo.ui.ex.DeleteProvider;
+import consulo.util.collection.ContainerUtil;
 import consulo.util.dataholder.Key;
 
 import javax.annotation.Nonnull;

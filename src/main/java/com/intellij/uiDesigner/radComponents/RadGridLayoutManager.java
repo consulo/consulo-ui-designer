@@ -16,9 +16,9 @@
 
 package com.intellij.uiDesigner.radComponents;
 
-import com.intellij.openapi.actionSystem.ActionGroup;
-import com.intellij.openapi.actionSystem.DefaultActionGroup;
-import com.intellij.openapi.project.Project;
+import consulo.ui.ex.action.ActionGroup;
+import consulo.ui.ex.action.DefaultActionGroup;
+import consulo.project.Project;
 import com.intellij.uiDesigner.UIFormXmlConstants;
 import com.intellij.uiDesigner.XmlWriter;
 import com.intellij.uiDesigner.actions.DeleteAction;
@@ -29,6 +29,7 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.propertyInspector.Property;
 import com.intellij.uiDesigner.propertyInspector.properties.*;
+import consulo.ui.ex.action.DefaultActionGroup;
 
 import javax.swing.*;
 import java.awt.*;

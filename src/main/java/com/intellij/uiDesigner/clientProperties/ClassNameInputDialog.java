@@ -16,57 +16,61 @@
 
 package com.intellij.uiDesigner.clientProperties;
 
-import java.awt.Component;
-
-import javax.swing.JComponent;
-import javax.swing.JPanel;
+import com.intellij.java.language.impl.JavaFileType;
+import com.intellij.java.language.psi.JavaCodeFragmentFactory;
+import com.intellij.java.language.psi.JavaPsiFacade;
+import com.intellij.java.language.psi.PsiJavaPackage;
+import com.intellij.uiDesigner.UIDesignerBundle;
+import consulo.language.editor.ui.awt.EditorTextField;
+import consulo.language.psi.PsiCodeFragment;
+import consulo.language.psi.PsiDocumentManager;
+import consulo.project.Project;
+import consulo.ui.ex.awt.DialogWrapper;
 
 import javax.annotation.Nullable;
-import com.intellij.ide.highlighter.JavaFileType;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.DialogWrapper;
-import com.intellij.psi.JavaCodeFragmentFactory;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiCodeFragment;
-import com.intellij.psi.PsiDocumentManager;
-import com.intellij.psi.PsiJavaPackage;
-import com.intellij.ui.EditorTextField;
-import com.intellij.uiDesigner.UIDesignerBundle;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * @author yole
  */
-public class ClassNameInputDialog extends DialogWrapper {
-  private EditorTextField myEditorTextField1;
-  private JPanel myRootPanel;
-  private final Project myProject;
+public class ClassNameInputDialog extends DialogWrapper
+{
+	private EditorTextField myEditorTextField1;
+	private JPanel myRootPanel;
+	private final Project myProject;
 
-  public ClassNameInputDialog(Project project, Component parent) {
-    super(parent, false);
-    myProject = project;
-    init();
-    setTitle(UIDesignerBundle.message("client.properties.title"));
-  }
+	public ClassNameInputDialog(Project project, Component parent)
+	{
+		super(parent, false);
+		myProject = project;
+		init();
+		setTitle(UIDesignerBundle.message("client.properties.title"));
+	}
 
-  private void createUIComponents() {
-    myEditorTextField1 = new EditorTextField("", myProject, JavaFileType.INSTANCE);
-    final JavaCodeFragmentFactory factory = JavaCodeFragmentFactory.getInstance(myProject);
-    PsiJavaPackage defaultPackage = JavaPsiFacade.getInstance(myProject).findPackage("");
-    final PsiCodeFragment fragment = factory.createReferenceCodeFragment("", defaultPackage, true, true);
-    myEditorTextField1.setDocument(PsiDocumentManager.getInstance(myProject).getDocument(fragment));
-  }
+	private void createUIComponents()
+	{
+		myEditorTextField1 = new EditorTextField("", myProject, JavaFileType.INSTANCE);
+		final JavaCodeFragmentFactory factory = JavaCodeFragmentFactory.getInstance(myProject);
+		PsiJavaPackage defaultPackage = JavaPsiFacade.getInstance(myProject).findPackage("");
+		final PsiCodeFragment fragment = factory.createReferenceCodeFragment("", defaultPackage, true, true);
+		myEditorTextField1.setDocument(PsiDocumentManager.getInstance(myProject).getDocument(fragment));
+	}
 
-  @Override
-  public JComponent getPreferredFocusedComponent() {
-    return myEditorTextField1;
-  }
+	@Override
+	public JComponent getPreferredFocusedComponent()
+	{
+		return myEditorTextField1;
+	}
 
-  @Nullable
-  protected JComponent createCenterPanel() {
-    return myRootPanel;
-  }
+	@Nullable
+	protected JComponent createCenterPanel()
+	{
+		return myRootPanel;
+	}
 
-  public String getClassName() {
-    return myEditorTextField1.getDocument().getText();
-  }
+	public String getClassName()
+	{
+		return myEditorTextField1.getDocument().getText();
+	}
 }

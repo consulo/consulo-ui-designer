@@ -17,8 +17,8 @@ package com.intellij.uiDesigner.propertyInspector.properties;
 
 import com.intellij.uiDesigner.core.AbstractLayout;
 import com.intellij.uiDesigner.radComponents.RadContainer;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.components.ServiceManager;
+import consulo.ide.ServiceManager;
+import consulo.project.Project;
 import jakarta.inject.Singleton;
 
 import java.awt.BorderLayout;

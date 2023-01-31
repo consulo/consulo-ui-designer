@@ -16,6 +16,43 @@
 
 package com.intellij.uiDesigner.actions;
 
+import com.intellij.java.impl.codeInsight.generation.OverrideImplementUtil;
+import com.intellij.java.language.psi.*;
+import com.intellij.java.language.psi.codeStyle.JavaCodeStyleManager;
+import com.intellij.uiDesigner.FormEditingUtil;
+import com.intellij.uiDesigner.UIDesignerBundle;
+import com.intellij.uiDesigner.designSurface.GuiEditor;
+import com.intellij.uiDesigner.propertyInspector.properties.BindingProperty;
+import com.intellij.uiDesigner.radComponents.RadComponent;
+import com.intellij.uiDesigner.radComponents.RadRootContainer;
+import consulo.application.ApplicationManager;
+import consulo.application.CommonBundle;
+import consulo.application.ui.wm.IdeFocusManager;
+import consulo.codeEditor.Editor;
+import consulo.dataContext.DataContext;
+import consulo.dataContext.DataManager;
+import consulo.ide.impl.idea.openapi.module.ModuleUtil;
+import consulo.language.editor.FileModificationService;
+import consulo.language.editor.PlatformDataKeys;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.SmartPointerManager;
+import consulo.language.psi.SmartPsiElementPointer;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.util.IncorrectOperationException;
+import consulo.logging.Logger;
+import consulo.module.Module;
+import consulo.ui.ex.action.AnAction;
+import consulo.ui.ex.action.AnActionEvent;
+import consulo.ui.ex.action.DefaultActionGroup;
+import consulo.ui.ex.awt.Messages;
+import consulo.ui.ex.popup.JBPopupFactory;
+import consulo.ui.ex.popup.ListPopup;
+import consulo.undoRedo.CommandProcessor;
+import consulo.util.lang.ref.Ref;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import javax.swing.*;
 import java.beans.BeanInfo;
 import java.beans.EventSetDescriptor;
 import java.beans.IntrospectionException;
@@ -24,41 +61,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.swing.JComponent;
-
-import consulo.logging.Logger;
-import org.jetbrains.annotations.NonNls;
-import com.intellij.CommonBundle;
-import com.intellij.codeInsight.FileModificationService;
-import com.intellij.codeInsight.generation.OverrideImplementUtil;
-import com.intellij.ide.DataManager;
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.actionSystem.DefaultActionGroup;
-import com.intellij.openapi.actionSystem.PlatformDataKeys;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtil;
-import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.ui.popup.JBPopupFactory;
-import com.intellij.openapi.ui.popup.ListPopup;
-import com.intellij.openapi.util.Ref;
-import com.intellij.openapi.wm.IdeFocusManager;
-import com.intellij.psi.*;
-import com.intellij.psi.codeStyle.JavaCodeStyleManager;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.uiDesigner.FormEditingUtil;
-import com.intellij.uiDesigner.UIDesignerBundle;
-import com.intellij.uiDesigner.designSurface.GuiEditor;
-import com.intellij.uiDesigner.propertyInspector.properties.BindingProperty;
-import com.intellij.uiDesigner.radComponents.RadComponent;
-import com.intellij.uiDesigner.radComponents.RadRootContainer;
-import com.intellij.util.IncorrectOperationException;
 
 /**
  * @author yole
@@ -118,7 +120,8 @@ public class CreateListenerAction extends AbstractGuiEditorAction {
     return true;
   }
 
-  private class MyCreateListenerAction extends AnAction {
+  private class MyCreateListenerAction extends AnAction
+  {
     private final List<RadComponent> mySelection;
     private final EventSetDescriptor myDescriptor;
     @NonNls private static final String LISTENER_SUFFIX = "Listener";
@@ -251,7 +254,7 @@ public class CreateListenerAction extends AbstractGuiEditorAction {
           }
         });
       }
-      catch (IncorrectOperationException ex) {
+      catch (consulo.language.util.IncorrectOperationException ex) {
         LOG.error(ex);
       }
     }

@@ -27,16 +27,16 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 
+import consulo.compiler.CompilerPaths;
+import consulo.document.Document;
+import consulo.project.Project;
 import org.jetbrains.annotations.NonNls;
-import com.intellij.compiler.impl.StateCache;
-import com.intellij.openapi.compiler.CompilerPaths;
+import consulo.ide.impl.idea.compiler.impl.StateCache;
 import consulo.logging.Logger;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.fileEditor.FileDocumentManager;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.openapi.vfs.VfsUtil;
-import com.intellij.openapi.vfs.VirtualFile;
+import consulo.document.FileDocumentManager;
+import consulo.ide.impl.idea.openapi.util.io.FileUtil;
+import consulo.ide.impl.idea.openapi.vfs.VfsUtil;
+import consulo.virtualFileSystem.VirtualFile;
 import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.uiDesigner.lw.LwRootContainer;
 

@@ -22,32 +22,39 @@
  */
 package com.intellij.uiDesigner.binding;
 
+import com.intellij.java.language.psi.PsiClass;
+import com.intellij.java.language.psi.PsiClassType;
+import consulo.document.util.TextRange;
+import consulo.language.plain.psi.PsiPlainTextFile;
+import consulo.language.psi.PsiElement;
+import consulo.language.util.IncorrectOperationException;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiPlainTextFile;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiClassType;
-import com.intellij.util.IncorrectOperationException;
-import com.intellij.openapi.util.TextRange;
+public class FormEnumConstantReference extends ReferenceInForm
+{
+	private final PsiClassType myEnumClass;
 
-public class FormEnumConstantReference extends ReferenceInForm {
-  private final PsiClassType myEnumClass;
+	protected FormEnumConstantReference(final PsiPlainTextFile file, final TextRange range, final PsiClassType enumClass)
+	{
+		super(file, range);
+		myEnumClass = enumClass;
+	}
 
-  protected FormEnumConstantReference(final PsiPlainTextFile file, final TextRange range, final PsiClassType enumClass) {
-    super(file, range);
-    myEnumClass = enumClass;
-  }
+	@Nullable
+	public PsiElement resolve()
+	{
+		PsiClass enumClass = myEnumClass.resolve();
+		if(enumClass == null)
+		{
+			return null;
+		}
+		return enumClass.findFieldByName(getRangeText(), false);
+	}
 
-  @Nullable
-  public PsiElement resolve() {
-    PsiClass enumClass = myEnumClass.resolve();
-    if (enumClass == null) return null;
-    return enumClass.findFieldByName(getRangeText(), false);
-  }
-
-  public PsiElement bindToElement(@Nonnull PsiElement element) throws IncorrectOperationException {
-    throw new IncorrectOperationException();
-  }
+	public PsiElement bindToElement(@Nonnull PsiElement element) throws consulo.language.util.IncorrectOperationException
+	{
+		throw new IncorrectOperationException();
+	}
 }

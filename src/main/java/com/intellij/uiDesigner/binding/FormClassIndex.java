@@ -15,33 +15,28 @@
  */
 package com.intellij.uiDesigner.binding;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-
-import org.jetbrains.annotations.NonNls;
-import com.intellij.openapi.application.ReadAction;
-import com.intellij.openapi.project.IndexNotReadyException;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.search.ProjectScope;
+import com.intellij.java.language.psi.PsiClass;
 import com.intellij.uiDesigner.GuiFormFileType;
 import com.intellij.uiDesigner.compiler.Utils;
-import com.intellij.util.indexing.DataIndexer;
-import com.intellij.util.indexing.FileBasedIndex;
-import com.intellij.util.indexing.FileContent;
-import com.intellij.util.indexing.ID;
-import com.intellij.util.indexing.ScalarIndexExtension;
-import com.intellij.util.io.EnumeratorStringDescriptor;
-import com.intellij.util.io.KeyDescriptor;
+import consulo.application.ReadAction;
+import consulo.application.dumb.IndexNotReadyException;
+import consulo.index.io.DataIndexer;
+import consulo.index.io.EnumeratorStringDescriptor;
+import consulo.index.io.ID;
+import consulo.index.io.KeyDescriptor;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.PsiManager;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.psi.stub.FileBasedIndex;
+import consulo.language.psi.stub.FileContent;
+import consulo.language.psi.stub.ScalarIndexExtension;
+import consulo.project.Project;
+import consulo.project.content.scope.ProjectScopes;
+import consulo.virtualFileSystem.VirtualFile;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import java.util.*;
 
 /**
  * @author yole
@@ -126,7 +121,7 @@ public class FormClassIndex extends ScalarIndexExtension<String>
 
 	public static List<PsiFile> findFormsBoundToClass(Project project, String className)
 	{
-		return findFormsBoundToClass(project, className, ProjectScope.getAllScope(project));
+		return findFormsBoundToClass(project, className, (GlobalSearchScope) ProjectScopes.getAllScope(project));
 	}
 
 	public static List<PsiFile> findFormsBoundToClass(final Project project, final String className, final GlobalSearchScope scope)

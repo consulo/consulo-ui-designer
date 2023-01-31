@@ -16,19 +16,20 @@
 
 package com.intellij.uiDesigner.componentTree;
 
-import com.intellij.ide.util.treeView.NodeDescriptor;
+import consulo.ui.ex.tree.NodeDescriptor;
 import com.intellij.uiDesigner.lw.LwInspectionSuppression;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 
 /**
  * @author yole
  */
-public class SuppressionDescriptor extends NodeDescriptor {
+public class SuppressionDescriptor extends NodeDescriptor
+{
   private final RadComponent myTarget;
   private final LwInspectionSuppression myInspectionSuppression;
 
   public SuppressionDescriptor(final NodeDescriptor parentDescriptor, final RadComponent target, final LwInspectionSuppression inspectionSuppression) {
-    super(null, parentDescriptor);
+    super(parentDescriptor);
     myTarget = target;
     myInspectionSuppression = inspectionSuppression;
   }

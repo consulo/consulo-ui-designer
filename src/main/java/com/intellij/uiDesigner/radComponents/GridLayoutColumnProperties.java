@@ -21,7 +21,7 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.propertyInspector.Property;
 import com.intellij.uiDesigner.propertyInspector.properties.HSizePolicyProperty;
 import com.intellij.uiDesigner.propertyInspector.properties.VSizePolicyProperty;
-import com.intellij.util.containers.ContainerUtil;
+import consulo.util.collection.ContainerUtil;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

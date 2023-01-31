@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 import com.intellij.uiDesigner.quickFixes.QuickFix;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.lw.IComponent;
-import com.intellij.codeHighlighting.HighlightDisplayLevel;
+import consulo.language.editor.rawHighlight.HighlightDisplayLevel;
 import org.jetbrains.annotations.NonNls;
 
 /**

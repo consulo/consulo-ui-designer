@@ -18,7 +18,7 @@ package com.intellij.uiDesigner.radComponents;
 
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.propertyInspector.properties.BindingProperty;
-import com.intellij.util.containers.ContainerUtil;
+import consulo.util.collection.ContainerUtil;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

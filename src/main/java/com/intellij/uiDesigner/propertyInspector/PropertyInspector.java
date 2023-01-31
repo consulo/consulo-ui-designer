@@ -15,12 +15,11 @@
  */
 package com.intellij.uiDesigner.propertyInspector;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.ex.MultiLineLabel;
-import com.intellij.openapi.util.Comparing;
-import com.intellij.ui.IdeBorderFactory;
-import com.intellij.ui.ScrollPaneFactory;
-import com.intellij.ui.SideBorder;
+import consulo.ide.impl.idea.openapi.ui.ex.MultiLineLabel;
+import consulo.ui.ex.awt.ScrollPaneFactory;
+import consulo.util.lang.Comparing;
+import consulo.ui.ex.awt.IdeBorderFactory;
+import consulo.ui.ex.awt.SideBorder;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.componentTree.ComponentSelectionListener;
 import com.intellij.uiDesigner.componentTree.ComponentTree;
@@ -28,7 +27,8 @@ import com.intellij.uiDesigner.designSurface.GridCaptionPanel;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.quickFixes.QuickFixManager;
 import com.intellij.uiDesigner.radComponents.*;
-import com.intellij.util.IJSwingUtilities;
+import consulo.ui.ex.awt.IJSwingUtilities;
+import consulo.project.Project;
 import org.jetbrains.annotations.NonNls;
 import javax.annotation.Nonnull;
 

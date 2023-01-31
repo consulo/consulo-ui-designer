@@ -15,11 +15,12 @@
  */
 package com.intellij.uiDesigner.inspections;
 
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.util.NotNullLazyValue;
 import com.intellij.uiDesigner.lw.*;
 import com.intellij.uiDesigner.propertyInspector.properties.BorderProperty;
+import consulo.application.util.NotNullLazyValue;
+import consulo.module.Module;
 import org.jetbrains.annotations.NonNls;
+
 import javax.annotation.Nonnull;
 
 /**
@@ -68,7 +69,7 @@ public abstract class StringDescriptorInspection extends BaseFormInspection {
     }
   }
 
-  protected abstract void checkStringDescriptor(final Module module,
+  protected abstract void checkStringDescriptor(final consulo.module.Module module,
                                                 final IComponent component,
                                                 final IProperty prop,
                                                 final StringDescriptor descriptor,

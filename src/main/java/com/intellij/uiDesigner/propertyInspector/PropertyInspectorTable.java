@@ -15,28 +15,10 @@
  */
 package com.intellij.uiDesigner.propertyInspector;
 
-import com.intellij.codeInsight.daemon.impl.SeverityRegistrar;
-import com.intellij.ide.ui.LafManager;
-import com.intellij.ide.ui.LafManagerListener;
-import com.intellij.lang.annotation.HighlightSeverity;
-import com.intellij.openapi.actionSystem.*;
-import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.editor.colors.EditorColorsManager;
-import com.intellij.openapi.editor.colors.TextAttributesKey;
-import com.intellij.openapi.editor.markup.TextAttributes;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.util.Comparing;
-import com.intellij.openapi.util.Ref;
-import com.intellij.openapi.wm.ex.IdeFocusTraversalPolicy;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.PsiMethod;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.util.PropertyUtil;
-import com.intellij.ui.*;
+import com.intellij.java.language.psi.JavaPsiFacade;
+import com.intellij.java.language.psi.PsiClass;
+import com.intellij.java.language.psi.PsiMethod;
+import com.intellij.java.language.psi.util.PropertyUtil;
 import com.intellij.uiDesigner.ErrorAnalyzer;
 import com.intellij.uiDesigner.ErrorInfo;
 import com.intellij.uiDesigner.Properties;
@@ -47,12 +29,35 @@ import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.palette.Palette;
 import com.intellij.uiDesigner.propertyInspector.properties.*;
 import com.intellij.uiDesigner.radComponents.*;
-import com.intellij.util.ui.Table;
-import com.intellij.util.ui.UIUtil;
+import consulo.colorScheme.EditorColorsManager;
+import consulo.colorScheme.TextAttributes;
+import consulo.colorScheme.TextAttributesKey;
+import consulo.dataContext.DataProvider;
+import consulo.ide.impl.idea.ide.ui.LafManager;
+import consulo.ide.impl.idea.ide.ui.LafManagerListener;
+import consulo.ide.impl.idea.util.ui.Table;
+import consulo.language.editor.CommonDataKeys;
+import consulo.language.editor.PlatformDataKeys;
+import consulo.language.editor.annotation.HighlightSeverity;
+import consulo.language.editor.rawHighlight.SeverityRegistrar;
+import consulo.language.psi.PsiManager;
+import consulo.language.psi.scope.GlobalSearchScope;
 import consulo.logging.Logger;
+import consulo.module.Module;
+import consulo.project.Project;
+import consulo.ui.ex.Gray;
+import consulo.ui.ex.JBColor;
+import consulo.ui.ex.SimpleTextAttributes;
+import consulo.ui.ex.action.*;
+import consulo.ui.ex.awt.*;
+import consulo.ui.ex.awt.event.DoubleClickListener;
+import consulo.ui.ex.awt.util.TableUtil;
 import consulo.ui.image.Image;
 import consulo.ui.image.ImageEffects;
+import consulo.undoRedo.CommandProcessor;
 import consulo.util.dataholder.Key;
+import consulo.util.lang.Comparing;
+import consulo.util.lang.ref.Ref;
 import icons.UIDesignerIcons;
 import org.jetbrains.annotations.NonNls;
 
@@ -61,6 +66,7 @@ import javax.annotation.Nullable;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.plaf.TableUI;
+import javax.swing.plaf.basic.BasicTableUI;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
@@ -1473,7 +1479,7 @@ public final class PropertyInspectorTable extends Table implements DataProvider
 	 * Reimplementation of LookAndFeel's SelectPreviousRowAction action.
 	 * Standard implementation isn't smart enough.
 	 *
-	 * @see javax.swing.plaf.basic.BasicTableUI
+	 * @see BasicTableUI
 	 */
 	private final class MySelectPreviousRowAction extends AbstractAction
 	{
@@ -1507,7 +1513,7 @@ public final class PropertyInspectorTable extends Table implements DataProvider
 	 * Reimplementation of LookAndFeel's SelectNextRowAction action.
 	 * Standard implementation isn't smart enough.
 	 *
-	 * @see javax.swing.plaf.basic.BasicTableUI
+	 * @see BasicTableUI
 	 */
 	private final class MySelectNextRowAction extends AbstractAction
 	{
@@ -1536,7 +1542,7 @@ public final class PropertyInspectorTable extends Table implements DataProvider
 	 * Reimplementation of LookAndFeel's StartEditingAction action.
 	 * Standard implementation isn't smart enough.
 	 *
-	 * @see javax.swing.plaf.basic.BasicTableUI
+	 * @see BasicTableUI
 	 */
 	private final class MyStartEditingAction extends AbstractAction
 	{

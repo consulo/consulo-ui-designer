@@ -1,9 +1,9 @@
 package consulo.uiDesigner;
 
 import com.intellij.ide.palette.impl.PaletteToolWindowManager;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.startup.StartupActivity;
 import com.intellij.uiDesigner.propertyInspector.DesignerToolWindowManager;
+import consulo.project.Project;
+import consulo.project.startup.StartupActivity;
 import consulo.ui.UIAccess;
 
 import javax.annotation.Nonnull;

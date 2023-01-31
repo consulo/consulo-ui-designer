@@ -15,39 +15,42 @@
  */
 package com.intellij.uiDesigner.make;
 
-import com.intellij.lang.java.lexer.JavaLexer;
-import com.intellij.openapi.application.ApplicationNamesInfo;
-import consulo.logging.Logger;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.fileEditor.FileDocumentManager;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtil;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Ref;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.patterns.ElementPattern;
-import com.intellij.patterns.PlatformPatterns;
-import com.intellij.patterns.PsiJavaPatterns;
-import com.intellij.pom.java.LanguageLevel;
-import com.intellij.psi.*;
-import com.intellij.psi.codeStyle.CodeStyleManager;
-import com.intellij.psi.codeStyle.JavaCodeStyleManager;
-import com.intellij.psi.impl.source.tree.JavaDocElementType;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.util.InheritanceUtil;
+import com.intellij.java.language.LanguageLevel;
+import com.intellij.java.language.impl.lexer.JavaLexer;
+import com.intellij.java.language.impl.psi.impl.source.tree.JavaDocElementType;
+import com.intellij.java.language.patterns.PsiJavaPatterns;
+import com.intellij.java.language.psi.*;
+import com.intellij.java.language.psi.codeStyle.JavaCodeStyleManager;
+import com.intellij.java.language.psi.util.InheritanceUtil;
 import com.intellij.uiDesigner.*;
 import com.intellij.uiDesigner.compiler.*;
 import com.intellij.uiDesigner.core.SupportCode;
 import com.intellij.uiDesigner.lw.*;
 import com.intellij.uiDesigner.shared.BorderType;
-import com.intellij.util.IncorrectOperationException;
-import com.intellij.util.ui.JBUI;
+import consulo.application.impl.internal.ApplicationNamesInfo;
+import consulo.document.Document;
+import consulo.document.FileDocumentManager;
+import consulo.ide.impl.idea.openapi.module.ModuleUtil;
+import consulo.language.ast.IElementType;
+import consulo.language.ast.TokenType;
+import consulo.language.codeStyle.CodeStyleManager;
+import consulo.language.pattern.ElementPattern;
+import consulo.language.pattern.PlatformPatterns;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiManager;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.util.IncorrectOperationException;
+import consulo.logging.Logger;
+import consulo.module.Module;
+import consulo.project.Project;
+import consulo.ui.ex.awt.JBUI;
 import consulo.util.collection.primitive.ints.IntMaps;
 import consulo.util.collection.primitive.ints.IntObjectMap;
 import consulo.util.collection.primitive.objects.ObjectIntMap;
 import consulo.util.collection.primitive.objects.ObjectMaps;
+import consulo.util.lang.StringUtil;
+import consulo.util.lang.ref.Ref;
+import consulo.virtualFileSystem.VirtualFile;
 import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nonnull;
@@ -119,7 +122,7 @@ public final class FormSourceCodeGenerator
 		myNeedLoadLabelText = false;
 		myNeedLoadButtonText = false;
 
-		final Module module = ModuleUtil.findModuleForFile(formFile, myProject);
+		final consulo.module.Module module = ModuleUtil.findModuleForFile(formFile, myProject);
 		if(module == null)
 		{
 			return;
@@ -213,7 +216,7 @@ public final class FormSourceCodeGenerator
 	}
 
 	private void _generate(final LwRootContainer rootContainer,
-			final Module module) throws CodeGenerationException, IncorrectOperationException
+						   final consulo.module.Module module) throws CodeGenerationException, IncorrectOperationException
 	{
 		myBuffer = new StringBuffer();
 		myIsFirstParameterStack = new Stack<>();
@@ -346,8 +349,8 @@ public final class FormSourceCodeGenerator
 	}
 
 	private static void addSetupUICall(final PsiMethod constructor,
-			final LwRootContainer rootContainer,
-			final PsiMethod setupUIMethod)
+									   final LwRootContainer rootContainer,
+									   final PsiMethod setupUIMethod)
 	{
 		final PsiCodeBlock psiCodeBlock = constructor.getBody();
 		if(psiCodeBlock == null)
@@ -388,9 +391,9 @@ public final class FormSourceCodeGenerator
 	}
 
 	private static boolean hasCustomComponentAffectingReferences(final PsiElement element,
-			final PsiClass classToBind,
-			final LwRootContainer rootContainer,
-			@Nullable final Ref<Boolean> callsThisConstructor)
+																 final PsiClass classToBind,
+																 final LwRootContainer rootContainer,
+																 @Nullable final Ref<Boolean> callsThisConstructor)
 	{
 		final Ref<Boolean> result = new Ref<>(Boolean.FALSE);
 		element.accept(new JavaRecursiveElementWalkingVisitor()
@@ -489,7 +492,7 @@ public final class FormSourceCodeGenerator
 	}
 
 	@NonNls
-	private String getLoadMethodText(final String methodName, final Class componentClass, Module module)
+	private String getLoadMethodText(final String methodName, final Class componentClass, consulo.module.Module module)
 	{
 		final boolean needIndex = haveSetDisplayedMnemonic(componentClass, module);
 		return "/** @noinspection ALL */ " +
@@ -520,10 +523,10 @@ public final class FormSourceCodeGenerator
 	}
 
 	private void generateMethodIfRequired(PsiClass aClass,
-			PsiMethod anchor,
-			final String methodName,
-			String methodText,
-			boolean condition) throws IncorrectOperationException
+										  PsiMethod anchor,
+										  final String methodName,
+										  String methodText,
+										  boolean condition) throws IncorrectOperationException
 	{
 		PsiElementFactory elementFactory = JavaPsiFacade.getInstance(myProject).getElementFactory();
 		PsiMethod newMethod = null;
@@ -571,8 +574,7 @@ public final class FormSourceCodeGenerator
 		deleteMethods(aClass, AsmCodeGenerator.LOAD_LABEL_TEXT_METHOD);
 	}
 
-	private static void deleteMethods(final PsiClass aClass, final String methodName) throws
-			IncorrectOperationException
+	private static void deleteMethods(final PsiClass aClass, final String methodName) throws IncorrectOperationException
 	{
 		final PsiMethod[] grcMethods = aClass.findMethodsByName(methodName, false);
 		for(final PsiMethod grcMethod : grcMethods)
@@ -604,11 +606,11 @@ public final class FormSourceCodeGenerator
 
 
 	private void generateSetupCodeForComponent(final LwComponent component,
-			final HashMap<LwComponent, String> component2TempVariable,
-			final ObjectIntMap<String> class2variableIndex,
-			final HashMap<String, LwComponent> id2component,
-			final Module module,
-			final PsiClass aClass) throws CodeGenerationException
+											   final HashMap<LwComponent, String> component2TempVariable,
+											   final ObjectIntMap<String> class2variableIndex,
+											   final HashMap<String, LwComponent> id2component,
+											   final consulo.module.Module module,
+											   final PsiClass aClass) throws CodeGenerationException
 	{
 		id2component.put(component.getId(), component);
 		GlobalSearchScope globalSearchScope = GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(module, false);
@@ -870,10 +872,10 @@ public final class FormSourceCodeGenerator
 	}
 
 	private void generateSetMnemonic(final String variable,
-			final SupportCode.TextWithMnemonic textWithMnemonic,
-			final Module module,
-			@NonNls final String setMethodName,
-			final Class controlClass)
+									 final SupportCode.TextWithMnemonic textWithMnemonic,
+									 final consulo.module.Module module,
+									 @NonNls final String setMethodName,
+									 final Class controlClass)
 	{
 		startMethodCall(variable, setMethodName);
 		pushVar("'" + textWithMnemonic.getMnemonicChar() + "'");
@@ -895,10 +897,10 @@ public final class FormSourceCodeGenerator
 	}
 
 	private void generateListModelProperty(final LwIntrospectedProperty property,
-			final ObjectIntMap<String> class2variableIndex,
-			final PsiClass aClass,
-			final Object value,
-			final String variable)
+										   final ObjectIntMap<String> class2variableIndex,
+										   final PsiClass aClass,
+										   final Object value,
+										   final String variable)
 	{
 		String valueClassName;
 		if(property.getPropertyClassName().equals(ComboBoxModel.class.getName()))
@@ -1007,7 +1009,7 @@ public final class FormSourceCodeGenerator
 	}
 
 	private void generateClientProperties(final LwComponent component,
-			final String variable) throws CodeGenerationException
+										  final String variable) throws CodeGenerationException
 	{
 		HashMap props = component.getDelegeeClientProperties();
 		for(final Object o : props.entrySet())
@@ -1055,7 +1057,7 @@ public final class FormSourceCodeGenerator
 	}
 
 	private static String getNestedFormClass(Module module,
-			final LwNestedForm nestedForm) throws CodeGenerationException
+											 final LwNestedForm nestedForm) throws CodeGenerationException
 	{
 		final LwRootContainer container;
 		try
@@ -1070,10 +1072,10 @@ public final class FormSourceCodeGenerator
 	}
 
 	private void generateComponentReferenceProperties(final LwComponent component,
-			final HashMap<LwComponent, String> component2variable,
-			final ObjectIntMap<String> class2variableIndex,
-			final HashMap<String, LwComponent> id2component,
-			final PsiClass aClass)
+													  final HashMap<LwComponent, String> component2variable,
+													  final ObjectIntMap<String> class2variableIndex,
+													  final HashMap<String, LwComponent> id2component,
+													  final PsiClass aClass)
 	{
 		String variable = getVariable(component, component2variable, class2variableIndex, aClass);
 		final LwIntrospectedProperty[] introspectedProperties = component.getAssignedIntrospectedProperties();
@@ -1108,10 +1110,10 @@ public final class FormSourceCodeGenerator
 	}
 
 	private void generateButtonGroups(final LwRootContainer rootContainer,
-			final HashMap<LwComponent, String> component2variable,
-			final ObjectIntMap<String> class2variableIndex,
-			final HashMap<String, LwComponent> id2component,
-			final PsiClass aClass)
+									  final HashMap<LwComponent, String> component2variable,
+									  final ObjectIntMap<String> class2variableIndex,
+									  final HashMap<String, LwComponent> id2component,
+									  final PsiClass aClass)
 	{
 		IButtonGroup[] groups = rootContainer.getButtonGroups();
 		boolean haveGroupDeclaration = false;
@@ -1284,9 +1286,9 @@ public final class FormSourceCodeGenerator
 	 * @return variable idx
 	 */
 	private static String getVariable(final LwComponent component,
-			final HashMap<LwComponent, String> component2variable,
-			final ObjectIntMap<String> class2variableIndex,
-			final PsiClass aClass)
+									  final HashMap<LwComponent, String> component2variable,
+									  final ObjectIntMap<String> class2variableIndex,
+									  final PsiClass aClass)
 	{
 		if(component2variable.containsKey(component))
 		{
@@ -1308,8 +1310,8 @@ public final class FormSourceCodeGenerator
 	}
 
 	private static String generateUniqueVariableName(@NonNls final String className,
-			final ObjectIntMap<String> class2variableIndex,
-			final PsiClass aClass)
+													 final ObjectIntMap<String> class2variableIndex,
+													 final PsiClass aClass)
 	{
 		final String shortName;
 		if(className.startsWith("javax.swing.J"))

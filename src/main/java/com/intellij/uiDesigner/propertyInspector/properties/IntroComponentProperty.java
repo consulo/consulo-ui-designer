@@ -15,7 +15,6 @@
  */
 package com.intellij.uiDesigner.propertyInspector.properties;
 
-import com.intellij.openapi.util.Condition;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.SwingProperties;
 import com.intellij.uiDesigner.inspections.FormInspectionUtil;
@@ -28,6 +27,7 @@ import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
 import com.intellij.uiDesigner.radComponents.RadScrollPane;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
+import consulo.util.lang.function.Condition;
 import org.jetbrains.annotations.NonNls;
 import javax.annotation.Nonnull;
 

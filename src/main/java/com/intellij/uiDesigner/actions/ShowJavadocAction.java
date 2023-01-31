@@ -15,28 +15,26 @@
  */
 package com.intellij.uiDesigner.actions;
 
-import java.awt.*;
-
-import javax.annotation.Nonnull;
-
-import com.intellij.codeInsight.documentation.DocumentationComponent;
-import com.intellij.codeInsight.documentation.DocumentationManager;
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import consulo.logging.Logger;
-import com.intellij.openapi.ui.popup.JBPopup;
-import com.intellij.openapi.ui.popup.JBPopupFactory;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiMethod;
-import com.intellij.psi.util.PropertyUtil;
-import com.intellij.ui.TabbedPaneWrapper;
-import com.intellij.ui.awt.RelativePoint;
+import com.intellij.java.language.psi.PsiClass;
+import com.intellij.java.language.psi.PsiMethod;
+import com.intellij.java.language.psi.util.PropertyUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.propertyInspector.IntrospectedProperty;
 import com.intellij.uiDesigner.propertyInspector.PropertyInspectorTable;
 import consulo.disposer.Disposable;
 import consulo.disposer.Disposer;
+import consulo.language.editor.documentation.DocumentationManager;
+import consulo.logging.Logger;
 import consulo.ui.annotation.RequiredUIAccess;
+import consulo.ui.ex.RelativePoint;
+import consulo.ui.ex.action.AnAction;
+import consulo.ui.ex.action.AnActionEvent;
+import consulo.ui.ex.awt.TabbedPaneWrapper;
+import consulo.ui.ex.popup.JBPopup;
+import consulo.ui.ex.popup.JBPopupFactory;
+
+import javax.annotation.Nonnull;
+import java.awt.*;
 
 /**
  * @author Anton Katilin
@@ -60,10 +58,10 @@ public final class ShowJavadocAction extends AnAction
 		final PsiMethod setter = PropertyUtil.findPropertySetter(aClass, introspectedProperty.getName(), false, true);
 		LOG.assertTrue(setter != null);
 
-		final DocumentationManager documentationManager = DocumentationManager.getInstance(aClass.getProject());
+		final DocumentationManager documentationManager = consulo.ide.impl.idea.codeInsight.documentation.DocumentationManager.getInstance(aClass.getProject());
 
-		final DocumentationComponent component1 = new DocumentationComponent(documentationManager);
-		final DocumentationComponent component2 = new DocumentationComponent(documentationManager);
+		final consulo.ide.impl.idea.codeInsight.documentation.DocumentationComponent component1 = new DocumentationComponent(documentationManager);
+		final DocumentationComponent component2 = new consulo.ide.impl.idea.codeInsight.documentation.DocumentationComponent(documentationManager);
 
 		final Disposable disposable = Disposable.newDisposable();
 		final TabbedPaneWrapper tabbedPane = new TabbedPaneWrapper(disposable);
@@ -77,7 +75,8 @@ public final class ShowJavadocAction extends AnAction
 			@Override
 			public void run()
 			{
-				final JBPopup hint = JBPopupFactory.getInstance().createComponentPopupBuilder(tabbedPane.getComponent(), component1).setDimensionServiceKey(aClass.getProject(), DocumentationManager
+				final JBPopup hint = JBPopupFactory.getInstance().createComponentPopupBuilder(tabbedPane.getComponent(), component1).setDimensionServiceKey(aClass.getProject(), consulo.ide.impl.idea
+						.codeInsight.documentation.DocumentationManager
 						.JAVADOC_LOCATION_AND_SIZE, false).setResizable(true).setMovable(true).setRequestFocus(true).setTitle(UIDesignerBundle.message("property.javadoc.title", introspectedProperty
 						.getName())).createPopup();
 				component1.setHint(hint);

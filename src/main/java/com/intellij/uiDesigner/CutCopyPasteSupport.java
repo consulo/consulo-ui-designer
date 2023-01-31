@@ -15,13 +15,13 @@
  */
 package com.intellij.uiDesigner;
 
-import com.intellij.ide.CopyProvider;
-import com.intellij.ide.CutProvider;
-import com.intellij.ide.PasteProvider;
-import com.intellij.ide.dnd.FileCopyPasteUtil;
-import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.ide.CopyPasteManager;
+import consulo.ui.ex.CopyProvider;
+import consulo.ui.ex.CutProvider;
+import consulo.ui.ex.PasteProvider;
+import consulo.ide.impl.idea.ide.dnd.FileCopyPasteUtil;
+import consulo.dataContext.DataContext;
+import consulo.undoRedo.CommandProcessor;
+import consulo.ui.ex.awt.CopyPasteManager;
 import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.lw.LwComponent;

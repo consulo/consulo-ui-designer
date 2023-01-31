@@ -18,7 +18,7 @@ package com.intellij.uiDesigner.actions;
 
 import java.util.ArrayList;
 
-import com.intellij.openapi.actionSystem.AnActionEvent;
+import consulo.ui.ex.action.AnActionEvent;
 import com.intellij.uiDesigner.CaptionSelection;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.jgoodies.forms.layout.FormLayout;

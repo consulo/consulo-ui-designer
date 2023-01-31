@@ -17,8 +17,9 @@
 package com.intellij.uiDesigner;
 
 import javax.annotation.Nonnull;
-import com.intellij.codeHighlighting.HighlightingPass;
-import com.intellij.openapi.progress.ProgressIndicator;
+
+import consulo.application.progress.ProgressIndicator;
+import consulo.fileEditor.highlight.HighlightingPass;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.propertyInspector.DesignerToolWindowManager;
 

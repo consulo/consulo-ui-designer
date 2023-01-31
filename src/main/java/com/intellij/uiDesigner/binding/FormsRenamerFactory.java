@@ -15,13 +15,13 @@
  */
 package com.intellij.uiDesigner.binding;
 
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.refactoring.RefactoringBundle;
-import com.intellij.refactoring.rename.naming.AutomaticRenamer;
-import com.intellij.refactoring.rename.naming.AutomaticRenamerFactory;
-import com.intellij.usageView.UsageInfo;
+import com.intellij.java.language.psi.PsiClass;
+import consulo.language.editor.refactoring.RefactoringBundle;
+import consulo.language.editor.refactoring.rename.AutomaticRenamer;
+import consulo.language.editor.refactoring.rename.AutomaticRenamerFactory;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.usage.UsageInfo;
 
 import java.util.Collection;
 import java.util.List;

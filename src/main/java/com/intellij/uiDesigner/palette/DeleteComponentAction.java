@@ -16,18 +16,20 @@
 
 package com.intellij.uiDesigner.palette;
 
-import com.intellij.CommonBundle;
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.Messages;
+import consulo.application.CommonBundle;
+import consulo.ui.ex.action.AnActionEvent;
+import consulo.language.editor.CommonDataKeys;
+import consulo.project.Project;
+import consulo.ui.ex.awt.Messages;
 import com.intellij.uiDesigner.UIDesignerBundle;
+import consulo.ui.ex.action.AnAction;
+import consulo.ui.ex.awt.Messages;
 
 /**
  * @author yole
  */
-public class DeleteComponentAction extends AnAction {
+public class DeleteComponentAction extends AnAction
+{
   public void actionPerformed(AnActionEvent e) {
     Project project = e.getData(CommonDataKeys.PROJECT);
     ComponentItem selectedItem = e.getData(ComponentItem.DATA_KEY);

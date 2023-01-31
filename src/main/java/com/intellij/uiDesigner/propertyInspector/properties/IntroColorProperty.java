@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.propertyInspector.properties;
 
-import com.intellij.openapi.util.Comparing;
+import consulo.util.lang.Comparing;
 import com.intellij.uiDesigner.XmlWriter;
 import com.intellij.uiDesigner.lw.ColorDescriptor;
 import com.intellij.uiDesigner.propertyInspector.IntrospectedProperty;

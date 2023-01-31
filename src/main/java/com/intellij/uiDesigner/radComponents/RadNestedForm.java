@@ -16,19 +16,19 @@
 
 package com.intellij.uiDesigner.radComponents;
 
-import consulo.logging.Logger;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.fileEditor.FileDocumentManager;
-import com.intellij.openapi.module.ResourceFileUtil;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.util.PsiUtil;
+import com.intellij.java.language.psi.PsiClass;
+import com.intellij.java.language.psi.util.PsiUtil;
 import com.intellij.uiDesigner.*;
 import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.uiDesigner.lw.CompiledClassPropertiesProvider;
 import com.intellij.uiDesigner.lw.LwRootContainer;
-import javax.annotation.Nonnull;
+import consulo.document.Document;
+import consulo.document.FileDocumentManager;
+import consulo.ide.impl.idea.openapi.module.ResourceFileUtil;
+import consulo.logging.Logger;
+import consulo.virtualFileSystem.VirtualFile;
 
+import javax.annotation.Nonnull;
 import javax.swing.*;
 import java.awt.*;
 

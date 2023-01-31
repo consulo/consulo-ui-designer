@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.propertyInspector.renderers;
 
-import com.intellij.psi.PsiNameHelper;
+import com.intellij.java.language.psi.PsiNameHelper;
 import com.intellij.uiDesigner.UIDesignerBundle;
 
 /**

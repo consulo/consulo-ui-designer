@@ -16,25 +16,25 @@
 
 package com.intellij.uiDesigner.actions;
 
-import com.intellij.ide.IdeView;
-import com.intellij.ide.actions.CreateElementActionBase;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.actionSystem.LangDataKeys;
-import com.intellij.openapi.actionSystem.Presentation;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtilCore;
-import com.intellij.openapi.project.DumbAware;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ProjectFileIndex;
-import com.intellij.openapi.roots.ProjectRootManager;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.psi.JavaDirectoryService;
-import com.intellij.psi.PsiDirectory;
+import com.intellij.java.language.psi.JavaDirectoryService;
 import com.intellij.uiDesigner.UIDesignerBundle;
-import com.intellij.util.IncorrectOperationException;
-import consulo.java.module.extension.JavaModuleExtension;
+import consulo.application.dumb.DumbAware;
+import consulo.ide.IdeView;
+import consulo.ide.action.CreateElementActionBase;
+import consulo.java.language.module.extension.JavaModuleExtension;
+import consulo.language.editor.CommonDataKeys;
+import consulo.language.editor.LangDataKeys;
+import consulo.language.psi.PsiDirectory;
+import consulo.language.util.IncorrectOperationException;
+import consulo.language.util.ModuleUtilCore;
+import consulo.module.Module;
+import consulo.module.content.ProjectFileIndex;
+import consulo.module.content.ProjectRootManager;
+import consulo.project.Project;
+import consulo.ui.ex.action.AnActionEvent;
+import consulo.ui.ex.action.Presentation;
 import consulo.ui.image.Image;
+import consulo.util.lang.StringUtil;
 import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nullable;
@@ -44,67 +44,82 @@ import java.io.InputStream;
 /**
  * @author yole
  */
-public abstract class AbstractCreateFormAction extends CreateElementActionBase implements DumbAware {
-  public AbstractCreateFormAction(String text, String description, Image icon) {
-    super(text, description, icon);
-  }
+public abstract class AbstractCreateFormAction extends CreateElementActionBase implements DumbAware
+{
+	public AbstractCreateFormAction(String text, String description, Image icon)
+	{
+		super(text, description, icon);
+	}
 
-  @Override
-  public void update(final AnActionEvent e) {
-    super.update(e);
-    final Project project = e.getData(CommonDataKeys.PROJECT);
-    final Presentation presentation = e.getPresentation();
-    if (presentation.isEnabled()) {
-      final Module module = e.getData(LangDataKeys.MODULE);
-      if (module != null && ModuleUtilCore.getExtension(module, JavaModuleExtension.class) != null) {
-        final IdeView view = e.getData(LangDataKeys.IDE_VIEW);
-        if (view != null) {
-          final ProjectFileIndex projectFileIndex = ProjectRootManager.getInstance(project).getFileIndex();
-          final PsiDirectory[] dirs = view.getDirectories();
-          for (final PsiDirectory dir : dirs) {
-            if (projectFileIndex.isInSourceContent(dir.getVirtualFile()) && JavaDirectoryService.getInstance().getPackage(dir) != null) {
-              return;
-            }
-          }
-        }
-      }
+	@Override
+	public void update(final AnActionEvent e)
+	{
+		super.update(e);
+		final Project project = e.getData(CommonDataKeys.PROJECT);
+		final Presentation presentation = e.getPresentation();
+		if(presentation.isEnabled())
+		{
+			final Module module = e.getData(LangDataKeys.MODULE);
+			if(module != null && ModuleUtilCore.getExtension(module, JavaModuleExtension.class) != null)
+			{
+				final IdeView view = e.getData(IdeView.KEY);
+				if(view != null)
+				{
+					final ProjectFileIndex projectFileIndex = ProjectRootManager.getInstance(project).getFileIndex();
+					final PsiDirectory[] dirs = view.getDirectories();
+					for(final PsiDirectory dir : dirs)
+					{
+						if(projectFileIndex.isInSourceContent(dir.getVirtualFile()) && JavaDirectoryService.getInstance().getPackage(dir) != null)
+						{
+							return;
+						}
+					}
+				}
+			}
 
-      presentation.setEnabled(false);
-      presentation.setVisible(false);
-    }
-  }
+			presentation.setEnabled(false);
+			presentation.setVisible(false);
+		}
+	}
 
-  protected String createFormBody(@Nullable final String fullQualifiedClassName, @NonNls final String formName, final String layoutManager)
-    throws IncorrectOperationException {
+	protected String createFormBody(@Nullable final String fullQualifiedClassName, @NonNls final String formName, final String layoutManager)
+			throws IncorrectOperationException
+	{
 
-    final InputStream inputStream = getClass().getResourceAsStream(formName);
+		final InputStream inputStream = getClass().getResourceAsStream(formName);
 
-    final StringBuffer buffer = new StringBuffer();
-    try {
-      for (int ch; (ch = inputStream.read()) != -1; ) {
-        buffer.append((char)ch);
-      }
-    }
-    catch (IOException e) {
-      throw new IncorrectOperationException(UIDesignerBundle.message("error.cannot.read", formName), e);
-    }
+		final StringBuffer buffer = new StringBuffer();
+		try
+		{
+			for(int ch; (ch = inputStream.read()) != -1; )
+			{
+				buffer.append((char) ch);
+			}
+		}
+		catch(IOException e)
+		{
+			throw new IncorrectOperationException(UIDesignerBundle.message("error.cannot.read", formName), e);
+		}
 
-    String s = buffer.toString();
+		String s = buffer.toString();
 
-    if (fullQualifiedClassName != null) {
-      s = StringUtil.replace(s, "$CLASS$", fullQualifiedClassName);
-    }
-    else {
-      s = StringUtil.replace(s, "bind-to-class=\"$CLASS$\"", "");
-    }
+		if(fullQualifiedClassName != null)
+		{
+			s = StringUtil.replace(s, "$CLASS$", fullQualifiedClassName);
+		}
+		else
+		{
+			s = StringUtil.replace(s, "bind-to-class=\"$CLASS$\"", "");
+		}
 
-    s = StringUtil.replace(s, "$LAYOUT$", layoutManager);
+		s = StringUtil.replace(s, "$LAYOUT$", layoutManager);
 
-    return StringUtil.convertLineSeparators(s);
-  }
+		return StringUtil.convertLineSeparators(s);
+	}
 
-  protected String getActionName(final PsiDirectory directory, final String newName) {
-    return UIDesignerBundle
-      .message("progress.creating.class", JavaDirectoryService.getInstance().getPackage(directory).getQualifiedName(), newName);
-  }
+	protected String getActionName(final PsiDirectory directory, final String newName)
+	{
+		return UIDesignerBundle
+				.message("progress.creating.class", JavaDirectoryService.getInstance().getPackage(directory).getQualifiedName(), newName);
+	}
 }

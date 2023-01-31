@@ -15,8 +15,6 @@
  */
 package com.intellij.uiDesigner.propertyInspector.properties;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.NotNullLazyValue;
 import com.intellij.uiDesigner.StringDescriptorManager;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.lw.ColorDescriptor;
@@ -34,9 +32,11 @@ import com.intellij.uiDesigner.propertyInspector.renderers.*;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import com.intellij.uiDesigner.shared.BorderType;
+import consulo.application.util.NotNullLazyValue;
+import consulo.project.Project;
 import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 
 /**
@@ -49,7 +49,7 @@ public final class BorderProperty extends Property<RadContainer, BorderType> {
   private final Project myProject;
   private final Property[] myChildren;
 
-  private final NotNullLazyValue<PropertyRenderer<BorderType>> myRenderer = new NotNullLazyValue<PropertyRenderer<BorderType>>() {
+  private final NotNullLazyValue<PropertyRenderer<BorderType>> myRenderer = new consulo.ide.impl.idea.openapi.util.NotNullLazyValue<PropertyRenderer<BorderType>>() {
     @Nonnull
     @Override
     protected PropertyRenderer<BorderType> compute() {

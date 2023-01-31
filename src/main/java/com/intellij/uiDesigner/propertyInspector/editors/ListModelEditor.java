@@ -19,9 +19,9 @@ package com.intellij.uiDesigner.propertyInspector.editors;
 import com.intellij.uiDesigner.propertyInspector.PropertyEditor;
 import com.intellij.uiDesigner.propertyInspector.InplaceContext;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import com.intellij.openapi.ui.TextFieldWithBrowseButton;
-import com.intellij.openapi.ui.DialogWrapper;
-import com.intellij.openapi.util.text.StringUtil;
+import consulo.ui.ex.awt.TextFieldWithBrowseButton;
+import consulo.ui.ex.awt.DialogWrapper;
+import consulo.util.lang.StringUtil;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;

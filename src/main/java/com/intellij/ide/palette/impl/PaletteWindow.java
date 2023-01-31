@@ -15,21 +15,27 @@
  */
 package com.intellij.ide.palette.impl;
 
-import com.intellij.designer.LightToolWindowContent;
+import consulo.application.ApplicationManager;
+import consulo.dataContext.DataProvider;
+import consulo.ide.impl.idea.designer.LightToolWindowContent;
 import com.intellij.ide.palette.PaletteGroup;
 import com.intellij.ide.palette.PaletteItem;
 import com.intellij.ide.palette.PaletteItemProvider;
-import com.intellij.openapi.actionSystem.*;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.extensions.Extensions;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.ui.PopupHandler;
-import com.intellij.ui.ScrollPaneFactory;
-import com.intellij.ui.components.JBTabbedPane;
+import consulo.component.extension.Extensions;
+import consulo.project.Project;
+import consulo.ui.ex.action.AnAction;
+import consulo.ui.ex.action.AnActionEvent;
+import consulo.ui.ex.awt.ScrollPaneFactory;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.ui.ex.awt.PopupHandler;
+import consulo.ui.ex.awt.JBTabbedPane;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
-import com.intellij.util.ArrayUtil;
+import consulo.util.collection.ArrayUtil;
 import java.util.HashSet;
+
+import consulo.language.editor.CommonDataKeys;
+import consulo.language.editor.PlatformDataKeys;
+import consulo.ui.ex.action.CustomShortcutSet;
 import consulo.util.dataholder.Key;
 import org.jetbrains.annotations.NonNls;
 

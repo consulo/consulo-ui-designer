@@ -16,7 +16,6 @@
 
 package com.intellij.uiDesigner.radComponents;
 
-import com.intellij.openapi.project.Project;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.UIFormXmlConstants;
 import com.intellij.uiDesigner.XmlWriter;
@@ -29,6 +28,8 @@ import com.intellij.uiDesigner.propertyInspector.editors.IntEnumEditor;
 import com.intellij.uiDesigner.propertyInspector.properties.HGapProperty;
 import com.intellij.uiDesigner.propertyInspector.properties.VGapProperty;
 import com.intellij.uiDesigner.propertyInspector.renderers.IntEnumRenderer;
+import consulo.project.Project;
+
 import javax.annotation.Nonnull;
 
 import javax.swing.*;

@@ -15,29 +15,26 @@
  */
 package com.intellij.uiDesigner;
 
-import com.intellij.codeInsight.CodeInsightUtil;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.options.Configurable;
-import com.intellij.openapi.options.SearchableConfigurable;
-import com.intellij.openapi.progress.ProgressManager;
-import com.intellij.openapi.progress.util.DispatchThreadProgressWindow;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Comparing;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiDocumentManager;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiMethod;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.search.PsiShortNamesCache;
+import com.intellij.java.impl.codeInsight.CodeInsightUtil;
+import com.intellij.java.language.psi.PsiClass;
+import com.intellij.java.language.psi.PsiMethod;
+import com.intellij.java.language.psi.search.PsiShortNamesCache;
 import com.intellij.uiDesigner.compiler.AsmCodeGenerator;
 import com.intellij.uiDesigner.make.FormSourceCodeGenerator;
 import com.intellij.uiDesigner.radComponents.LayoutManagerRegistry;
-import com.intellij.util.IncorrectOperationException;
+import consulo.application.ApplicationManager;
+import consulo.application.progress.ProgressManager;
+import consulo.configurable.Configurable;
+import consulo.configurable.SearchableConfigurable;
 import consulo.disposer.Disposable;
+import consulo.ide.impl.idea.openapi.progress.util.DispatchThreadProgressWindow;
+import consulo.language.psi.PsiDocumentManager;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.util.IncorrectOperationException;
 import consulo.localize.LocalizeValue;
 import consulo.logging.Logger;
+import consulo.project.Project;
 import consulo.ui.*;
 import consulo.ui.annotation.RequiredUIAccess;
 import consulo.ui.layout.DockLayout;
@@ -45,12 +42,14 @@ import consulo.ui.layout.HorizontalLayout;
 import consulo.ui.layout.VerticalLayout;
 import consulo.ui.util.LabeledBuilder;
 import consulo.uiDesigner.localize.UIDesignerLocalize;
+import consulo.undoRedo.CommandProcessor;
+import consulo.util.lang.Comparing;
+import consulo.virtualFileSystem.VirtualFile;
 import jakarta.inject.Inject;
 import jakarta.inject.Provider;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.swing.*;
 
 /**
  * @author Anton Katilin
@@ -230,7 +229,7 @@ public final class GuiDesignerConfigurable implements SearchableConfigurable, Co
 
 			myPanel.add(HorizontalLayout.create().add(DockLayout.create().top(label)).add(VerticalLayout.create().add(myRbInstrumentClasses).add(myRbInstrumentSources)));
 
-			myUseJBScalingCheckBox = CheckBox.create(LocalizeValue.localizeTODO("Use scaling util class (com.intellij.util.ui.JBUI)"));
+			myUseJBScalingCheckBox = CheckBox.create(LocalizeValue.localizeTODO("Use scaling util class (JBUI)"));
 			myPanel.add(myUseJBScalingCheckBox);
 
 			myChkCopyFormsRuntime = CheckBox.create(UIDesignerLocalize.chkCopyFormRuntime());

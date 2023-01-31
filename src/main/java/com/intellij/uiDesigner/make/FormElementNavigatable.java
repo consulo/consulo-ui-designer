@@ -16,13 +16,13 @@
 
 package com.intellij.uiDesigner.make;
 
-import com.intellij.openapi.fileEditor.FileEditor;
-import com.intellij.openapi.fileEditor.FileEditorManager;
-import com.intellij.openapi.fileEditor.OpenFileDescriptor;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.pom.Navigatable;
+import consulo.fileEditor.FileEditor;
+import consulo.fileEditor.FileEditorManager;
+import consulo.navigation.OpenFileDescriptor;
+import consulo.navigation.Navigatable;
 import com.intellij.uiDesigner.editor.UIFormEditor;
+import consulo.project.Project;
+import consulo.virtualFileSystem.VirtualFile;
 
 import java.util.List;
 

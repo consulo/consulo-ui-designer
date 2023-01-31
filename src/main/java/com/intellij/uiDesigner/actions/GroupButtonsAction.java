@@ -15,14 +15,15 @@
  */
 package com.intellij.uiDesigner.actions;
 
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.ui.Messages;
+import consulo.ui.ex.awt.Messages;
 import com.intellij.uiDesigner.radComponents.RadButtonGroup;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.propertyInspector.properties.IdentifierValidator;
 import com.intellij.uiDesigner.UIDesignerBundle;
+import consulo.ui.ex.action.AnActionEvent;
+
 import javax.annotation.Nonnull;
 
 import javax.swing.*;

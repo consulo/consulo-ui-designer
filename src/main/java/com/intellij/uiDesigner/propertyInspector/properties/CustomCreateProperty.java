@@ -16,19 +16,7 @@
 
 package com.intellij.uiDesigner.propertyInspector.properties;
 
-import com.intellij.codeInsight.FileModificationService;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.components.ServiceManager;
-import consulo.logging.Logger;
-import com.intellij.openapi.fileEditor.OpenFileDescriptor;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.util.Ref;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.*;
-import com.intellij.psi.codeStyle.CodeStyleManager;
-import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.java.language.psi.*;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.compiler.AsmCodeGenerator;
@@ -41,10 +29,26 @@ import com.intellij.uiDesigner.propertyInspector.PropertyRenderer;
 import com.intellij.uiDesigner.propertyInspector.editors.BooleanEditor;
 import com.intellij.uiDesigner.propertyInspector.renderers.BooleanRenderer;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import com.intellij.util.IncorrectOperationException;
-import javax.annotation.Nonnull;
-
+import consulo.application.ApplicationManager;
+import consulo.ide.ServiceManager;
+import consulo.language.codeStyle.CodeStyleManager;
+import consulo.language.editor.FileModificationService;
+import consulo.language.psi.PsiComment;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.SmartPointerManager;
+import consulo.language.psi.SmartPsiElementPointer;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.util.IncorrectOperationException;
+import consulo.logging.Logger;
+import consulo.navigation.OpenFileDescriptor;
+import consulo.project.Project;
+import consulo.ui.ex.awt.Messages;
+import consulo.undoRedo.CommandProcessor;
+import consulo.util.lang.ref.Ref;
+import consulo.virtualFileSystem.VirtualFile;
 import jakarta.inject.Singleton;
+
+import javax.annotation.Nonnull;
 import javax.swing.*;
 import java.util.List;
 

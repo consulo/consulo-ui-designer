@@ -15,22 +15,9 @@
  */
 package com.intellij.uiDesigner;
 
+import com.intellij.java.language.psi.*;
 import com.intellij.lang.properties.PropertiesReferenceManager;
 import com.intellij.lang.properties.psi.PropertiesFile;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.actionSystem.PlatformDataKeys;
-import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.fileEditor.FileEditor;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.progress.ProcessCanceledException;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.ui.popup.JBPopup;
-import com.intellij.openapi.util.Ref;
-import com.intellij.psi.*;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.ui.awt.RelativePoint;
 import com.intellij.uiDesigner.compiler.AsmCodeGenerator;
 import com.intellij.uiDesigner.componentTree.ComponentTreeBuilder;
 import com.intellij.uiDesigner.core.GridConstraints;
@@ -49,9 +36,24 @@ import com.intellij.uiDesigner.radComponents.RadAbstractGridLayoutManager;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
-import com.intellij.util.ArrayUtil;
-import com.intellij.util.IncorrectOperationException;
-import consulo.psi.PsiPackage;
+import consulo.component.ProcessCanceledException;
+import consulo.dataContext.DataContext;
+import consulo.fileEditor.FileEditor;
+import consulo.language.editor.CommonDataKeys;
+import consulo.language.editor.PlatformDataKeys;
+import consulo.language.psi.PsiDirectory;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.PsiPackage;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.util.IncorrectOperationException;
+import consulo.module.Module;
+import consulo.project.Project;
+import consulo.ui.ex.RelativePoint;
+import consulo.ui.ex.awt.Messages;
+import consulo.ui.ex.popup.JBPopup;
+import consulo.undoRedo.CommandProcessor;
+import consulo.util.collection.ArrayUtil;
+import consulo.util.lang.ref.Ref;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -609,7 +611,7 @@ public final class FormEditingUtil
 		return bundleNames;
 	}
 
-	public static Locale[] collectUsedLocales(final Module module, final IRootContainer rootContainer)
+	public static Locale[] collectUsedLocales(final consulo.module.Module module, final IRootContainer rootContainer)
 	{
 		final Set<Locale> locales = new HashSet<Locale>();
 		final PropertiesReferenceManager propManager = PropertiesReferenceManager.getInstance(module.getProject());
@@ -697,7 +699,7 @@ public final class FormEditingUtil
 	}
 
 	/**
-	 * @return {@link com.intellij.uiDesigner.designSurface.GuiEditor} from the context. Can be <code>null</code>.
+	 * @return {@link GuiEditor} from the context. Can be <code>null</code>.
 	 */
 	@Nullable
 	public static GuiEditor getEditorFromContext(@Nonnull final DataContext context)
@@ -733,7 +735,7 @@ public final class FormEditingUtil
 	 * @param componentToAssignBinding
 	 * @param binding
 	 * @param component                topmost container where to find duplicate binding. In most cases
-	 *                                 it should be {@link com.intellij.uiDesigner.designSurface.GuiEditor#getRootContainer()}
+	 *                                 it should be {@link GuiEditor#getRootContainer()}
 	 */
 	public static boolean isBindingUnique(final IComponent componentToAssignBinding, final String binding, final IComponent component)
 	{

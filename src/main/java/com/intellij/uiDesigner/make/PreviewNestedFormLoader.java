@@ -16,18 +16,18 @@
 
 package com.intellij.uiDesigner.make;
 
-import com.intellij.compiler.PsiClassWriter;
 import com.intellij.compiler.instrumentation.InstrumentationClassFinder;
-import com.intellij.openapi.module.Module;
+import com.intellij.java.compiler.impl.PsiClassWriter;
 import com.intellij.uiDesigner.actions.PreviewFormAction;
 import com.intellij.uiDesigner.compiler.AsmCodeGenerator;
 import com.intellij.uiDesigner.compiler.CodeGenerationException;
 import com.intellij.uiDesigner.compiler.FormErrorInfo;
 import com.intellij.uiDesigner.lw.LwRootContainer;
-import com.intellij.util.ArrayUtil;
 import consulo.internal.org.objectweb.asm.ClassWriter;
 import consulo.internal.org.objectweb.asm.MethodVisitor;
 import consulo.internal.org.objectweb.asm.Opcodes;
+import consulo.module.Module;
+import consulo.util.collection.ArrayUtil;
 import org.jetbrains.annotations.NonNls;
 
 import java.io.ByteArrayInputStream;

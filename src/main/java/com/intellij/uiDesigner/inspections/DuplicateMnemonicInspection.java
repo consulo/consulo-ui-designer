@@ -15,7 +15,6 @@
  */
 package com.intellij.uiDesigner.inspections;
 
-import com.intellij.openapi.module.Module;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.StringDescriptorManager;
 import com.intellij.uiDesigner.SwingProperties;
@@ -25,6 +24,8 @@ import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.lw.*;
 import com.intellij.uiDesigner.quickFixes.QuickFix;
 import com.intellij.uiDesigner.radComponents.RadComponent;
+import consulo.module.Module;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -62,7 +63,7 @@ public class DuplicateMnemonicInspection extends BaseFormInspection {
     myContainerMnemonicMap.get().remove(rootContainer);
   }
 
-  protected void checkComponentProperties(Module module, IComponent component, FormErrorCollector collector) {
+  protected void checkComponentProperties(consulo.module.Module module, IComponent component, FormErrorCollector collector) {
     SupportCode.TextWithMnemonic twm = getTextWithMnemonic(module, component);
     if (twm != null) {
       checkTextWithMnemonic(module, component, twm, collector);
@@ -94,7 +95,7 @@ public class DuplicateMnemonicInspection extends BaseFormInspection {
     return null;
   }
 
-  private void checkTextWithMnemonic(final Module module,
+  private void checkTextWithMnemonic(final consulo.module.Module module,
                                      final IComponent component,
                                      final SupportCode.TextWithMnemonic twm,
                                      final FormErrorCollector collector) {

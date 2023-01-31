@@ -16,7 +16,7 @@
 
 package com.intellij.uiDesigner.inspections;
 
-import com.intellij.openapi.module.Module;
+import consulo.module.Module;
 import com.intellij.uiDesigner.lw.IComponent;
 import com.intellij.uiDesigner.lw.IRootContainer;
 import com.intellij.uiDesigner.UIDesignerBundle;

@@ -15,30 +15,24 @@
  */
 package com.intellij.uiDesigner.projectView;
 
+import com.intellij.java.impl.ide.projectView.impl.nodes.ClassTreeNode;
+import com.intellij.java.language.psi.PsiClass;
+import com.intellij.uiDesigner.GuiFormFileType;
+import consulo.ide.IdeBundle;
+import consulo.language.editor.util.NavigationItemFileStatus;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.project.Project;
+import consulo.project.ui.view.tree.*;
+import consulo.ui.ex.tree.PresentationData;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.status.FileStatus;
+
+import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
-import javax.annotation.Nonnull;
-
-import com.intellij.ide.IdeBundle;
-import com.intellij.ide.projectView.PresentationData;
-import com.intellij.ide.projectView.ProjectViewNode;
-import com.intellij.ide.projectView.ViewSettings;
-import com.intellij.ide.projectView.impl.nodes.BasePsiNode;
-import com.intellij.ide.projectView.impl.nodes.ClassTreeNode;
-import com.intellij.ide.projectView.impl.nodes.PsiFileNode;
-import com.intellij.ide.util.treeView.AbstractTreeNode;
-import com.intellij.navigation.NavigationItemFileStatus;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Condition;
-import com.intellij.openapi.vcs.FileStatus;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.uiDesigner.GuiFormFileType;
-import consulo.awt.TargetAWT;
+import java.util.function.Predicate;
 
 public class FormNode extends ProjectViewNode<Form>{
   private final Collection<BasePsiNode<? extends PsiElement>> myChildren;
@@ -110,9 +104,9 @@ public class FormNode extends ProjectViewNode<Form>{
   }
 
   @Override
-  public boolean canHaveChildrenMatching(final Condition<PsiFile> condition) {
+  public boolean canHaveChildrenMatching(final Predicate<PsiFile> condition) {
     for(BasePsiNode<? extends PsiElement> child: myChildren) {
-      if (condition.value(child.getValue().getContainingFile())) {
+      if (condition.test(child.getValue().getContainingFile())) {
         return true;
       }
     }

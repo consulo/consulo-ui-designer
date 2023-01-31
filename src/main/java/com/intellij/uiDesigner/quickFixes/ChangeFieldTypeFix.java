@@ -15,15 +15,19 @@
  */
 package com.intellij.uiDesigner.quickFixes;
 
-import com.intellij.CommonBundle;
-import com.intellij.codeInsight.FileModificationService;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.ui.Messages;
-import com.intellij.psi.*;
+import com.intellij.java.language.psi.JavaPsiFacade;
+import com.intellij.java.language.psi.PsiField;
+import com.intellij.java.language.psi.PsiType;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
-import com.intellij.util.IncorrectOperationException;
+import consulo.application.ApplicationManager;
+import consulo.application.CommonBundle;
+import consulo.language.editor.FileModificationService;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.PsiManager;
+import consulo.ui.ex.awt.Messages;
+import consulo.undoRedo.CommandProcessor;
+import consulo.language.util.IncorrectOperationException;
 
 /**
  * @author Eugene Zhuravlev

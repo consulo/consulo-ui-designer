@@ -15,13 +15,14 @@
  */
 package com.intellij.uiDesigner.editor;
 
-import com.intellij.openapi.fileEditor.FileEditorState;
-import com.intellij.openapi.fileEditor.FileEditorStateLevel;
+import consulo.fileEditor.FileEditorState;
+import consulo.fileEditor.FileEditorStateLevel;
 import javax.annotation.Nonnull;
 
 import java.util.Arrays;
 
-final class MyEditorState implements FileEditorState{
+final class MyEditorState implements FileEditorState
+{
   private final transient long myDocumentModificationStamp; // should not be serialized
   private final String[] mySelectedComponentIds;
 

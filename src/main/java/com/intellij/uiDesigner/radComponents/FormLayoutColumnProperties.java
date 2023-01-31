@@ -29,11 +29,11 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import consulo.ui.ex.awt.ColoredListCellRenderer;
+import consulo.util.collection.ContainerUtil;
 import org.jetbrains.annotations.NonNls;
-import com.intellij.ui.ColoredListCellRenderer;
-import com.intellij.ui.IdeBorderFactory;
+import consulo.ui.ex.awt.IdeBorderFactory;
 import com.intellij.uiDesigner.UIDesignerBundle;
-import com.intellij.util.containers.ContainerUtil;
 import com.jgoodies.forms.layout.BoundedSize;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.ConstantSize;

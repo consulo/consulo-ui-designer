@@ -15,34 +15,14 @@
  */
 package com.intellij.uiDesigner.propertyInspector.properties;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JComponent;
-import javax.swing.SwingUtilities;
-
-import javax.annotation.Nonnull;
-import com.intellij.ide.highlighter.JavaFileType;
-import com.intellij.ide.util.ClassFilter;
-import com.intellij.ide.util.TreeClassChooser;
-import com.intellij.ide.util.TreeClassChooserFactory;
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonShortcuts;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ProjectFileIndex;
-import com.intellij.openapi.roots.ProjectRootManager;
-import com.intellij.openapi.ui.ComponentWithBrowseButton;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.JavaCodeFragmentFactory;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiCodeFragment;
-import com.intellij.psi.PsiDocumentManager;
-import com.intellij.psi.PsiJavaPackage;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.ui.EditorTextField;
+import com.intellij.java.language.impl.JavaFileType;
+import com.intellij.java.language.psi.JavaCodeFragmentFactory;
+import com.intellij.java.language.psi.JavaPsiFacade;
+import com.intellij.java.language.psi.PsiClass;
+import com.intellij.java.language.psi.PsiJavaPackage;
+import com.intellij.java.language.util.ClassFilter;
+import com.intellij.java.language.util.TreeClassChooser;
+import com.intellij.java.language.util.TreeClassChooserFactory;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.propertyInspector.InplaceContext;
@@ -52,6 +32,24 @@ import com.intellij.uiDesigner.propertyInspector.PropertyRenderer;
 import com.intellij.uiDesigner.propertyInspector.renderers.ClassToBindRenderer;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
+import consulo.document.Document;
+import consulo.language.editor.ui.awt.EditorTextField;
+import consulo.language.psi.PsiCodeFragment;
+import consulo.language.psi.PsiDocumentManager;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.module.content.ProjectFileIndex;
+import consulo.module.content.ProjectRootManager;
+import consulo.project.Project;
+import consulo.ui.ex.action.AnAction;
+import consulo.ui.ex.action.AnActionEvent;
+import consulo.ui.ex.action.CommonShortcuts;
+import consulo.ui.ex.awt.ComponentWithBrowseButton;
+import consulo.virtualFileSystem.VirtualFile;
+
+import javax.annotation.Nonnull;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * @author Anton Katilin
@@ -182,7 +180,8 @@ public final class ClassToBindProperty extends Property<RadRootContainer, String
       }
     }
 
-    private final class MyCancelEditingAction extends AnAction{
+    private final class MyCancelEditingAction extends AnAction
+	{
       public void actionPerformed(final AnActionEvent e) {
         fireEditingCancelled();
       }

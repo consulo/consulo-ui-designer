@@ -16,21 +16,27 @@
 
 package com.intellij.uiDesigner.actions;
 
-import com.intellij.icons.AllIcons;
-import com.intellij.ide.actions.TemplateKindCombo;
-import com.intellij.openapi.application.WriteAction;
-import consulo.logging.Logger;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.DialogWrapper;
-import com.intellij.psi.*;
-import com.intellij.ui.DocumentAdapter;
+import com.intellij.java.language.psi.JavaDirectoryService;
+import com.intellij.java.language.psi.PsiClass;
+import com.intellij.java.language.psi.PsiJavaPackage;
 import com.intellij.uiDesigner.GuiDesignerConfiguration;
 import com.intellij.uiDesigner.GuiFormFileType;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.radComponents.LayoutManagerRegistry;
-import com.intellij.util.IncorrectOperationException;
-import com.intellij.util.PlatformIcons;
+import consulo.application.AllIcons;
+import consulo.application.WriteAction;
+import consulo.ide.impl.idea.ide.actions.TemplateKindCombo;
+import consulo.ide.impl.idea.util.PlatformIcons;
+import consulo.language.psi.PsiDirectory;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.PsiFileFactory;
+import consulo.language.util.IncorrectOperationException;
+import consulo.logging.Logger;
+import consulo.project.Project;
 import consulo.ui.annotation.RequiredUIAccess;
+import consulo.ui.ex.awt.DialogWrapper;
+import consulo.ui.ex.awt.event.DocumentAdapter;
 
 import javax.annotation.Nonnull;
 import javax.swing.*;

@@ -15,46 +15,48 @@
  */
 package com.intellij.uiDesigner.binding;
 
+import com.intellij.java.impl.psi.impl.source.resolve.reference.impl.providers.JavaClassReferenceProvider;
+import com.intellij.java.language.psi.*;
+import com.intellij.java.language.psi.util.InheritanceUtil;
+import com.intellij.java.language.psi.util.PropertyUtil;
+import com.intellij.lang.properties.psi.PropertiesFile;
+import com.intellij.uiDesigner.GuiFormFileType;
+import com.intellij.uiDesigner.UIFormXmlConstants;
+import com.intellij.uiDesigner.compiler.Utils;
+import consulo.application.ApplicationManager;
+import consulo.application.util.CachedValue;
+import consulo.application.util.CachedValueProvider;
+import consulo.application.util.CachedValuesManager;
+import consulo.application.util.function.Computable;
+import consulo.document.util.TextRange;
+import consulo.ide.impl.idea.openapi.module.ModuleUtil;
+import consulo.language.plain.psi.PsiPlainTextFile;
+import consulo.language.psi.*;
+import consulo.language.psi.resolve.PsiReferenceProcessor;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.util.ProcessingContext;
+import consulo.module.Module;
+import consulo.project.Project;
+import consulo.util.dataholder.Key;
+import consulo.util.lang.Pair;
+import consulo.xml.ide.highlighter.XmlFileType;
+import consulo.xml.psi.xml.XmlAttribute;
+import consulo.xml.psi.xml.XmlAttributeValue;
+import consulo.xml.psi.xml.XmlFile;
+import consulo.xml.psi.xml.XmlTag;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.jetbrains.annotations.NonNls;
-import com.intellij.ide.highlighter.XmlFileType;
-import com.intellij.lang.properties.psi.PropertiesFile;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtil;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Computable;
-import com.intellij.openapi.util.Pair;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.*;
-import com.intellij.psi.impl.source.resolve.reference.impl.providers.JavaClassReferenceProvider;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.search.PsiReferenceProcessor;
-import com.intellij.psi.util.CachedValue;
-import com.intellij.psi.util.CachedValueProvider;
-import com.intellij.psi.util.CachedValuesManager;
-import com.intellij.psi.util.InheritanceUtil;
-import com.intellij.psi.util.PropertyUtil;
-import com.intellij.psi.xml.XmlAttribute;
-import com.intellij.psi.xml.XmlAttributeValue;
-import com.intellij.psi.xml.XmlFile;
-import com.intellij.psi.xml.XmlTag;
-import com.intellij.uiDesigner.GuiFormFileType;
-import com.intellij.uiDesigner.UIFormXmlConstants;
-import com.intellij.uiDesigner.compiler.Utils;
-import com.intellij.util.ProcessingContext;
-import consulo.util.dataholder.Key;
-
 /**
  * @author yole
  */
-public class FormReferenceProvider extends PsiReferenceProvider {
+public class FormReferenceProvider extends PsiReferenceProvider
+{
   private static class CachedFormData {
     PsiReference[] myReferences;
     Map<String, Pair<PsiType, TextRange>> myFieldNameToTypeMap;
@@ -91,7 +93,7 @@ public class FormReferenceProvider extends PsiReferenceProvider {
   public static PsiReference getFormReference(PsiField field) {
     final PsiClass containingClass = field.getContainingClass();
     if (containingClass != null && containingClass.getQualifiedName() != null) {
-      final List<PsiFile> forms = FormClassIndex.findFormsBoundToClass(containingClass); 
+      final List<PsiFile> forms = FormClassIndex.findFormsBoundToClass(containingClass);
       for (PsiFile formFile : forms) {
         final PsiReference[] refs = formFile.getReferences();
         for (final PsiReference ref : refs) {

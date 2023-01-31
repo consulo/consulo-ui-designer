@@ -16,8 +16,7 @@
 
 package com.intellij.uiDesigner.actions;
 
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.command.CommandProcessor;
+import consulo.ui.ex.action.AnActionEvent;
 import consulo.logging.Logger;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.core.GridConstraints;
@@ -29,6 +28,8 @@ import com.intellij.uiDesigner.palette.ComponentItem;
 import com.intellij.uiDesigner.palette.Palette;
 import com.intellij.uiDesigner.radComponents.*;
 import com.intellij.uiDesigner.shared.XYLayoutManager;
+import consulo.undoRedo.CommandProcessor;
+
 import javax.annotation.Nonnull;
 
 import javax.swing.*;

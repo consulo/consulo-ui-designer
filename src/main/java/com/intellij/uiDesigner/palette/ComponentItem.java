@@ -15,22 +15,8 @@
  */
 package com.intellij.uiDesigner.palette;
 
-import com.intellij.ide.dnd.DnDDragStartBean;
 import com.intellij.ide.palette.PaletteItem;
-import com.intellij.openapi.actionSystem.ActionGroup;
-import com.intellij.openapi.actionSystem.ActionManager;
-import com.intellij.openapi.actionSystem.LangDataKeys;
-import consulo.logging.Logger;
-import com.intellij.openapi.module.ResourceFileUtil;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.openapi.vfs.VfsUtilCore;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.ui.ColoredListCellRenderer;
-import com.intellij.ui.SimpleTextAttributes;
+import com.intellij.java.language.psi.JavaPsiFacade;
 import com.intellij.uiDesigner.HSpacer;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.VSpacer;
@@ -39,9 +25,23 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.lw.StringDescriptor;
 import com.intellij.uiDesigner.propertyInspector.IntrospectedProperty;
 import com.intellij.uiDesigner.radComponents.RadAtomicComponent;
+import consulo.ide.impl.idea.openapi.module.ResourceFileUtil;
+import consulo.ide.impl.idea.openapi.vfs.VfsUtilCore;
+import consulo.language.editor.LangDataKeys;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.logging.Logger;
+import consulo.project.Project;
+import consulo.ui.ex.SimpleTextAttributes;
+import consulo.ui.ex.action.ActionGroup;
+import consulo.ui.ex.action.ActionManager;
+import consulo.ui.ex.awt.ColoredListCellRenderer;
+import consulo.ui.ex.awt.dnd.DnDDragStartBean;
 import consulo.ui.image.Image;
 import consulo.ui.image.ImageKey;
 import consulo.util.dataholder.Key;
+import consulo.util.lang.StringUtil;
+import consulo.virtualFileSystem.VirtualFile;
 import icons.UIDesignerIcons;
 import org.jetbrains.annotations.NonNls;
 
@@ -75,7 +75,7 @@ public final class ComponentItem implements Cloneable, PaletteItem
 	private consulo.ui.image.Image mySmallIcon;
 	/**
 	 * @see #getIconPath()
-	 * @see #setIconPath(java.lang.String)
+	 * @see #setIconPath(String)
 	 */
 	private String myIconPath;
 	/**
@@ -98,14 +98,14 @@ public final class ComponentItem implements Cloneable, PaletteItem
 	private final Project myProject;
 
 	public ComponentItem(@Nonnull Project project,
-			@Nonnull final String className,
-			@Nullable final String iconPath,
-			@Nullable final String toolTipText,
-			@Nonnull final GridConstraints defaultConstraints,
-			@Nonnull final HashMap<String, StringDescriptor> propertyName2initialValue,
-			final boolean removable,
-			final boolean autoCreateBinding,
-			final boolean canAttachLabel)
+						 @Nonnull final String className,
+						 @Nullable final String iconPath,
+						 @Nullable final String toolTipText,
+						 @Nonnull final GridConstraints defaultConstraints,
+						 @Nonnull final HashMap<String, StringDescriptor> propertyName2initialValue,
+						 final boolean removable,
+						 final boolean autoCreateBinding,
+						 final boolean canAttachLabel)
 	{
 		myAutoCreateBinding = autoCreateBinding;
 		myCanAttachLabel = canAttachLabel;
@@ -210,7 +210,7 @@ public final class ComponentItem implements Cloneable, PaletteItem
 				myIconPath = myIconPath.replace("consulo.uiDesigner.UIDesignerIconGroup@", "consulo.platform.base.PlatformIconGroup@uiDesigner.");
 				myIconPath = myIconPath.replace("/com/intellij/uiDesigner/icons/", "consulo.platform.base.PlatformIconGroup@uiDesigner.");
 				myIconPath = StringUtil.trimEnd(myIconPath, ".png");
-				
+
 				ImageKey imageKey = ImageKey.fromString(myIconPath, Image.DEFAULT_ICON_SIZE, Image.DEFAULT_ICON_SIZE);
 				if(imageKey != null)
 				{

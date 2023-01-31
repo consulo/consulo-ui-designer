@@ -18,7 +18,7 @@ package com.intellij.uiDesigner.propertyInspector.renderers;
 import javax.annotation.Nonnull;
 
 import com.intellij.uiDesigner.lw.StringDescriptor;
-import com.intellij.openapi.util.text.StringUtil;
+import consulo.util.lang.StringUtil;
 
 /**
  * @author Anton Katilin

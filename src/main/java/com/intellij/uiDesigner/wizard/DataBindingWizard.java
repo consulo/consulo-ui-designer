@@ -15,14 +15,14 @@
  */
 package com.intellij.uiDesigner.wizard;
 
-import com.intellij.CommonBundle;
-import com.intellij.ide.wizard.AbstractWizard;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.command.CommandProcessor;
+import consulo.application.ApplicationManager;
+import consulo.ide.impl.idea.ide.wizard.AbstractWizard;
+import consulo.project.Project;
+import consulo.undoRedo.CommandProcessor;
+import consulo.application.CommonBundle;
 import consulo.logging.Logger;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.vfs.VirtualFile;
+import consulo.ui.ex.awt.Messages;
+import consulo.virtualFileSystem.VirtualFile;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import javax.annotation.Nonnull;
 

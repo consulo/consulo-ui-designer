@@ -15,17 +15,16 @@
  */
 package com.intellij.uiDesigner.palette;
 
-import javax.annotation.Nonnull;
-
 import com.intellij.ide.palette.PaletteItemProvider;
-import com.intellij.openapi.extensions.Extensions;
-import com.intellij.openapi.project.Project;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.util.ClassUtil;
-import com.intellij.refactoring.listeners.RefactoringElementAdapter;
-import com.intellij.refactoring.listeners.RefactoringElementListener;
-import com.intellij.refactoring.listeners.RefactoringElementListenerProvider;
+import com.intellij.java.language.psi.PsiClass;
+import com.intellij.java.language.psi.util.ClassUtil;
+import consulo.language.editor.refactoring.event.RefactoringElementAdapter;
+import consulo.language.editor.refactoring.event.RefactoringElementListener;
+import consulo.language.editor.refactoring.event.RefactoringElementListenerProvider;
+import consulo.language.psi.PsiElement;
+import consulo.project.Project;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author yole
@@ -35,7 +34,7 @@ public class PaletteRefactoringListenerProvider implements RefactoringElementLis
   private final Palette myPalette;
 
   public PaletteRefactoringListenerProvider(Project project, Palette palette) {
-    myUiDesignerPaletteProvider = Extensions.findExtension(PaletteItemProvider.EP_NAME, project, UIDesignerPaletteProvider.class);
+    myUiDesignerPaletteProvider = PaletteItemProvider.EP_NAME.findExtensionOrFail(project, UIDesignerPaletteProvider.class);
     myPalette = palette;
   }
 
@@ -53,7 +52,8 @@ public class PaletteRefactoringListenerProvider implements RefactoringElementLis
     return null;
   }
 
-  private class MyRefactoringElementListener extends RefactoringElementAdapter{
+  private class MyRefactoringElementListener extends RefactoringElementAdapter
+  {
     private final ComponentItem myItem;
 
     public MyRefactoringElementListener(final ComponentItem item) {

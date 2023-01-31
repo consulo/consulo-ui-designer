@@ -17,22 +17,23 @@ package com.intellij.uiDesigner.binding;
 
 import javax.annotation.Nonnull;
 
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.editor.RangeMarker;
-import com.intellij.openapi.fileEditor.FileDocumentManager;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiDocumentManager;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiPlainTextFile;
-import com.intellij.psi.PsiReference;
-import com.intellij.util.ArrayUtil;
+import consulo.document.Document;
+import consulo.document.FileDocumentManager;
+import consulo.document.util.TextRange;
+import consulo.language.plain.psi.PsiPlainTextFile;
+import consulo.language.psi.PsiElement;
+import consulo.document.RangeMarker;
+import consulo.language.psi.PsiDocumentManager;
+import consulo.language.psi.PsiReference;
+import consulo.util.collection.ArrayUtil;
 import org.jetbrains.annotations.NonNls;
 
 /**
  * @author Eugene Zhuravlev
  *         Date: Jul 5, 2005
  */
-public abstract class ReferenceInForm implements PsiReference {
+public abstract class ReferenceInForm implements PsiReference
+{
   protected final PsiPlainTextFile myFile;
   private final RangeMarker myRangeMarker;
 

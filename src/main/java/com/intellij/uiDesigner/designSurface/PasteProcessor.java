@@ -16,9 +16,10 @@
 
 package com.intellij.uiDesigner.designSurface;
 
-import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.wm.StatusBar;
-import com.intellij.openapi.wm.WindowManager;
+import consulo.project.ui.wm.StatusBar;
+import consulo.undoRedo.CommandProcessor;
+import consulo.project.ui.wm.StatusBar;
+import consulo.project.ui.wm.WindowManager;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.lw.IComponent;

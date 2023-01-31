@@ -15,13 +15,6 @@
  */
 package com.intellij.uiDesigner.inspections;
 
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.ui.popup.JBPopupFactory;
-import com.intellij.openapi.ui.popup.ListPopup;
-import com.intellij.openapi.ui.popup.ListPopupStep;
-import com.intellij.openapi.ui.popup.PopupStep;
-import com.intellij.openapi.ui.popup.util.BaseListPopupStep;
-import com.intellij.openapi.util.TextRange;
 import com.intellij.spellchecker.SpellCheckerManager;
 import com.intellij.spellchecker.inspections.PlainTextSplitter;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
@@ -32,9 +25,12 @@ import com.intellij.uiDesigner.propertyInspector.properties.IntroStringProperty;
 import com.intellij.uiDesigner.quickFixes.PopupQuickFix;
 import com.intellij.uiDesigner.quickFixes.QuickFix;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import com.intellij.util.Consumer;
+import consulo.document.util.TextRange;
+import consulo.module.Module;
+import consulo.ui.ex.popup.*;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @author yole
@@ -59,7 +55,7 @@ public class FormSpellCheckingInspection extends StringDescriptorInspection {
     final SpellCheckerManager manager = SpellCheckerManager.getInstance(module.getProject());
     PlainTextSplitter.getInstance().split(value, TextRange.allOf(value), new Consumer<TextRange>() {
       @Override
-      public void consume(TextRange textRange) {
+      public void accept(TextRange textRange) {
         final String word = textRange.substring(value);
         if (manager.hasProblem(word)) {
           final List<String> suggestions = manager.getSuggestions(value);

@@ -16,10 +16,13 @@
 package com.intellij.uiDesigner.propertyInspector.properties;
 
 import com.intellij.uiDesigner.core.AbstractLayout;
+import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.radComponents.RadContainer;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.components.ServiceManager;
+
 import javax.annotation.Nonnull;
+
+import consulo.ide.ServiceManager;
+import consulo.project.Project;
 import jakarta.inject.Singleton;
 
 import java.awt.*;
@@ -29,7 +32,7 @@ import java.awt.*;
  * It represets margins of GridLayoutManager. <b>Note, that
  * this property exists only in RadContainer</b>.
  *
- * @see com.intellij.uiDesigner.core.GridLayoutManager#getMargin
+ * @see GridLayoutManager#getMargin
  *
  * @author Anton Katilin
  * @author Vladimir Kondratyev

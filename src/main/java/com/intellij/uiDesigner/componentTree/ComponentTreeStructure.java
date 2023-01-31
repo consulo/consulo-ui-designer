@@ -15,8 +15,8 @@
  */
 package com.intellij.uiDesigner.componentTree;
 
-import com.intellij.ide.util.treeView.AbstractTreeStructure;
-import com.intellij.ide.util.treeView.NodeDescriptor;
+import consulo.ui.ex.tree.AbstractTreeStructure;
+import consulo.ui.ex.tree.NodeDescriptor;
 import consulo.logging.Logger;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.radComponents.RadComponent;
@@ -25,7 +25,7 @@ import com.intellij.uiDesigner.radComponents.RadRootContainer;
 import com.intellij.uiDesigner.radComponents.RadButtonGroup;
 import com.intellij.uiDesigner.lw.LwInspectionSuppression;
 import com.intellij.uiDesigner.FormEditingUtil;
-import com.intellij.util.ArrayUtil;
+import consulo.util.collection.ArrayUtil;
 import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
@@ -131,7 +131,7 @@ final class ComponentTreeStructure extends AbstractTreeStructure{
   }
 
   @Nonnull
-  public NodeDescriptor createDescriptor(final Object element,final NodeDescriptor parentDescriptor){
+  public NodeDescriptor createDescriptor(final Object element, final NodeDescriptor parentDescriptor){
     if(element==myRootElement){
       return new RootDescriptor(parentDescriptor,myRootElement);
     }

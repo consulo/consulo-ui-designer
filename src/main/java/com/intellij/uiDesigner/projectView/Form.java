@@ -15,13 +15,13 @@
  */
 package com.intellij.uiDesigner.projectView;
 
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.pom.Navigatable;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.util.PsiUtilCore;
+import com.intellij.java.language.psi.PsiClass;
 import com.intellij.uiDesigner.binding.FormClassIndex;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.PsiUtilCore;
+import consulo.navigation.Navigatable;
 import consulo.util.dataholder.Key;
+import consulo.virtualFileSystem.VirtualFile;
 
 import java.util.Collection;
 import java.util.HashSet;

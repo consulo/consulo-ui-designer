@@ -17,9 +17,9 @@ package com.intellij.uiDesigner.palette;
 
 import com.intellij.ide.palette.PaletteGroup;
 import com.intellij.ide.palette.PaletteItem;
-import com.intellij.openapi.actionSystem.ActionGroup;
-import com.intellij.openapi.actionSystem.ActionManager;
-import com.intellij.openapi.project.Project;
+import consulo.project.Project;
+import consulo.ui.ex.action.ActionGroup;
+import consulo.ui.ex.action.ActionManager;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import consulo.logging.Logger;
 import consulo.util.dataholder.Key;

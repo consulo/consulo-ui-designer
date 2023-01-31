@@ -15,23 +15,22 @@
  */
 package com.intellij.uiDesigner.quickFixes;
 
-import com.intellij.codeInsight.daemon.DaemonCodeAnalyzer;
-import com.intellij.icons.AllIcons;
-import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.ui.popup.JBPopupFactory;
-import com.intellij.openapi.ui.popup.ListPopup;
-import com.intellij.openapi.ui.popup.PopupStep;
-import com.intellij.openapi.ui.popup.util.BaseListPopupStep;
-import com.intellij.openapi.util.Pair;
-import com.intellij.ui.HintHint;
-import com.intellij.ui.LightweightHint;
+import consulo.application.AllIcons;
+import consulo.language.editor.DaemonCodeAnalyzer;
+import consulo.ui.ex.awt.HintHint;
+import consulo.ui.ex.awt.IJSwingUtilities;
+import consulo.ui.ex.awt.util.Alarm;
+import consulo.ui.ex.popup.*;
+import consulo.ui.ex.popup.BaseListPopupStep;
+import consulo.util.lang.Pair;
+import consulo.ide.impl.idea.ui.LightweightHint;
 import com.intellij.uiDesigner.ErrorInfo;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import com.intellij.util.Alarm;
-import com.intellij.util.IJSwingUtilities;
 import consulo.logging.Logger;
+import consulo.ui.ex.popup.ListPopup;
+import consulo.undoRedo.CommandProcessor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -260,7 +259,8 @@ public abstract class QuickFixManager <T extends JComponent>{
     }
   }
 
-  private class QuickFixPopupStep extends BaseListPopupStep<ErrorWithFix> {
+  private class QuickFixPopupStep extends BaseListPopupStep<ErrorWithFix>
+  {
     private final boolean myShowSuppresses;
 
     public QuickFixPopupStep(final ArrayList<ErrorWithFix> fixList, boolean showSuppresses) {

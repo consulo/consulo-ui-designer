@@ -16,14 +16,15 @@
 
 package com.intellij.uiDesigner.componentTree;
 
-import com.intellij.ide.util.treeView.NodeDescriptor;
+import consulo.ui.ex.tree.NodeDescriptor;
 import com.intellij.uiDesigner.lw.LwInspectionSuppression;
 import com.intellij.uiDesigner.UIDesignerBundle;
 
 /**
  * @author yole
  */
-public class SuppressionGroupDescriptor extends NodeDescriptor {
+public class SuppressionGroupDescriptor extends NodeDescriptor
+{
   private final LwInspectionSuppression[] myInspectionSuppressions;
 
   public SuppressionGroupDescriptor(final NodeDescriptor parentDescriptor, final LwInspectionSuppression[] lwInspectionSuppressions) {

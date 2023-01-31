@@ -16,14 +16,14 @@
 package com.intellij.uiDesigner.designSurface;
 
 import com.intellij.ide.palette.impl.PaletteToolWindowManager;
-import com.intellij.openapi.actionSystem.*;
-import consulo.logging.Logger;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.palette.ComponentItem;
 import com.intellij.uiDesigner.propertyInspector.InplaceContext;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
-import com.intellij.util.ui.UIUtil;
+import consulo.logging.Logger;
+import consulo.ui.ex.action.*;
+import consulo.ui.ex.awt.UIUtil;
 import consulo.util.collection.primitive.ints.IntList;
 
 import javax.annotation.Nonnull;

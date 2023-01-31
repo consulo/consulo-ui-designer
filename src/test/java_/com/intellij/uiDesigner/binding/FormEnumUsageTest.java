@@ -22,17 +22,17 @@
  */
 package com.intellij.uiDesigner.binding;
 
-import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.vfs.VirtualFile;
+import consulo.language.psi.search.ReferencesSearch;
+import consulo.virtualFileSystem.VirtualFile;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiEnumConstant;
 import com.intellij.psi.PsiField;
 import com.intellij.psi.search.ProjectScope;
-import com.intellij.psi.search.searches.ReferencesSearch;
 import com.intellij.testFramework.IdeaTestUtil;
 import com.intellij.testFramework.PsiTestCase;
 import com.intellij.testFramework.PsiTestUtil;
-import com.intellij.util.IncorrectOperationException;
+import consulo.util.lang.IncorrectOperationException;
+import consulo.undoRedo.CommandProcessor;
 
 public abstract class FormEnumUsageTest extends PsiTestCase {
   private VirtualFile myTestProjectRoot;

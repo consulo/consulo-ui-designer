@@ -17,17 +17,17 @@ package com.intellij.uiDesigner;
 
 import javax.annotation.Nullable;
 
-import com.intellij.designer.DesignerEditorPanelFacade;
-import com.intellij.designer.LightToolWindowManager;
-import com.intellij.designer.ToggleEditorModeAction;
+import consulo.fileEditor.FileEditor;
+import consulo.ide.impl.idea.designer.DesignerEditorPanelFacade;
+import consulo.ide.impl.idea.designer.LightToolWindowManager;
+import consulo.ide.impl.idea.designer.ToggleEditorModeAction;
 import com.intellij.ide.palette.impl.PaletteToolWindowManager;
-import com.intellij.openapi.fileEditor.FileEditor;
-import com.intellij.openapi.fileEditor.FileEditorManager;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.wm.ToolWindowAnchor;
+import consulo.fileEditor.FileEditorManager;
+import consulo.ui.ex.toolWindow.ToolWindowAnchor;
 import com.intellij.uiDesigner.editor.UIFormEditor;
 import com.intellij.uiDesigner.propertyInspector.DesignerToolWindowManager;
 import consulo.disposer.Disposable;
+import consulo.project.Project;
 
 /**
  * @author Alexander Lobas
@@ -37,12 +37,6 @@ public abstract class AbstractToolWindowManager extends LightToolWindowManager i
 	public AbstractToolWindowManager(Project project, FileEditorManager fileEditorManager)
 	{
 		super(project, fileEditorManager);
-	}
-
-	@Override
-	public void dispose()
-	{
-		projectClosed();
 	}
 
 	@Nullable

@@ -15,7 +15,6 @@
  */
 package com.intellij.uiDesigner.propertyInspector.properties;
 
-import com.intellij.openapi.util.Comparing;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.XmlWriter;
 import com.intellij.uiDesigner.lw.FontDescriptor;
@@ -26,7 +25,8 @@ import com.intellij.uiDesigner.propertyInspector.editors.FontEditor;
 import com.intellij.uiDesigner.propertyInspector.renderers.FontRenderer;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
-import com.intellij.util.ArrayUtil;
+import consulo.util.collection.ArrayUtil;
+import consulo.util.lang.Comparing;
 import org.jetbrains.annotations.NonNls;
 import javax.annotation.Nonnull;
 

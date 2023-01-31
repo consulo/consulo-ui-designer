@@ -15,10 +15,11 @@
  */
 package com.intellij.uiDesigner.componentTree;
 
-import com.intellij.ide.util.treeView.NodeDescriptor;
-import com.intellij.openapi.util.Comparing;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
+import consulo.ui.ex.tree.NodeDescriptor;
+import consulo.util.lang.Comparing;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -26,49 +27,58 @@ import javax.annotation.Nullable;
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
-final class ComponentPtrDescriptor extends NodeDescriptor<ComponentPtr> {
-  private ComponentPtr myPtr;
-  /**
-   * RadComponent.getBinding() or RadRootContainer.getClassToBind()
-   */
-  private String myBinding;
-  private String myTitle;
+final class ComponentPtrDescriptor extends NodeDescriptor<ComponentPtr>
+{
+	private ComponentPtr myPtr;
+	/**
+	 * RadComponent.getBinding() or RadRootContainer.getClassToBind()
+	 */
+	private String myBinding;
+	private String myTitle;
 
-  public ComponentPtrDescriptor(@Nonnull final NodeDescriptor parentDescriptor, @Nonnull final ComponentPtr ptr) {
-    super(null,parentDescriptor);
+	public ComponentPtrDescriptor(@Nonnull final NodeDescriptor parentDescriptor, @Nonnull final ComponentPtr ptr)
+	{
+		super(parentDescriptor);
 
-    myPtr=ptr;
-  }
+		myPtr = ptr;
+	}
 
-  public boolean update() {
-    myPtr.validate();
-    if(!myPtr.isValid()) {
-      myPtr=null;
-      return true;
-    }
+	public boolean update()
+	{
+		myPtr.validate();
+		if(!myPtr.isValid())
+		{
+			myPtr = null;
+			return true;
+		}
 
-    final String oldBinding = myBinding;
-    final String oldTitle = myTitle;
-    final RadComponent component = myPtr.getComponent();
-    if (component.getModule().isDisposed()) {
-      return false;
-    }
-    if(component instanceof RadRootContainer) {
-      myBinding = ((RadRootContainer)component).getClassToBind();
-    }
-    else{
-      myBinding = component.getBinding();
-    }
-    myTitle = component.getComponentTitle();
-    return !Comparing.equal(oldBinding,myBinding) || !Comparing.equal(oldTitle, myTitle);
-  }
+		final String oldBinding = myBinding;
+		final String oldTitle = myTitle;
+		final RadComponent component = myPtr.getComponent();
+		if(component.getModule().isDisposed())
+		{
+			return false;
+		}
+		if(component instanceof RadRootContainer)
+		{
+			myBinding = ((RadRootContainer) component).getClassToBind();
+		}
+		else
+		{
+			myBinding = component.getBinding();
+		}
+		myTitle = component.getComponentTitle();
+		return !Comparing.equal(oldBinding, myBinding) || !Comparing.equal(oldTitle, myTitle);
+	}
 
-  @Nullable
-  public RadComponent getComponent() {
-    return myPtr != null ? myPtr.getComponent() : null;
-  }
+	@Nullable
+	public RadComponent getComponent()
+	{
+		return myPtr != null ? myPtr.getComponent() : null;
+	}
 
-  public ComponentPtr getElement() {
-    return myPtr;
-  }
+	public ComponentPtr getElement()
+	{
+		return myPtr;
+	}
 }

@@ -15,20 +15,19 @@
  */
 package com.intellij.ide.palette.impl;
 
-import com.intellij.designer.DesignerEditorPanelFacade;
-import com.intellij.designer.LightToolWindow;
-import com.intellij.icons.AllIcons;
-import com.intellij.ide.IdeBundle;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.fileEditor.FileEditorManager;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.wm.ToolWindowAnchor;
-import com.intellij.openapi.wm.ToolWindowManager;
-import com.intellij.ui.content.Content;
-import com.intellij.ui.content.ContentManager;
+import consulo.application.AllIcons;
+import consulo.ide.impl.idea.designer.DesignerEditorPanelFacade;
+import consulo.ide.impl.idea.designer.LightToolWindow;
+import consulo.ide.IdeBundle;
+import consulo.fileEditor.FileEditorManager;
+import consulo.project.ui.wm.ToolWindowManager;
+import consulo.ui.ex.content.Content;
+import consulo.ui.ex.toolWindow.ToolWindowAnchor;
+import consulo.ui.ex.content.ContentManager;
 import com.intellij.uiDesigner.AbstractToolWindowManager;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
-import consulo.awt.TargetAWT;
+import consulo.ui.ex.awtUnsafe.TargetAWT;
+import consulo.project.Project;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 

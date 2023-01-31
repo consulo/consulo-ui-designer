@@ -16,16 +16,20 @@
 
 package com.intellij.uiDesigner.clientProperties;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.intellij.uiDesigner.UIDesignerBundle;
+import consulo.application.util.SystemInfo;
+import consulo.ide.impl.idea.ide.util.PropertiesComponent;
+import consulo.project.Project;
+import consulo.ui.ex.SimpleTextAttributes;
+import consulo.ui.ex.action.ActionToolbarPosition;
+import consulo.ui.ex.awt.*;
+import consulo.ui.ex.awt.table.JBTable;
+import consulo.ui.ex.awt.tree.ColoredTreeCellRenderer;
+import consulo.ui.ex.awt.tree.Tree;
+import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nullable;
-import javax.swing.JComponent;
-import javax.swing.JTable;
-import javax.swing.JTree;
+import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.AbstractTableModel;
@@ -33,23 +37,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
-
-import org.jetbrains.annotations.NonNls;
-import com.intellij.ide.util.PropertiesComponent;
-import com.intellij.openapi.actionSystem.ActionToolbarPosition;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.DialogWrapper;
-import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.ui.Splitter;
-import com.intellij.openapi.util.SystemInfo;
-import com.intellij.ui.AnActionButton;
-import com.intellij.ui.AnActionButtonRunnable;
-import com.intellij.ui.ColoredTreeCellRenderer;
-import com.intellij.ui.SimpleTextAttributes;
-import com.intellij.ui.ToolbarDecorator;
-import com.intellij.ui.table.JBTable;
-import com.intellij.ui.treeStructure.Tree;
-import com.intellij.uiDesigner.UIDesignerBundle;
+import java.util.*;
 
 /**
  * @author yole

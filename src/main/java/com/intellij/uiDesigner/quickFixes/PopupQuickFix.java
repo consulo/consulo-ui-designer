@@ -18,9 +18,10 @@ package com.intellij.uiDesigner.quickFixes;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.intellij.openapi.ui.popup.PopupStep;
+import consulo.ui.ex.popup.PopupStep;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.radComponents.RadComponent;
+import consulo.ui.ex.popup.PopupStep;
 
 /**
  * @author yole

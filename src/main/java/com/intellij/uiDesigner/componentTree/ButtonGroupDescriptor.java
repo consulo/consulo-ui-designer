@@ -16,17 +16,18 @@
 
 package com.intellij.uiDesigner.componentTree;
 
-import com.intellij.ide.util.treeView.NodeDescriptor;
 import com.intellij.uiDesigner.radComponents.RadButtonGroup;
+import consulo.ui.ex.tree.NodeDescriptor;
 
 /**
  * @author yole
  */
-public class ButtonGroupDescriptor extends NodeDescriptor {
+public class ButtonGroupDescriptor extends NodeDescriptor
+{
   private final RadButtonGroup myGroup;
 
   public ButtonGroupDescriptor(final NodeDescriptor parentDescriptor, final RadButtonGroup group) {
-    super(null, parentDescriptor);
+    super(parentDescriptor);
     myGroup = group;
   }
 

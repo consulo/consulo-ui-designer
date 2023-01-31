@@ -15,10 +15,10 @@
  */
 package com.intellij.uiDesigner.binding;
 
-import com.intellij.psi.PsiReferenceContributor;
-import com.intellij.psi.PsiReferenceRegistrar;
-import com.intellij.psi.PsiPlainTextFile;
-import static com.intellij.patterns.PlatformPatterns.psiFile;
+import consulo.language.psi.PsiReferenceContributor;
+import consulo.language.psi.PsiReferenceRegistrar;
+import consulo.language.plain.psi.PsiPlainTextFile;
+import static consulo.language.pattern.PlatformPatterns.psiFile;
 
 /**
  * @author yole

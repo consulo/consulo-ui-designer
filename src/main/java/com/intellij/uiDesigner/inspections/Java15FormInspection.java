@@ -15,17 +15,13 @@
  */
 package com.intellij.uiDesigner.inspections;
 
-import com.intellij.codeInspection.InspectionsBundle;
-import com.intellij.codeInspection.java15api.Java15APIUsageInspection;
-import com.intellij.openapi.module.EffectiveLanguageLevelUtil;
-import com.intellij.openapi.module.Module;
-import com.intellij.pom.java.LanguageLevel;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.PsiMethod;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.util.PropertyUtil;
+import com.intellij.java.analysis.impl.codeInspection.java15api.Java15APIUsageInspection;
+import com.intellij.java.language.LanguageLevel;
+import com.intellij.java.language.module.EffectiveLanguageLevelUtil;
+import com.intellij.java.language.psi.JavaPsiFacade;
+import com.intellij.java.language.psi.PsiClass;
+import com.intellij.java.language.psi.PsiMethod;
+import com.intellij.java.language.psi.util.PropertyUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.actions.ResetValueAction;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
@@ -34,6 +30,10 @@ import com.intellij.uiDesigner.lw.IProperty;
 import com.intellij.uiDesigner.propertyInspector.Property;
 import com.intellij.uiDesigner.quickFixes.QuickFix;
 import com.intellij.uiDesigner.radComponents.RadComponent;
+import consulo.language.editor.inspection.InspectionsBundle;
+import consulo.language.psi.PsiManager;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.module.Module;
 import org.jetbrains.annotations.NonNls;
 
 import java.util.Collections;

@@ -15,31 +15,12 @@
  */
 package com.intellij.uiDesigner.make;
 
-import com.intellij.compiler.impl.CompilerUtil;
-import com.intellij.compiler.impl.ModuleChunk;
 import com.intellij.compiler.instrumentation.InstrumentationClassFinder;
 import com.intellij.compiler.instrumentation.InstrumenterClassWriter;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.compiler.*;
-import com.intellij.openapi.compiler.ex.CompileContextEx;
-import consulo.logging.Logger;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.fileEditor.FileDocumentManager;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtil;
-import com.intellij.openapi.module.ModuleUtilCore;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.projectRoots.JavaSdk;
-import com.intellij.openapi.projectRoots.JavaSdkVersion;
-import com.intellij.openapi.projectRoots.JavaSdkVersionUtil;
-import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.roots.impl.DirectoryIndex;
-import com.intellij.openapi.util.Computable;
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.openapi.vfs.VfsUtilCore;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiFile;
+import com.intellij.java.language.impl.projectRoots.JavaSdkVersionUtil;
+import com.intellij.java.language.projectRoots.JavaSdk;
+import com.intellij.java.language.projectRoots.JavaSdkVersion;
+import com.intellij.java.language.psi.PsiClass;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.GuiDesignerConfiguration;
 import com.intellij.uiDesigner.GuiFormFileType;
@@ -50,15 +31,32 @@ import com.intellij.uiDesigner.compiler.FormErrorInfo;
 import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.uiDesigner.lw.CompiledClassPropertiesProvider;
 import com.intellij.uiDesigner.lw.LwRootContainer;
-import com.intellij.util.Chunk;
-import com.intellij.util.ExceptionUtil;
-import consulo.compiler.roots.CompilerPathsImpl;
+import consulo.application.ApplicationManager;
+import consulo.application.util.function.Computable;
+import consulo.compiler.*;
+import consulo.compiler.scope.CompileScope;
+import consulo.compiler.util.CompilerUtil;
+import consulo.content.bundle.Sdk;
+import consulo.document.Document;
+import consulo.document.FileDocumentManager;
+import consulo.ide.impl.idea.openapi.module.ModuleUtil;
+import consulo.ide.impl.idea.openapi.util.io.FileUtil;
+import consulo.ide.impl.idea.openapi.vfs.VfsUtilCore;
 import consulo.internal.org.objectweb.asm.ClassWriter;
 import consulo.java.compiler.JavaCompilerUtil;
-import consulo.java.module.extension.JavaModuleExtension;
-import consulo.roots.impl.ProductionContentFolderTypeProvider;
-import consulo.roots.impl.TestContentFolderTypeProvider;
+import consulo.java.language.module.extension.JavaModuleExtension;
+import consulo.language.content.ProductionContentFolderTypeProvider;
+import consulo.language.content.TestContentFolderTypeProvider;
+import consulo.language.psi.PsiFile;
+import consulo.language.util.ModuleUtilCore;
+import consulo.logging.Logger;
+import consulo.module.Module;
+import consulo.module.content.DirectoryIndex;
+import consulo.project.Project;
 import consulo.util.collection.ArrayUtil;
+import consulo.util.collection.Chunk;
+import consulo.util.lang.ExceptionUtil;
+import consulo.virtualFileSystem.VirtualFile;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -123,7 +121,7 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 			{
 				platformUrls = ArrayUtil.append(platformUrls, InstrumentationClassFinder.createJDKPlatformUrl(sdk.getHomePath()));
 			}
-			catch (MalformedURLException ignored)
+			catch(MalformedURLException ignored)
 			{
 			}
 		}
@@ -181,7 +179,7 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 
 				try
 				{
-					for(final Module module : module2formFiles.keySet())
+					for(final consulo.module.Module module : module2formFiles.keySet())
 					{
 						final HashMap<String, VirtualFile> class2form = new HashMap<>();
 
@@ -264,10 +262,10 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 
 	private static HashMap<Module, ArrayList<VirtualFile>> sortByModules(final Project project, final VirtualFile[] formFiles)
 	{
-		final HashMap<Module, ArrayList<VirtualFile>> module2formFiles = new HashMap<>();
+		final HashMap<consulo.module.Module, ArrayList<VirtualFile>> module2formFiles = new HashMap<>();
 		for(final VirtualFile formFile : formFiles)
 		{
-			final Module module = ModuleUtil.findModuleForFile(formFile, project);
+			final consulo.module.Module module = ModuleUtil.findModuleForFile(formFile, project);
 			if(module != null)
 			{
 				ArrayList<VirtualFile> list = module2formFiles.get(module);
@@ -284,7 +282,7 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 
 	private static HashMap<Module, ArrayList<MyInstrumentationItem>> sortByModules(final Project project, final ProcessingItem[] items)
 	{
-		final HashMap<Module, ArrayList<MyInstrumentationItem>> module2formFiles = new HashMap<>();
+		final HashMap<consulo.module.Module, ArrayList<MyInstrumentationItem>> module2formFiles = new HashMap<>();
 		for(ProcessingItem item1 : items)
 		{
 			final MyInstrumentationItem item = (MyInstrumentationItem) item1;
@@ -378,10 +376,10 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 		context.getProgressIndicator().setText(UIDesignerBundle.message("progress.compiling.ui.forms"));
 
 		final Project project = context.getProject();
-		final HashMap<Module, ArrayList<MyInstrumentationItem>> module2itemsList = sortByModules(project, items);
+		final HashMap<consulo.module.Module, ArrayList<MyInstrumentationItem>> module2itemsList = sortByModules(project, items);
 
 		List<File> filesToRefresh = new ArrayList<>();
-		for(final Module module : module2itemsList.keySet())
+		for(final consulo.module.Module module : module2itemsList.keySet())
 		{
 			final InstrumentationClassFinder finder = createClassFinder(context, module);
 
@@ -390,14 +388,14 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 				GuiDesignerConfiguration designerConfiguration = GuiDesignerConfiguration.getInstance(project);
 				if(designerConfiguration.COPY_FORMS_RUNTIME_TO_OUTPUT)
 				{
-					final String moduleOutputPath = CompilerPathsImpl.getModuleOutputPath(module, ProductionContentFolderTypeProvider.getInstance());
+					final String moduleOutputPath = CompilerPaths.getModuleOutputPath(module, ProductionContentFolderTypeProvider.getInstance());
 					try
 					{
 						if(moduleOutputPath != null)
 						{
 							filesToRefresh.addAll(CopyResourcesUtil.copyFormsRuntime(moduleOutputPath, false));
 						}
-						final String testsOutputPath = CompilerPathsImpl.getModuleOutputPath(module, TestContentFolderTypeProvider.getInstance());
+						final String testsOutputPath = CompilerPaths.getModuleOutputPath(module, TestContentFolderTypeProvider.getInstance());
 						if(testsOutputPath != null && !testsOutputPath.equals(moduleOutputPath))
 						{
 							filesToRefresh.addAll(CopyResourcesUtil.copyFormsRuntime(testsOutputPath, false));
@@ -543,7 +541,7 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 
 	public static VirtualFile findSourceFile(final CompileContext context, final VirtualFile formFile, final String className)
 	{
-		final Module module = context.getModuleByFile(formFile);
+		final consulo.module.Module module = context.getModuleByFile(formFile);
 		if(module == null)
 		{
 			return null;

@@ -18,19 +18,20 @@ package com.intellij.uiDesigner.palette;
 
 import java.awt.Window;
 
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
+import consulo.project.Project;
+import consulo.ui.ex.action.AnActionEvent;
+import consulo.language.editor.CommonDataKeys;
 import consulo.logging.Logger;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.wm.WindowManager;
+import consulo.project.ui.wm.WindowManager;
 import com.intellij.uiDesigner.UIDesignerBundle;
-import consulo.awt.TargetAWT;
+import consulo.ui.ex.action.AnAction;
+import consulo.ui.ex.awtUnsafe.TargetAWT;
 
 /**
  * @author yole
  */
-public class EditComponentAction extends AnAction {
+public class EditComponentAction extends AnAction
+{
   private static final Logger LOG = Logger.getInstance(EditComponentAction.class);
 
   public void actionPerformed(AnActionEvent e) {

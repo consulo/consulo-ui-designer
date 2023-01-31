@@ -16,23 +16,27 @@
 
 package com.intellij.uiDesigner.inspections;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.codeInspection.BaseJavaLocalInspectionTool;
-import com.intellij.codeInspection.LocalQuickFix;
-import com.intellij.codeInspection.ProblemsHolder;
-import com.intellij.psi.*;
-import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.java.analysis.impl.codeInspection.BaseJavaLocalInspectionTool;
+import com.intellij.java.language.psi.*;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.binding.FieldFormReference;
 import com.intellij.uiDesigner.binding.FormReferenceProvider;
 import com.intellij.uiDesigner.compiler.AsmCodeGenerator;
+import consulo.language.editor.inspection.LocalQuickFix;
+import consulo.language.editor.inspection.ProblemsHolder;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiElementVisitor;
+import consulo.language.psi.PsiReference;
+import consulo.language.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author yole
  */
-public class BoundFieldAssignmentInspection extends BaseJavaLocalInspectionTool {
+public class BoundFieldAssignmentInspection extends BaseJavaLocalInspectionTool
+{
   @Nonnull
   public String getGroupDisplayName() {
     return UIDesignerBundle.message("form.inspections.group");

@@ -21,11 +21,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.swing.*;
 
+import consulo.module.Module;
+import consulo.virtualFileSystem.VirtualFile;
 import org.jetbrains.annotations.NonNls;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ResourceFileUtil;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.search.GlobalSearchScope;
+import consulo.ide.impl.idea.openapi.module.ResourceFileUtil;
+import consulo.language.psi.scope.GlobalSearchScope;
 import com.intellij.uiDesigner.UIFormXmlConstants;
 import com.intellij.uiDesigner.XmlWriter;
 import com.intellij.uiDesigner.lw.IconDescriptor;

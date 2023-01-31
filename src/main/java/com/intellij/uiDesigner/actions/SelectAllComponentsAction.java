@@ -17,13 +17,13 @@ package com.intellij.uiDesigner.actions;
 
 import java.util.List;
 
-import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.componentTree.ComponentTreeBuilder;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.lw.IComponent;
 import com.intellij.uiDesigner.propertyInspector.DesignerToolWindowManager;
 import com.intellij.uiDesigner.radComponents.RadComponent;
+import consulo.ui.ex.action.AnActionEvent;
 
 /**
  * @author yole

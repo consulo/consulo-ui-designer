@@ -17,20 +17,20 @@ package com.intellij.uiDesigner.editor;
 
 import javax.annotation.Nonnull;
 
+import consulo.application.dumb.DumbAware;
+import consulo.fileEditor.FileEditor;
+import consulo.fileEditor.FileEditorPolicy;
 import consulo.logging.Logger;
+import consulo.project.Project;
+import consulo.util.collection.ArrayUtil;
 import org.jdom.Element;
-import com.intellij.openapi.fileEditor.FileEditor;
-import com.intellij.openapi.fileEditor.FileEditorPolicy;
-import com.intellij.openapi.fileEditor.FileEditorProvider;
-import com.intellij.openapi.fileEditor.FileEditorState;
-import com.intellij.openapi.module.ModuleUtil;
-import com.intellij.openapi.project.DumbAware;
-import com.intellij.openapi.project.Project;
+import consulo.fileEditor.FileEditorProvider;
+import consulo.fileEditor.FileEditorState;
+import consulo.ide.impl.idea.openapi.module.ModuleUtil;
 import consulo.disposer.Disposer;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.testFramework.LightVirtualFile;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.language.file.light.LightVirtualFile;
 import com.intellij.uiDesigner.GuiFormFileType;
-import com.intellij.util.ArrayUtil;
 
 public final class UIFormEditorProvider implements FileEditorProvider, DumbAware
 {

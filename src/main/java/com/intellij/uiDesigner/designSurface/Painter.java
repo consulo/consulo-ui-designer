@@ -23,9 +23,9 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.swing.SwingUtilities;
 
+import consulo.ui.ex.JBColor;
+import consulo.ui.ex.awt.LightColors;
 import org.intellij.lang.annotations.JdkConstants;
-import com.intellij.ui.JBColor;
-import com.intellij.ui.LightColors;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.SwingProperties;
 import com.intellij.uiDesigner.core.GridLayoutManager;

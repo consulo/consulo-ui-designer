@@ -16,7 +16,6 @@
 package com.intellij.uiDesigner.inspections;
 
 import consulo.logging.Logger;
-import com.intellij.openapi.module.Module;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.actions.GroupButtonsAction;
@@ -30,6 +29,8 @@ import com.intellij.uiDesigner.radComponents.RadButtonGroup;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
+import consulo.module.Module;
+
 import javax.annotation.Nonnull;
 
 import javax.swing.*;

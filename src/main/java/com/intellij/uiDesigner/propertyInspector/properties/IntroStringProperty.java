@@ -15,8 +15,8 @@
  */
 package com.intellij.uiDesigner.propertyInspector.properties;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Comparing;
+import consulo.project.Project;
+import consulo.util.lang.Comparing;
 import com.intellij.uiDesigner.*;
 import com.intellij.uiDesigner.core.SupportCode;
 import com.intellij.uiDesigner.lw.IProperty;

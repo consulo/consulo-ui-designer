@@ -18,14 +18,14 @@ package com.intellij.uiDesigner.quickFixes;
 import javax.annotation.Nonnull;
 import javax.swing.JComponent;
 
-import com.intellij.openapi.actionSystem.ActionManager;
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.actionSystem.IdeActions;
+import consulo.language.editor.CommonDataKeys;
+import consulo.ui.ex.action.ActionManager;
+import consulo.ui.ex.action.AnActionEvent;
+import consulo.ui.ex.action.IdeActions;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.propertyInspector.DesignerToolWindowManager;
 import com.intellij.uiDesigner.propertyInspector.PropertyInspector;
+import consulo.ui.ex.action.AnAction;
 
 /**
  * @author Anton Katilin

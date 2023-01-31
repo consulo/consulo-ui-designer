@@ -16,7 +16,6 @@
 
 package com.intellij.uiDesigner.radComponents;
 
-import com.intellij.openapi.project.Project;
 import com.intellij.uiDesigner.UIFormXmlConstants;
 import com.intellij.uiDesigner.XmlWriter;
 import com.intellij.uiDesigner.core.GridConstraints;
@@ -33,7 +32,9 @@ import com.intellij.uiDesigner.propertyInspector.renderers.LabelPropertyRenderer
 import com.intellij.uiDesigner.propertyInspector.properties.HGapProperty;
 import com.intellij.uiDesigner.propertyInspector.properties.VGapProperty;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
-import com.intellij.util.IncorrectOperationException;
+import consulo.language.util.IncorrectOperationException;
+import consulo.project.Project;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -104,7 +105,8 @@ public class RadBorderLayoutManager extends RadLayoutManager {
   }
 
 
-  @Override public void changeContainerLayout(RadContainer container) throws IncorrectOperationException {
+  @Override public void changeContainerLayout(RadContainer container) throws consulo.language.util.IncorrectOperationException
+  {
     ArrayList<RadComponent> componentsInBorder = new ArrayList<RadComponent>();
 
     boolean borderHorz = true;

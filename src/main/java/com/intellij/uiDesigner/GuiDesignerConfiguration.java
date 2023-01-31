@@ -15,15 +15,14 @@
  */
 package com.intellij.uiDesigner;
 
+import com.intellij.java.language.psi.PsiModifier;
+import consulo.component.persist.PersistentStateComponent;
+import consulo.component.persist.State;
+import consulo.component.persist.Storage;
+import consulo.ide.ServiceManager;
+import consulo.project.Project;
+import consulo.util.xml.serializer.XmlSerializerUtil;
 import jakarta.inject.Singleton;
-
-import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.components.State;
-import com.intellij.openapi.components.Storage;
-import com.intellij.openapi.project.Project;
-import com.intellij.psi.PsiModifier;
-import com.intellij.util.xmlb.XmlSerializerUtil;
 
 /**
  * @author Anton Katilin

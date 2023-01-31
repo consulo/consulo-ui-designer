@@ -18,7 +18,8 @@ package com.intellij.uiDesigner.designSurface;
 import consulo.logging.Logger;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import com.intellij.util.ui.UIUtil;
+import consulo.ui.ex.awt.UIUtil;
+
 import javax.annotation.Nonnull;
 
 import java.awt.Component;

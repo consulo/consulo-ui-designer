@@ -18,9 +18,9 @@ package com.intellij.uiDesigner.radComponents;
 
 import com.intellij.uiDesigner.UIFormXmlConstants;
 import com.intellij.uiDesigner.GuiDesignerConfiguration;
-import com.intellij.openapi.project.Project;
-import com.intellij.util.ArrayUtil;
+import consulo.util.collection.ArrayUtil;
 import com.jgoodies.forms.layout.FormLayout;
+import consulo.project.Project;
 import org.jetbrains.annotations.NonNls;
 import javax.annotation.Nullable;
 

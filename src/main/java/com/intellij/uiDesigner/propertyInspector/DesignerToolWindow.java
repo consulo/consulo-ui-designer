@@ -15,13 +15,11 @@
  */
 package com.intellij.uiDesigner.propertyInspector;
 
-import com.intellij.designer.LightToolWindowContent;
-import com.intellij.openapi.actionSystem.DataProvider;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.Splitter;
-import com.intellij.ui.IdeBorderFactory;
-import com.intellij.ui.ScrollPaneFactory;
-import com.intellij.ui.SideBorder;
+import consulo.ide.impl.idea.designer.LightToolWindowContent;
+import consulo.dataContext.DataProvider;
+import consulo.project.Project;
+import consulo.ui.ex.awt.*;
+import consulo.ui.ex.awt.IdeBorderFactory;
 import com.intellij.uiDesigner.componentTree.ComponentTree;
 import com.intellij.uiDesigner.componentTree.ComponentTreeBuilder;
 import com.intellij.uiDesigner.designSurface.GuiEditor;

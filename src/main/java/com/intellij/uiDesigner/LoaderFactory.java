@@ -15,26 +15,26 @@
  */
 package com.intellij.uiDesigner;
 
-import com.intellij.ProjectTopics;
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtil;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ModuleRootAdapter;
-import com.intellij.openapi.roots.ModuleRootEvent;
-import com.intellij.openapi.roots.OrderEnumerator;
-import com.intellij.openapi.vfs.VfsUtil;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.uiDesigner.core.Spacer;
-import com.intellij.util.PathUtil;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.messages.MessageBusConnection;
+import consulo.component.messagebus.MessageBusConnection;
 import consulo.disposer.Disposable;
 import consulo.disposer.Disposer;
+import consulo.ide.ServiceManager;
+import consulo.ide.impl.idea.openapi.module.ModuleUtil;
+import consulo.ide.impl.idea.openapi.vfs.VfsUtil;
+import consulo.module.Module;
+import consulo.module.content.layer.OrderEnumerator;
+import consulo.module.content.layer.event.ModuleRootAdapter;
+import consulo.module.content.layer.event.ModuleRootEvent;
+import consulo.module.content.layer.event.ModuleRootListener;
+import consulo.project.Project;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.io.ClassPathUtil;
 import consulo.util.lang.StringUtil;
 import consulo.util.nodep.classloader.UrlClassLoader;
-import consulo.vfs.util.ArchiveVfsUtil;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.VirtualFileManager;
+import consulo.virtualFileSystem.archive.ArchiveVfsUtil;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
@@ -54,7 +54,7 @@ public final class LoaderFactory
 {
 	private final Project myProject;
 
-	private final Map<Module, ClassLoader> myModule2ClassLoader;
+	private final Map<consulo.module.Module, ClassLoader> myModule2ClassLoader;
 	private ClassLoader myProjectClassLoader = null;
 	private final MessageBusConnection myConnection;
 
@@ -69,7 +69,7 @@ public final class LoaderFactory
 		myProject = project;
 		myModule2ClassLoader = ContainerUtil.createWeakMap();
 		myConnection = myProject.getMessageBus().connect();
-		myConnection.subscribe(ProjectTopics.PROJECT_ROOTS, new ModuleRootAdapter()
+		myConnection.subscribe(ModuleRootListener.class, new ModuleRootAdapter()
 		{
 			public void rootsChanged(final ModuleRootEvent event)
 			{
@@ -90,7 +90,7 @@ public final class LoaderFactory
 	@Nonnull
 	public ClassLoader getLoader(final VirtualFile formFile)
 	{
-		final Module module = ModuleUtil.findModuleForFile(formFile, myProject);
+		final consulo.module.Module module = ModuleUtil.findModuleForFile(formFile, myProject);
 		if(module == null)
 		{
 			return getClass().getClassLoader();
@@ -157,7 +157,7 @@ public final class LoaderFactory
 
 		try
 		{
-			urls.add(new File(PathUtil.getJarPathForClass(Spacer.class)).toURI().toURL());
+			urls.add(new File(ClassPathUtil.getJarPathForClass(Spacer.class)).toURI().toURL());
 		}
 		catch(MalformedURLException ignored)
 		{
@@ -165,7 +165,7 @@ public final class LoaderFactory
 
 		try
 		{
-			urls.add(new File(PathUtil.getJarPathForClass(StringUtil.class)).toURI().toURL());
+			urls.add(new File(ClassPathUtil.getJarPathForClass(StringUtil.class)).toURI().toURL());
 		}
 		catch(MalformedURLException ignored)
 		{

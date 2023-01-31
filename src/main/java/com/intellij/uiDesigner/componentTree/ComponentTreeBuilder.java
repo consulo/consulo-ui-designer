@@ -24,11 +24,10 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultTreeModel;
 
 import javax.annotation.Nonnull;
-import com.intellij.ide.util.treeView.AbstractTreeBuilder;
-import com.intellij.ide.util.treeView.NodeDescriptor;
-import com.intellij.openapi.progress.ProgressIndicator;
-import com.intellij.openapi.progress.util.StatusBarProgress;
-import com.intellij.openapi.util.Comparing;
+import consulo.ui.ex.awt.tree.AbstractTreeBuilder;
+import consulo.ui.ex.tree.NodeDescriptor;
+import consulo.application.progress.ProgressIndicator;
+import consulo.ide.impl.idea.openapi.progress.util.StatusBarProgress;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.HierarchyChangeListener;
 import com.intellij.uiDesigner.SelectionWatcher;
@@ -38,6 +37,8 @@ import com.intellij.uiDesigner.propertyInspector.PropertyInspector;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import consulo.logging.Logger;
+import consulo.ui.ex.awt.tree.AbstractTreeBuilder;
+import consulo.util.lang.Comparing;
 
 /**
  * @author Anton Katilin

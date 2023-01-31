@@ -16,10 +16,11 @@
 
 package com.intellij.ide.palette;
 
-import com.intellij.ide.dnd.DnDDragStartBean;
-import com.intellij.openapi.actionSystem.ActionGroup;
-import com.intellij.openapi.project.Project;
-import com.intellij.ui.ColoredListCellRenderer;
+import consulo.language.editor.PlatformDataKeys;
+import consulo.ui.ex.awt.dnd.DnDDragStartBean;
+import consulo.ui.ex.action.ActionGroup;
+import consulo.project.Project;
+import consulo.ui.ex.awt.ColoredListCellRenderer;
 import consulo.util.dataholder.Key;
 
 import javax.annotation.Nullable;
@@ -53,7 +54,7 @@ public interface PaletteItem {
    * Returns the data for the specified data constant.
    *
    * @param project the project in the context of which data is requested.
-   * @param dataId  the data constant id (see {@link com.intellij.openapi.actionSystem.PlatformDataKeys}).
+   * @param dataId  the data constant id (see {@link PlatformDataKeys}).
    * @return the data item, or null if no data is available for this constant.
    */
   @Nullable Object getData(Project project, Key<?> dataId);

@@ -15,18 +15,6 @@
  */
 package com.intellij.uiDesigner.palette;
 
-import com.intellij.ide.ui.LafManager;
-import com.intellij.ide.ui.LafManagerListener;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.application.ApplicationNamesInfo;
-import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.State;
-import com.intellij.openapi.components.Storage;
-import consulo.logging.Logger;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.util.Condition;
-import com.intellij.openapi.util.JDOMUtil;
 import com.intellij.uiDesigner.Properties;
 import com.intellij.uiDesigner.SwingProperties;
 import com.intellij.uiDesigner.UIDesignerBundle;
@@ -41,16 +29,28 @@ import com.intellij.uiDesigner.propertyInspector.editors.IntEnumEditor;
 import com.intellij.uiDesigner.propertyInspector.properties.*;
 import com.intellij.uiDesigner.propertyInspector.renderers.IntEnumRenderer;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import com.intellij.util.containers.ContainerUtil;
+import consulo.application.ApplicationManager;
+import consulo.application.impl.internal.ApplicationNamesInfo;
+import consulo.component.persist.PersistentStateComponent;
+import consulo.component.persist.State;
+import consulo.component.persist.Storage;
 import consulo.disposer.Disposable;
+import consulo.ide.impl.idea.ide.ui.LafManager;
+import consulo.ide.impl.idea.ide.ui.LafManagerListener;
+import consulo.logging.Logger;
+import consulo.project.Project;
+import consulo.ui.ex.awt.Messages;
+import consulo.util.collection.Lists;
+import consulo.util.jdom.JDOMUtil;
+import consulo.util.lang.function.Condition;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
 import javax.swing.*;
 import java.awt.*;
 import java.beans.BeanInfo;
@@ -78,7 +78,7 @@ public final class Palette implements PersistentStateComponent<Element>, Disposa
   /*All groups in the palette*/
   private final ArrayList<GroupItem> myGroups;
   /*Listeners, etc*/
-  private final List<Listener> myListeners = ContainerUtil.createLockFreeCopyOnWriteList();
+  private final List<Listener> myListeners = Lists.newLockFreeCopyOnWriteList();
   private final Project myProject;
   private final GroupItem mySpecialGroup = new GroupItem(true);
 
@@ -311,7 +311,7 @@ public final class Palette implements PersistentStateComponent<Element>, Disposa
    * Adds specified <code>item</code> to the palette.
    *
    * @param item item to be added
-   * @throws java.lang.IllegalArgumentException if an item for the same class
+   * @throws IllegalArgumentException if an item for the same class
    *                                            is already exists in the palette
    */
   public void addItem(@Nonnull final GroupItem group, @Nonnull final ComponentItem item) {
@@ -796,7 +796,7 @@ public final class Palette implements PersistentStateComponent<Element>, Disposa
 
   /**
    * @return "inplace" property for the component with the specified class.
-   * <b>DO NOT USE THIS METHOD DIRECTLY</b>. Use {@link com.intellij.uiDesigner.radComponents.RadComponent#getInplaceProperty(int, int) }
+   * <b>DO NOT USE THIS METHOD DIRECTLY</b>. Use {@link RadComponent#getInplaceProperty(int, int) }
    * instead.
    */
   @Nullable
@@ -825,7 +825,8 @@ public final class Palette implements PersistentStateComponent<Element>, Disposa
   /**
    * Updates UI of editors and renderers of all introspected properties
    */
-  private final class MyLafManagerListener implements LafManagerListener {
+  private final class MyLafManagerListener implements LafManagerListener
+  {
     private void updateUI(final Property property) {
       final PropertyRenderer renderer = property.getRenderer();
       renderer.updateUI();

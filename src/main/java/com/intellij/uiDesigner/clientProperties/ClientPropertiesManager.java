@@ -15,13 +15,17 @@
  */
 package com.intellij.uiDesigner.clientProperties;
 
-import com.intellij.openapi.components.*;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.AtomicNotNullLazyValue;
-import com.intellij.openapi.util.JDOMUtil;
-import com.intellij.openapi.util.NotNullLazyValue;
 import com.intellij.uiDesigner.LoaderFactory;
+import consulo.application.util.AtomicNotNullLazyValue;
+import consulo.application.util.NotNullLazyValue;
+import consulo.component.persist.PersistentStateComponent;
+import consulo.component.persist.State;
+import consulo.component.persist.Storage;
+import consulo.component.persist.StoragePathMacros;
+import consulo.ide.ServiceManager;
 import consulo.logging.Logger;
+import consulo.project.Project;
+import consulo.util.jdom.JDOMUtil;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.jdom.Element;

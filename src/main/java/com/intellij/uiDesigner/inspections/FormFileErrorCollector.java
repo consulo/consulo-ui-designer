@@ -15,12 +15,17 @@
  */
 package com.intellij.uiDesigner.inspections;
 
-import com.intellij.codeInspection.*;
-import com.intellij.openapi.util.JDOMUtil;
-import com.intellij.psi.PsiFile;
+import consulo.language.editor.inspection.LocalQuickFix;
+import consulo.language.editor.inspection.ProblemDescriptor;
+import consulo.language.editor.inspection.ProblemDescriptorBase;
+import consulo.language.psi.PsiFile;
 import com.intellij.uiDesigner.lw.IComponent;
 import com.intellij.uiDesigner.lw.IProperty;
 import com.intellij.uiDesigner.make.FormElementNavigatable;
+import consulo.language.editor.inspection.ProblemHighlightType;
+import consulo.language.editor.inspection.scheme.InspectionManager;
+import consulo.util.jdom.JDOMUtil;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 

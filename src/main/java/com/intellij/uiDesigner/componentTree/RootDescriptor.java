@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.componentTree;
 
-import com.intellij.ide.util.treeView.NodeDescriptor;
+import consulo.ui.ex.tree.NodeDescriptor;
 
 /**
  * @author Anton Katilin
@@ -24,7 +24,7 @@ import com.intellij.ide.util.treeView.NodeDescriptor;
 final class RootDescriptor extends NodeDescriptor{
   private final Object myRootElement;
 
-  public RootDescriptor(final NodeDescriptor parentDescriptor,final Object rootElement){
+  public RootDescriptor(final NodeDescriptor parentDescriptor, final Object rootElement){
     super(null,parentDescriptor);
     myRootElement=rootElement;
   }

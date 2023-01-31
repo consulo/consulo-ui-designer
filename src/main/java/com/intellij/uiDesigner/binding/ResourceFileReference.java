@@ -18,19 +18,19 @@ package com.intellij.uiDesigner.binding;
 
 import javax.annotation.Nonnull;
 
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ResourceFileUtil;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ProjectFileIndex;
-import com.intellij.openapi.roots.ProjectRootManager;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.PsiPlainTextFile;
+import consulo.document.util.TextRange;
+import consulo.ide.impl.idea.openapi.module.ResourceFileUtil;
+import consulo.language.plain.psi.PsiPlainTextFile;
+import consulo.language.psi.PsiManager;
+import consulo.module.content.ProjectFileIndex;
+import consulo.module.content.ProjectRootManager;
+import consulo.language.util.IncorrectOperationException;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
 import com.intellij.uiDesigner.FormEditingUtil;
-import com.intellij.util.IncorrectOperationException;
+import consulo.module.Module;
+import consulo.project.Project;
 
 import javax.annotation.Nullable;
 
@@ -61,9 +61,10 @@ public class ResourceFileReference extends ReferenceInForm {
     return PsiManager.getInstance(project).findFile(formFile);
   }
 
-  public PsiElement bindToElement(@Nonnull PsiElement element) throws IncorrectOperationException {
+  public PsiElement bindToElement(@Nonnull PsiElement element) throws IncorrectOperationException
+  {
     if (!(element instanceof PsiFile)) { //should be icon file or nested form
-      throw new IncorrectOperationException();
+      throw new consulo.language.util.IncorrectOperationException();
     }
 
     updateRangeText(FormEditingUtil.buildResourceName((PsiFile)element));

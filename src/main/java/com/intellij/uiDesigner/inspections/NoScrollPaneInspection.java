@@ -16,8 +16,8 @@
 
 package com.intellij.uiDesigner.inspections;
 
-import com.intellij.openapi.module.Module;
-import com.intellij.ui.components.JBScrollPane;
+import consulo.module.Module;
+import consulo.ui.ex.awt.JBScrollPane;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.actions.SurroundAction;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
@@ -26,6 +26,7 @@ import com.intellij.uiDesigner.palette.ComponentItem;
 import com.intellij.uiDesigner.palette.Palette;
 import com.intellij.uiDesigner.quickFixes.QuickFix;
 import com.intellij.uiDesigner.radComponents.RadComponent;
+
 import javax.annotation.Nonnull;
 
 import javax.swing.*;

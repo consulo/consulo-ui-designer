@@ -16,11 +16,11 @@
 
 package com.intellij.uiDesigner.propertyInspector.editors;
 
-import com.intellij.openapi.ui.DialogWrapper;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.text.StringUtil;
+import consulo.ui.ex.awt.DialogWrapper;
+import consulo.project.Project;
 import com.intellij.uiDesigner.UIDesignerBundle;
-import com.intellij.util.ArrayUtil;
+import consulo.util.collection.ArrayUtil;
+import consulo.util.lang.StringUtil;
 import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nullable;
@@ -29,7 +29,8 @@ import javax.swing.*;
 /**
  * @author yole
  */
-public class ListEditorDialog extends DialogWrapper {
+public class ListEditorDialog extends DialogWrapper
+{
   private JPanel myRootPanel;
   private JTextArea myLinesTextArea;
 

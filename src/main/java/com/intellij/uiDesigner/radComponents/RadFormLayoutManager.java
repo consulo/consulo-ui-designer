@@ -35,12 +35,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.swing.JComponent;
 
+import consulo.ui.ex.action.DefaultActionGroup;
 import org.jetbrains.annotations.NonNls;
-import com.intellij.openapi.actionSystem.ActionGroup;
-import com.intellij.openapi.actionSystem.DefaultActionGroup;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.io.BufferExposingByteArrayOutputStream;
-import com.intellij.ui.JBColor;
+import consulo.ui.ex.action.ActionGroup;
+import consulo.project.Project;
+import consulo.util.io.BufferExposingByteArrayOutputStream;
+import consulo.ui.ex.JBColor;
 import com.intellij.uiDesigner.GridChangeUtil;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.UIFormXmlConstants;
@@ -66,7 +66,7 @@ import com.intellij.uiDesigner.propertyInspector.properties.AlignPropertyProvide
 import com.intellij.uiDesigner.propertyInspector.properties.HorzAlignProperty;
 import com.intellij.uiDesigner.propertyInspector.properties.VertAlignProperty;
 import com.intellij.uiDesigner.snapShooter.SnapshotContext;
-import com.intellij.util.ArrayUtil;
+import consulo.util.collection.ArrayUtil;
 import com.jgoodies.forms.layout.*;
 
 /**

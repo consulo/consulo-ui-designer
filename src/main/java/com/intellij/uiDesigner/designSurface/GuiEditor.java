@@ -15,43 +15,9 @@
  */
 package com.intellij.uiDesigner.designSurface;
 
-import com.intellij.codeInsight.daemon.DaemonCodeAnalyzer;
-import com.intellij.designer.DesignerEditorPanelFacade;
-import com.intellij.designer.LightFillLayout;
-import com.intellij.ide.DeleteProvider;
-import com.intellij.ide.highlighter.XmlFileHighlighter;
 import com.intellij.ide.palette.impl.PaletteToolWindowManager;
+import com.intellij.java.language.psi.PsiClass;
 import com.intellij.lang.properties.psi.PropertiesFile;
-import com.intellij.openapi.actionSystem.*;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.application.ModalityState;
-import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.command.undo.UndoManager;
-import consulo.logging.Logger;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.EditorFactory;
-import com.intellij.openapi.editor.colors.EditorColorsManager;
-import com.intellij.openapi.editor.event.DocumentAdapter;
-import com.intellij.openapi.editor.event.DocumentEvent;
-import com.intellij.openapi.editor.ex.EditorEx;
-import com.intellij.openapi.editor.ex.util.LexerEditorHighlighter;
-import com.intellij.openapi.fileEditor.FileDocumentManager;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtil;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.DialogBuilder;
-import com.intellij.openapi.ui.ThreeComponentsSplitter;
-import consulo.awt.TargetAWT;
-import consulo.disposer.Disposer;
-import com.intellij.openapi.util.Ref;
-import com.intellij.openapi.util.registry.Registry;
-import com.intellij.openapi.vfs.ReadonlyStatusHandler;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.*;
-import com.intellij.ui.JBColor;
-import com.intellij.ui.ScrollPaneFactory;
-import com.intellij.ui.components.JBLayeredPane;
 import com.intellij.uiDesigner.*;
 import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.uiDesigner.componentTree.ComponentPtr;
@@ -73,10 +39,55 @@ import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
 import com.intellij.uiDesigner.radComponents.RadTabbedPane;
-import com.intellij.util.Alarm;
-import com.intellij.util.NotNullProducer;
-import com.intellij.util.ui.UIUtil;
+import consulo.application.Application;
+import consulo.application.ApplicationManager;
+import consulo.application.util.registry.Registry;
+import consulo.codeEditor.Editor;
+import consulo.codeEditor.EditorEx;
+import consulo.codeEditor.EditorFactory;
+import consulo.colorScheme.EditorColorsManager;
+import consulo.dataContext.DataContext;
+import consulo.dataContext.DataProvider;
+import consulo.disposer.Disposer;
+import consulo.document.Document;
+import consulo.document.FileDocumentManager;
+import consulo.document.event.DocumentAdapter;
+import consulo.document.event.DocumentEvent;
+import consulo.ide.impl.idea.designer.DesignerEditorPanelFacade;
+import consulo.ide.impl.idea.designer.LightFillLayout;
+import consulo.ide.impl.idea.openapi.module.ModuleUtil;
+import consulo.ide.impl.idea.openapi.ui.ThreeComponentsSplitter;
+import consulo.ide.impl.idea.util.NotNullProducer;
+import consulo.language.editor.DaemonCodeAnalyzer;
+import consulo.language.editor.PlatformDataKeys;
+import consulo.language.editor.highlight.LexerEditorHighlighter;
+import consulo.language.plain.psi.PsiPlainTextFile;
+import consulo.language.psi.PsiDocumentManager;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.PsiManager;
+import consulo.language.psi.event.PsiTreeChangeAdapter;
+import consulo.language.psi.event.PsiTreeChangeEvent;
+import consulo.logging.Logger;
+import consulo.module.Module;
+import consulo.project.Project;
+import consulo.ui.ModalityState;
+import consulo.ui.ex.DeleteProvider;
+import consulo.ui.ex.JBColor;
+import consulo.ui.ex.action.*;
+import consulo.ui.ex.awt.DialogBuilder;
+import consulo.ui.ex.awt.JBLayeredPane;
+import consulo.ui.ex.awt.ScrollPaneFactory;
+import consulo.ui.ex.awt.UIUtil;
+import consulo.ui.ex.awt.util.Alarm;
+import consulo.ui.ex.awtUnsafe.TargetAWT;
+import consulo.undoRedo.CommandProcessor;
+import consulo.undoRedo.ProjectUndoManager;
+import consulo.undoRedo.UndoManager;
 import consulo.util.dataholder.Key;
+import consulo.util.lang.ref.Ref;
+import consulo.virtualFileSystem.ReadonlyStatusHandler;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.xml.ide.highlighter.XmlFileHighlighter;
 import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nonnull;
@@ -111,7 +122,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 	private final Project myProject;
 	@Nonnull
 	private final UIFormEditor myEditor;
-	private Module myModule;
+	private consulo.module.Module myModule;
 	@Nonnull
 	private final VirtualFile myFile;
 
@@ -240,8 +251,8 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 
 	/**
 	 * @param file file to be edited
-	 * @throws java.lang.IllegalArgumentException if the <code>file</code>
-	 *                                            is <code>null</code> or <code>file</code> is not valid PsiFile
+	 * @throws IllegalArgumentException if the <code>file</code>
+	 *                                  is <code>null</code> or <code>file</code> is not valid PsiFile
 	 */
 	public GuiEditor(@Nonnull UIFormEditor editor, @Nonnull Project project, @Nonnull Module module, @Nonnull VirtualFile file)
 	{
@@ -320,10 +331,10 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 			{
 				if(!myInsideChange)
 				{
-					UndoManager undoManager = UndoManager.getInstance(getProject());
+					UndoManager undoManager = ProjectUndoManager.getInstance(getProject());
 					alarm.cancelAllRequests();
 					alarm.addRequest(new MySynchronizeRequest(undoManager.isUndoInProgress() || undoManager.isRedoInProgress()),
-							100/*any arbitrary delay*/, ModalityState.stateForComponent(GuiEditor.this));
+							100/*any arbitrary delay*/, Application.get().getModalityStateForComponent(GuiEditor.this));
 				}
 			}
 		};
@@ -453,7 +464,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 
 	@Nonnull
 	@Override
-	public Module getModule()
+	public consulo.module.Module getModule()
 	{
 		if(myModule.isDisposed())
 		{
@@ -1196,7 +1207,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 
 	public boolean isUndoRedoInProgress()
 	{
-		UndoManager undoManager = UndoManager.getInstance(getProject());
+		UndoManager undoManager = ProjectUndoManager.getInstance(getProject());
 		return undoManager.isUndoInProgress() || undoManager.isRedoInProgress();
 	}
 

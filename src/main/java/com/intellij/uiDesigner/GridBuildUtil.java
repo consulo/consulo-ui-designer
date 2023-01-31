@@ -16,8 +16,8 @@
 package com.intellij.uiDesigner;
 
 import consulo.logging.Logger;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.util.Pair;
+import consulo.module.Module;
+import consulo.util.lang.Pair;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Util;

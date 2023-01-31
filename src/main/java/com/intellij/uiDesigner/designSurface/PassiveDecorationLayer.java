@@ -22,7 +22,7 @@ import com.intellij.uiDesigner.radComponents.RadButtonGroup;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
 import java.util.HashSet;
-import consulo.awt.TargetAWT;
+import consulo.ui.ex.awtUnsafe.TargetAWT;
 import icons.UIDesignerIcons;
 
 import javax.annotation.Nonnull;

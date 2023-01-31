@@ -16,7 +16,8 @@
 
 package com.intellij.uiDesigner.snapShooter;
 
-import com.intellij.openapi.ui.Messages;
+import consulo.ui.ex.awt.Messages;
+import consulo.ui.ex.awt.Messages;
 
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;

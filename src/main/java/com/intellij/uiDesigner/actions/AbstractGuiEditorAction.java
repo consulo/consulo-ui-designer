@@ -16,10 +16,10 @@
 
 package com.intellij.uiDesigner.actions;
 
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.project.DumbAware;
+import consulo.application.dumb.DumbAware;
+import consulo.ui.ex.action.AnAction;
+import consulo.ui.ex.action.AnActionEvent;
+import consulo.undoRedo.CommandProcessor;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.radComponents.RadComponent;
@@ -32,7 +32,8 @@ import java.util.List;
 /**
  * @author yole
  */
-public abstract class AbstractGuiEditorAction extends AnAction implements DumbAware {
+public abstract class AbstractGuiEditorAction extends AnAction implements DumbAware
+{
   private final boolean myModifying;
 
   protected AbstractGuiEditorAction() {

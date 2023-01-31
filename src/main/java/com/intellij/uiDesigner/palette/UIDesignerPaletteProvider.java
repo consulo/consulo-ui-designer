@@ -19,10 +19,10 @@ package com.intellij.uiDesigner.palette;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import consulo.virtualFileSystem.VirtualFile;
 import org.jetbrains.annotations.NonNls;
 import com.intellij.ide.palette.PaletteGroup;
 import com.intellij.ide.palette.PaletteItemProvider;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.uiDesigner.GuiFormFileType;
 
 /**

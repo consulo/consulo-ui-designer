@@ -22,22 +22,30 @@
  */
 package com.intellij.uiDesigner.propertyInspector.properties;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.InputValidator;
-import com.intellij.psi.JavaPsiFacade;
+import com.intellij.java.language.psi.JavaPsiFacade;
+import com.intellij.java.language.psi.PsiNameHelper;
+import consulo.project.Project;
+import consulo.ui.annotation.RequiredUIAccess;
+import consulo.ui.ex.InputValidator;
 
-public class IdentifierValidator implements InputValidator {
-  private final Project myProject;
+public class IdentifierValidator implements InputValidator
+{
+	private final Project myProject;
 
-  public IdentifierValidator(final Project project) {
-    myProject = project;
-  }
+	public IdentifierValidator(final Project project)
+	{
+		myProject = project;
+	}
 
-  public boolean checkInput(String inputString) {
-    return JavaPsiFacade.getInstance(myProject).getNameHelper().isIdentifier(inputString);
-  }
+	@RequiredUIAccess
+	public boolean checkInput(String inputString)
+	{
+		return PsiNameHelper.getInstance(myProject).isIdentifier(inputString);
+	}
 
-  public boolean canClose(String inputString) {
-    return checkInput(inputString);
-  }
+	@RequiredUIAccess
+	public boolean canClose(String inputString)
+	{
+		return checkInput(inputString);
+	}
 }

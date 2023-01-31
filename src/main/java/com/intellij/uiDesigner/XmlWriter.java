@@ -15,11 +15,11 @@
  */
 package com.intellij.uiDesigner;
 
-import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.uiDesigner.lw.ColorDescriptor;
 import com.intellij.uiDesigner.lw.FontDescriptor;
 import com.intellij.uiDesigner.lw.StringDescriptor;
-import com.intellij.xml.util.XmlStringUtil;
+import consulo.util.lang.xml.XmlStringUtil;
+import consulo.util.lang.StringUtil;
 import org.jdom.Attribute;
 import org.jdom.Element;
 import org.jetbrains.annotations.NonNls;

@@ -17,8 +17,8 @@ package com.intellij.uiDesigner.propertyInspector.properties;
 
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.components.ServiceManager;
+import consulo.ide.ServiceManager;
+import consulo.project.Project;
 import jakarta.inject.Singleton;
 
 import java.awt.*;

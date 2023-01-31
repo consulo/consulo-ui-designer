@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.propertyInspector.editors;
 
-import com.intellij.ui.ListCellRendererWrapper;
+import consulo.ui.ex.awt.ListCellRendererWrapper;
 import com.intellij.uiDesigner.propertyInspector.InplaceContext;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.shared.BorderType;

@@ -21,15 +21,16 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+
+import consulo.ui.ex.JBColor;
+import consulo.ui.ex.awt.TextFieldWithBrowseButton;
 import jakarta.inject.Singleton;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.DialogWrapper;
-import com.intellij.openapi.ui.TextFieldWithBrowseButton;
-import com.intellij.ui.JBColor;
+import consulo.ide.ServiceManager;
+import consulo.project.Project;
+import consulo.ui.ex.awt.DialogWrapper;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.clientProperties.ClientPropertiesManager;
 import com.intellij.uiDesigner.clientProperties.ConfigureClientPropertiesDialog;

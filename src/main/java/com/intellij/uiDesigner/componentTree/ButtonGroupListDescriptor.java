@@ -16,14 +16,15 @@
 
 package com.intellij.uiDesigner.componentTree;
 
-import com.intellij.ide.util.treeView.NodeDescriptor;
 import com.intellij.uiDesigner.radComponents.RadButtonGroup;
 import com.intellij.uiDesigner.UIDesignerBundle;
+import consulo.ui.ex.tree.NodeDescriptor;
 
 /**
  * @author yole
  */
-public class ButtonGroupListDescriptor extends NodeDescriptor {
+public class ButtonGroupListDescriptor extends NodeDescriptor
+{
   private final RadButtonGroup[] myButtonGroups;
 
   public ButtonGroupListDescriptor(final NodeDescriptor parentDescriptor, final RadButtonGroup[] buttonGroups) {

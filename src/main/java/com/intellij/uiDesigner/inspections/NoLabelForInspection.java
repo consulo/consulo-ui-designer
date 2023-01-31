@@ -15,10 +15,6 @@
  */
 package com.intellij.uiDesigner.inspections;
 
-import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.util.Ref;
-import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.SwingProperties;
 import com.intellij.uiDesigner.UIDesignerBundle;
@@ -32,11 +28,15 @@ import com.intellij.uiDesigner.propertyInspector.IntrospectedProperty;
 import com.intellij.uiDesigner.propertyInspector.properties.IntroComponentProperty;
 import com.intellij.uiDesigner.quickFixes.QuickFix;
 import com.intellij.uiDesigner.radComponents.RadComponent;
-import javax.annotation.Nonnull;
+import consulo.module.Module;
+import consulo.undoRedo.CommandProcessor;
+import consulo.util.lang.StringUtil;
+import consulo.util.lang.ref.Ref;
 
+import javax.annotation.Nonnull;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.*;
 
 /**
  * @author yole

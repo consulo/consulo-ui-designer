@@ -15,29 +15,24 @@
  */
 package com.intellij.uiDesigner;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.intellij.java.language.psi.JavaPsiFacade;
+import com.intellij.java.language.psi.PsiClass;
+import com.intellij.java.language.psi.PsiMethod;
+import com.intellij.java.language.psi.util.PropertyUtil;
+import com.intellij.uiDesigner.lw.LwXmlReader;
+import com.intellij.uiDesigner.propertyInspector.editors.IntEnumEditor;
+import consulo.component.persist.PersistentStateComponent;
+import consulo.component.persist.State;
+import consulo.component.persist.Storage;
+import consulo.ide.ServiceManager;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.module.Module;
+import jakarta.inject.Singleton;
+import org.jdom.Element;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import jakarta.inject.Singleton;
-
-import org.jdom.Element;
-import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.components.State;
-import com.intellij.openapi.components.Storage;
-import com.intellij.openapi.module.Module;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiMethod;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.util.PropertyUtil;
-import com.intellij.uiDesigner.lw.LwXmlReader;
-import com.intellij.uiDesigner.propertyInspector.editors.IntEnumEditor;
+import java.util.*;
 
 /**
  * @author Anton Katilin

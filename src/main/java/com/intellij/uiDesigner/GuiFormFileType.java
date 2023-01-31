@@ -15,14 +15,14 @@
  */
 package com.intellij.uiDesigner;
 
-import com.intellij.icons.AllIcons;
-import com.intellij.openapi.util.Pair;
-import com.intellij.openapi.vfs.CharsetToolkit;
-import com.intellij.openapi.vfs.VirtualFile;
-import consulo.fileTypes.FileTypeWithPredefinedCharset;
+import consulo.util.io.CharsetToolkit;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.application.AllIcons;
 import consulo.localize.LocalizeValue;
 import consulo.platform.base.localize.IdeLocalize;
 import consulo.ui.image.Image;
+import consulo.util.lang.Pair;
+import consulo.virtualFileSystem.fileType.FileTypeWithPredefinedCharset;
 import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nonnull;

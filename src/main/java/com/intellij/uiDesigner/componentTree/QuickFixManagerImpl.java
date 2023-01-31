@@ -16,7 +16,7 @@
 package com.intellij.uiDesigner.componentTree;
 
 import consulo.logging.Logger;
-import com.intellij.openapi.wm.StatusBar;
+import consulo.project.ui.wm.StatusBar;
 import com.intellij.uiDesigner.ErrorAnalyzer;
 import com.intellij.uiDesigner.ErrorInfo;
 import com.intellij.uiDesigner.designSurface.GuiEditor;

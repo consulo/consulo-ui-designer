@@ -15,86 +15,115 @@
  */
 package com.intellij.uiDesigner.binding;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.folding.FoldingBuilderEx;
-import com.intellij.lang.folding.FoldingDescriptor;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.*;
-import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.java.language.JavaLanguage;
+import com.intellij.java.language.psi.*;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.compiler.AsmCodeGenerator;
-import javax.annotation.Nonnull;
+import consulo.document.Document;
+import consulo.document.util.TextRange;
+import consulo.language.Language;
+import consulo.language.ast.ASTNode;
+import consulo.language.editor.folding.FoldingBuilderEx;
+import consulo.language.editor.folding.FoldingDescriptor;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiWhiteSpace;
+import consulo.language.psi.util.PsiTreeUtil;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author yole
  */
-public class GeneratedCodeFoldingBuilder extends FoldingBuilderEx {
-  @Nonnull
-  public FoldingDescriptor[] buildFoldRegions(@Nonnull PsiElement root, @Nonnull Document document, boolean quick) {
-    MyFoldingVisitor visitor = new MyFoldingVisitor();
-    root.accept(visitor);
-    return visitor.myFoldingData.toArray(new FoldingDescriptor[visitor.myFoldingData.size()]);
-  }
+public class GeneratedCodeFoldingBuilder extends FoldingBuilderEx
+{
+	@Nonnull
+	public FoldingDescriptor[] buildFoldRegions(@Nonnull PsiElement root, @Nonnull Document document, boolean quick)
+	{
+		MyFoldingVisitor visitor = new MyFoldingVisitor();
+		root.accept(visitor);
+		return visitor.myFoldingData.toArray(new FoldingDescriptor[visitor.myFoldingData.size()]);
+	}
 
-  public String getPlaceholderText(@Nonnull ASTNode node) {
-    return UIDesignerBundle.message("uidesigner.generated.code.folding.placeholder.text");
-  }
+	public String getPlaceholderText(@Nonnull ASTNode node)
+	{
+		return UIDesignerBundle.message("uidesigner.generated.code.folding.placeholder.text");
+	}
 
-  public boolean isCollapsedByDefault(@Nonnull ASTNode node) {
-    return true;
-  }
+	@Nonnull
+	@Override
+	public Language getLanguage()
+	{
+		return JavaLanguage.INSTANCE;
+	}
 
-  private static boolean isGeneratedUIInitializer(PsiClassInitializer initializer) {
-    PsiCodeBlock body = initializer.getBody();
-    if (body.getStatements().length != 1) return false;
-    PsiStatement statement = body.getStatements()[0];
-    if (!(statement instanceof PsiExpressionStatement) ||
-        !(((PsiExpressionStatement)statement).getExpression() instanceof PsiMethodCallExpression)) {
-      return false;
-    }
+	public boolean isCollapsedByDefault(@Nonnull ASTNode node)
+	{
+		return true;
+	}
 
-    PsiMethodCallExpression call = (PsiMethodCallExpression)((PsiExpressionStatement)statement).getExpression();
-    return AsmCodeGenerator.SETUP_METHOD_NAME.equals(call.getMethodExpression().getReferenceName());
-  }
+	private static boolean isGeneratedUIInitializer(PsiClassInitializer initializer)
+	{
+		PsiCodeBlock body = initializer.getBody();
+		if(body.getStatements().length != 1)
+		{
+			return false;
+		}
+		PsiStatement statement = body.getStatements()[0];
+		if(!(statement instanceof PsiExpressionStatement) ||
+				!(((PsiExpressionStatement) statement).getExpression() instanceof PsiMethodCallExpression))
+		{
+			return false;
+		}
 
-  private static class MyFoldingVisitor extends JavaRecursiveElementWalkingVisitor {
-    private PsiElement myLastElement;
-    private final List<FoldingDescriptor> myFoldingData = new ArrayList<FoldingDescriptor>();
+		PsiMethodCallExpression call = (PsiMethodCallExpression) ((PsiExpressionStatement) statement).getExpression();
+		return AsmCodeGenerator.SETUP_METHOD_NAME.equals(call.getMethodExpression().getReferenceName());
+	}
 
-    @Override
-      public void visitMethod(PsiMethod method) {
-      if (AsmCodeGenerator.SETUP_METHOD_NAME.equals(method.getName()) ||
-          AsmCodeGenerator.GET_ROOT_COMPONENT_METHOD_NAME.equals(method.getName()) ||
-          AsmCodeGenerator.LOAD_BUTTON_TEXT_METHOD.equals(method.getName()) ||
-          AsmCodeGenerator.LOAD_LABEL_TEXT_METHOD.equals(method.getName())) {
-        addFoldingData(method);
-      }
-    }
+	private static class MyFoldingVisitor extends JavaRecursiveElementWalkingVisitor
+	{
+		private PsiElement myLastElement;
+		private final List<FoldingDescriptor> myFoldingData = new ArrayList<FoldingDescriptor>();
 
-    @Override
-    public void visitClassInitializer(PsiClassInitializer initializer) {
-      if (isGeneratedUIInitializer(initializer)) {
-        addFoldingData(initializer);
-      }
-    }
+		@Override
+		public void visitMethod(PsiMethod method)
+		{
+			if(AsmCodeGenerator.SETUP_METHOD_NAME.equals(method.getName()) ||
+					AsmCodeGenerator.GET_ROOT_COMPONENT_METHOD_NAME.equals(method.getName()) ||
+					AsmCodeGenerator.LOAD_BUTTON_TEXT_METHOD.equals(method.getName()) ||
+					AsmCodeGenerator.LOAD_LABEL_TEXT_METHOD.equals(method.getName()))
+			{
+				addFoldingData(method);
+			}
+		}
 
-    private void addFoldingData(final PsiElement element) {
-      PsiElement prevSibling = PsiTreeUtil.skipSiblingsBackward(element, PsiWhiteSpace.class);
-      synchronized (myFoldingData) {
-        if (myLastElement == null || prevSibling != myLastElement) {
-          myFoldingData.add(new FoldingDescriptor(element, element.getTextRange()));
-        }
-        else {
-          FoldingDescriptor lastDescriptor = myFoldingData.get(myFoldingData.size()-1);
-          final TextRange range = new TextRange(lastDescriptor.getRange().getStartOffset(), element.getTextRange().getEndOffset());
-          myFoldingData.set(myFoldingData.size()-1, new FoldingDescriptor(lastDescriptor.getElement(), range));
-        }
-      }
-      myLastElement =  element;
-    }
-  }
+		@Override
+		public void visitClassInitializer(PsiClassInitializer initializer)
+		{
+			if(isGeneratedUIInitializer(initializer))
+			{
+				addFoldingData(initializer);
+			}
+		}
+
+		private void addFoldingData(final PsiElement element)
+		{
+			PsiElement prevSibling = PsiTreeUtil.skipSiblingsBackward(element, PsiWhiteSpace.class);
+			synchronized(myFoldingData)
+			{
+				if(myLastElement == null || prevSibling != myLastElement)
+				{
+					myFoldingData.add(new FoldingDescriptor(element, element.getTextRange()));
+				}
+				else
+				{
+					FoldingDescriptor lastDescriptor = myFoldingData.get(myFoldingData.size() - 1);
+					final TextRange range = new TextRange(lastDescriptor.getRange().getStartOffset(), element.getTextRange().getEndOffset());
+					myFoldingData.set(myFoldingData.size() - 1, new FoldingDescriptor(lastDescriptor.getElement(), range));
+				}
+			}
+			myLastElement = element;
+		}
+	}
 }

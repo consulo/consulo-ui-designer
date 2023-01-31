@@ -16,28 +16,27 @@
 
 package com.intellij.uiDesigner;
 
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
-
-import com.intellij.ProjectTopics;
 import com.intellij.lang.properties.IProperty;
 import com.intellij.lang.properties.PropertiesUtil;
 import com.intellij.lang.properties.psi.PropertiesFile;
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.roots.ModuleRootAdapter;
-import com.intellij.openapi.roots.ModuleRootEvent;
-import com.intellij.openapi.util.Pair;
-import com.intellij.reference.SoftReference;
 import com.intellij.uiDesigner.lw.StringDescriptor;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
+import consulo.ide.ServiceManager;
+import consulo.module.Module;
+import consulo.module.content.layer.event.ModuleRootAdapter;
+import consulo.module.content.layer.event.ModuleRootEvent;
+import consulo.module.content.layer.event.ModuleRootListener;
+import consulo.util.lang.Pair;
+import consulo.util.lang.ref.SoftReference;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * @author yole
@@ -45,7 +44,7 @@ import com.intellij.uiDesigner.radComponents.RadRootContainer;
 @Singleton
 public class StringDescriptorManager
 {
-	public static StringDescriptorManager getInstance(Module module)
+	public static StringDescriptorManager getInstance(consulo.module.Module module)
 	{
 		return ServiceManager.getService(module, StringDescriptorManager.class);
 	}
@@ -54,10 +53,10 @@ public class StringDescriptorManager
 	private final Map<Pair<Locale, String>, SoftReference<PropertiesFile>> myPropertiesFileCache = new HashMap<Pair<Locale, String>, SoftReference<PropertiesFile>>();
 
 	@Inject
-	public StringDescriptorManager(Module module)
+	public StringDescriptorManager(consulo.module.Module module)
 	{
 		myModule = module;
-		module.getMessageBus().connect().subscribe(ProjectTopics.PROJECT_ROOTS, new ModuleRootAdapter()
+		module.getMessageBus().connect().subscribe(ModuleRootListener.class, new ModuleRootAdapter()
 		{
 			public void rootsChanged(final ModuleRootEvent event)
 			{

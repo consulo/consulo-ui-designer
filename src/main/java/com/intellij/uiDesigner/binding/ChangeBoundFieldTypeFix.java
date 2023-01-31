@@ -15,21 +15,22 @@
  */
 package com.intellij.uiDesigner.binding;
 
+import com.intellij.java.language.psi.JavaPsiFacade;
+import com.intellij.java.language.psi.PsiField;
+import com.intellij.java.language.psi.PsiType;
+import consulo.application.ApplicationManager;
+import consulo.application.CommonBundle;
+import consulo.codeEditor.Editor;
+import consulo.java.analysis.impl.JavaQuickFixBundle;
+import consulo.language.editor.intention.IntentionAction;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.PsiManager;
+import consulo.language.util.IncorrectOperationException;
+import consulo.project.Project;
+import consulo.ui.ex.awt.Messages;
+import consulo.undoRedo.CommandProcessor;
+
 import javax.annotation.Nonnull;
-import com.intellij.CommonBundle;
-import com.intellij.codeInsight.intention.IntentionAction;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.Messages;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiField;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.PsiType;
-import com.intellij.util.IncorrectOperationException;
-import consulo.java.JavaQuickFixBundle;
 
 /**
  * @author Eugene Zhuravlev
@@ -79,7 +80,7 @@ public class ChangeBoundFieldTypeFix implements IntentionAction
 					final PsiManager manager = myField.getManager();
 					myField.getTypeElement().replace(JavaPsiFacade.getInstance(manager.getProject()).getElementFactory().createTypeElement(myTypeToSet));
 				}
-				catch(final IncorrectOperationException e)
+				catch(final consulo.language.util.IncorrectOperationException e)
 				{
 					ApplicationManager.getApplication().invokeLater(new Runnable()
 					{

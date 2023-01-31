@@ -15,11 +15,11 @@
  */
 package com.intellij.uiDesigner.wizard;
 
-import com.intellij.ide.wizard.CommitStepException;
-import com.intellij.ide.wizard.StepAdapter;
+import consulo.ide.impl.idea.ide.wizard.CommitStepException;
+import consulo.ide.impl.idea.ide.wizard.StepAdapter;
 import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
 
+import javax.annotation.Nonnull;
 import javax.swing.*;
 import java.awt.*;
 
@@ -27,7 +27,8 @@ import java.awt.*;
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
-final class BindCompositeStep extends StepAdapter{
+final class BindCompositeStep extends StepAdapter
+{
   private final WizardData myData;
   private final JPanel myCardHolder;
 
@@ -68,7 +69,8 @@ final class BindCompositeStep extends StepAdapter{
     }
   }
 
-  public void _commit(boolean finishChosen) throws CommitStepException {
+  public void _commit(boolean finishChosen) throws CommitStepException
+  {
     if(myData.myBindToNewBean){
       myBindToNewBeanStep._commit(finishChosen);
     }

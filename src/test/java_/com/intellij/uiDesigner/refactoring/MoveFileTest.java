@@ -1,12 +1,12 @@
 package com.intellij.uiDesigner.refactoring;
 
-import com.intellij.openapi.fileEditor.FileDocumentManager;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
+import consulo.document.FileDocumentManager;
+import consulo.language.psi.PsiElement;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.language.psi.PsiDirectory;
+import consulo.language.psi.PsiFile;
 import com.intellij.refactoring.MultiFileTestCase;
-import com.intellij.refactoring.move.moveFilesOrDirectories.MoveFilesOrDirectoriesProcessor;
+import consulo.language.editor.refactoring.move.fileOrDirectory.MoveFilesOrDirectoriesProcessor;
 
 public abstract class MoveFileTest extends MultiFileTestCase {
   @Override

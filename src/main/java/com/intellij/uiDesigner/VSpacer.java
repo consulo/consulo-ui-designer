@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner;
 
-import com.intellij.util.ui.UIUtil;
+import consulo.ui.ex.awt.UIUtil;
 
 import java.awt.*;
 

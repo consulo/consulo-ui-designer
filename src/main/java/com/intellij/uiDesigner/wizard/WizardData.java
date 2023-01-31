@@ -15,13 +15,17 @@
  */
 package com.intellij.uiDesigner.wizard;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.*;
+import com.intellij.java.language.psi.JavaDirectoryService;
+import com.intellij.java.language.psi.PsiClass;
+import com.intellij.java.language.psi.PsiJavaPackage;
 import com.intellij.uiDesigner.lw.LwRootContainer;
+import consulo.language.psi.PsiDirectory;
+import consulo.language.psi.PsiManager;
 import consulo.logging.Logger;
+import consulo.project.Project;
+import consulo.virtualFileSystem.VirtualFile;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Anton Katilin

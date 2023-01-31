@@ -15,11 +15,12 @@
  */
 package com.intellij.uiDesigner.designSurface;
 
-import com.intellij.openapi.actionSystem.DefaultActionGroup;
+import consulo.ui.ex.JBColor;
+import consulo.ui.ex.action.DefaultActionGroup;
 import consulo.logging.Logger;
-import com.intellij.ui.JBColor;
 import com.intellij.uiDesigner.SelectionWatcher;
 import com.intellij.uiDesigner.radComponents.RadComponent;
+import consulo.ui.ex.action.DefaultActionGroup;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

@@ -16,11 +16,11 @@
 
 package com.intellij.uiDesigner.snapShooter;
 
-import com.intellij.openapi.vfs.CharsetToolkit;
+import consulo.util.collection.ArrayUtil;
+import consulo.util.io.CharsetToolkit;
 import com.intellij.uiDesigner.XmlWriter;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadRootContainer;
-import com.intellij.util.ArrayUtil;
 import org.jetbrains.annotations.NonNls;
 
 import javax.accessibility.AccessibleContext;

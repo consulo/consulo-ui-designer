@@ -15,11 +15,8 @@
  */
 package com.intellij.uiDesigner.radComponents;
 
-import com.intellij.openapi.util.Comparing;
-import com.intellij.psi.codeStyle.JavaCodeStyleManager;
-import com.intellij.psi.codeStyle.SuggestedNameInfo;
-import com.intellij.psi.codeStyle.VariableKind;
-import com.intellij.ui.JBColor;
+import com.intellij.java.language.psi.codeStyle.JavaCodeStyleManager;
+import com.intellij.java.language.psi.codeStyle.VariableKind;
 import com.intellij.uiDesigner.FormEditingUtil;
 import com.intellij.uiDesigner.ModuleProvider;
 import com.intellij.uiDesigner.UIFormXmlConstants;
@@ -29,11 +26,14 @@ import com.intellij.uiDesigner.lw.IButtonGroup;
 import com.intellij.uiDesigner.lw.IComponent;
 import com.intellij.uiDesigner.lw.IRootContainer;
 import com.intellij.uiDesigner.lw.LwInspectionSuppression;
-import com.intellij.util.ui.UIUtil;
+import consulo.language.editor.refactoring.rename.SuggestedNameInfo;
+import consulo.ui.ex.JBColor;
+import consulo.ui.ex.awt.UIUtil;
+import consulo.util.lang.Comparing;
 import org.jetbrains.annotations.NonNls;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;

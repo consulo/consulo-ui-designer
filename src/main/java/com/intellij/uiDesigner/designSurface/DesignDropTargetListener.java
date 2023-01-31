@@ -29,8 +29,7 @@ import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
 import com.intellij.ide.palette.impl.PaletteToolWindowManager;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.command.CommandProcessor;
+import consulo.application.ApplicationManager;
 import consulo.logging.Logger;
 import com.intellij.uiDesigner.CutCopyPasteSupport;
 import com.intellij.uiDesigner.FormEditingUtil;
@@ -42,6 +41,7 @@ import com.intellij.uiDesigner.palette.ComponentItem;
 import com.intellij.uiDesigner.propertyInspector.DesignerToolWindowManager;
 import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.radComponents.RadContainer;
+import consulo.undoRedo.CommandProcessor;
 
 /**
  * @author yole

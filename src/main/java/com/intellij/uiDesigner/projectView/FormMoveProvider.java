@@ -16,19 +16,18 @@
 
 package com.intellij.uiDesigner.projectView;
 
-import java.util.Set;
+import com.intellij.java.language.psi.PsiClass;
+import com.intellij.uiDesigner.GuiFormFileType;
+import consulo.dataContext.DataContext;
+import consulo.language.editor.refactoring.move.MoveHandlerDelegate;
+import consulo.language.editor.refactoring.move.fileOrDirectory.MoveFilesOrDirectoriesHandler;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.logging.Logger;
+import consulo.virtualFileSystem.VirtualFile;
 
 import javax.annotation.Nullable;
-
-import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.refactoring.move.MoveHandlerDelegate;
-import com.intellij.refactoring.move.moveFilesOrDirectories.MoveFilesOrDirectoriesHandler;
-import com.intellij.uiDesigner.GuiFormFileType;
-import consulo.logging.Logger;
+import java.util.Set;
 
 /**
  * @author yole

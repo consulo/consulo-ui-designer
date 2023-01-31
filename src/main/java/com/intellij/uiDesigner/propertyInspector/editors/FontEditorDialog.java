@@ -15,14 +15,15 @@
  */
 package com.intellij.uiDesigner.propertyInspector.editors;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.DialogWrapper;
-import com.intellij.ui.ColoredListCellRenderer;
-import com.intellij.ui.SimpleTextAttributes;
+import consulo.ui.ex.awt.ColoredListCellRenderer;
+import consulo.ui.ex.awt.DialogWrapper;
+import consulo.ui.ex.SimpleTextAttributes;
 import com.intellij.uiDesigner.UIDesignerBundle;
 import com.intellij.uiDesigner.lw.FontDescriptor;
 import com.intellij.uiDesigner.propertyInspector.properties.IntroFontProperty;
-import com.intellij.util.ui.UIUtil;
+import consulo.project.Project;
+import consulo.ui.ex.awt.UIUtil;
+
 import javax.annotation.Nonnull;
 
 import javax.swing.*;

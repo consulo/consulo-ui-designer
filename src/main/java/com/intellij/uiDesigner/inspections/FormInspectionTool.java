@@ -15,31 +15,36 @@
  */
 package com.intellij.uiDesigner.inspections;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.intellij.psi.PsiElement;
 import com.intellij.uiDesigner.ErrorInfo;
-import com.intellij.uiDesigner.radComponents.RadComponent;
 import com.intellij.uiDesigner.designSurface.GuiEditor;
 import com.intellij.uiDesigner.lw.IRootContainer;
-import com.intellij.openapi.extensions.ExtensionPointName;
+import com.intellij.uiDesigner.radComponents.RadComponent;
+import consulo.annotation.component.ComponentScope;
+import consulo.annotation.component.ExtensionAPI;
+import consulo.component.extension.ExtensionPointName;
+import consulo.language.psi.PsiElement;
 import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author yole
  */
-public interface FormInspectionTool {
-  ExtensionPointName<FormInspectionTool> EP_NAME = new ExtensionPointName<FormInspectionTool>("com.intellij.uiDesigner.formInspectionTool");
+@ExtensionAPI(ComponentScope.APPLICATION)
+public interface FormInspectionTool
+{
+	ExtensionPointName<FormInspectionTool> EP_NAME = ExtensionPointName.create(FormInspectionTool.class);
 
-  @NonNls
-  String getShortName();
-  void startCheckForm(IRootContainer radRootContainer);
-  void doneCheckForm(IRootContainer radRootContainer);
+	@NonNls
+	String getShortName();
 
-  @Nullable
-  ErrorInfo[] checkComponent(@Nonnull GuiEditor editor, @Nonnull RadComponent component);
+	void startCheckForm(IRootContainer radRootContainer);
 
-  boolean isActive(PsiElement psiRoot);
+	void doneCheckForm(IRootContainer radRootContainer);
 
+	@Nullable
+	ErrorInfo[] checkComponent(@Nonnull GuiEditor editor, @Nonnull RadComponent component);
+
+	boolean isActive(PsiElement psiRoot);
 }

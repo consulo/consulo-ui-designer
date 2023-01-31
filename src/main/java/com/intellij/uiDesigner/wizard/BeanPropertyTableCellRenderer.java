@@ -15,8 +15,8 @@
  */
 package com.intellij.uiDesigner.wizard;
 
-import com.intellij.ui.ColoredTableCellRenderer;
-import com.intellij.ui.SimpleTextAttributes;
+import consulo.ui.ex.awt.ColoredTableCellRenderer;
+import consulo.ui.ex.SimpleTextAttributes;
 import com.intellij.uiDesigner.UIDesignerBundle;
 
 import javax.swing.*;
