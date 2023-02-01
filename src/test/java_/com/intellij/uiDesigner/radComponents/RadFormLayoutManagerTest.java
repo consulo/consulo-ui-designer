@@ -17,6 +17,10 @@
 package com.intellij.uiDesigner.radComponents;
 
 import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.impl.radComponents.RadAtomicComponent;
+import com.intellij.uiDesigner.impl.radComponents.RadComponent;
+import com.intellij.uiDesigner.impl.radComponents.RadContainer;
+import com.intellij.uiDesigner.impl.radComponents.RadFormLayoutManager;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.ConstantSize;

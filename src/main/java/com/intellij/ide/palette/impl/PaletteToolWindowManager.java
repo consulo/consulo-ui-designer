@@ -15,19 +15,23 @@
  */
 package com.intellij.ide.palette.impl;
 
+import com.intellij.uiDesigner.impl.AbstractToolWindowManager;
+import com.intellij.uiDesigner.impl.designSurface.GuiEditor;
+import consulo.annotation.component.ComponentScope;
+import consulo.annotation.component.ServiceAPI;
+import consulo.annotation.component.ServiceImpl;
 import consulo.application.AllIcons;
+import consulo.fileEditor.FileEditorManager;
+import consulo.ide.IdeBundle;
 import consulo.ide.impl.idea.designer.DesignerEditorPanelFacade;
 import consulo.ide.impl.idea.designer.LightToolWindow;
-import consulo.ide.IdeBundle;
-import consulo.fileEditor.FileEditorManager;
-import consulo.project.ui.wm.ToolWindowManager;
-import consulo.ui.ex.content.Content;
-import consulo.ui.ex.toolWindow.ToolWindowAnchor;
-import consulo.ui.ex.content.ContentManager;
-import com.intellij.uiDesigner.AbstractToolWindowManager;
-import com.intellij.uiDesigner.designSurface.GuiEditor;
-import consulo.ui.ex.awtUnsafe.TargetAWT;
 import consulo.project.Project;
+import consulo.project.ui.wm.ToolWindowManager;
+import consulo.ui.ex.awtUnsafe.TargetAWT;
+import consulo.ui.ex.content.Content;
+import consulo.ui.ex.content.ContentManager;
+import consulo.ui.ex.toolWindow.ToolWindow;
+import consulo.ui.ex.toolWindow.ToolWindowAnchor;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
@@ -38,6 +42,8 @@ import javax.annotation.Nullable;
  * @author Alexander Lobas
  */
 @Singleton
+@ServiceAPI(ComponentScope.PROJECT)
+@ServiceImpl
 public class PaletteToolWindowManager extends AbstractToolWindowManager
 {
 	private final PaletteWindow myToolWindowPanel;
@@ -64,12 +70,9 @@ public class PaletteToolWindowManager extends AbstractToolWindowManager
 		return project.getComponent(PaletteToolWindowManager.class);
 	}
 
-	@Override
-	protected void initToolWindow()
+	public void initToolWindow(ToolWindow toolWindow)
 	{
-		myToolWindow = ToolWindowManager.getInstance(myProject).registerToolWindow(IdeBundle.message("toolwindow.palette"), false, getAnchor(),
-				myProject, true);
-		myToolWindow.setIcon(AllIcons.Toolwindows.ToolWindowPalette);
+		myToolWindow = toolWindow;
 		initGearActions();
 
 		ContentManager contentManager = myToolWindow.getContentManager();
@@ -78,22 +81,41 @@ public class PaletteToolWindowManager extends AbstractToolWindowManager
 		content.setPreferredFocusableComponent(myToolWindowPanel);
 		contentManager.addContent(content);
 		contentManager.setSelectedContent(content, true);
-		myToolWindow.setAvailable(false, null);
 	}
 
 	@Override
 	protected void updateToolWindow(@Nullable DesignerEditorPanelFacade designer)
 	{
+		if(isEditorMode())
+		{
+			return;
+		}
+
 		myToolWindowPanel.refreshPaletteIfChanged((GuiEditor) designer);
 
 		if(designer == null)
 		{
-			myToolWindow.setAvailable(false, null);
+			if (myToolWindow != null)
+			{
+				myToolWindow.setAvailable(false, null);
+			}
 		}
 		else
 		{
-			myToolWindow.setAvailable(true, null);
-			myToolWindow.show(null);
+			if(myToolWindow != null)
+			{
+				myToolWindow.setAvailable(true, null);
+				myToolWindow.show(null);
+			}
+			else
+			{
+				myToolWindow = ToolWindowManager.getInstance(myProject).getToolWindow("Palette");
+				myToolWindow.activate(() ->
+				{
+					myToolWindow.setAvailable(true, null);
+					myToolWindow.show(null);
+				});
+			}
 		}
 	}
 
@@ -120,12 +142,5 @@ public class PaletteToolWindowManager extends AbstractToolWindowManager
 		{
 			myToolWindowPanel.dispose();
 		}
-	}
-
-	@Nonnull
-	@Override
-	public String getComponentName()
-	{
-		return "PaletteManager";
 	}
 }

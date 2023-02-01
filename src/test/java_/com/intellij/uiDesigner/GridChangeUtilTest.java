@@ -17,8 +17,9 @@ package com.intellij.uiDesigner;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.radComponents.RadContainer;
-import com.intellij.uiDesigner.radComponents.RadHSpacer;
+import com.intellij.uiDesigner.impl.GridChangeUtil;
+import com.intellij.uiDesigner.impl.radComponents.RadContainer;
+import com.intellij.uiDesigner.impl.radComponents.RadHSpacer;
 import junit.framework.TestCase;
 
 import java.awt.Insets;

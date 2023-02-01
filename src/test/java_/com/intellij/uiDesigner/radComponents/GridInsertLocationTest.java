@@ -19,9 +19,13 @@ import javax.swing.JLabel;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.designSurface.DraggedComponentList;
-import com.intellij.uiDesigner.designSurface.GridInsertLocation;
-import com.intellij.uiDesigner.designSurface.GridInsertMode;
+import com.intellij.uiDesigner.impl.designSurface.DraggedComponentList;
+import com.intellij.uiDesigner.impl.designSurface.GridInsertLocation;
+import com.intellij.uiDesigner.impl.designSurface.GridInsertMode;
+import com.intellij.uiDesigner.impl.radComponents.RadAtomicComponent;
+import com.intellij.uiDesigner.impl.radComponents.RadComponent;
+import com.intellij.uiDesigner.impl.radComponents.RadContainer;
+import com.intellij.uiDesigner.impl.radComponents.RadGridLayoutManager;
 import junit.framework.TestCase;
 
 /**

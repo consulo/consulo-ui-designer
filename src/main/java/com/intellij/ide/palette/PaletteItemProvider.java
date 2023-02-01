@@ -16,6 +16,8 @@
 
 package com.intellij.ide.palette;
 
+import consulo.annotation.component.ComponentScope;
+import consulo.annotation.component.ExtensionAPI;
 import consulo.component.extension.ExtensionPointName;
 import consulo.virtualFileSystem.VirtualFile;
 
@@ -24,11 +26,14 @@ import java.beans.PropertyChangeListener;
 /**
  * @author yole
  */
-public interface PaletteItemProvider {
-  ExtensionPointName<PaletteItemProvider> EP_NAME = ExtensionPointName.create("com.intellij.uiDesigner.paletteItemProvider");
+@ExtensionAPI(ComponentScope.PROJECT)
+public interface PaletteItemProvider
+{
+	ExtensionPointName<PaletteItemProvider> EP_NAME = ExtensionPointName.create(PaletteItemProvider.class);
 
-  PaletteGroup[] getActiveGroups(VirtualFile virtualFile);
+	PaletteGroup[] getActiveGroups(VirtualFile virtualFile);
 
-  void addListener(PropertyChangeListener listener);
-  void removeListener(PropertyChangeListener listener);
+	void addListener(PropertyChangeListener listener);
+
+	void removeListener(PropertyChangeListener listener);
 }

@@ -29,7 +29,7 @@ import consulo.ui.ex.awt.ScrollPaneFactory;
 import consulo.virtualFileSystem.VirtualFile;
 import consulo.ui.ex.awt.PopupHandler;
 import consulo.ui.ex.awt.JBTabbedPane;
-import com.intellij.uiDesigner.designSurface.GuiEditor;
+import com.intellij.uiDesigner.impl.designSurface.GuiEditor;
 import consulo.util.collection.ArrayUtil;
 import java.util.HashSet;
 

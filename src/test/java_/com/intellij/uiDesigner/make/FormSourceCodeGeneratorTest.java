@@ -16,6 +16,7 @@
 
 package com.intellij.uiDesigner.make;
 
+import com.intellij.uiDesigner.impl.make.FormSourceCodeGenerator;
 import consulo.util.lang.StringUtil;
 import consulo.ide.impl.idea.openapi.vfs.VfsUtil;
 import consulo.virtualFileSystem.VirtualFile;

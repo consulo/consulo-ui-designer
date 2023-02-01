@@ -16,7 +16,7 @@
 package com.intellij.uiDesigner;
 
 import junit.framework.TestCase;
-import com.intellij.uiDesigner.designSurface.GuiEditor;
+import com.intellij.uiDesigner.impl.designSurface.GuiEditor;
 
 /**
  * @author Anton Katilin

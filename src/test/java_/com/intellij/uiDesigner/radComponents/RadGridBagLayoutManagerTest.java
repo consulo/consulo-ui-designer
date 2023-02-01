@@ -22,6 +22,10 @@
  */
 package com.intellij.uiDesigner.radComponents;
 
+import com.intellij.uiDesigner.impl.radComponents.RadAtomicComponent;
+import com.intellij.uiDesigner.impl.radComponents.RadComponent;
+import com.intellij.uiDesigner.impl.radComponents.RadContainer;
+import com.intellij.uiDesigner.impl.radComponents.RadGridBagLayoutManager;
 import junit.framework.TestCase;
 
 import javax.swing.*;
