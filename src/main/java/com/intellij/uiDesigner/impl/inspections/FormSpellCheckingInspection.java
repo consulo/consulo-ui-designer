@@ -16,7 +16,6 @@
 package com.intellij.uiDesigner.impl.inspections;
 
 import com.intellij.spellchecker.SpellCheckerManager;
-import com.intellij.spellchecker.inspections.PlainTextSplitter;
 import com.intellij.uiDesigner.impl.designSurface.GuiEditor;
 import com.intellij.uiDesigner.impl.propertyInspector.properties.IntroStringProperty;
 import com.intellij.uiDesigner.impl.quickFixes.PopupQuickFix;
@@ -27,6 +26,7 @@ import com.intellij.uiDesigner.lw.IProperty;
 import com.intellij.uiDesigner.lw.StringDescriptor;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.document.util.TextRange;
+import consulo.language.spellcheker.tokenizer.splitter.PlainTextTokenSplitter;
 import consulo.module.Module;
 import consulo.ui.ex.popup.*;
 
@@ -59,7 +59,7 @@ public class FormSpellCheckingInspection extends StringDescriptorInspection
 			return;
 		}
 		final SpellCheckerManager manager = SpellCheckerManager.getInstance(module.getProject());
-		PlainTextSplitter.getInstance().split(value, TextRange.allOf(value), new Consumer<TextRange>()
+		PlainTextTokenSplitter.getInstance().split(value, TextRange.allOf(value), new Consumer<TextRange>()
 		{
 			@Override
 			public void accept(TextRange textRange)

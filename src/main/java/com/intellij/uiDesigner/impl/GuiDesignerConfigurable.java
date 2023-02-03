@@ -22,10 +22,12 @@ import com.intellij.java.language.psi.search.PsiShortNamesCache;
 import com.intellij.uiDesigner.compiler.AsmCodeGenerator;
 import com.intellij.uiDesigner.impl.make.FormSourceCodeGenerator;
 import com.intellij.uiDesigner.impl.radComponents.LayoutManagerRegistry;
+import consulo.annotation.component.ExtensionImpl;
 import consulo.application.ApplicationManager;
 import consulo.application.progress.ProgressManager;
 import consulo.configurable.Configurable;
-import consulo.configurable.SearchableConfigurable;
+import consulo.configurable.ProjectConfigurable;
+import consulo.configurable.StandardConfigurableIds;
 import consulo.disposer.Disposable;
 import consulo.ide.impl.idea.openapi.progress.util.DispatchThreadProgressWindow;
 import consulo.language.psi.PsiDocumentManager;
@@ -55,7 +57,8 @@ import javax.annotation.Nullable;
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
-public final class GuiDesignerConfigurable implements SearchableConfigurable, Configurable.NoScroll
+@ExtensionImpl
+public final class GuiDesignerConfigurable implements ProjectConfigurable, Configurable.NoScroll
 {
 	private static final Logger LOG = Logger.getInstance(GuiDesignerConfigurable.class);
 
@@ -71,17 +74,11 @@ public final class GuiDesignerConfigurable implements SearchableConfigurable, Co
 		myGuiDesignerConfigurationProvider = guiDesignerConfigurationProvider;
 	}
 
+	@Nonnull
 	@Override
 	public String getDisplayName()
 	{
 		return UIDesignerBundle.message("title.gui.designer");
-	}
-
-	@Override
-	@Nonnull
-	public String getHelpTopic()
-	{
-		return "project.propGUI";
 	}
 
 	@RequiredUIAccess
@@ -323,13 +320,13 @@ public final class GuiDesignerConfigurable implements SearchableConfigurable, Co
 	@Nonnull
 	public String getId()
 	{
-		return getHelpTopic();
+		return "project.propGUI";
 	}
 
-	@Override
 	@Nullable
-	public Runnable enableSearch(String option)
+	@Override
+	public String getParentId()
 	{
-		return null;
+		return StandardConfigurableIds.EDITOR_GROUP;
 	}
 }

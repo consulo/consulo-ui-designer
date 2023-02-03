@@ -4,6 +4,9 @@
 	<version>SNAPSHOT</version>
 	<vendor>JetBrains</vendor>
 	<resource-bundle>messages.UIDesignerBundle</resource-bundle>
+
+	<!--Desktop AWT platform required-->
+	<depends>consulo.desktop.awt</depends>
 	<depends>com.intellij.properties</depends>
 	<depends>com.intellij.xml</depends>
 	<depends>consulo.java</depends>
@@ -13,18 +16,6 @@
 	<tags>
 		<tag>ui.framework</tag>
 	</tags>
-
-	<extensions defaultExtensionNs="com.intellij">
-
-		<projectConfigurable instance="com.intellij.uiDesigner.impl.GuiDesignerConfigurable"
-							 id="project.propGUI"
-							 parentId="editor"
-							 key="title.gui.designer"
-							 bundle="messages.UIDesignerBundle"/>
-
-
-
-	</extensions>
 
 	<actions>
 		<group id="GuiDesigner.MainToolbarActions">
