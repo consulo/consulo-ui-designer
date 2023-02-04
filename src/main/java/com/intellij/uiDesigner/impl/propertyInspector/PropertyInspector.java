@@ -22,12 +22,8 @@ import com.intellij.uiDesigner.impl.designSurface.GridCaptionPanel;
 import com.intellij.uiDesigner.impl.designSurface.GuiEditor;
 import com.intellij.uiDesigner.impl.quickFixes.QuickFixManager;
 import com.intellij.uiDesigner.impl.radComponents.*;
-import consulo.ide.impl.idea.openapi.ui.ex.MultiLineLabel;
 import consulo.project.Project;
-import consulo.ui.ex.awt.IJSwingUtilities;
-import consulo.ui.ex.awt.IdeBorderFactory;
-import consulo.ui.ex.awt.ScrollPaneFactory;
-import consulo.ui.ex.awt.SideBorder;
+import consulo.ui.ex.awt.*;
 import consulo.util.lang.Comparing;
 import org.jetbrains.annotations.NonNls;
 
