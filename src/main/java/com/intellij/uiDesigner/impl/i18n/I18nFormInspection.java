@@ -160,7 +160,7 @@ public class I18nFormInspection extends StringDescriptorInspection
 	}
 
 	@Nullable
-	public ProblemDescriptor[] checkFile(@Nonnull PsiFile file, @Nonnull InspectionManager manager, boolean isOnTheFly)
+	public ProblemDescriptor[] checkFile(@Nonnull PsiFile file, @Nonnull InspectionManager manager, boolean isOnTheFly, Object state)
 	{
 		if(file.getFileType().equals(GuiFormFileType.INSTANCE))
 		{
@@ -171,6 +171,6 @@ public class I18nFormInspection extends StringDescriptorInspection
 			}
 		}
 
-		return super.checkFile(file, manager, isOnTheFly);
+		return super.checkFile(file, manager, isOnTheFly, state);
 	}
 }

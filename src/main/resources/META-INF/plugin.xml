@@ -10,9 +10,6 @@
 	<depends>com.intellij.properties</depends>
 	<depends>com.intellij.xml</depends>
 	<depends>consulo.java</depends>
-
-	<!--TODO hardcoded dependency-->
-	<depends>com.intellij.spellchecker</depends>
 	<tags>
 		<tag>ui.framework</tag>
 	</tags>

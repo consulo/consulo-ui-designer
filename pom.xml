@@ -110,12 +110,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>com.intellij.spellchecker</artifactId>
-			<version>${project.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>consulo</groupId>
 			<artifactId>consulo-util-nodep</artifactId>
 			<version>${project.version}</version>

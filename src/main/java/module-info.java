@@ -14,8 +14,6 @@ open module com.intellij.uiDesigner
 	requires com.intellij.properties;
 	requires consulo.util.nodep;
 
-	requires com.intellij.spellchecker;
-
 	requires jgoodies.common;
 	requires jgoodies.forms;
 	requires jgoodies.looks;

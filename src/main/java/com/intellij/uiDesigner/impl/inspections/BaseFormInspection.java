@@ -74,7 +74,8 @@ public abstract class BaseFormInspection extends BaseJavaLocalInspectionTool imp
     return key != null && profile.isToolEnabled(key, psiRoot);
   }
 
-  @Nullable public ProblemDescriptor[] checkFile(@Nonnull PsiFile file, @Nonnull InspectionManager manager, boolean isOnTheFly) {
+  @Nullable
+  public ProblemDescriptor[] checkFile(@Nonnull PsiFile file, @Nonnull InspectionManager manager, boolean isOnTheFly, Object state) {
     if (file.getFileType().equals(GuiFormFileType.INSTANCE)) {
       final VirtualFile virtualFile = file.getVirtualFile();
       if (virtualFile == null) {
