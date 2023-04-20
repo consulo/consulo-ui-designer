@@ -22,7 +22,7 @@ import consulo.application.ApplicationManager;
 import consulo.application.CommonBundle;
 import consulo.codeEditor.Editor;
 import consulo.java.analysis.impl.JavaQuickFixBundle;
-import consulo.language.editor.intention.IntentionAction;
+import consulo.language.editor.intention.SyntheticIntentionAction;
 import consulo.language.psi.PsiFile;
 import consulo.language.psi.PsiManager;
 import consulo.language.util.IncorrectOperationException;
@@ -36,7 +36,7 @@ import javax.annotation.Nonnull;
  * @author Eugene Zhuravlev
  * Date: Jun 15, 2005
  */
-public class ChangeBoundFieldTypeFix implements IntentionAction
+public class ChangeBoundFieldTypeFix implements SyntheticIntentionAction
 {
 	private final PsiField myField;
 	private final PsiType myTypeToSet;

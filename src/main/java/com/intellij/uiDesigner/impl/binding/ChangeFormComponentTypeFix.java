@@ -21,7 +21,7 @@ import com.intellij.java.language.psi.PsiType;
 import com.intellij.java.language.psi.util.ClassUtil;
 import consulo.codeEditor.Editor;
 import consulo.java.analysis.impl.JavaQuickFixBundle;
-import consulo.language.editor.intention.IntentionAction;
+import consulo.language.editor.intention.SyntheticIntentionAction;
 import consulo.language.plain.psi.PsiPlainTextFile;
 import consulo.language.psi.PsiFile;
 import consulo.language.util.IncorrectOperationException;
@@ -35,7 +35,7 @@ import javax.annotation.Nonnull;
  * @author Eugene Zhuravlev
  * Date: Jun 15, 2005
  */
-public class ChangeFormComponentTypeFix implements IntentionAction
+public class ChangeFormComponentTypeFix implements SyntheticIntentionAction
 {
 	private final PsiPlainTextFile myFormFile;
 	private final String myFieldName;
