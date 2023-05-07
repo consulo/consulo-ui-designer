@@ -80,7 +80,7 @@ public final class Form2SourceCompiler implements SourceInstrumentingCompiler
 				final CompileScope scope = context.getCompileScope();
 				final CompileScope projectScope = CompilerManager.getInstance(project).createProjectCompileScope();
 
-				final VirtualFile[] formFiles = projectScope.getFiles(GuiFormFileType.INSTANCE;
+				final VirtualFile[] formFiles = projectScope.getFiles(GuiFormFileType.INSTANCE);
 				final CompilerManager compilerManager = CompilerManager.getInstance(project);
 				final BindingsCache bindingsCache = new BindingsCache(project);
 
