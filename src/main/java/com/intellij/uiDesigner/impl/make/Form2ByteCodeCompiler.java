@@ -168,7 +168,7 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 				final CompileScope scope = context.getCompileScope();
 				final CompileScope projectScope = CompilerManager.getInstance(project).createProjectCompileScope();
 
-				final VirtualFile[] formFiles = projectScope.getFiles(GuiFormFileType.INSTANCE, true);
+				final VirtualFile[] formFiles = projectScope.getFiles(GuiFormFileType.INSTANCE);
 				if(formFiles.length == 0)
 				{
 					return;
