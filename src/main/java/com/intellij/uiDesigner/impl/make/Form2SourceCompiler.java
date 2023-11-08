@@ -15,18 +15,17 @@
  */
 package com.intellij.uiDesigner.impl.make;
 
+import com.intellij.uiDesigner.compiler.AlienFormFileException;
+import com.intellij.uiDesigner.compiler.FormErrorInfo;
 import com.intellij.uiDesigner.impl.GuiDesignerConfiguration;
 import com.intellij.uiDesigner.impl.GuiFormFileType;
 import com.intellij.uiDesigner.impl.UIDesignerBundle;
-import com.intellij.uiDesigner.compiler.AlienFormFileException;
-import com.intellij.uiDesigner.compiler.FormErrorInfo;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.application.ApplicationManager;
 import consulo.compiler.*;
 import consulo.compiler.scope.CompileScope;
 import consulo.compiler.util.CompilerUtil;
 import consulo.document.FileDocumentManager;
-import consulo.ide.impl.idea.openapi.vfs.VfsUtilCore;
 import consulo.language.psi.PsiDocumentManager;
 import consulo.language.util.ModuleUtilCore;
 import consulo.module.Module;
@@ -34,6 +33,7 @@ import consulo.project.Project;
 import consulo.undoRedo.CommandProcessor;
 import consulo.util.lang.ExceptionUtil;
 import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.util.VirtualFileUtil;
 
 import javax.annotation.Nonnull;
 import java.io.DataInput;
@@ -327,7 +327,7 @@ public final class Form2SourceCompiler implements SourceInstrumentingCompiler
 		@Nonnull
 		public File getFile()
 		{
-			return VfsUtilCore.virtualToIoFile(mySourceFile);
+			return VirtualFileUtil.virtualToIoFile(mySourceFile);
 		}
 
 		public VirtualFile getFormFile()

@@ -41,7 +41,6 @@ import consulo.content.bundle.Sdk;
 import consulo.document.Document;
 import consulo.document.FileDocumentManager;
 import consulo.ide.impl.idea.openapi.util.io.FileUtil;
-import consulo.ide.impl.idea.openapi.vfs.VfsUtilCore;
 import consulo.internal.org.objectweb.asm.ClassWriter;
 import consulo.java.compiler.JavaCompilerUtil;
 import consulo.java.language.module.extension.JavaModuleExtension;
@@ -57,6 +56,7 @@ import consulo.util.collection.ArrayUtil;
 import consulo.util.collection.Chunk;
 import consulo.util.lang.ExceptionUtil;
 import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.util.VirtualFileUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -137,7 +137,7 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 		{
 			try
 			{
-				File javaFile = VfsUtilCore.virtualToIoFile(file);
+				File javaFile = VirtualFileUtil.virtualToIoFile(file);
 				urls.add(javaFile.getCanonicalFile().toURI().toURL());
 			}
 			catch(Exception e)

@@ -17,7 +17,6 @@ import consulo.application.util.function.CommonProcessors;
 import consulo.application.util.function.Processor;
 import consulo.content.scope.SearchScope;
 import consulo.ide.impl.idea.openapi.util.NullableComputable;
-import consulo.ide.impl.psi.impl.search.PsiSearchHelperImpl;
 import consulo.language.cacheBuilder.CacheManager;
 import consulo.language.psi.*;
 import consulo.language.psi.scope.GlobalSearchScope;
@@ -287,7 +286,7 @@ public class FormReferencesSearcher implements ReferencesSearchQueryExecutor
 				}
 			};
 
-			((PsiSearchHelperImpl) PsiSearchHelper.SERVICE.getInstance(project)).processFilesWithText(scope, UsageSearchContext.IN_PLAIN_TEXT, true, name, collector);
+			PsiSearchHelper.getInstance(project).processFilesWithText(scope, UsageSearchContext.IN_PLAIN_TEXT, true, name, collector);
 
 			for(final VirtualFile vfile : collector.getResults())
 			{

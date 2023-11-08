@@ -17,16 +17,16 @@ package com.intellij.uiDesigner.impl.palette;
 
 import com.intellij.ide.palette.PaletteItem;
 import com.intellij.java.language.psi.JavaPsiFacade;
+import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.impl.HSpacer;
 import com.intellij.uiDesigner.impl.UIDesignerBundle;
+import com.intellij.uiDesigner.impl.UIDesignerIcons;
 import com.intellij.uiDesigner.impl.VSpacer;
 import com.intellij.uiDesigner.impl.binding.FormClassIndex;
-import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.uiDesigner.lw.StringDescriptor;
 import com.intellij.uiDesigner.impl.propertyInspector.IntrospectedProperty;
 import com.intellij.uiDesigner.impl.radComponents.RadAtomicComponent;
+import com.intellij.uiDesigner.lw.StringDescriptor;
 import consulo.ide.impl.idea.openapi.module.ResourceFileUtil;
-import consulo.ide.impl.idea.openapi.vfs.VfsUtilCore;
 import consulo.language.editor.LangDataKeys;
 import consulo.language.psi.PsiFile;
 import consulo.language.psi.scope.GlobalSearchScope;
@@ -42,7 +42,6 @@ import consulo.ui.image.ImageKey;
 import consulo.util.dataholder.Key;
 import consulo.util.lang.StringUtil;
 import consulo.virtualFileSystem.VirtualFile;
-import com.intellij.uiDesigner.impl.UIDesignerIcons;
 import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nonnull;
@@ -198,7 +197,7 @@ public final class ComponentItem implements Cloneable, PaletteItem
 			{
 				try
 				{
-					myIcon = consulo.ui.image.Image.fromBytes(Image.ImageType.PNG, VfsUtilCore.loadBytes(iconFile), Image.DEFAULT_ICON_SIZE, Image.DEFAULT_ICON_SIZE);
+					myIcon = consulo.ui.image.Image.fromBytes(Image.ImageType.PNG, iconFile.contentsToByteArray(), Image.DEFAULT_ICON_SIZE, Image.DEFAULT_ICON_SIZE);
 				}
 				catch(Exception e)
 				{
