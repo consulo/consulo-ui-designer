@@ -28,15 +28,16 @@ import consulo.execution.action.Location;
 import consulo.execution.configuration.RunConfigurationBase;
 import consulo.execution.configuration.RunnerSettings;
 import consulo.execution.configuration.ui.SettingsEditor;
-import consulo.ide.impl.idea.ide.ui.LafManagerListener;
-import consulo.ide.impl.idea.openapi.application.PathManager;
-import consulo.ide.impl.idea.util.PathUtil;
-import consulo.ide.impl.idea.util.net.NetUtils;
 import consulo.java.execution.configurations.OwnJavaParameters;
 import consulo.navigation.Navigatable;
 import consulo.process.ProcessHandler;
 import consulo.process.event.ProcessAdapter;
 import consulo.process.event.ProcessEvent;
+import consulo.ui.ex.awt.UIUtil;
+import consulo.util.collection.Lists;
+import consulo.util.io.ClassPathUtil;
+import consulo.util.io.NetUtil;
+import consulo.util.lang.ObjectUtil;
 import consulo.util.lang.xml.XmlStringUtil;
 import consulo.util.xml.serializer.InvalidDataException;
 import consulo.util.xml.serializer.WriteExternalException;
@@ -71,7 +72,7 @@ public class SnapShooterConfigurationExtension extends RunConfigurationExtension
 		{
 			try
 			{
-				settings.setLastPort(NetUtils.findAvailableSocketPort());
+				settings.setLastPort(NetUtil.findAvailableSocketPort());
 			}
 			catch(IOException ex)
 			{
@@ -86,15 +87,16 @@ public class SnapShooterConfigurationExtension extends RunConfigurationExtension
 			// add +1 because idea_rt.jar will be added as the last entry to the classpath
 			params.getProgramParametersList().prepend(Integer.toString(params.getClassPath().getPathList().size() + 1));
 			Set<String> paths = new TreeSet<String>();
-			paths.add(PathUtil.getJarPathForClass(SnapShooter.class));         // ui-designer-impl
-			paths.add(PathUtil.getJarPathForClass(LwComponent.class));         // UIDesignerCore
-			paths.add(PathUtil.getJarPathForClass(GridConstraints.class));     // forms_rt
-			paths.add(PathUtil.getJarPathForClass(LafManagerListener.class));  // ui-impl
-			paths.add(PathUtil.getJarPathForClass(DataProvider.class));        // action-system-openapi
-			paths.add(PathUtil.getJarPathForClass(XmlStringUtil.class));       // idea
-			paths.add(PathUtil.getJarPathForClass(Navigatable.class));         // pom
-			paths.add(PathUtil.getJarPathForClass(FormLayout.class));          // jgoodies
-			paths.addAll(PathManager.getUtilClassPath());
+			paths.add(ClassPathUtil.getJarPathForClass(SnapShooter.class));         // ui-designer-impl
+			paths.add(ClassPathUtil.getJarPathForClass(LwComponent.class));         // UIDesignerCore
+			paths.add(ClassPathUtil.getJarPathForClass(GridConstraints.class));     // forms_rt
+			paths.add(ClassPathUtil.getJarPathForClass(UIUtil.class));  // ui-ex-awt
+			paths.add(ClassPathUtil.getJarPathForClass(DataProvider.class));        // action-system-openapi
+			paths.add(ClassPathUtil.getJarPathForClass(XmlStringUtil.class));       // idea
+			paths.add(ClassPathUtil.getJarPathForClass(Navigatable.class));         // pom
+			paths.add(ClassPathUtil.getJarPathForClass(FormLayout.class));          // jgoodies
+			paths.add(ClassPathUtil.getJarPathForClass(ObjectUtil.class));
+			paths.add(ClassPathUtil.getJarPathForClass(Lists.class));
 			for(String path : paths)
 			{
 				params.getClassPath().addFirst(path);

@@ -27,11 +27,11 @@ import consulo.compiler.CompilerPaths;
 import consulo.document.Document;
 import consulo.document.FileDocumentManager;
 import consulo.ide.impl.idea.compiler.impl.StateCache;
-import consulo.ide.impl.idea.openapi.util.io.FileUtil;
-import consulo.ide.impl.idea.openapi.vfs.VfsUtil;
 import consulo.logging.Logger;
 import consulo.project.Project;
+import consulo.util.io.FileUtil;
 import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.util.VirtualFileUtil;
 import org.jetbrains.annotations.NonNls;
 
 import java.io.*;
@@ -99,7 +99,7 @@ final class BindingsCache
 
 	public String getBoundClassName(final VirtualFile formFile) throws Exception
 	{
-		File file = VfsUtil.virtualToIoFile(formFile);
+		File file = VirtualFileUtil.virtualToIoFile(formFile);
 		String classToBind = getSavedBinding(file);
 		if(classToBind == null)
 		{

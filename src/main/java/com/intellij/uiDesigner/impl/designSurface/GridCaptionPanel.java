@@ -29,7 +29,6 @@ import consulo.codeEditor.EditorColors;
 import consulo.colorScheme.EditorColorsManager;
 import consulo.dataContext.DataContext;
 import consulo.dataContext.DataProvider;
-import consulo.ide.impl.idea.util.NotNullProducer;
 import consulo.language.editor.PlatformDataKeys;
 import consulo.logging.Logger;
 import consulo.ui.color.ColorValue;
@@ -56,6 +55,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.function.Supplier;
 
 /**
  * @author yole
@@ -125,11 +125,11 @@ public class GridCaptionPanel extends JPanel implements ComponentSelectionListen
 
 	public static JBColor getGutterColor()
 	{
-		return new JBColor(new NotNullProducer<Color>()
+		return new JBColor(new Supplier<Color>()
 		{
 			@Nonnull
 			@Override
-			public Color produce()
+			public Color get()
 			{
 				ColorValue color = EditorColorsManager.getInstance().getGlobalScheme().getColor(EditorColors.GUTTER_BACKGROUND);
 				return color == null ? UIUtil.getPanelBackground() : TargetAWT.to(color);

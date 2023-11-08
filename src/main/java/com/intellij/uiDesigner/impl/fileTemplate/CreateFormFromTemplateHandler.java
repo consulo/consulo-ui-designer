@@ -20,7 +20,7 @@ import com.intellij.uiDesigner.impl.GuiFormFileType;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.fileTemplate.CreateFromTemplateHandler;
 import consulo.fileTemplate.FileTemplate;
-import consulo.ide.impl.idea.openapi.fileTypes.ex.FileTypeManagerEx;
+import consulo.language.file.FileTypeManager;
 import consulo.language.psi.PsiDirectory;
 import consulo.virtualFileSystem.fileType.FileType;
 
@@ -32,7 +32,7 @@ public class CreateFormFromTemplateHandler implements CreateFromTemplateHandler
 {
 	public boolean handlesTemplate(final FileTemplate template)
 	{
-		FileType fileType = FileTypeManagerEx.getInstanceEx().getFileTypeByExtension(template.getExtension());
+		FileType fileType = FileTypeManager.getInstance().getFileTypeByExtension(template.getExtension());
 		return fileType.equals(GuiFormFileType.INSTANCE);
 	}
 

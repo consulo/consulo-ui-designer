@@ -56,7 +56,6 @@ import consulo.document.event.DocumentEvent;
 import consulo.ide.impl.idea.designer.DesignerEditorPanelFacade;
 import consulo.ide.impl.idea.designer.LightFillLayout;
 import consulo.ide.impl.idea.openapi.ui.ThreeComponentsSplitter;
-import consulo.ide.impl.idea.util.NotNullProducer;
 import consulo.language.editor.DaemonCodeAnalyzer;
 import consulo.language.editor.PlatformDataKeys;
 import consulo.language.editor.highlight.LexerEditorHighlighter;
@@ -104,6 +103,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * <code>GuiEditor</code> is a panel with border layout. It has palette at the north,
@@ -368,11 +368,11 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 		gbc.weighty = 1.0;
 
 		myScrollPane = ScrollPaneFactory.createScrollPane(myLayeredPane);
-		myScrollPane.setBackground(new JBColor(new NotNullProducer<Color>()
+		myScrollPane.setBackground(new JBColor(new Supplier<Color>()
 		{
 			@Nonnull
 			@Override
-			public Color produce()
+			public Color get()
 			{
 				return TargetAWT.to(EditorColorsManager.getInstance().getGlobalScheme().getDefaultBackground());
 			}

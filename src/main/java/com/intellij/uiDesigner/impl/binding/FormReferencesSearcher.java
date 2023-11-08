@@ -16,7 +16,6 @@ import consulo.application.progress.ProgressManager;
 import consulo.application.util.function.CommonProcessors;
 import consulo.application.util.function.Processor;
 import consulo.content.scope.SearchScope;
-import consulo.ide.impl.idea.openapi.util.NullableComputable;
 import consulo.language.cacheBuilder.CacheManager;
 import consulo.language.psi.*;
 import consulo.language.psi.scope.GlobalSearchScope;
@@ -36,6 +35,7 @@ import consulo.virtualFileSystem.fileType.FileTypeRegistry;
 import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 
 @ExtensionImpl
 public class FormReferencesSearcher implements ReferencesSearchQueryExecutor
@@ -210,7 +210,7 @@ public class FormReferencesSearcher implements ReferencesSearchQueryExecutor
 
 	private static boolean processReferences(final Processor<? super PsiReference> processor, final PsiFile file, String name, final PsiElement element, final LocalSearchScope filterScope)
 	{
-		CharSequence chars = ApplicationManager.getApplication().runReadAction((NullableComputable<CharSequence>) () -> {
+		CharSequence chars = ApplicationManager.getApplication().runReadAction((Supplier<CharSequence>) () -> {
 			if(filterScope != null)
 			{
 				boolean isInScope = false;
@@ -244,7 +244,7 @@ public class FormReferencesSearcher implements ReferencesSearchQueryExecutor
 				break;
 			}
 			final int finalIndex = index;
-			final Boolean searchDone = ApplicationManager.getApplication().runReadAction((NullableComputable<Boolean>) () -> {
+			final Boolean searchDone = ApplicationManager.getApplication().runReadAction((Supplier<Boolean>) () -> {
 				final PsiReference ref = file.findReferenceAt(finalIndex + offset + 1);
 				if(ref != null && ref.isReferenceTo(element))
 				{

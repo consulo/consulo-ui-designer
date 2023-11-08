@@ -15,8 +15,7 @@
  */
 package com.intellij.uiDesigner.impl.make;
 
-import consulo.ide.impl.idea.openapi.util.io.FileUtil;
-import consulo.ide.impl.idea.openapi.util.io.FileUtilRt;
+import consulo.util.io.FileUtil;
 import org.jetbrains.annotations.NonNls;
 
 import java.io.File;
@@ -35,7 +34,7 @@ public final class CopyResourcesUtil {
     final File file = new File(targetDir, className + ".class");
     FileUtil.createParentDirs(file);
     if (deleteOnExit) {
-      for (File f = file; f != null && !FileUtil.filesEqual(f, targetDir); f = FileUtilRt.getParentFile(f)) {
+      for (File f = file; f != null && !FileUtil.filesEqual(f, targetDir); f = FileUtil.getParentFile(f)) {
         f.deleteOnExit();
       }
     }
@@ -67,7 +66,7 @@ public final class CopyResourcesUtil {
     final File targetDir = new File(targetPath).getAbsoluteFile();
     final File file = new File(targetDir, fileName);
     FileUtil.createParentDirs(file);
-    for (File f = file; f != null && !FileUtil.filesEqual(f, targetDir); f = FileUtilRt.getParentFile(f)) {
+    for (File f = file; f != null && !FileUtil.filesEqual(f, targetDir); f = FileUtil.getParentFile(f)) {
       f.deleteOnExit();
     }
     final String resourceName = "/" + fileName;

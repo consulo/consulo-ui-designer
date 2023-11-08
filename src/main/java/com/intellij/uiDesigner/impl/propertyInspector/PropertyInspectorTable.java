@@ -31,9 +31,6 @@ import consulo.colorScheme.EditorColorsManager;
 import consulo.colorScheme.TextAttributes;
 import consulo.colorScheme.TextAttributesKey;
 import consulo.dataContext.DataProvider;
-import consulo.ide.impl.idea.ide.ui.LafManager;
-import consulo.ide.impl.idea.ide.ui.LafManagerListener;
-import consulo.ide.impl.idea.util.ui.Table;
 import consulo.language.editor.CommonDataKeys;
 import consulo.language.editor.PlatformDataKeys;
 import consulo.language.editor.annotation.HighlightSeverity;
@@ -49,10 +46,14 @@ import consulo.ui.ex.SimpleTextAttributes;
 import consulo.ui.ex.action.*;
 import consulo.ui.ex.awt.*;
 import consulo.ui.ex.awt.event.DoubleClickListener;
+import consulo.ui.ex.awt.table.JBTable;
 import consulo.ui.ex.awt.util.TableUtil;
 import consulo.ui.ex.util.TextAttributesUtil;
 import consulo.ui.image.Image;
 import consulo.ui.image.ImageEffects;
+import consulo.ui.style.Style;
+import consulo.ui.style.StyleChangeListener;
+import consulo.ui.style.StyleManager;
 import consulo.undoRedo.CommandProcessor;
 import consulo.util.dataholder.Key;
 import consulo.util.lang.Comparing;
@@ -81,7 +82,7 @@ import java.util.*;
  * @author Anton Katilin
  * @author Vladimir Kondratyev
  */
-public final class PropertyInspectorTable extends Table implements DataProvider
+public final class PropertyInspectorTable extends JBTable implements DataProvider
 {
 	private static final Logger LOG = Logger.getInstance(PropertyInspectorTable.class);
 
@@ -133,7 +134,8 @@ public final class PropertyInspectorTable extends Table implements DataProvider
 	private boolean myStoppingEditing;
 	private final Project myProject;
 
-	@NonNls
+	private Runnable myDisposeStyleListener;
+
 	private static final String ourHelpID = "guiDesigner.uiTour.inspector";
 
 	PropertyInspectorTable(Project project, @Nonnull final ComponentTree componentTree)
@@ -354,13 +356,17 @@ public final class PropertyInspectorTable extends Table implements DataProvider
 	public void addNotify()
 	{
 		super.addNotify();
-		LafManager.getInstance().addLafManagerListener(myLafManagerListener);
+		myDisposeStyleListener = StyleManager.get().addChangeListener(myLafManagerListener);
 	}
 
 	@Override
 	public void removeNotify()
 	{
-		LafManager.getInstance().removeLafManagerListener(myLafManagerListener);
+		if(myDisposeStyleListener != null)
+		{
+			myDisposeStyleListener.run();
+			myDisposeStyleListener = null;
+		}
 		super.removeNotify();
 	}
 
@@ -1632,7 +1638,7 @@ public final class PropertyInspectorTable extends Table implements DataProvider
 	/**
 	 * Updates UI of editors and renderers of all introspected properties
 	 */
-	private final class MyLafManagerListener implements LafManagerListener
+	private final class MyLafManagerListener implements StyleChangeListener
 	{
 		/**
 		 * Recursively updates renderer and editor UIs of all synthetic
@@ -1659,8 +1665,9 @@ public final class PropertyInspectorTable extends Table implements DataProvider
 		}
 
 		@Override
-		public void lookAndFeelChanged(final LafManager source)
+		public void styleChanged(@Nonnull Style style, @Nonnull Style style1)
 		{
+
 			updateUI(myBorderProperty);
 			updateUI(MarginProperty.getInstance(myProject));
 			updateUI(HGapProperty.getInstance(myProject));
@@ -1682,6 +1689,5 @@ public final class PropertyInspectorTable extends Table implements DataProvider
 			updateUI(ClientPropertiesProperty.getInstance(myProject));
 		}
 	}
-
 
 }
