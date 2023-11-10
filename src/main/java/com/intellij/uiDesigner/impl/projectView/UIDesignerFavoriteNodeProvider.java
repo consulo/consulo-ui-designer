@@ -21,9 +21,8 @@ import com.intellij.java.language.psi.PsiClass;
 import com.intellij.uiDesigner.compiler.Utils;
 import com.intellij.uiDesigner.impl.GuiFormFileType;
 import consulo.annotation.component.ExtensionImpl;
+import consulo.bookmark.ui.view.BookmarkNodeProvider;
 import consulo.dataContext.DataContext;
-import consulo.ide.impl.idea.ide.favoritesTreeView.FavoriteNodeProvider;
-import consulo.language.editor.CommonDataKeys;
 import consulo.language.editor.PlatformDataKeys;
 import consulo.language.psi.PsiFile;
 import consulo.language.psi.PsiManager;
@@ -45,13 +44,13 @@ import java.util.*;
  * @author yole
  */
 @ExtensionImpl
-public class UIDesignerFavoriteNodeProvider extends FavoriteNodeProvider
+public class UIDesignerFavoriteNodeProvider implements BookmarkNodeProvider
 {
 	@Override
 	@Nullable
 	public Collection<AbstractTreeNode> getFavoriteNodes(DataContext context, final ViewSettings viewSettings)
 	{
-		Project project = context.getData(CommonDataKeys.PROJECT);
+		Project project = context.getData(Project.KEY);
 		if(project == null)
 		{
 			return null;
@@ -59,8 +58,8 @@ public class UIDesignerFavoriteNodeProvider extends FavoriteNodeProvider
 		Form[] forms = context.getData(Form.DATA_KEY);
 		if(forms != null)
 		{
-			Collection<AbstractTreeNode> result = new ArrayList<AbstractTreeNode>();
-			Set<PsiClass> bindClasses = new HashSet<PsiClass>();
+			Collection<AbstractTreeNode> result = new ArrayList<>();
+			Set<PsiClass> bindClasses = new HashSet<>();
 			for(Form form : forms)
 			{
 				final PsiClass classToBind = form.getClassToBind();
