@@ -26,22 +26,19 @@ import com.intellij.uiDesigner.lw.LwRootContainer;
 import consulo.compiler.CompilerPaths;
 import consulo.document.Document;
 import consulo.document.FileDocumentManager;
-import consulo.ide.impl.idea.compiler.impl.StateCache;
 import consulo.logging.Logger;
 import consulo.project.Project;
 import consulo.util.io.FileUtil;
 import consulo.virtualFileSystem.VirtualFile;
 import consulo.virtualFileSystem.util.VirtualFileUtil;
-import org.jetbrains.annotations.NonNls;
 
 import java.io.*;
 
 final class BindingsCache
 {
 	private static final Logger LOG = Logger.getInstance(BindingsCache.class);
-	@NonNls
 	private static final String BINDINGS_FILE_NAME = "formbinding.dat";
-	private StateCache<MyState> myCache;
+	private BindingsStateCache<MyState> myCache;
 
 	public BindingsCache(final Project project)
 	{
@@ -80,9 +77,9 @@ final class BindingsCache
 		}
 	}
 
-	private static StateCache<MyState> createCache(final File cacheStoreDirectory) throws IOException
+	private static BindingsStateCache<MyState> createCache(final File cacheStoreDirectory) throws IOException
 	{
-		return new StateCache<MyState>(new File(cacheStoreDirectory, BINDINGS_FILE_NAME))
+		return new BindingsStateCache<>(new File(cacheStoreDirectory, BINDINGS_FILE_NAME))
 		{
 			public MyState read(final DataInput stream) throws IOException
 			{

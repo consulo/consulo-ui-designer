@@ -15,25 +15,12 @@
  */
 package com.intellij.uiDesigner.impl;
 
-import com.intellij.java.impl.codeInsight.CodeInsightUtil;
-import com.intellij.java.language.psi.PsiClass;
-import com.intellij.java.language.psi.PsiMethod;
-import com.intellij.java.language.psi.search.PsiShortNamesCache;
-import com.intellij.uiDesigner.compiler.AsmCodeGenerator;
-import com.intellij.uiDesigner.impl.make.FormSourceCodeGenerator;
 import com.intellij.uiDesigner.impl.radComponents.LayoutManagerRegistry;
 import consulo.annotation.component.ExtensionImpl;
-import consulo.application.ApplicationManager;
-import consulo.application.progress.ProgressManager;
 import consulo.configurable.Configurable;
 import consulo.configurable.ProjectConfigurable;
 import consulo.configurable.StandardConfigurableIds;
 import consulo.disposer.Disposable;
-import consulo.ide.impl.idea.openapi.progress.util.DispatchThreadProgressWindow;
-import consulo.language.psi.PsiDocumentManager;
-import consulo.language.psi.PsiFile;
-import consulo.language.psi.scope.GlobalSearchScope;
-import consulo.language.util.IncorrectOperationException;
 import consulo.localize.LocalizeValue;
 import consulo.logging.Logger;
 import consulo.project.Project;
@@ -44,9 +31,7 @@ import consulo.ui.layout.HorizontalLayout;
 import consulo.ui.layout.VerticalLayout;
 import consulo.ui.util.LabeledBuilder;
 import consulo.uiDesigner.impl.localize.UIDesignerLocalize;
-import consulo.undoRedo.CommandProcessor;
 import consulo.util.lang.Comparing;
-import consulo.virtualFileSystem.VirtualFile;
 import jakarta.inject.Inject;
 import jakarta.inject.Provider;
 
@@ -157,10 +142,7 @@ public final class GuiDesignerConfigurable implements ProjectConfigurable, Confi
 
 		if(configuration.INSTRUMENT_CLASSES && !myProject.isDefault())
 		{
-			final DispatchThreadProgressWindow progressWindow = new DispatchThreadProgressWindow(false, myProject);
-			progressWindow.setRunnable(new MyApplyRunnable(progressWindow));
-			progressWindow.setTitle(UIDesignerBundle.message("title.converting.project"));
-			progressWindow.start();
+			new RemovingSetupMethodProcessor(myProject).run();
 		}
 	}
 
@@ -251,70 +233,70 @@ public final class GuiDesignerConfigurable implements ProjectConfigurable, Confi
 		}
 	}
 
-	private final class MyApplyRunnable implements Runnable
-	{
-		private final DispatchThreadProgressWindow myProgressWindow;
-
-		public MyApplyRunnable(final DispatchThreadProgressWindow progressWindow)
-		{
-			myProgressWindow = progressWindow;
-		}
-
-		/**
-		 * Removes all generated sources
-		 */
-		private void vanishGeneratedSources()
-		{
-			final PsiShortNamesCache cache = PsiShortNamesCache.getInstance(myProject);
-			final PsiMethod[] methods = cache.getMethodsByName(AsmCodeGenerator.SETUP_METHOD_NAME,
-					GlobalSearchScope.projectScope(myProject));
-
-			CodeInsightUtil.preparePsiElementsForWrite(methods);
-
-			for(int i = 0; i < methods.length; i++)
-			{
-				final PsiMethod method = methods[i];
-				final PsiClass aClass = method.getContainingClass();
-				if(aClass != null)
-				{
-					try
-					{
-						final PsiFile psiFile = aClass.getContainingFile();
-						LOG.assertTrue(psiFile != null);
-						final VirtualFile vFile = psiFile.getVirtualFile();
-						LOG.assertTrue(vFile != null);
-						myProgressWindow.setText(UIDesignerBundle.message("progress.converting", vFile.getPresentableUrl()));
-						myProgressWindow.setFraction(((double) i) / ((double) methods.length));
-						if(vFile.isWritable())
-						{
-							FormSourceCodeGenerator.cleanup(aClass);
-						}
-					}
-					catch(IncorrectOperationException e)
-					{
-						LOG.error(e);
-					}
-				}
-			}
-		}
-
-		/**
-		 * Launches vanish/generate sources processes
-		 */
-		private void applyImpl()
-		{
-			CommandProcessor.getInstance().executeCommand(myProject, () -> ApplicationManager.getApplication().runWriteAction(() -> {
-				PsiDocumentManager.getInstance(myProject).commitAllDocuments();
-				vanishGeneratedSources();
-			}), "", null);
-		}
-
-		@Override
-		public void run()
-		{
-			ProgressManager.getInstance().runProcess(() -> applyImpl(), myProgressWindow);
-		}
-	}
+//	private final class MyApplyRunnable implements Runnable
+//	{
+//		private final DispatchThreadProgressWindow myProgressWindow;
+//
+//		public MyApplyRunnable(final DispatchThreadProgressWindow progressWindow)
+//		{
+//			myProgressWindow = progressWindow;
+//		}
+//
+//		/**
+//		 * Removes all generated sources
+//		 */
+//		private void vanishGeneratedSources()
+//		{
+//			final PsiShortNamesCache cache = PsiShortNamesCache.getInstance(myProject);
+//			final PsiMethod[] methods = cache.getMethodsByName(AsmCodeGenerator.SETUP_METHOD_NAME,
+//					GlobalSearchScope.projectScope(myProject));
+//
+//			CodeInsightUtil.preparePsiElementsForWrite(methods);
+//
+//			for(int i = 0; i < methods.length; i++)
+//			{
+//				final PsiMethod method = methods[i];
+//				final PsiClass aClass = method.getContainingClass();
+//				if(aClass != null)
+//				{
+//					try
+//					{
+//						final PsiFile psiFile = aClass.getContainingFile();
+//						LOG.assertTrue(psiFile != null);
+//						final VirtualFile vFile = psiFile.getVirtualFile();
+//						LOG.assertTrue(vFile != null);
+//						myProgressWindow.setText(UIDesignerBundle.message("progress.converting", vFile.getPresentableUrl()));
+//						myProgressWindow.setFraction(((double) i) / ((double) methods.length));
+//						if(vFile.isWritable())
+//						{
+//							FormSourceCodeGenerator.cleanup(aClass);
+//						}
+//					}
+//					catch(IncorrectOperationException e)
+//					{
+//						LOG.error(e);
+//					}
+//				}
+//			}
+//		}
+//
+//		/**
+//		 * Launches vanish/generate sources processes
+//		 */
+//		private void applyImpl()
+//		{
+//			CommandProcessor.getInstance().executeCommand(myProject, () -> ApplicationManager.getApplication().runWriteAction(() -> {
+//				PsiDocumentManager.getInstance(myProject).commitAllDocuments();
+//				vanishGeneratedSources();
+//			}), "", null);
+//		}
+//
+//		@Override
+//		public void run()
+//		{
+//			ProgressManager.getInstance().runProcess(() -> applyImpl(), myProgressWindow);
+//		}
+//	}
 
 	@Override
 	@Nonnull
