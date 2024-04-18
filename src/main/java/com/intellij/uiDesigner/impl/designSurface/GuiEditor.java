@@ -1215,7 +1215,7 @@ public final class GuiEditor extends JPanel implements DesignerEditorPanelFacade
 
 		try
 		{
-			((EditorEx) editor).setHighlighter(new LexerEditorHighlighter(new XmlFileHighlighter(),
+			((EditorEx) editor).setHighlighter(new LexerEditorHighlighter(new XmlFileHighlighter(myProject.getApplication()),
 					EditorColorsManager.getInstance().getGlobalScheme()));
 
 			JComponent component = editor.getComponent();
