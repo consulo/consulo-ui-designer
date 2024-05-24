@@ -23,6 +23,7 @@ import com.intellij.uiDesigner.impl.UIDesignerBundle;
 import com.intellij.uiDesigner.impl.binding.FieldFormReference;
 import com.intellij.uiDesigner.impl.binding.FormReferenceProvider;
 import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.inspection.LocalInspectionToolSession;
 import consulo.language.editor.inspection.LocalQuickFix;
 import consulo.language.editor.inspection.ProblemsHolder;
 import consulo.language.psi.PsiElement;
@@ -65,7 +66,8 @@ public class BoundFieldAssignmentInspection extends BaseJavaLocalInspectionTool
 	}
 
 	@Nonnull
-	public PsiElementVisitor buildVisitor(@Nonnull final ProblemsHolder holder, boolean isOnTheFly)
+	@Override
+	public PsiElementVisitor buildVisitorImpl(@Nonnull ProblemsHolder holder, boolean isOnTheFly, LocalInspectionToolSession session, Object o)
 	{
 		return new JavaElementVisitor()
 		{
