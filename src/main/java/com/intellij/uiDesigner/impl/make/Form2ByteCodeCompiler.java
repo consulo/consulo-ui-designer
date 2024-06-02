@@ -18,7 +18,6 @@ package com.intellij.uiDesigner.impl.make;
 import com.intellij.compiler.instrumentation.InstrumentationClassFinder;
 import com.intellij.compiler.instrumentation.InstrumenterClassWriter;
 import com.intellij.java.language.impl.projectRoots.JavaSdkVersionUtil;
-import com.intellij.java.language.projectRoots.JavaSdk;
 import com.intellij.java.language.projectRoots.JavaSdkVersion;
 import com.intellij.java.language.psi.PsiClass;
 import com.intellij.uiDesigner.compiler.AlienFormFileException;
@@ -43,6 +42,7 @@ import consulo.document.FileDocumentManager;
 import consulo.ide.impl.idea.openapi.util.io.FileUtil;
 import consulo.internal.org.objectweb.asm.ClassWriter;
 import consulo.java.compiler.JavaCompilerUtil;
+import consulo.java.language.bundle.JavaSdkTypeUtil;
 import consulo.java.language.module.extension.JavaModuleExtension;
 import consulo.language.content.ProductionContentFolderTypeProvider;
 import consulo.language.content.TestContentFolderTypeProvider;
@@ -513,7 +513,7 @@ public final class Form2ByteCodeCompiler implements ClassInstrumentingCompiler
 	private static boolean isJdk6(final Module module)
 	{
 		final Sdk sdk = ModuleUtilCore.getSdk(module, JavaModuleExtension.class);
-		return sdk != null && JavaSdk.getInstance().isOfVersionOrHigher(sdk, JavaSdkVersion.JDK_1_6);
+		return sdk != null && JavaSdkTypeUtil.isOfVersionOrHigher(sdk, JavaSdkVersion.JDK_1_6);
 	}
 
 	private static void addMessage(final CompileContext context, final String s, final VirtualFile formFile, final CompilerMessageCategory severity)
