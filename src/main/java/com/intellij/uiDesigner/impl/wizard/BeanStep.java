@@ -15,7 +15,8 @@
  */
 package com.intellij.uiDesigner.impl.wizard;
 
-import com.intellij.java.language.impl.codeInsight.PackageChooserDialog;
+import com.intellij.java.language.impl.ui.PackageChooser;
+import com.intellij.java.language.impl.ui.PackageChooserFactory;
 import com.intellij.java.language.psi.JavaPsiFacade;
 import com.intellij.java.language.psi.PsiClass;
 import com.intellij.java.language.psi.PsiJavaFile;
@@ -39,6 +40,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.List;
 
 /**
  * @author Anton Katilin
@@ -116,10 +118,11 @@ final class BeanStep extends StepAdapter
 		{
 			public void actionPerformed(final ActionEvent e)
 			{
-				final PackageChooserDialog dialog = new PackageChooserDialog(UIDesignerBundle.message("title.choose.package"), myData.myProject);
+				final PackageChooser dialog = myData.myProject.getInstance(PackageChooserFactory.class).create();
 				dialog.selectPackage(myTfWithBtnChoosePackage.getText());
-				dialog.show();
-				final PsiJavaPackage aPackage = dialog.getSelectedPackage();
+
+				List<PsiJavaPackage> psiJavaPackages = dialog.showAndSelect();
+				final PsiJavaPackage aPackage = psiJavaPackages == null || psiJavaPackages.isEmpty() ? null : psiJavaPackages.getFirst();
 				if(aPackage != null)
 				{
 					myTfWithBtnChoosePackage.setText(aPackage.getQualifiedName());

@@ -16,8 +16,8 @@
 package com.intellij.uiDesigner.impl;
 
 import consulo.application.AllIcons;
+import consulo.ide.localize.IdeLocalize;
 import consulo.localize.LocalizeValue;
-import consulo.platform.base.localize.IdeLocalize;
 import consulo.ui.image.Image;
 import consulo.util.lang.Pair;
 import consulo.virtualFileSystem.VirtualFile;
@@ -32,9 +32,7 @@ public class GuiFormFileType implements FileTypeWithPredefinedCharset
 {
 	public static final GuiFormFileType INSTANCE = new GuiFormFileType();
 
-	@NonNls
 	public static final String DEFAULT_EXTENSION = "form";
-	@NonNls
 	public static final String DOT_DEFAULT_EXTENSION = "." + DEFAULT_EXTENSION;
 
 	@Override
