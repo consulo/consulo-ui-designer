@@ -17,13 +17,15 @@ package com.intellij.uiDesigner.impl.binding;
 
 import com.intellij.java.language.psi.PsiClass;
 import consulo.annotation.component.ExtensionImpl;
-import consulo.language.editor.refactoring.RefactoringBundle;
+import consulo.language.editor.refactoring.localize.RefactoringLocalize;
 import consulo.language.editor.refactoring.rename.AutomaticRenamer;
 import consulo.language.editor.refactoring.rename.AutomaticRenamerFactory;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiFile;
+import consulo.localize.LocalizeValue;
 import consulo.usage.UsageInfo;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.List;
 
@@ -40,9 +42,10 @@ public class FormsRenamerFactory implements AutomaticRenamerFactory
 		return forms.size() > 0;
 	}
 
-	public String getOptionName()
+	@Nonnull
+	public LocalizeValue getOptionName()
 	{
-		return RefactoringBundle.message("rename.bound.forms");
+		return RefactoringLocalize.renameBoundForms();
 	}
 
 	public boolean isEnabled()
