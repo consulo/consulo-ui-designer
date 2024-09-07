@@ -30,6 +30,7 @@ import consulo.language.editor.refactoring.action.RefactoringActionHandlerFactor
 import consulo.language.editor.refactoring.rename.RenameHandler;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiFile;
+import consulo.localize.LocalizeValue;
 import consulo.project.Project;
 
 import javax.annotation.Nonnull;
@@ -37,6 +38,13 @@ import javax.annotation.Nonnull;
 @ExtensionImpl
 public class FormRenameHandler implements RenameHandler
 {
+	@Nonnull
+	@Override
+	public LocalizeValue getActionTitleValue()
+	{
+		return LocalizeValue.localizeTODO("Form Rename...");
+	}
+
 	@Override
 	public boolean isAvailableOnDataContext(DataContext dataContext)
 	{
