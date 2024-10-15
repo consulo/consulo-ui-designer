@@ -56,6 +56,7 @@ import consulo.module.content.ProjectFileIndex;
 import consulo.module.content.ProjectRootManager;
 import consulo.process.ExecutionException;
 import consulo.project.Project;
+import consulo.ui.annotation.RequiredUIAccess;
 import consulo.ui.ex.SimpleTextAttributes;
 import consulo.ui.ex.action.AnAction;
 import consulo.ui.ex.action.AnActionEvent;
@@ -91,6 +92,7 @@ public class CreateSnapShotAction extends AnAction
 {
 	private static final Logger LOG = Logger.getInstance(CreateSnapShotAction.class);
 
+	@RequiredUIAccess
 	@Override
 	public void update(AnActionEvent e)
 	{
@@ -113,6 +115,7 @@ public class CreateSnapShotAction extends AnAction
 		return false;
 	}
 
+	@RequiredUIAccess
 	public void actionPerformed(AnActionEvent e)
 	{
 		final Project project = e.getData(CommonDataKeys.PROJECT);
@@ -409,6 +412,7 @@ public class CreateSnapShotAction extends AnAction
 			myDirectory = dir;
 			init();
 			setTitle(UIDesignerBundle.message("snapshot.title"));
+			setOKButtonText(UIDesignerBundle.message("create.snapshot.button"));
 			final SnapShotTreeModel model = new SnapShotTreeModel(client);
 			myComponentTree.setModel(model);
 			myComponentTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
@@ -560,25 +564,16 @@ public class CreateSnapShotAction extends AnAction
 		}
 
 		@Override
-		@NonNls
 		protected String getDimensionServiceKey()
 		{
 			return "CreateSnapShotAction.MyDialog";
 		}
 
+		@RequiredUIAccess
 		@Override
 		public JComponent getPreferredFocusedComponent()
 		{
 			return myFormNameTextField;
-		}
-
-		@Nonnull
-		@Override
-		protected Action getOKAction()
-		{
-			final Action okAction = super.getOKAction();
-			okAction.putValue(Action.NAME, UIDesignerBundle.message("create.snapshot.button"));
-			return okAction;
 		}
 
 		@Override
