@@ -36,6 +36,7 @@ import consulo.language.util.IncorrectOperationException;
 import consulo.logging.Logger;
 import consulo.module.Module;
 import consulo.project.Project;
+import consulo.util.lang.ControlFlowException;
 import consulo.virtualFileSystem.VirtualFile;
 import org.jetbrains.annotations.NonNls;
 
@@ -303,6 +304,10 @@ public final class ErrorAnalyzer
 		}
 		catch(Exception e)
 		{
+			if (e instanceof ControlFlowException)
+			{
+				throw ControlFlowException.rethrow(e);
+			}
 			LOG.error(e);
 		}
 	}
