@@ -27,7 +27,6 @@ import javax.annotation.Nonnull;
 import consulo.ui.ex.awt.tree.AbstractTreeBuilder;
 import consulo.ui.ex.tree.NodeDescriptor;
 import consulo.application.progress.ProgressIndicator;
-import consulo.ide.impl.idea.openapi.progress.util.StatusBarProgress;
 import com.intellij.uiDesigner.impl.FormEditingUtil;
 import com.intellij.uiDesigner.impl.HierarchyChangeListener;
 import com.intellij.uiDesigner.impl.SelectionWatcher;
@@ -150,12 +149,6 @@ public final class ComponentTreeBuilder extends AbstractTreeBuilder
 
 		// Notify the ComponentTree that selected component changed
 		myEditor.fireSelectedComponentChanged();
-	}
-
-	@Nonnull
-	protected ProgressIndicator createProgressIndicator()
-	{
-		return new StatusBarProgress();
 	}
 
 	/**
