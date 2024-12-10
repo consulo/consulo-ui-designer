@@ -15,26 +15,27 @@
  */
 package com.intellij.uiDesigner.impl.quickFixes;
 
-import consulo.application.AllIcons;
-import consulo.language.editor.DaemonCodeAnalyzer;
-import consulo.ui.ex.awt.HintHint;
-import consulo.ui.ex.awt.IJSwingUtilities;
-import consulo.ui.ex.awt.util.Alarm;
-import consulo.ui.ex.popup.*;
-import consulo.ui.ex.popup.BaseListPopupStep;
-import consulo.util.lang.Pair;
-import consulo.ide.impl.idea.ui.LightweightHint;
 import com.intellij.uiDesigner.impl.ErrorInfo;
 import com.intellij.uiDesigner.impl.UIDesignerBundle;
 import com.intellij.uiDesigner.impl.designSurface.GuiEditor;
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;
+import consulo.application.AllIcons;
+import consulo.ide.impl.idea.ui.LightweightHintImpl;
+import consulo.language.editor.DaemonCodeAnalyzer;
 import consulo.logging.Logger;
+import consulo.ui.ex.awt.IJSwingUtilities;
+import consulo.ui.ex.awt.hint.HintHint;
+import consulo.ui.ex.awt.hint.LightweightHint;
+import consulo.ui.ex.awt.util.Alarm;
+import consulo.ui.ex.popup.BaseListPopupStep;
+import consulo.ui.ex.popup.JBPopupFactory;
 import consulo.ui.ex.popup.ListPopup;
+import consulo.ui.ex.popup.PopupStep;
 import consulo.undoRedo.CommandProcessor;
+import consulo.util.lang.Pair;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -160,7 +161,7 @@ public abstract class QuickFixManager <T extends JComponent>{
 
     // 4. Show light bulb to fix this error
     final LightBulbComponentImpl lightBulbComponent = new LightBulbComponentImpl(this, AllIcons.Actions.IntentionBulb);
-    myHint = new LightweightHint(lightBulbComponent);
+    myHint = new LightweightHintImpl(lightBulbComponent);
     myLastHintBounds = bounds;
     myHint.show(myComponent, bounds.x - AllIcons.Actions.IntentionBulb.getWidth() - 4, bounds.y, myComponent, new HintHint(myComponent, bounds.getLocation()));
   }
@@ -234,7 +235,7 @@ public abstract class QuickFixManager <T extends JComponent>{
     }
 
     final ListPopup popup = JBPopupFactory.getInstance().createListPopup(new QuickFixPopupStep(fixList, true));
-    popup.showUnderneathOf(myHint.getComponent());
+    popup.showUnderneathOf(((LightweightHintImpl) myHint).getComponent());
   }
 
   private void buildSuppressFixes(final ErrorInfo errorInfo, final ArrayList<ErrorWithFix> suppressList, boolean named) {
