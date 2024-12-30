@@ -16,7 +16,7 @@
 package com.intellij.uiDesigner.impl;
 
 import consulo.logging.Logger;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;

@@ -27,7 +27,7 @@ import com.intellij.uiDesigner.impl.propertyInspector.renderers.BooleanRenderer;
 import com.intellij.uiDesigner.impl.propertyInspector.renderers.LabelPropertyRenderer;
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author yole

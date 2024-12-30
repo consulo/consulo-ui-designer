@@ -22,7 +22,7 @@ import com.intellij.uiDesigner.impl.ErrorInfo;
 import com.intellij.uiDesigner.impl.designSurface.GuiEditor;
 import com.intellij.uiDesigner.impl.quickFixes.QuickFixManager;
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;

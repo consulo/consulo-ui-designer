@@ -32,7 +32,7 @@ import consulo.util.collection.ArrayUtil;
 import consulo.util.lang.Comparing;
 import org.jetbrains.annotations.NonNls;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.swing.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

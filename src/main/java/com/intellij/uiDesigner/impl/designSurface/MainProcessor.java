@@ -26,7 +26,7 @@ import consulo.ui.ex.action.*;
 import consulo.ui.ex.awt.UIUtil;
 import consulo.util.collection.primitive.ints.IntList;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputEvent;

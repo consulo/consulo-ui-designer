@@ -27,7 +27,7 @@ import consulo.ide.impl.idea.designer.ToggleEditorModeAction;
 import consulo.project.Project;
 import consulo.ui.ex.toolWindow.ToolWindowAnchor;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * @author Alexander Lobas

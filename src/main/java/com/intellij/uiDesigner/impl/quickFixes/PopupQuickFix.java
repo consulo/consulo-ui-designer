@@ -15,8 +15,8 @@
  */
 package com.intellij.uiDesigner.impl.quickFixes;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 import consulo.ui.ex.popup.PopupStep;
 import com.intellij.uiDesigner.impl.designSurface.GuiEditor;

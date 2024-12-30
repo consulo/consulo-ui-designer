@@ -29,7 +29,7 @@ import com.intellij.uiDesigner.impl.radComponents.RadLayoutManager;
 import consulo.ui.ex.awt.ListCellRendererWrapper;
 import consulo.util.lang.Comparing;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.swing.*;
 
 /**

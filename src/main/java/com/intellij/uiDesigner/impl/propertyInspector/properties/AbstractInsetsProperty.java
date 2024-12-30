@@ -22,7 +22,7 @@ import com.intellij.uiDesigner.impl.propertyInspector.editors.IntRegexEditor;
 import com.intellij.uiDesigner.impl.propertyInspector.renderers.InsetsPropertyRenderer;
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;
 import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.awt.Insets;
 

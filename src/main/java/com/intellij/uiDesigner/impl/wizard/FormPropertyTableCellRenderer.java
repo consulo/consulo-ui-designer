@@ -25,7 +25,7 @@ import consulo.project.Project;
 import consulo.ui.image.Image;
 import com.intellij.uiDesigner.impl.UIDesignerIcons;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.swing.*;
 import java.awt.*;
 

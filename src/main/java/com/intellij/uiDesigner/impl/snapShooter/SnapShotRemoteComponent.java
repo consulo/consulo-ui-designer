@@ -16,7 +16,7 @@
 
 package com.intellij.uiDesigner.impl.snapShooter;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * @author yole

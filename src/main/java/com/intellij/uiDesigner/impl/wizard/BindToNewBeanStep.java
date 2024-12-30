@@ -22,7 +22,7 @@ import consulo.ide.impl.idea.ide.wizard.CommitStepException;
 import consulo.ide.impl.idea.ide.wizard.StepAdapter;
 import consulo.logging.Logger;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellEditor;

@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.impl.binding;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import consulo.document.Document;
 import consulo.document.FileDocumentManager;

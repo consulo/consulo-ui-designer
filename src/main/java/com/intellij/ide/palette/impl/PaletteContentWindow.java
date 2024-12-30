@@ -16,7 +16,7 @@
 
 package com.intellij.ide.palette.impl;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 import javax.swing.*;
 import java.awt.*;

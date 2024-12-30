@@ -26,7 +26,7 @@ import com.intellij.uiDesigner.impl.designSurface.GuiEditor;
 import consulo.ui.annotation.RequiredUIAccess;
 import com.intellij.uiDesigner.impl.UIDesignerIcons;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author yole

@@ -19,7 +19,7 @@ package com.intellij.uiDesigner.impl.propertyInspector.renderers;
 import com.intellij.uiDesigner.lw.IconDescriptor;
 import com.intellij.uiDesigner.impl.propertyInspector.properties.IntroIconProperty;
 import com.intellij.uiDesigner.impl.radComponents.RadRootContainer;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.*;

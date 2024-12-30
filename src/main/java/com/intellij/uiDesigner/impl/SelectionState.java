@@ -20,7 +20,7 @@ import com.intellij.uiDesigner.impl.componentTree.ComponentPtr;
 import com.intellij.uiDesigner.impl.componentTree.ComponentSelectionListener;
 import com.intellij.uiDesigner.impl.designSurface.GuiEditor;
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.Stack;

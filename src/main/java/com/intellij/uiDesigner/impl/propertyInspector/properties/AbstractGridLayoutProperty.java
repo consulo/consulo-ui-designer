@@ -25,7 +25,7 @@ import com.intellij.uiDesigner.impl.propertyInspector.editors.BooleanEditor;
 import com.intellij.uiDesigner.impl.propertyInspector.renderers.BooleanRenderer;
 import com.intellij.uiDesigner.impl.radComponents.RadContainer;
 import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.awt.*;
 

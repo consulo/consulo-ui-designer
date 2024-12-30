@@ -36,7 +36,7 @@ import consulo.project.Project;
 import consulo.util.lang.Comparing;
 import org.jetbrains.annotations.NonNls;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.swing.*;
 import java.lang.reflect.Method;
 import java.util.HashMap;

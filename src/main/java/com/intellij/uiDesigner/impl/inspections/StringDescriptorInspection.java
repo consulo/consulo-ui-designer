@@ -21,7 +21,7 @@ import consulo.application.util.NotNullLazyValue;
 import consulo.module.Module;
 import org.jetbrains.annotations.NonNls;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author yole

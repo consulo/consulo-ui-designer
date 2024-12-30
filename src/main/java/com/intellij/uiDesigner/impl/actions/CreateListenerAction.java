@@ -51,7 +51,7 @@ import consulo.undoRedo.CommandProcessor;
 import consulo.util.lang.ref.Ref;
 import org.jetbrains.annotations.NonNls;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.swing.*;
 import java.beans.BeanInfo;
 import java.beans.EventSetDescriptor;

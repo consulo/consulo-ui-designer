@@ -21,7 +21,7 @@ import consulo.language.psi.scope.GlobalSearchScope;
 import consulo.module.Module;
 import consulo.virtualFileSystem.VirtualFile;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import javax.imageio.ImageIO;
 import java.util.Arrays;
 import java.util.HashSet;

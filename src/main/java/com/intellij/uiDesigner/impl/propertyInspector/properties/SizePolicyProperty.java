@@ -25,7 +25,7 @@ import com.intellij.uiDesigner.impl.propertyInspector.editors.BooleanEditor;
 import com.intellij.uiDesigner.impl.propertyInspector.renderers.BooleanRenderer;
 import com.intellij.uiDesigner.impl.propertyInspector.renderers.SizePolicyRenderer;
 import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Anton Katilin

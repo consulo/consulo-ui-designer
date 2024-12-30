@@ -16,7 +16,7 @@
 
 package com.intellij.uiDesigner.impl;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import consulo.application.progress.ProgressIndicator;
 import consulo.fileEditor.highlight.HighlightingPass;

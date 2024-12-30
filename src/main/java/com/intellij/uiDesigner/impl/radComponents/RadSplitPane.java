@@ -25,8 +25,8 @@ import com.intellij.uiDesigner.impl.palette.Palette;
 import com.intellij.uiDesigner.impl.snapShooter.SnapshotContext;
 import com.intellij.uiDesigner.lw.LwSplitPane;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;

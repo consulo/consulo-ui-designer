@@ -27,7 +27,7 @@ import consulo.language.psi.PsiFile;
 import consulo.logging.Logger;
 import consulo.virtualFileSystem.VirtualFile;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import java.util.Set;
 
 /**

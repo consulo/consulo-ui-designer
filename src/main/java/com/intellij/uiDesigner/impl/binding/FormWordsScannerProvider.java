@@ -6,7 +6,7 @@ import consulo.ide.impl.idea.lang.cacheBuilder.FileWordsScannerProvider;
 import consulo.language.cacheBuilder.WordsScanner;
 import consulo.virtualFileSystem.fileType.FileType;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL

@@ -18,7 +18,7 @@ package com.intellij.uiDesigner.impl.propertyInspector.renderers;
 import com.intellij.uiDesigner.impl.propertyInspector.PropertyRenderer;
 import com.intellij.uiDesigner.impl.radComponents.RadRootContainer;
 import consulo.ui.ex.awt.UIUtil;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import javax.swing.*;
 

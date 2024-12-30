@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.impl.componentTree;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import com.intellij.uiDesigner.impl.FormEditingUtil;
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;

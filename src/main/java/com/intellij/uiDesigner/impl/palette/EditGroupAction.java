@@ -24,7 +24,7 @@ import com.intellij.uiDesigner.impl.UIDesignerBundle;
 import consulo.application.CommonBundle;
 import consulo.ui.annotation.RequiredUIAccess;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.ArrayList;
 
 /**

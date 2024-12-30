@@ -22,7 +22,7 @@ import com.intellij.uiDesigner.lw.IButtonGroup;
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;
 import com.intellij.uiDesigner.impl.radComponents.RadRootContainer;
 import com.intellij.uiDesigner.impl.radComponents.RadButtonGroup;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;

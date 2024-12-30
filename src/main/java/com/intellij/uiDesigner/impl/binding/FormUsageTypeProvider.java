@@ -24,7 +24,7 @@ import consulo.language.psi.PsiFile;
 import consulo.usage.UsageType;
 import consulo.usage.UsageTypeProvider;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * @author yole

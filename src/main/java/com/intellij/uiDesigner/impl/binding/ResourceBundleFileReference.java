@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.impl.binding;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import com.intellij.lang.properties.PropertiesUtil;
 import com.intellij.lang.properties.PropertiesFileType;

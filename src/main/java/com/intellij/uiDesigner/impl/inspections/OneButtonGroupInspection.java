@@ -23,7 +23,7 @@ import com.intellij.uiDesigner.lw.IRootContainer;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.module.Module;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author yole

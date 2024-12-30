@@ -24,7 +24,7 @@ import com.intellij.uiDesigner.impl.propertyInspector.renderers.LabelPropertyRen
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;
 import consulo.util.collection.ArrayUtil;
 import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.lang.reflect.Method;
 

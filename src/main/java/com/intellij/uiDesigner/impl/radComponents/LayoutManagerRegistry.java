@@ -23,7 +23,7 @@ import consulo.project.Project;
 import consulo.util.collection.ArrayUtil;
 import org.jetbrains.annotations.NonNls;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;

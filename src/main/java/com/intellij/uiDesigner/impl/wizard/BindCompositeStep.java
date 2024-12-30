@@ -19,7 +19,7 @@ import consulo.ide.impl.idea.ide.wizard.CommitStepException;
 import consulo.ide.impl.idea.ide.wizard.StepAdapter;
 import org.jetbrains.annotations.NonNls;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.swing.*;
 import java.awt.*;
 

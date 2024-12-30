@@ -22,8 +22,8 @@ import com.intellij.uiDesigner.impl.XmlWriter;
 import com.intellij.uiDesigner.impl.designSurface.ComponentDropLocation;
 import com.intellij.uiDesigner.impl.palette.Palette;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import javax.swing.*;
 import java.awt.*;
 

@@ -16,7 +16,7 @@
 
 package com.intellij.uiDesigner.impl.propertyInspector.properties;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;
 import com.intellij.uiDesigner.impl.propertyInspector.Property;

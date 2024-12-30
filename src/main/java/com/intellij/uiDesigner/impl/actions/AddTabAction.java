@@ -24,7 +24,7 @@ import com.intellij.uiDesigner.impl.designSurface.ComponentItemDragObject;
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;
 import com.intellij.uiDesigner.impl.radComponents.RadTabbedPane;
 import com.intellij.uiDesigner.impl.palette.Palette;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;

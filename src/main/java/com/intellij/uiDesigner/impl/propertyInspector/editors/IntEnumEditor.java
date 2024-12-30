@@ -18,7 +18,7 @@ package com.intellij.uiDesigner.impl.propertyInspector.editors;
 import com.intellij.uiDesigner.impl.propertyInspector.PropertyEditor;
 import com.intellij.uiDesigner.impl.propertyInspector.InplaceContext;
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;

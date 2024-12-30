@@ -28,7 +28,7 @@ import com.intellij.uiDesigner.impl.radComponents.RadButtonGroup;
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;
 import com.intellij.uiDesigner.impl.radComponents.RadRootContainer;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.event.ItemEvent;

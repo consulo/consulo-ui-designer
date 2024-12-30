@@ -24,7 +24,7 @@ import com.intellij.uiDesigner.impl.propertyInspector.PropertyRenderer;
 import com.intellij.uiDesigner.impl.propertyInspector.editors.IntRegexEditor;
 import com.intellij.uiDesigner.impl.propertyInspector.editors.InsetsEditor;
 import com.intellij.uiDesigner.impl.propertyInspector.renderers.InsetsPropertyRenderer;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.awt.Insets;
 import java.lang.reflect.Method;

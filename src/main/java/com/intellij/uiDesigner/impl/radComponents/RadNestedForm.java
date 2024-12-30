@@ -29,7 +29,7 @@ import consulo.ide.impl.idea.openapi.module.ResourceFileUtil;
 import consulo.logging.Logger;
 import consulo.virtualFileSystem.VirtualFile;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.swing.*;
 import java.awt.*;
 

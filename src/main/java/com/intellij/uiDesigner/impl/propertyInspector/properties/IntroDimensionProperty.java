@@ -25,7 +25,7 @@ import com.intellij.uiDesigner.impl.propertyInspector.PropertyEditor;
 import com.intellij.uiDesigner.impl.propertyInspector.PropertyRenderer;
 import com.intellij.uiDesigner.impl.propertyInspector.editors.IntRegexEditor;
 import com.intellij.uiDesigner.impl.propertyInspector.renderers.DimensionRenderer;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.Dimension;

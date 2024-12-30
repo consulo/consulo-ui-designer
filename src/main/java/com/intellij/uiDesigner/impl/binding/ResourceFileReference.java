@@ -16,7 +16,7 @@
 
 package com.intellij.uiDesigner.impl.binding;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import consulo.document.util.TextRange;
 import consulo.ide.impl.idea.openapi.module.ResourceFileUtil;
@@ -32,7 +32,7 @@ import com.intellij.uiDesigner.impl.FormEditingUtil;
 import consulo.module.Module;
 import consulo.project.Project;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * @author yole

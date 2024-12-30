@@ -38,7 +38,7 @@ import consulo.undoRedo.CommandProcessor;
 import consulo.util.lang.ref.Ref;
 import consulo.virtualFileSystem.VirtualFile;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Anton Katilin

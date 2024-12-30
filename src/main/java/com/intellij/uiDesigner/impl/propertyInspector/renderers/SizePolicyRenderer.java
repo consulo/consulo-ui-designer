@@ -17,7 +17,7 @@ package com.intellij.uiDesigner.impl.propertyInspector.renderers;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.impl.UIDesignerBundle;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Anton Katilin

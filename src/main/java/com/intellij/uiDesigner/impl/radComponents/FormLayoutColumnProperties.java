@@ -23,7 +23,7 @@ import consulo.ui.ex.awt.IdeBorderFactory;
 import consulo.util.collection.Lists;
 import org.jetbrains.annotations.NonNls;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;

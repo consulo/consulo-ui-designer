@@ -22,7 +22,7 @@ import com.intellij.uiDesigner.impl.propertyInspector.properties.IndentProperty;
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;
 import consulo.ui.ex.action.AnActionEvent;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.awt.*;
 import java.util.ArrayList;

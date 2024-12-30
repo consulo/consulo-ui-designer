@@ -23,7 +23,7 @@ import com.intellij.uiDesigner.impl.propertyInspector.PropertyRenderer;
 import com.intellij.uiDesigner.impl.propertyInspector.editors.IntRegexEditor;
 import com.intellij.uiDesigner.impl.propertyInspector.renderers.RectangleRenderer;
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.awt.Rectangle;
 import java.lang.reflect.Method;

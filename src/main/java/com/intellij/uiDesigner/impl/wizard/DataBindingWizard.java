@@ -24,7 +24,7 @@ import consulo.logging.Logger;
 import consulo.ui.ex.awt.Messages;
 import consulo.virtualFileSystem.VirtualFile;
 import com.intellij.uiDesigner.impl.UIDesignerBundle;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import javax.swing.*;
 

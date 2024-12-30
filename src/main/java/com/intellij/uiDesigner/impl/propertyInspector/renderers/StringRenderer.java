@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.impl.propertyInspector.renderers;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import com.intellij.uiDesigner.lw.StringDescriptor;
 import consulo.util.lang.StringUtil;

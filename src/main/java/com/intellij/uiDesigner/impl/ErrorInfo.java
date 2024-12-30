@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.impl;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import com.intellij.uiDesigner.impl.quickFixes.QuickFix;
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;

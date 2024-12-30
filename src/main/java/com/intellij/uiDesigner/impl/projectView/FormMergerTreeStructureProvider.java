@@ -35,7 +35,7 @@ import consulo.util.collection.ContainerUtil;
 import consulo.util.dataholder.Key;
 import jakarta.inject.Inject;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.*;
 
 @ExtensionImpl

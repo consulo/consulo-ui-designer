@@ -28,9 +28,9 @@ import com.intellij.uiDesigner.impl.snapShooter.SnapshotContext;
 import consulo.util.collection.ArrayUtil;
 import consulo.util.lang.Comparing;
 import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;

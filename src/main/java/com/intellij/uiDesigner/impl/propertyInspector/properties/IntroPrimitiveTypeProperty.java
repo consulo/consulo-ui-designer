@@ -20,7 +20,7 @@ import com.intellij.uiDesigner.impl.propertyInspector.PropertyEditor;
 import com.intellij.uiDesigner.impl.propertyInspector.PropertyRenderer;
 import com.intellij.uiDesigner.impl.propertyInspector.editors.PrimitiveTypeEditor;
 import com.intellij.uiDesigner.impl.propertyInspector.renderers.LabelPropertyRenderer;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.lang.reflect.Method;
 

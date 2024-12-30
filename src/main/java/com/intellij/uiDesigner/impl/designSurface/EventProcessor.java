@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.impl.designSurface;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

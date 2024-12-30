@@ -28,7 +28,7 @@ import consulo.logging.Logger;
 import consulo.ui.ex.JBColor;
 import consulo.ui.ex.awt.UIUtil;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.swing.*;
 import java.awt.*;
 import java.text.MessageFormat;

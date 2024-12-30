@@ -32,7 +32,7 @@ import consulo.annotation.component.ExtensionImpl;
 import consulo.logging.Logger;
 import consulo.module.Module;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;

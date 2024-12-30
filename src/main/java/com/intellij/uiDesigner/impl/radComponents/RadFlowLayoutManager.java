@@ -30,7 +30,7 @@ import com.intellij.uiDesigner.impl.propertyInspector.renderers.IntEnumRenderer;
 import com.intellij.uiDesigner.impl.snapShooter.SnapshotContext;
 import consulo.project.Project;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.swing.*;
 import java.awt.*;
 

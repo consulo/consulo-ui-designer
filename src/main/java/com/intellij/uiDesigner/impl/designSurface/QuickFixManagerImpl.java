@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import javax.swing.JViewport;
 import javax.swing.SwingUtilities;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import com.intellij.uiDesigner.impl.ErrorAnalyzer;
 import com.intellij.uiDesigner.impl.ErrorInfo;
 import com.intellij.uiDesigner.impl.FormEditingUtil;

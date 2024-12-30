@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.impl.radComponents;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import com.intellij.uiDesigner.impl.ModuleProvider;
 import com.intellij.uiDesigner.impl.XmlWriter;

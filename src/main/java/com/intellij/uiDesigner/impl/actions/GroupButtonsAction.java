@@ -24,7 +24,7 @@ import com.intellij.uiDesigner.impl.propertyInspector.properties.IdentifierValid
 import com.intellij.uiDesigner.impl.UIDesignerBundle;
 import consulo.ui.ex.action.AnActionEvent;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import javax.swing.*;
 import java.util.ArrayList;

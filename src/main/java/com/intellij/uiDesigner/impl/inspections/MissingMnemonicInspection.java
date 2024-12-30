@@ -27,7 +27,7 @@ import com.intellij.uiDesigner.impl.quickFixes.QuickFix;
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;
 import consulo.module.Module;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import javax.swing.*;
 

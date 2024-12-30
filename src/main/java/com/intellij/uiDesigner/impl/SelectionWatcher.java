@@ -19,7 +19,7 @@ import com.intellij.uiDesigner.impl.radComponents.RadComponent;
 import com.intellij.uiDesigner.impl.radComponents.RadContainer;
 import com.intellij.uiDesigner.impl.radComponents.RadRootContainer;
 import com.intellij.uiDesigner.impl.designSurface.GuiEditor;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

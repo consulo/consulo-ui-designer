@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.impl.propertyInspector.properties;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import com.intellij.uiDesigner.impl.propertyInspector.Property;
 import com.intellij.uiDesigner.impl.propertyInspector.PropertyRenderer;
@@ -24,7 +24,7 @@ import com.intellij.uiDesigner.impl.propertyInspector.renderers.LabelPropertyRen
 import com.intellij.uiDesigner.impl.propertyInspector.editors.IntEditor;
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;
 import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * @author yole

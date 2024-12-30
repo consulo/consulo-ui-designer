@@ -25,7 +25,7 @@ import com.intellij.uiDesigner.impl.componentTree.ComponentTree;
 import com.intellij.uiDesigner.impl.propertyInspector.PropertyRenderer;
 import consulo.ui.ex.awt.UIUtil;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import javax.swing.*;
 
 /**

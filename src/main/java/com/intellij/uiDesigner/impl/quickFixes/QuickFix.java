@@ -15,12 +15,12 @@
  */
 package com.intellij.uiDesigner.impl.quickFixes;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import com.intellij.uiDesigner.impl.designSurface.GuiEditor;
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * @author Anton Katilin

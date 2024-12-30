@@ -24,7 +24,7 @@ import com.intellij.uiDesigner.impl.propertyInspector.Property;
 import com.intellij.uiDesigner.impl.propertyInspector.InplaceContext;
 import consulo.ui.ex.action.Presentation;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 import java.util.ArrayList;
 

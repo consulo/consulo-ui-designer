@@ -20,8 +20,8 @@ import com.intellij.uiDesigner.impl.palette.ComponentItem;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.impl.radComponents.RadContainer;
 import com.intellij.uiDesigner.impl.LoaderFactory;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 import java.awt.*;
 

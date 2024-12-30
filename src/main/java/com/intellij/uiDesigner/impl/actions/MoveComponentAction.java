@@ -19,7 +19,7 @@ package com.intellij.uiDesigner.impl.actions;
 import consulo.ui.ex.action.AnActionEvent;
 import com.intellij.uiDesigner.impl.designSurface.GuiEditor;
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;

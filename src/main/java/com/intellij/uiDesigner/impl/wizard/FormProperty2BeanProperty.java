@@ -15,7 +15,7 @@
  */
 package com.intellij.uiDesigner.impl.wizard;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Anton Katilin

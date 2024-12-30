@@ -23,7 +23,7 @@ import com.intellij.uiDesigner.impl.propertyInspector.renderers.LabelPropertyRen
 import com.intellij.uiDesigner.impl.snapShooter.SnapshotContext;
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;
 import com.intellij.uiDesigner.impl.SwingProperties;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import javax.swing.*;
 import java.lang.reflect.Method;

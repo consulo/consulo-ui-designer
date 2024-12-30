@@ -26,7 +26,7 @@ import com.intellij.uiDesigner.impl.radComponents.RadButtonGroup;
 import com.intellij.uiDesigner.lw.LwInspectionSuppression;
 import com.intellij.uiDesigner.impl.FormEditingUtil;
 import consulo.util.collection.ArrayUtil;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.util.ArrayList;
 

@@ -29,7 +29,7 @@ import com.intellij.uiDesigner.impl.radComponents.RadScrollPane;
 import com.intellij.uiDesigner.impl.snapShooter.SnapshotContext;
 import consulo.util.lang.function.Condition;
 import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.*;

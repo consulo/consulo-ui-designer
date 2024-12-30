@@ -17,7 +17,7 @@ package com.intellij.uiDesigner.impl.propertyInspector.renderers;
 
 import java.awt.*;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Anton Katilin

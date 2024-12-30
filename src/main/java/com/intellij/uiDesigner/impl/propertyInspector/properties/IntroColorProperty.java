@@ -26,9 +26,9 @@ import com.intellij.uiDesigner.impl.propertyInspector.renderers.ColorRenderer;
 import com.intellij.uiDesigner.impl.radComponents.RadComponent;
 import com.intellij.uiDesigner.impl.snapShooter.SnapshotContext;
 import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import javax.swing.*;
 import java.awt.Color;
 import java.lang.reflect.Method;

@@ -26,7 +26,7 @@ import com.intellij.uiDesigner.lw.StringDescriptor;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.module.Module;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import java.util.List;
 
 /**
