@@ -33,5 +33,5 @@ public class UIDesignerIcons
 
 	public static final Image ToolWindowUIDesigner = UIDesignerIconGroup.toolwindowuidesigner();
 
-	public static final Image Unknown = PlatformIconGroup.uidesignerUnknown();
+	public static final Image Unknown = PlatformIconGroup.actionsHelp();
 }
